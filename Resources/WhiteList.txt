@@ -1,0 +1,1 @@
+'キャラ名,Enabled,TTS,Volume,Speed
