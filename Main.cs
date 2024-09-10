@@ -1,17 +1,22 @@
-﻿using System;
+﻿using MabiChatSpeech.TextEmulate;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Speech.Synthesis;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MabiChatSpeech.Program.NativeMethods;
+using static MabiChatSpeech.Program;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Collections;
 
 namespace MabiChatSpeech
 {
@@ -32,6 +37,37 @@ namespace MabiChatSpeech
             else
             {
                 Txt_Chat.AppendText(sx);
+
+            }
+        }
+
+        delegate void deg_Redirect_Text(string c1 , string c2);
+        public void RedirectWriteLine(string c1 , string c2)
+        {
+            if (this.InvokeRequired)
+            {
+                Invoke(new deg_Redirect_Text(RedirectWriteLine), c1,c2);
+            }
+            else
+            {
+                //リダイレクト アクティブ切替
+                if(Btn_Redirect.Text == "ON")
+                {
+                    // リダイレクト
+                    NativeMethods.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
+                    string sayword = "";
+                    if (Program.__TTS_NameCall == true)
+                    {
+                        sayword = c1 + "  ";
+                    }
+                    sayword += c2;
+
+                    KeyboardEmulate keyboardEmulate = new KeyboardEmulate();
+                    keyboardEmulate.writeKeys(sayword);
+
+                }
+
+
             }
         }
 
@@ -71,9 +107,6 @@ namespace MabiChatSpeech
 
         private void MNI_Setting_Click(object sender, EventArgs e)
         {
-            Setting Frm_Setting = new Setting();
-            Frm_Setting.Owner = this;
-            Frm_Setting.ShowDialog();
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -173,6 +206,121 @@ namespace MabiChatSpeech
         private void Cmb_Whitelist_SelectedIndexChanged(object sender, EventArgs e)
         {
             Program.__ChatSelWhitelist = Cmb_Whitelist.SelectedIndex;
+        }
+
+        private void Btn_Setup_Click(object sender, EventArgs e)
+        {
+            Setting Frm_Setting = new Setting();
+            Frm_Setting.Owner = this;
+            Frm_Setting.ShowDialog();
+        }
+
+        private void Btn_LogView_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_List_Click(object sender, EventArgs e)
+        {
+            WhiteList Frm_WhiteList = new WhiteList();
+            Frm_WhiteList.Owner = this;
+            if (Frm_WhiteList.ShowDialog() == DialogResult.OK)
+            {
+            }
+        }
+
+        private void Txt_Chat_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private List<IntPtr> twlist = new List<IntPtr>();
+
+        private bool EnumWindowCallBack(IntPtr hWnd, IntPtr lparam)
+        {
+            //throw new NotImplementedException();
+            //ウィンドウのタイトルの長さを取得する
+            var _wi = new WINDOWINFO();
+            _wi.cbSize = Marshal.SizeOf(_wi);
+            NativeMethods.GetWindowInfo(hWnd, ref _wi);
+
+            var f = !((_wi.dwStyle & 0x10C00000) == 0x10C00000);
+
+            if (f)
+            {
+                return true;
+
+            }
+
+            f = ((_wi.dwStyle & 0x80000000) == 0x80000000);
+            if (f)
+            {
+                return true;
+
+            }
+
+            f = ((_wi.dwExStyle & 0x00040000) == 0x00040000);
+            if (f)
+            {
+                return true;
+
+            }
+            int textLen = NativeMethods.GetWindowTextLength(hWnd);
+            if (0 < textLen)
+            {
+                //ウィンドウのタイトルを取得する
+                StringBuilder tsb = new StringBuilder(textLen + 1);
+                NativeMethods.GetWindowText(hWnd, tsb, tsb.Capacity);
+
+                string ma = $"{tsb}";
+                if (!ma.Equals("マビノギ"))
+                {
+                    // AllowList.Items.Add($"{_wi.dwStyle:X8}/{_wi.dwExStyle:X8}/{hWnd:X8}/{tsb}/");
+                    var item = BTN_SendTask.DropDownItems.Add(ma);
+                    item.Tag = hWnd;
+                }
+
+                //Debug.Print($"{_wi.dwStyle:X8}/{_wi.dwExStyle:X8}/{hWnd:X8}/{tsb}/");
+            }
+            return true;
+        }
+
+
+
+
+        private void BTN_SendTask_DropDownOpening(object sender, EventArgs e)
+        {
+            BTN_SendTask.DropDownItems.Clear();
+            twlist.Clear();
+            NativeMethods.EnumWindows(new EnumWindowsDelegate(EnumWindowCallBack), IntPtr.Zero);
+
+//                        BTN_SendTask.DropDownItems.Add("CAV " + p.ProcessName + ":" + p.MainWindowTitle);
+
+  
+
+        }
+
+
+        private void BTN_SendTask_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            Btn_Redirect.Tag = e.ClickedItem.Tag;
+            BTN_SendTask.Text =  e.ClickedItem.Text;
+            NativeMethods.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
+        }
+
+
+        private void Btn_Redirect_Click(object sender, EventArgs e)
+        {
+            if ( Btn_Redirect.Text == "OFF" )
+            {
+
+                // リダイレクト先が有効か確認
+                Btn_Redirect.Text = "ON";
+            }
+            else
+            {
+                Btn_Redirect.Text = "OFF";
+            }
         }
     }
 }

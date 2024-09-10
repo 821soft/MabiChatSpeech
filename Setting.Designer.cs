@@ -120,10 +120,10 @@
             this.tableLayoutPanel1.Controls.Add(this.Txt_SavePath, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 10);
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 13);
-            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 14);
-            this.tableLayoutPanel1.Controls.Add(this.label12, 0, 15);
-            this.tableLayoutPanel1.Controls.Add(this.Cmb_Pet, 1, 14);
-            this.tableLayoutPanel1.Controls.Add(this.Cmb_NPC, 1, 15);
+            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 15);
+            this.tableLayoutPanel1.Controls.Add(this.label12, 0, 14);
+            this.tableLayoutPanel1.Controls.Add(this.Cmb_Pet, 1, 15);
+            this.tableLayoutPanel1.Controls.Add(this.Cmb_NPC, 1, 14);
             this.tableLayoutPanel1.Controls.Add(this.Cmb_User, 1, 13);
             this.tableLayoutPanel1.Controls.Add(this.label9, 0, 16);
             this.tableLayoutPanel1.Controls.Add(this.Chk_FaceEmo, 1, 16);
@@ -183,7 +183,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 20);
             this.label1.TabIndex = 0;
-            this.label1.Text = "　　プログラム";
+            this.label1.Text = "　　Program";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
@@ -208,7 +208,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(107, 20);
             this.label2.TabIndex = 2;
-            this.label2.Text = "　　ポート";
+            this.label2.Text = "　　Port";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Txt_CapPort
@@ -233,7 +233,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(107, 20);
             this.label3.TabIndex = 4;
-            this.label3.Text = "キャプチャ対象";
+            this.label3.Text = "Capture";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
@@ -245,7 +245,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(107, 20);
             this.label4.TabIndex = 5;
-            this.label4.Text = "ログ";
+            this.label4.Text = "LogData";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
@@ -256,7 +256,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(107, 20);
             this.label5.TabIndex = 6;
-            this.label5.Text = "　　終了時に保存";
+            this.label5.Text = "　　Save Action";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label6
@@ -267,7 +267,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(107, 20);
             this.label6.TabIndex = 8;
-            this.label6.Text = "　　保存先";
+            this.label6.Text = "　　Save Path";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label6.Visible = false;
             // 
@@ -293,7 +293,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(107, 20);
             this.label7.TabIndex = 10;
-            this.label7.Text = "チャット";
+            this.label7.Text = "Chat";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label8
@@ -304,25 +304,25 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(107, 20);
             this.label8.TabIndex = 11;
-            this.label8.Text = "　　ユーザー";
+            this.label8.Text = "　　User";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Location = new System.Drawing.Point(3, 280);
+            this.label10.Location = new System.Drawing.Point(3, 300);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(107, 20);
             this.label10.TabIndex = 13;
-            this.label10.Text = "　　ペット";
+            this.label10.Text = "　　Other";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label12.Location = new System.Drawing.Point(3, 300);
+            this.label12.Location = new System.Drawing.Point(3, 280);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(107, 20);
             this.label12.TabIndex = 15;
@@ -336,10 +336,10 @@
             this.Cmb_Pet.FormattingEnabled = true;
             this.Cmb_Pet.Items.AddRange(new object[] {
             "OFF",
-            "チャットのみ",
-            "音声１",
-            "音声２"});
-            this.Cmb_Pet.Location = new System.Drawing.Point(113, 280);
+            "Chat On",
+            "Voice 1",
+            "Voice 2"});
+            this.Cmb_Pet.Location = new System.Drawing.Point(113, 300);
             this.Cmb_Pet.Margin = new System.Windows.Forms.Padding(0);
             this.Cmb_Pet.Name = "Cmb_Pet";
             this.Cmb_Pet.Size = new System.Drawing.Size(95, 20);
@@ -352,10 +352,10 @@
             this.Cmb_NPC.FormattingEnabled = true;
             this.Cmb_NPC.Items.AddRange(new object[] {
             "OFF",
-            "チャットのみ",
-            "音声１",
-            "音声２"});
-            this.Cmb_NPC.Location = new System.Drawing.Point(113, 300);
+            "Chat On",
+            "Voice 1",
+            "Voice 2"});
+            this.Cmb_NPC.Location = new System.Drawing.Point(113, 280);
             this.Cmb_NPC.Margin = new System.Windows.Forms.Padding(0);
             this.Cmb_NPC.Name = "Cmb_NPC";
             this.Cmb_NPC.Size = new System.Drawing.Size(95, 20);
@@ -368,9 +368,9 @@
             this.Cmb_User.FormattingEnabled = true;
             this.Cmb_User.Items.AddRange(new object[] {
             "OFF",
-            "チャットのみ",
-            "音声１",
-            "音声２"});
+            "Chat On",
+            "Voice 1",
+            "Voice 2"});
             this.Cmb_User.Location = new System.Drawing.Point(113, 260);
             this.Cmb_User.Margin = new System.Windows.Forms.Padding(0);
             this.Cmb_User.Name = "Cmb_User";
@@ -411,7 +411,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(107, 20);
             this.label11.TabIndex = 22;
-            this.label11.Text = "読上げ音声";
+            this.label11.Text = "Speech Voice";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label13
@@ -422,7 +422,7 @@
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(107, 40);
             this.label13.TabIndex = 23;
-            this.label13.Text = "　　音声１";
+            this.label13.Text = "　　Voice 1";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label14
@@ -433,7 +433,7 @@
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(107, 40);
             this.label14.TabIndex = 24;
-            this.label14.Text = "　　音声２";
+            this.label14.Text = "　　Voice 2";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label15
@@ -467,7 +467,7 @@
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(107, 20);
             this.label16.TabIndex = 29;
-            this.label16.Text = "　　キャラ名の読上げ";
+            this.label16.Text = "　　Name Speech";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Chk_TTSNameCall
@@ -504,7 +504,7 @@
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(107, 20);
             this.label19.TabIndex = 36;
-            this.label19.Text = "　　表示";
+            this.label19.Text = "　　View";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label20
@@ -515,7 +515,7 @@
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(107, 20);
             this.label20.TabIndex = 37;
-            this.label20.Text = "　　キャラ名指定";
+            this.label20.Text = "　　CharacterChoice";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel2
@@ -542,8 +542,8 @@
             this.Cmb_Whitelist.FormattingEnabled = true;
             this.Cmb_Whitelist.Items.AddRange(new object[] {
             "OFF",
-            "チャットのみ",
-            "音声"});
+            "Chat Only",
+            "Voice"});
             this.Cmb_Whitelist.Location = new System.Drawing.Point(0, 0);
             this.Cmb_Whitelist.Margin = new System.Windows.Forms.Padding(0);
             this.Cmb_Whitelist.Name = "Cmb_Whitelist";
@@ -570,7 +570,7 @@
             this.CHK_AutoAdd.Name = "CHK_AutoAdd";
             this.CHK_AutoAdd.Size = new System.Drawing.Size(128, 20);
             this.CHK_AutoAdd.TabIndex = 9;
-            this.CHK_AutoAdd.Text = "自動でリスト追加";
+            this.CHK_AutoAdd.Text = "Auto Add";
             this.CHK_AutoAdd.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel5
@@ -602,7 +602,7 @@
             this.Btn_Font.Name = "Btn_Font";
             this.Btn_Font.Size = new System.Drawing.Size(45, 20);
             this.Btn_Font.TabIndex = 3;
-            this.Btn_Font.Text = "選択";
+            this.Btn_Font.Text = "Sel";
             this.Btn_Font.UseVisualStyleBackColor = true;
             this.Btn_Font.Click += new System.EventHandler(this.Btn_Font_Click);
             // 
@@ -614,7 +614,7 @@
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(39, 20);
             this.label23.TabIndex = 42;
-            this.label23.Text = "フォント";
+            this.label23.Text = "Font";
             this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label25
@@ -625,7 +625,7 @@
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(44, 20);
             this.label25.TabIndex = 44;
-            this.label25.Text = "背景色";
+            this.label25.Text = "Bgcolor";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Btn_BackColor
@@ -636,7 +636,7 @@
             this.Btn_BackColor.Name = "Btn_BackColor";
             this.Btn_BackColor.Size = new System.Drawing.Size(44, 20);
             this.Btn_BackColor.TabIndex = 6;
-            this.Btn_BackColor.Text = "選択";
+            this.Btn_BackColor.Text = "Sel";
             this.Btn_BackColor.UseVisualStyleBackColor = true;
             this.Btn_BackColor.Click += new System.EventHandler(this.Btn_BackColor_Click);
             // 
@@ -659,7 +659,7 @@
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(107, 20);
             this.label26.TabIndex = 43;
-            this.label26.Text = "　　サーバー情報";
+            this.label26.Text = "　　Server Info";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Btn_ServerInfo
@@ -670,7 +670,7 @@
             this.Btn_ServerInfo.Size = new System.Drawing.Size(56, 20);
             this.Btn_ServerInfo.TabIndex = 44;
             this.Btn_ServerInfo.TabStop = false;
-            this.Btn_ServerInfo.Text = "開く";
+            this.Btn_ServerInfo.Text = "Open";
             this.Btn_ServerInfo.UseVisualStyleBackColor = true;
             this.Btn_ServerInfo.Click += new System.EventHandler(this.Btn_ServerInfo_Click);
             // 
@@ -747,7 +747,7 @@
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(44, 20);
             this.label17.TabIndex = 35;
-            this.label17.Text = "音量";
+            this.label17.Text = "Vol";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label18
@@ -758,7 +758,7 @@
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(44, 20);
             this.label18.TabIndex = 36;
-            this.label18.Text = "速度";
+            this.label18.Text = "Speed";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Cmb_TTS1Name
@@ -844,7 +844,7 @@
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(44, 20);
             this.label21.TabIndex = 2;
-            this.label21.Text = "音量";
+            this.label21.Text = "Vol";
             this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label22
@@ -855,7 +855,7 @@
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(44, 20);
             this.label22.TabIndex = 3;
-            this.label22.Text = "速度";
+            this.label22.Text = "Speed";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Cmb_TTS2Name

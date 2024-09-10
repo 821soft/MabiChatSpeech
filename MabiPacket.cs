@@ -1,29 +1,57 @@
-﻿using SharpPcap;
+﻿using MabiChatSpeech;
+using SharpPcap;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
-using System.Speech.Synthesis;
-using System.IO;
 using System.Text;
-using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
-using System.Net.Mail;
-using System.Web;
-using System.Collections;
-using System.Data.SqlTypes;
-using System.Speech.AudioFormat;
-using static MabiChatSpeech.MabiChat.CharacterNameList;
-using System.Diagnostics.PerformanceData;
-using static MabiChatSpeech.MabiChat;
 
 namespace MabiChatSpeech
 {
-    internal static class Program
+    /*
+     
+状態
+
+	    実行	通信	使用Port
+Off	    未実行	なし	なし
+On　　	実行 	なし	なし
+Online	実行	あり	11020以外	キャプチャ開始
+InErin	実行	あり	11020
+
+PIDからTCPテーブルをサーチ
+
+状態変化
+    client.exeのプロセス状態
+    TCPテーブル監視
+    11020のサーバーIP変化
+    11020が閉じた
+
+変化時にイベント生成
+
+
+キャプチャによる変化
+
+
+
+ターゲットの実行状況監視
+Port使用状況監視
+　パケットキャプチャの起動管理
+
+
+チャット受信
+SharpPcap からのパケット処理
+　チャットであればイベント発行
+
+
+*/
+
+    public class MabiPacket 
     {
         [DllImport("iphlpapi.dll")]
         extern static int GetExtendedTcpTable(IntPtr pTcpTable, ref int pdwSize,
@@ -59,7 +87,7 @@ namespace MabiChatSpeech
             "FIN_WAIT2","CLOSE_WAIT","CLOSING","LAST_ACK","TIME_WAIT","DELETE_TCB"
         };
 
-        public struct st_adapter
+        private struct st_adapter
         {
             public string Description;
             public string Name;
@@ -68,7 +96,7 @@ namespace MabiChatSpeech
         }
 
 
-        public struct st_MabiPort
+        private struct st_MabiPort
         {
             public bool uflag;
             public int State;
@@ -79,76 +107,46 @@ namespace MabiChatSpeech
 
         }
 
-        public struct st_MabiServer
-        {
-            public string name;
-            public string ip;
-        }
-
-        public static List<st_MabiPort> MabiPortList = new List<st_MabiPort>();
-        public static List<string> charlist  = new List<string>();
-
-        public static List<st_MabiServer> chlist = new List<st_MabiServer>();
-
-        // TTS 
-        public class tts
-        {
-
-        }
-
-
-        public static void ChanelList()
-        {
-            string path = @"mabiserverlist.txt";
-
-            var lines = File.ReadAllLines(path, Encoding.GetEncoding("utf-8"));
-
-            foreach (var line in lines)
-            {
-                string[] coldata = line.Split(',');
-                if (coldata.Length > 1)
-                {
-                    var item = new st_MabiServer();
-                    item.name = coldata[0];
-                    item.ip = coldata[1];
-                    chlist.Add(item);
-                }
-            }
-        }
-        public static string ChanelName(string ip)
-        {
-            foreach (var rec in chlist)
-            {
-                if (rec.ip == ip)
-                {
-                    return rec.name;
-                }
-            }
-            return "";
-        }
-
-
-        public static Timer Wdt;
-        private static string LocalIP="";
-        public static string ServerIP = "";
-        public static ClinetStatus WdtStatus;
-        
+        public enum ConnectStatus { None,Offline,Online,Login,Erin };
+        public string TargetProgram="client";
+        public uint TargetPort = 11020 ;
+        public uint CharaSelPort = 11000;
+        public string ServerIP ="" ;
+        public string LocalIP="" ;
+        private List<st_MabiPort> MabiPortList = new List<st_MabiPort>();
+        private CaptureDeviceList NetDevs = CaptureDeviceList.Instance;
+        public static ILiveDevice capdev;
         private static byte[] tcpbuff = new byte[1024 * 1024 * 4];
         private static int tcpblen;
         private static int bpos = 0;
         private static int pushcnt = 0;
-        //private static int a_pushcnt = 0;
+        public ConnectStatus ConnectState = ConnectStatus.None;
+
+        public static System.Timers.Timer Wdt  ;
+
+        public event EventHandler MabiPacketArrival;
+        public event EventHandler MabiConnection;
+        public event EventHandler MabiChat;
 
 
+
+        // パケット関連
+        /*
+         * ターゲット監視
+         * タイマーで PIDからPortをスキャン
+         * 
+         * パケット監視
+         * sharpcapによるパケット監視
+         */
 
         /// <summary>
         /// clientのPIDを返す
         /// </summary>
         /// <returns></returns>
-        public static int GetMabinogiPid()
+        public int GetMabinogiPid()
         {
             System.Diagnostics.Process[] ps =
-                System.Diagnostics.Process.GetProcessesByName("client");
+                System.Diagnostics.Process.GetProcessesByName(TargetProgram);
             foreach (System.Diagnostics.Process p in ps)
             {
                 return (p.Id);
@@ -160,7 +158,7 @@ namespace MabiChatSpeech
         /// </summary>
         /// <param name="addr"></param>
         /// <returns>string ipアドレスの文字列</returns>
-        private static string ipstr(int addr)
+        private string ipstr(int addr)
         {
             var b = BitConverter.GetBytes(addr);
             return string.Format("{0}.{1}.{2}.{3}", b[0], b[1], b[2], b[3]);
@@ -171,7 +169,7 @@ namespace MabiChatSpeech
         /// </summary>
         /// <param name="i"></param>
         /// <returns></returns>
-        public static int htons(int i)
+        private int htons(int i)
         {
             var tmp = (((0x000000ff & i) << 8) + ((0x0000ff00 & i) >> 8))
                        + ((0x00ff0000 & i) << 8) + ((0xff000000 & i) >> 8);
@@ -183,7 +181,7 @@ namespace MabiChatSpeech
         /// マビノギが開いているポートをスキャンする
         /// </summary>
         /// <returns>　-1 マビノギ未起動 / 開いているポート数 </returns>
-        public static int ScanMabiPort()
+        public int ScanMabiPort()
         {
 
             MabiPortList.Clear();
@@ -216,7 +214,7 @@ namespace MabiChatSpeech
 
                     if (o.OwningPid == mabipid)
                     {
-                        // マビノギが開いているポート 
+                        /* マビノギが開いているポート */
 
                         st_MabiPort arec = new st_MabiPort();
                         arec.uflag = true;
@@ -240,7 +238,7 @@ namespace MabiChatSpeech
         /// マビノギが開いているポートをスキャンする
         /// </summary>
         /// <returns>　-1 マビノギ未起動 / 開いているポート数 </returns>
-        public static int MabiPortStatus( int PortNo )
+        public int MabiPortStatus(uint PortNo)
         {
             var mabipid = GetMabinogiPid();
 
@@ -271,9 +269,9 @@ namespace MabiChatSpeech
                         o.RemotePort = 0;//RemoteAddrが0の場合は、RemotePortも0にする
                     }
 
-                    if (o.OwningPid == mabipid )
+                    if (o.OwningPid == mabipid)
                     {
-                        // マビノギが開いているポート 
+                        /* マビノギが開いているポート */
 
                         if (PortNo == htons(o.RemotePort))
                         {
@@ -295,7 +293,7 @@ namespace MabiChatSpeech
         /// </summary>
         /// <param name="port"></param>
         /// <returns></returns>
-        public static int IsOpenPort(int port)
+        public int IsOpenPort(uint port)
         {
             foreach (var item in MabiPortList)
             {
@@ -314,7 +312,7 @@ namespace MabiChatSpeech
         /// </summary>
         /// <param name="port"></param>
         /// <returns></returns>
-        public static st_MabiPort PortInfo(int port)
+        private st_MabiPort PortInfo(uint port)
         {
             st_MabiPort obj = new st_MabiPort();
             foreach (var item in MabiPortList)
@@ -332,7 +330,7 @@ namespace MabiChatSpeech
         /// </summary>
         /// <param name="port"></param>
         /// <returns></returns>
-        public static string ClientIpAddress()
+        public string ClientIpAddress()
         {
             foreach (var item in MabiPortList)
             {
@@ -348,7 +346,7 @@ namespace MabiChatSpeech
         /// NICを列挙する
         /// </summary>
         /// <returns>List<st_adapter> NICリスト</returns>
-        public static List<st_adapter> GetLocalIPAddress()
+        private List<st_adapter> GetLocalIPAddress()
         {
 
             var adp = new List<st_adapter>();
@@ -399,7 +397,7 @@ namespace MabiChatSpeech
         /// </summary>
         /// <param name="laddr"></param>
         /// <returns></returns>
-        public static int findNic(string laddr)
+        private int findNic(string laddr)
         {
             var adp = GetLocalIPAddress();
             foreach (var ad in adp)
@@ -417,20 +415,17 @@ namespace MabiChatSpeech
                     }
                 }
             }
-
-
             return (-1);
-
         }
 
-        
-        public static bool cap_init()
+        public bool cap_init()
         {
             // パケットキャプチャに関する初期設定
             // 1.監視対象の設定()
-            Wdt = new Timer();
+            Wdt = new System.Timers.Timer() ;
             Wdt.Interval = 1000;
-            Wdt.Tick += Wdt_Tick;
+            Wdt.Elapsed += Wdt_Tick;
+
             WdtStatus = ClinetStatus.off;
             Wdt.Start();
             return (true);
@@ -451,7 +446,7 @@ namespace MabiChatSpeech
             public CharacterTypes CharacterType;
             public string ChatWord;
         }
-        public static List <ChatData> chatDatas = new List <ChatData>();
+        public static List<ChatData> chatDatas = new List<ChatData>();
 
         public static void chatdatas_add(ChatData data)
         {
@@ -464,7 +459,7 @@ namespace MabiChatSpeech
         }
 
 
-        private static ChatData analyses_packet(int len)
+        private  ChatData analyses_packet(int len)
         {
             var ret = new ChatData();
             ret.CharacterName = "";
@@ -499,10 +494,10 @@ namespace MabiChatSpeech
                     //        00
                     //  
                     if ((tcpbuff[ptn_CNT + 8] == 0x00) &&
-                        (tcpbuff[ptn_CNT + 9] == 0x10))// &&
-                        // (tcpbuff[ptn_CNT + 10] == 0x00)) 
+                        (tcpbuff[ptn_CNT + 9] == 0x10))/* &&
+                        (tcpbuff[ptn_CNT + 10] == 0x00)) */
                     {
-                        ret.CharacterType = (CharacterTypes)tcpbuff[ptn_CNT + 10];
+                        ret.CharacterType = (MabiChat.CharacterTypes)tcpbuff[ptn_CNT + 10];
                         //*** 先頭パターン
                         //   8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
                         //  00 10 XX 00 00 xx xx xx xx 03 00 01 00 06 00 NN
@@ -541,7 +536,7 @@ namespace MabiChatSpeech
                 Array.Copy(tcpbuff, st2_idx + 1, da2, 0, st2_len);
 
                 string s1 = System.Text.Encoding.UTF8.GetString(da1);
-                ret.CharacterName = s1.Replace("\0","");
+                ret.CharacterName = s1.Replace("\0", "");
                 string s2 = System.Text.Encoding.UTF8.GetString(da2);
                 ret.ChatWord = s2.Replace("\0", "");
             }
@@ -550,7 +545,7 @@ namespace MabiChatSpeech
         }
 
 
-        private static void device_OnPacketArrival(object sender, PacketCapture e)
+        private  void device_OnPacketArrival(object sender, PacketCapture e)
         {
             var time = e.Header.Timeval.Date;
             var rawPacket = e.GetPacket();
@@ -563,12 +558,12 @@ namespace MabiChatSpeech
                 System.Net.IPAddress dstIp = ipPacket.DestinationAddress;
                 int srcPort = tcpPacket.SourcePort;
                 int dstPort = tcpPacket.DestinationPort;
-                int psts = MabiPortStatus(11020);
+                int psts = MabiPortStatus( TargetPort );
 
                 var sip = $"{srcIp}";
-                if ( ServerIP != sip )
+                if (ServerIP != sip)
                 {
-                    ServerIP = sip ;
+                    ServerIP = sip;
                 }
 
                 if (tcpPacket.Push == false)
@@ -592,18 +587,17 @@ namespace MabiChatSpeech
                 //dumptext(tcpPacket, ad, dhd, pushcnt);
                 pushcnt = 0;
                 ChatData chats = analyses_packet(tcpblen);
-                if ((chats.ChatWord !="" ) && (chats.CharacterName !="" ))
+                if ((chats.ChatWord != "") && (chats.CharacterName != ""))
                 {
                     chatdatas_add(chats);
 
                     // 設定に関係なくキャラ名採取
                     CharacterNameData n = CharaList.CNlist.Find(x => x.CharName == chats.CharacterName);
                     // 該当なし
-                    if ( n == null )
+                    if (n == null)
                     {
-                        if ( ( chats.CharacterType == CharacterTypes.User ) && ( Program.__WhiteList_AutoAdd == true ))
+                        if ((chats.CharacterType == CharacterTypes.User) && (Program.__WhiteList_AutoAdd == true))
                         {
-
                             CharacterNameData item = new CharacterNameData(chats.CharacterName, true, chats.CharacterType,
                                                         __TTS1Name, __TTS1Volume, __TTS1Speed);
                             Program.CharaList.CNlist.Add(item);
@@ -611,13 +605,18 @@ namespace MabiChatSpeech
                         }
                     }
 
+                    /*
+                     * 設定状況　
+                     * WhiteListならキャラ名でマッチング
+                     * 
+                     */
                     bool dip = false;
                     int cv = 0;
                     int cs = 0;
-                    string cn = "" ;
+                    string cn = "";
 
 
-                    if ( __ChatSelWhitelist != 0 ) 
+                    if (__ChatSelWhitelist != 0)
                     {
                         if (n != null)
                         {
@@ -626,7 +625,7 @@ namespace MabiChatSpeech
                                 dip = true;
                             }
 
-                            if (__ChatSelWhitelist == 2 )
+                            if (__ChatSelWhitelist == 2)
                             {
                                 cn = n.TtsName;
                                 cs = n.TtsSpeed;
@@ -635,14 +634,14 @@ namespace MabiChatSpeech
                             }
                         }
                     }
-                    else if ((( __ChatSelUser == 1 ) && (chats.CharacterType == CharacterTypes.User )) ||
-                         (( __ChatSelPet == 1 ) && (chats.CharacterType == CharacterTypes.Pet )) ||
-                         (( __ChatSelNpc == 1 ) && (chats.CharacterType == CharacterTypes.Npc )) )
+                    else if (((__ChatSelUser == 1) && (chats.CharacterType == CharacterTypes.User)) ||
+                         ((__ChatSelPet == 1) && (chats.CharacterType == CharacterTypes.Pet)) ||
+                         ((__ChatSelNpc == 1) && (chats.CharacterType == CharacterTypes.Npc)))
                     {
                         dip = true;
                     }
                     else if (((__ChatSelUser == 2) && (chats.CharacterType == CharacterTypes.User)) ||
-                         ((__ChatSelPet == 2) && (chats.CharacterType == CharacterTypes.Pet )) ||
+                         ((__ChatSelPet == 2) && (chats.CharacterType == CharacterTypes.Pet)) ||
                          ((__ChatSelNpc == 2) && (chats.CharacterType == CharacterTypes.Npc)))
                     {
                         dip = true;
@@ -660,24 +659,18 @@ namespace MabiChatSpeech
                         cs = Program.__TTS2Speed;
                     }
 
-
-                    if ( (dip == true) && (chats.ChatWord != "") )
+                    if ((dip == true) && (chats.ChatWord != ""))
                     {
-
                         var tm = DateTime.Now;
 
-
-                        if ( cn != "" )
+                        if (cn != "")
                         {
-                            Frm_Main.speech_chat( cn , cv,cs, chats.CharacterName, chats.ChatWord);
+                            Frm_Main.speech_chat(cn, cv, cs, chats.CharacterName, chats.ChatWord);
                             Frm_Main.TxtChatWriteLine($"{tm:HH:mm:ss.ff} < {chats.CharacterName} | {chats.ChatWord}" + Environment.NewLine);
-                            Frm_Main.RedirectWriteLine(chats.CharacterName, chats.ChatWord);
                         }
                         else
                         {
-
                             Frm_Main.TxtChatWriteLine($"{tm:HH:mm:ss.ff} | {chats.CharacterName} | {chats.ChatWord}" + Environment.NewLine);
-                            Frm_Main.RedirectWriteLine(chats.CharacterName, chats.ChatWord);
                         }
                     }
                 }
@@ -685,7 +678,7 @@ namespace MabiChatSpeech
         }
 
 
-        private static void device_OnCaptureStopped(object sender, CaptureStoppedEventStatus status)
+        private  void device_OnCaptureStopped(object sender, CaptureStoppedEventStatus status)
         {
             Debug.Print("Event!! Stop Capture");
             ServerIP = "";
@@ -693,24 +686,31 @@ namespace MabiChatSpeech
             Wdt.Start();
         }
 
-        private static void capdev_start()
+        private void capdev_start()
         {
             capdev.Open(DeviceModes.Promiscuous, 1000);
             capdev.OnPacketArrival += device_OnPacketArrival;
             capdev.OnCaptureStopped += device_OnCaptureStopped;
-            capdev.Filter = $"tcp src port 11020 and dst host {LocalIP}";// and dst port {lp}";
+            capdev.Filter = $"tcp src port {TargetPort} and dst host {LocalIP}";// and dst port {lp}";
             capdev.StartCapture();
         }
-        private static void capdev_stop()
+        private  void capdev_stop()
         {
             capdev.StopCapture();
             ServerIP = "";
             Wdt.Start();
         }
 
-        public static void Wdt_chkstat()
+        public  void Wdt_chkstat()
         {
 
+            /*
+             * ProcIdスキャン off
+             * Portスキャン 
+             * 11020 なら Online
+             * 11000 なら CharSel
+             * 上記以外は ClientOn
+             */
 
             if (ScanMabiPort() == -1)
             {
@@ -760,11 +760,11 @@ namespace MabiChatSpeech
             }
 
 
-            if ( IsOpenPort(11020) != -1 )
+            if (IsOpenPort(TargetPort) != -1)
             {
                 WdtStatus = ClinetStatus.online;
             }
-            else if ( IsOpenPort(11000) != -1 )
+            else if (IsOpenPort(CharaSelPort) != -1)
             {
                 WdtStatus = ClinetStatus.charsel;
                 Program.ServerIP = "";
@@ -773,369 +773,13 @@ namespace MabiChatSpeech
 
 
 
-        private static void Wdt_Tick(object sender, EventArgs e)
+        private void Wdt_Tick(object sender, EventArgs e)
         {
             Wdt_chkstat();
-            Debug.Print($"Wdts {WdtStatus}");
+            Debug.Print($"Wdts {ConnectState}");
         }
 
-        public static void ChatLogSave(TextBox Log)
-        {
-            string savefilename = __SavePath + "\\mabichatlog";
-
-            if ( Log.Text.Length == 0)
-            {
-                return;
-            }
-            DateTime dt = DateTime.Now;
-
-            switch ( __SaveMode )
-            {
-                case 0: //しない
-                    break;
-                case 1: // 上書き
-                    savefilename += ".txt";
-                    File.WriteAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    File.AppendAllText(savefilename, Log.Text);
-                    break;
-                case 2: // 追記
-                    savefilename += ".txt";
-                    File.AppendAllText(savefilename, $"Chat Log ***{dt:F}***" +Environment.NewLine);
-                    File.AppendAllText(savefilename, Log.Text);
-                    break;
-                case 3: // タイムスタンプ
-                    savefilename += $"_{dt:yyyyMMdd}_{dt:HHmmss}.txt";
-                    File.WriteAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    File.AppendAllText(savefilename, Log.Text);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        /*
-         * 設定データ
-         */
-
-        public static string __CapureProgram
-        {
-            get { return Properties.Settings.Default.__CapureProgram; }
-            set { Properties.Settings.Default.__CapureProgram = value; }
-        }
-
-        public static uint __CapturePort
-        {
-            get { return Properties.Settings.Default.__CapturePort; }
-            set { Properties.Settings.Default.__CapturePort = value; }
-        }
-        public static int __SaveMode
-        {
-            get { return Properties.Settings.Default.__SaveMode; }
-            set { Properties.Settings.Default.__SaveMode = value; }
-        }
-        public static string __SavePath
-        {
-            get { return Properties.Settings.Default.__SavePath; }
-            set { Properties.Settings.Default.__SavePath = value; }
-        }
-        public static string __ChatFontName
-        {
-            get { return Properties.Settings.Default.__ChatFontName; }
-            set { Properties.Settings.Default.__ChatFontName = value; }
-        }
-        public static float __ChatFontSize
-        {
-            get { return Properties.Settings.Default.__ChatFontSize; }
-            set { Properties.Settings.Default.__ChatFontSize = value; }
-        }
-        public static int __ChatFontStyle
-        {
-            get { return Properties.Settings.Default.__ChatFontStyle; }
-            set { Properties.Settings.Default.__ChatFontStyle = value; }
-        }
-        public static bool __ChatFontBold
-        {
-            get { return Properties.Settings.Default.__ChatFontBold; }
-            set { Properties.Settings.Default.__ChatFontBold = value; }
-        }
-        public static bool __ChatFontItalic
-        {
-            get { return Properties.Settings.Default.__ChatFontItalic; }
-            set { Properties.Settings.Default.__ChatFontItalic = value; }
-        }
-        public static int __ChatFontCharSet
-        {
-            get { return Properties.Settings.Default.__ChatFontCharSet; }
-            set { Properties.Settings.Default.__ChatFontCharSet = value; }
-        }
-        public static int __ChatForeColor
-        {
-            get { return Properties.Settings.Default.__ChatForeColor; }
-            set { Properties.Settings.Default.__ChatForeColor = value; }
-        }
-        public static int __ChatBackColor
-        {
-            get { return Properties.Settings.Default.__ChatBackColor; }
-            set { Properties.Settings.Default.__ChatBackColor = value; }
-        }
-        public static int __ChatSelWhitelist
-        {
-            get { return Properties.Settings.Default.__ChatSelWhitelist; }
-            set { Properties.Settings.Default.__ChatSelWhitelist = value; }
-        }
-        public static int __ChatSelUser
-        {
-            get { return Properties.Settings.Default.__ChatSelUser; }
-            set { Properties.Settings.Default.__ChatSelUser = value; }
-        }
-        public static int __ChatSelPet
-        {
-            get { return Properties.Settings.Default.__ChatSelPet; }
-            set { Properties.Settings.Default.__ChatSelPet = value; }
-        }
-        public static int __ChatSelNpc
-        {
-            get { return Properties.Settings.Default.__ChatSelNpc; }
-            set { Properties.Settings.Default.__ChatSelNpc = value; }
-        }
-        public static bool __ChatFaceEmo
-        {
-            get { return Properties.Settings.Default.__ChatFaceEmo; }
-            set { Properties.Settings.Default.__ChatFaceEmo = value; }
-        }
-        public static string __TTS1Name
-        {
-            get { return Properties.Settings.Default.__TTS1Name; }
-            set { Properties.Settings.Default.__TTS1Name = value; }
-        }
-        public static int __TTS1Volume
-        {
-            get { return Properties.Settings.Default.__TTS1Volume; }
-            set { Properties.Settings.Default.__TTS1Volume = value; }
-        }
-        public static int __TTS1Speed
-        {
-            get { return Properties.Settings.Default.__TTS1Speed; }
-            set { Properties.Settings.Default.__TTS1Speed = value; }
-        }
-        public static string __TTS2Name
-        {
-            get { return Properties.Settings.Default.__TTS2Name; }
-            set { Properties.Settings.Default.__TTS2Name = value; }
-        }
-        public static int __TTS2Volume
-        {
-            get { return Properties.Settings.Default.__TTS2Volume; }
-            set { Properties.Settings.Default.__TTS2Volume = value; }
-        }
-        public static int __TTS2Speed
-        {
-            get { return Properties.Settings.Default.__TTS2Speed; }
-            set { Properties.Settings.Default.__TTS2Speed = value; }
-        }
-        public static bool __TTS_Mute
-        {
-            get { return Properties.Settings.Default.__TTS_Mute; }
-            set { Properties.Settings.Default.__TTS_Mute = value; }
-        }
-        public static bool __TTS_NameCall
-        {
-            get { return Properties.Settings.Default.__TTS_NameCall; }
-            set { Properties.Settings.Default.__TTS_NameCall = value; }
-        }
-
-        public static bool __WhiteList_AutoAdd
-        {
-            get { return Properties.Settings.Default.__WhiteList_AutoAdd; }
-            set { Properties.Settings.Default.__WhiteList_AutoAdd = value; }
-        }
-
-        public enum ClinetStatus { off, on, charsel, online }
-        public static CaptureDeviceList NetDevs = CaptureDeviceList.Instance;
-        public static ILiveDevice capdev;
-
-        public static CharacterNameList CharaList = new CharacterNameList();
 
 
-        public static Main Frm_Main ;
-
-
-        public static List<string> TTS_NameList = new List<string>();
-
-        public static string TTS_Names()
-        {
-            /*
-             * 404 台湾 , 409 米国 , 411 日本 , 412 韓国
-             * 
-             * 
-             * 
-             */
-
-
-            string retval_txt ="";
-            TTS_NameList.Clear();
-
-            // Initialize a new instance of the SpeechSynthesizer.  
-            using (SpeechSynthesizer synth = new SpeechSynthesizer())
-            {
-                // Output information about all of the installed voices.   
-                foreach (InstalledVoice voice in synth.GetInstalledVoices())
-                {
-                    VoiceInfo info = voice.VoiceInfo;
-                    string AudioFormats = "";
-                    foreach (SpeechAudioFormatInfo fmt in info.SupportedAudioFormats)
-                    {
-                        AudioFormats += String.Format("{0}\n",
-                        fmt.EncodingFormat.ToString());
-                    }
-
-                    Console.WriteLine(" Name:          " + info.Name);
-                    Console.WriteLine(" Culture:       " + info.Culture.Name);
-                    TTS_NameList.Add($"[{info.Culture.Name}]{info.Name}");
-                    retval_txt += info.Name +",";
-
-                    if (info.SupportedAudioFormats.Count != 0)
-                    {
-                        Console.WriteLine(" Audio formats: " + AudioFormats);
-                    }
-                    else
-                    {
-                        Console.WriteLine(" No supported audio formats found");
-                    }
-
-                    string AdditionalInfo = "";
-                    foreach (string key in info.AdditionalInfo.Keys)
-                    {
-                        AdditionalInfo += String.Format("  {0}: {1}\n", key, info.AdditionalInfo[key]);
-                    }
-
-                    Console.WriteLine(" Additional Info - " + AdditionalInfo);
-                    Console.WriteLine();
-                }
-            }
-            return (retval_txt.TrimEnd(','));
-        }
-        static void TTSInfo()
-            {
-
-                // Initialize a new instance of the SpeechSynthesizer.  
-                using (SpeechSynthesizer synth = new SpeechSynthesizer())
-                {
-
-                    // Output information about all of the installed voices.   
-                    Console.WriteLine("Installed voices -");
-                    foreach (InstalledVoice voice in synth.GetInstalledVoices())
-                    {
-                        VoiceInfo info = voice.VoiceInfo;
-                        string AudioFormats = "";
-                        foreach (SpeechAudioFormatInfo fmt in info.SupportedAudioFormats)
-                        {
-                            AudioFormats += String.Format("{0}\n",
-                            fmt.EncodingFormat.ToString());
-                        }
-
-                        Console.WriteLine(" Name:          " + info.Name);
-                        Console.WriteLine(" Culture:       " + info.Culture.DisplayName);
-                        Console.WriteLine(" Age:           " + info.Age);
-                        Console.WriteLine(" Gender:        " + info.Gender);
-                        Console.WriteLine(" Description:   " + info.Description);
-                        Console.WriteLine(" ID:            " + info.Id);
-                        Console.WriteLine(" Enabled:       " + voice.Enabled);
-                        if (info.SupportedAudioFormats.Count != 0)
-                        {
-                            Console.WriteLine(" Audio formats: " + AudioFormats);
-                        }
-                        else
-                        {
-                            Console.WriteLine(" No supported audio formats found");
-                        }
-
-                        string AdditionalInfo = "";
-                        foreach (string key in info.AdditionalInfo.Keys)
-                        {
-                            AdditionalInfo += String.Format("  {0}: {1}\n", key, info.AdditionalInfo[key]);
-                        }
-
-                        Console.WriteLine(" Additional Info - " + AdditionalInfo);
-                        Console.WriteLine();
-                    }
-                }
-            }
-        public static class NativeMethods
-        {
-            [StructLayout(LayoutKind.Sequential)]
-            public struct WINDOWINFO
-            {
-                public int cbSize;
-                public RECT rcWindow;
-                public RECT rcClient;
-                public int dwStyle;
-                public int dwExStyle;
-                public int dwWindowStatus;
-                public uint cxWindowBorders;
-                public uint cyWindowBorders;
-                public short atomWindowType;
-                public short wCreatorVersion;
-            }
-
-            [StructLayout(LayoutKind.Sequential)]
-            public struct RECT
-            {
-                public int left;
-                public int top;
-                public int right;
-                public int bottom;
-            }
-
-            [DllImport("USER32.DLL", SetLastError = true, CharSet = CharSet.Auto)]
-            public static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int length);
-
-            [DllImport("user32.dll")]
-            public static extern bool GetWindowInfo(IntPtr hwnd, ref WINDOWINFO pwi);
-
-            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-            public static extern int GetWindowTextLength(IntPtr hWnd);
-
-            [DllImport("user32.dll")]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public extern static bool EnumWindows(EnumWindowsDelegate lpEnumFunc, IntPtr lparam);
-
-            [DllImport("USER32.DLL")]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool SetForegroundWindow(IntPtr hWnd);
-        }
-        public delegate bool EnumWindowsDelegate(IntPtr hWnd, IntPtr lparam);
-
-
- 
-        /// <summary>
-        /// アプリケーションのメイン エントリ ポイントです。
-        /// </summary>
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            //speech_spk = new SpeechSynthesizer();
-            //speech_spk.SetOutputToDefaultAudioDevice();
-            //Debug.Print(TTS_Names());
-            //TTSInfo();
-            TTS_Names();
-            if ( __TTS1Name == "" )
-            {
-                __TTS1Name = TTS_NameList[0];
-            }
-            if (__TTS2Name == "")
-            {
-                __TTS2Name = TTS_NameList[0];
-            }
-
-
-            ChanelList();
-            Frm_Main = new Main();
-            cap_init();
-
-            Application.Run(Frm_Main);
-        }
     }
 }

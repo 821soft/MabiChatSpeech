@@ -92,6 +92,8 @@
     <Compile Include="charlist.Designer.cs">
       <DependentUpon>charlist.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class1.cs" />
+    <Compile Include="MabiChat.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +176,19 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\ChatData.png" />
+    <Content Include="Resources\ClearWindowContent.png" />
+    <Content Include="Resources\imageres.png" />
+    <Content Include="Resources\NewTeamProject.png" />
+    <Content Include="Resources\Reload.png" />
+    <Content Include="Resources\setting.png" />
+    <Content Include="Resources\SettingsPanel.png" />
+    <Content Include="Resources\SettingsPanel.svg" />
+    <Content Include="Resources\setup.png" />
+    <Content Include="Resources\TeamProject.png" />
+    <Content Include="Resources\Userlist.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

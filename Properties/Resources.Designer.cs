@@ -61,6 +61,36 @@ namespace MabiChatSpeech.Properties {
         }
         
         /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap ChatData {
+            get {
+                object obj = ResourceManager.GetObject("ChatData", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap ClearWindowContent {
+            get {
+                object obj = ResourceManager.GetObject("ClearWindowContent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap imageres {
+            get {
+                object obj = ResourceManager.GetObject("imageres", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   マリー(１ｃｈ),52.196.142.146
         ///マリー(２ｃｈ),54.199.99.252
         ///マリー(３ｃｈ),52.197.188.102
@@ -86,6 +116,66 @@ namespace MabiChatSpeech.Properties {
         internal static string MabiServerList {
             get {
                 return ResourceManager.GetString("MabiServerList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap NewTeamProject {
+            get {
+                object obj = ResourceManager.GetObject("NewTeamProject", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap setting {
+            get {
+                object obj = ResourceManager.GetObject("setting", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap SettingsPanel {
+            get {
+                object obj = ResourceManager.GetObject("SettingsPanel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap setup {
+            get {
+                object obj = ResourceManager.GetObject("setup", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap TeamProject {
+            get {
+                object obj = ResourceManager.GetObject("TeamProject", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap Userlist {
+            get {
+                object obj = ResourceManager.GetObject("Userlist", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
