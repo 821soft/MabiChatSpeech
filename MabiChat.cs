@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MabiChatSpeech;
 
 namespace MabiChatSpeech
 {
+
     internal class MabiChat
     {
-        public enum CharacterTypes : byte { User = 0x00, Pet = 0x01, Npc = 0xf0 }
 
         // CharacterNameData Class 
         public class CharacterNameData

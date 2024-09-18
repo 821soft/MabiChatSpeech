@@ -84,7 +84,7 @@
             this.SLB_Client.AutoSize = false;
             this.SLB_Client.Name = "SLB_Client";
             this.SLB_Client.Size = new System.Drawing.Size(70, 17);
-            this.SLB_Client.Text = "Online";
+            this.SLB_Client.Text = "OFF";
             this.SLB_Client.ToolTipText = "ステータス";
             // 
             // SLB_Ip

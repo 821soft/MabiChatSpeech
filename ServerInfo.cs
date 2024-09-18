@@ -62,40 +62,42 @@ namespace MabiChatSpeech
 
         private void Tim_ServerInfo_Tick(object sender, EventArgs e)
         {
-            var sts = Program.ScanMabiPort();
-            if (sts == -1)
-            {
-                Txt_ServerInfo.Text = "Client Off";
-                foreach (ListViewItem svrec in Lsv_Server.Items)
-                {
-                    if (svrec.BackColor != Color.White)
-                    {
-                        svrec.BackColor = Color.White;
-                    }
-                }
-            }
-            else
-            {
-                Txt_ServerInfo.Text = "Client Open Port List" + Environment.NewLine ;
-                foreach (var item in Program.MabiPortList)
-                {
-                    Txt_ServerInfo.Text += $"{item.RemotePort} {item.RemoteAddr}" + Environment.NewLine;
-                    if ( item.RemotePort == 11020 ) 
-                    { 
-                        foreach(ListViewItem svrec in Lsv_Server.Items)
+            /*
+                        var sts = Program.ScanMabiPort();
+                        if (sts == -1)
                         {
-                            if ( svrec.SubItems[2].Text == item.RemoteAddr ) 
+                            Txt_ServerInfo.Text = "Client Off";
+                            foreach (ListViewItem svrec in Lsv_Server.Items)
                             {
-                                svrec.BackColor = Color.Yellow;
-                            }
-                            else if (svrec.BackColor != Color.White)
-                            {
-                                svrec.BackColor = Color.White;
+                                if (svrec.BackColor != Color.White)
+                                {
+                                    svrec.BackColor = Color.White;
+                                }
                             }
                         }
-                    }
-                }
-            }
+                        else
+                        {
+                            Txt_ServerInfo.Text = "Client Open Port List" + Environment.NewLine ;
+                            foreach (var item in Program.MabiPortList)
+                            {
+                                Txt_ServerInfo.Text += $"{item.RemotePort} {item.RemoteAddr}" + Environment.NewLine;
+                                if ( item.RemotePort == 11020 ) 
+                                { 
+                                    foreach(ListViewItem svrec in Lsv_Server.Items)
+                                    {
+                                        if ( svrec.SubItems[2].Text == item.RemoteAddr ) 
+                                        {
+                                            svrec.BackColor = Color.Yellow;
+                                        }
+                                        else if (svrec.BackColor != Color.White)
+                                        {
+                                            svrec.BackColor = Color.White;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+            */
         }
     }
 }

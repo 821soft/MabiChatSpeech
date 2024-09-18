@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MabiChatSpeech.MabiChat;
 using static MabiChatSpeech.Program;
 
 namespace MabiChatSpeech
@@ -23,9 +22,9 @@ namespace MabiChatSpeech
         private void LsvShow()
         {
             Lsv_cs.Items.Clear();
-            for (int i = 0; i < Program.chatDatas.Count; i++)
+            for (int i = 0; i < MabiPacket.chatDatas.Count; i++)
             {
-                ChatData item = Program.chatDatas[i];
+                MabiPacket.ChatData item = MabiPacket.chatDatas[i];
                 if (item.CharacterName != null)
                 {
 
@@ -79,7 +78,7 @@ namespace MabiChatSpeech
                                 ty = (CharacterTypes)byte.Parse(a_item.SubItems[1].Text);
                                 break;
                         }
-                        CharacterNameData item = new CharacterNameData(a_item.Text, true,ty,__TTS1Name,__TTS1Volume,__TTS1Speed);
+                        MabiChat.CharacterNameData item = new MabiChat.CharacterNameData(a_item.Text, true,ty,__TTS1Name,__TTS1Volume,__TTS1Speed);
                         CharaList.CNlist.Add(item);
                     }
                 }

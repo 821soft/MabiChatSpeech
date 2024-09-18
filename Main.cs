@@ -1,4 +1,4 @@
-﻿using MabiChatSpeech.TextEmulate;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,10 +13,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MabiChatSpeech.Program.NativeMethods;
 using static MabiChatSpeech.Program;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Collections;
+using static MabiChatSpeech.MabiChat;
 
 namespace MabiChatSpeech
 {
@@ -54,7 +54,7 @@ namespace MabiChatSpeech
                 if(Btn_Redirect.Text == "ON")
                 {
                     // リダイレクト
-                    NativeMethods.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
+                    WinApi.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
                     string sayword = "";
                     if (Program.__TTS_NameCall == true)
                     {
@@ -142,10 +142,6 @@ namespace MabiChatSpeech
 
         private void Tim_Status_Tick(object sender, EventArgs e)
         {
-            Program.Wdt_chkstat();
-
-            SLB_Client.Text = $"{Program.WdtStatus}"; 
-            SLB_Ip.Text = Program.ChanelName(Program.ServerIP);
 
         }
 
@@ -165,7 +161,146 @@ namespace MabiChatSpeech
         private void Main_Shown(object sender, EventArgs e)
         {
             settingupd();
+            Program.packets.ConnectEvent += onConnect;
+            Program.packets.ChatEvent += onChat;
         }
+
+        delegate void deg_SLB_IP_ForeColor(Color c);
+        public void SLB_IP_ForeColor(Color c)
+        {
+            if (this.InvokeRequired)
+            {
+                Invoke(new deg_SLB_IP_ForeColor(SLB_IP_ForeColor), c);
+            }
+            else
+            {
+                SLB_Ip.ForeColor =c ;
+
+            }
+        }
+
+        private void onConnect(object sender, EventArgs e)
+        {
+            var x = (MabiPacket)sender;
+            SLB_Client.Text = $"{x.csts}";
+            SLB_Ip.Text = x.svname;
+            if (x.cap_sts)
+            {
+                SLB_IP_ForeColor( Color.Red );
+            }
+            else
+            {
+                SLB_IP_ForeColor(Color.Black);
+            }
+        }
+        private void onChat(object sender, EventArgs e)
+        {
+            var x = (MabiPacket)sender;
+            var c = (MabiPacketEventArgs)e;
+            var t = DateTime.Now;
+            string cc = " ";
+            bool f_show = false;
+            string tts_name = "";
+            int tts_speed = 0;
+            int tts_volume = 0;
+
+
+
+            // フィルタリング
+            if ( __ChatSelWhitelist == 0)
+            {
+                if ( c.CharacterType == CharacterTypes.User )
+                {
+                    cc = "PC ";
+                    f_show = true;
+                    switch ( __ChatSelUser )
+                    {
+                        case 0: // OFF
+                            f_show = false;
+                            break;
+                        case 1: // Chat Only
+                            break;
+                        case 2: // Voice 1
+                            tts_name = __TTS1Name;
+                            tts_speed = __TTS1Speed;
+                            tts_volume = __TTS1Volume;
+                            break;
+                        case 3: // Voice 2
+                            tts_name = __TTS2Name;
+                            tts_speed = __TTS2Speed;
+                            tts_volume = __TTS2Volume;
+                            break;
+                        default:
+                            f_show = false;
+                            break;
+                    }
+                }
+                else
+                {
+                    cc = "NPC";
+                    f_show = true;
+                    switch ( __ChatSelNpc )
+                    {
+                        case 0: // OFF
+                            f_show = false;
+                            break;
+                        case 1: // Chat Only
+                            break;
+                        case 2: // Voice 1
+                            tts_name = __TTS1Name;
+                            tts_speed = __TTS1Speed;
+                            tts_volume = __TTS1Volume;
+                            break;
+                        case 3: // Voice 2
+                            tts_name = __TTS2Name;
+                            tts_speed = __TTS2Speed;
+                            tts_volume = __TTS2Volume;
+                            break;
+                        default:
+                            f_show = false;
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                var fc = Program.CharaList.FindCharacterName(c.CharacterName);
+
+                if (fc != null )
+                {
+                    if (fc.CharacterType == c.CharacterType)
+                    {
+                        if (fc.Enabled)
+                        {
+                            f_show = true;
+                            if (__ChatSelWhitelist == 2)
+                            {
+                                tts_name = fc.TtsName;
+                                tts_speed = fc.TtsSpeed;
+                                tts_volume = fc.TtsVolume;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            if ( f_show == true )
+            {
+                TxtChatWriteLine($"{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord} " + Environment.NewLine);
+            }
+
+            if ( tts_name != "" )
+            {
+                speech_chat(tts_name, tts_volume, tts_speed, c.CharacterName, c.ChatWord);
+            }
+
+            if ( (Btn_Redirect.Text == "ON") && ((IntPtr)Btn_Redirect.Tag != null))
+            {
+                RedirectWriteLine(c.CharacterName, c.ChatWord);
+            }
+        }
+
         public void settingupd()
         {
             Cmb_Whitelist.SelectedIndex = Program.__ChatSelWhitelist;
@@ -240,9 +375,9 @@ namespace MabiChatSpeech
         {
             //throw new NotImplementedException();
             //ウィンドウのタイトルの長さを取得する
-            var _wi = new WINDOWINFO();
+            var _wi = new WinApi.WINDOWINFO();
             _wi.cbSize = Marshal.SizeOf(_wi);
-            NativeMethods.GetWindowInfo(hWnd, ref _wi);
+            WinApi.GetWindowInfo(hWnd, ref _wi);
 
             var f = !((_wi.dwStyle & 0x10C00000) == 0x10C00000);
 
@@ -265,12 +400,12 @@ namespace MabiChatSpeech
                 return true;
 
             }
-            int textLen = NativeMethods.GetWindowTextLength(hWnd);
+            int textLen = WinApi.GetWindowTextLength(hWnd);
             if (0 < textLen)
             {
                 //ウィンドウのタイトルを取得する
                 StringBuilder tsb = new StringBuilder(textLen + 1);
-                NativeMethods.GetWindowText(hWnd, tsb, tsb.Capacity);
+                WinApi.GetWindowText(hWnd, tsb, tsb.Capacity);
 
                 string ma = $"{tsb}";
                 if (!ma.Equals("マビノギ"))
@@ -292,7 +427,7 @@ namespace MabiChatSpeech
         {
             BTN_SendTask.DropDownItems.Clear();
             twlist.Clear();
-            NativeMethods.EnumWindows(new EnumWindowsDelegate(EnumWindowCallBack), IntPtr.Zero);
+            WinApi.EnumWindows(new EnumWindowsDelegate(EnumWindowCallBack), IntPtr.Zero);
 
 //                        BTN_SendTask.DropDownItems.Add("CAV " + p.ProcessName + ":" + p.MainWindowTitle);
 
@@ -305,7 +440,7 @@ namespace MabiChatSpeech
         {
             Btn_Redirect.Tag = e.ClickedItem.Tag;
             BTN_SendTask.Text =  e.ClickedItem.Text;
-            NativeMethods.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
+            WinApi.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
         }
 
 

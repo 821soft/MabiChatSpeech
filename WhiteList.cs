@@ -16,7 +16,6 @@ using System.Diagnostics;
 using static MabiChatSpeech.Program;
 using System.Reflection;
 using System.Collections;
-using static MabiChatSpeech.MabiChat;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Xml.Linq;
 
@@ -266,7 +265,7 @@ namespace MabiChatSpeech
             Program.CharaList.CNlist.Clear();
             for ( int index=0;index< Lsv_Whitelist.Items.Count;index++)
             {
-                var item = new CharacterNameData(Lsv_Whitelist.Items[index]);
+                var item = new MabiChat.CharacterNameData(Lsv_Whitelist.Items[index]);
                 Program.CharaList.CNlist.Add(item);
             }
             Program.CharaList.CNlist.Sort((a, b) => a.CharName.CompareTo(b.CharName));
