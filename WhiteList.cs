@@ -35,6 +35,11 @@ namespace MabiChatSpeech
             this.Close();
         }
 
+        private void BTN_Cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void Btn_Ins_Click(object sender, EventArgs e)
         {
             // logIns
@@ -101,8 +106,15 @@ namespace MabiChatSpeech
         {
             // Selected  or Non-Select
             CMN_Menu.Items.Clear();
+            var m_add = CMN_Menu.Items.Add("Add");
+            m_add.Click += toolStripMenuItem1_Click;
+            var m_del = CMN_Menu.Items.Add("Delete");
+            m_del.Click += deleteToolStripMenuItem_Click;
+
             if ( Lsv_Whitelist.SelectedItems.Count > 0 )
             {
+                CMN_Menu.Items.Add(new ToolStripSeparator());
+
                 // TTS Item
                 var sname = Lsv_Whitelist.SelectedItems[0].SubItems[2].Text;
                 // Selected Menu TTSName , Volume , Speed 
@@ -119,9 +131,7 @@ namespace MabiChatSpeech
                     }
                     mitem.Click += mitem_Click;
                 }
-                //
-                var sep = new ToolStripSeparator();
-                CMN_Menu.Items.Add(sep);
+                CMN_Menu.Items.Add(new ToolStripSeparator());
 
                 ToolStripTextBox MNT_VolEdit = new ToolStripTextBox();
                 MNT_VolEdit.Text = Lsv_Whitelist.SelectedItems[0].SubItems[3].Text;
@@ -132,10 +142,6 @@ namespace MabiChatSpeech
                 MNT_SpdEdit.Text = Lsv_Whitelist.SelectedItems[0].SubItems[4].Text;
                 MNT_SpdEdit.TextChanged += MNT_Spd_Leave;
                 CMN_Menu.Items.Add(MNT_SpdEdit);
-            }
-            else
-            {
-
             }
         }
         private void mitem_Click(object sender, EventArgs e)
@@ -223,7 +229,6 @@ namespace MabiChatSpeech
                         GPB_Item.Enabled = false;
                         return;
                     }
-
                 }
                 var item = Lsv_Whitelist.Items.Add(Txt_Cn.Text);
                 item.Checked = CHK_Enabled.Checked;
@@ -232,8 +237,6 @@ namespace MabiChatSpeech
                 item.SubItems.Add($"{NUD_Volume.Value}");
                 item.SubItems.Add($"{NUD_Speed.Value}");
                 GPB_Item.Enabled = false;
-
-
             }
         }
         private void CharaList2Lsv()
@@ -270,10 +273,6 @@ namespace MabiChatSpeech
             }
             Program.CharaList.CNlist.Sort((a, b) => a.CharName.CompareTo(b.CharName));
             Program.CharaList.FileTextWrite();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
         }
         ListViewItemComparer listViewItemSorter;
 

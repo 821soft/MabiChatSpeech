@@ -25,40 +25,17 @@ namespace MabiChatSpeech
 {
     internal static class Program
     {
-        public static void ChatLogSave(TextBox Log)
-        {
-            string savefilename = __SavePath + "\\mabichatlog";
-
-            if ( Log.Text.Length == 0)
-            {
-                return;
-            }
-            DateTime dt = DateTime.Now;
-
-            switch ( __SaveMode )
-            {
-                case 0: //しない
-                    break;
-                case 1: // 上書き
-                    savefilename += ".txt";
-                    File.WriteAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    File.AppendAllText(savefilename, Log.Text);
-                    break;
-                case 2: // 追記
-                    savefilename += ".txt";
-                    File.AppendAllText(savefilename, $"Chat Log ***{dt:F}***" +Environment.NewLine);
-                    File.AppendAllText(savefilename, Log.Text);
-                    break;
-                case 3: // タイムスタンプ
-                    savefilename += $"_{dt:yyyyMMdd}_{dt:HHmmss}.txt";
-                    File.WriteAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    File.AppendAllText(savefilename, Log.Text);
-                    break;
-                default:
-                    break;
-            }
-        }
-
+        public static CharacterNameList CharaList = new CharacterNameList();
+        public static Main Frm_Main;
+        static public MabiPacket packets = new MabiPacket();
+        public static List<string> TTS_NameList = new List<string>();
+        public static Color[] Color16List = {
+                Color.Black, Color.Gray, Color.Silver, Color.White,
+                Color.Maroon,Color.Red,Color.Purple,Color.Fuchsia,
+                Color.Green,Color.Lime,Color.Olive,Color.Yellow,
+                Color.Navy,Color.Blue,Color.Teal,Color.Aqua
+            };
+        public static List<Font> FontItemList = new List<Font>();
         /*
          * 設定データ
          */
@@ -123,6 +100,16 @@ namespace MabiChatSpeech
         {
             get { return Properties.Settings.Default.__ChatBackColor; }
             set { Properties.Settings.Default.__ChatBackColor = value; }
+        }
+        public static int __ChatFColor
+        {
+            get { return Properties.Settings.Default.__ChatFColor; }
+            set { Properties.Settings.Default.__ChatFColor = value; }
+        }
+        public static int __ChatBColor
+        {
+            get { return Properties.Settings.Default.__ChatBColor; }
+            set { Properties.Settings.Default.__ChatBColor = value; }
         }
         public static int __ChatSelWhitelist
         {
@@ -196,26 +183,15 @@ namespace MabiChatSpeech
             set { Properties.Settings.Default.__WhiteList_AutoAdd = value; }
         }
 
+        public static string __Pos_Main
+        {
+            get { return Properties.Settings.Default.__Pos_Main; }
+            set { Properties.Settings.Default.__Pos_Main = value; }
+        }
 
-        public static CharacterNameList CharaList = new CharacterNameList();
-
-
-        public static Main Frm_Main ;
-        static public MabiPacket  packets = new MabiPacket();
-
-
-        public static List<string> TTS_NameList = new List<string>();
 
         public static string TTS_Names()
         {
-            /*
-             * 404 台湾 , 409 米国 , 411 日本 , 412 韓国
-             * 
-             * 
-             * 
-             */
-
-
             string retval_txt ="";
             TTS_NameList.Clear();
 
@@ -233,92 +209,36 @@ namespace MabiChatSpeech
                         fmt.EncodingFormat.ToString());
                     }
 
-                    Console.WriteLine(" Name:          " + info.Name);
-                    Console.WriteLine(" Culture:       " + info.Culture.Name);
                     TTS_NameList.Add($"[{info.Culture.Name}]{info.Name}");
                     retval_txt += info.Name +",";
-
-                    if (info.SupportedAudioFormats.Count != 0)
-                    {
-                        Console.WriteLine(" Audio formats: " + AudioFormats);
-                    }
-                    else
-                    {
-                        Console.WriteLine(" No supported audio formats found");
-                    }
-
-                    string AdditionalInfo = "";
-                    foreach (string key in info.AdditionalInfo.Keys)
-                    {
-                        AdditionalInfo += String.Format("  {0}: {1}\n", key, info.AdditionalInfo[key]);
-                    }
-
-                    Console.WriteLine(" Additional Info - " + AdditionalInfo);
-                    Console.WriteLine();
                 }
             }
             return (retval_txt.TrimEnd(','));
         }
-        static void TTSInfo()
-            {
-
-                // Initialize a new instance of the SpeechSynthesizer.  
-                using (SpeechSynthesizer synth = new SpeechSynthesizer())
-                {
-
-                    // Output information about all of the installed voices.   
-                    Console.WriteLine("Installed voices -");
-                    foreach (InstalledVoice voice in synth.GetInstalledVoices())
-                    {
-                        VoiceInfo info = voice.VoiceInfo;
-                        string AudioFormats = "";
-                        foreach (SpeechAudioFormatInfo fmt in info.SupportedAudioFormats)
-                        {
-                            AudioFormats += String.Format("{0}\n",
-                            fmt.EncodingFormat.ToString());
-                        }
-
-                        Console.WriteLine(" Name:          " + info.Name);
-                        Console.WriteLine(" Culture:       " + info.Culture.DisplayName);
-                        Console.WriteLine(" Age:           " + info.Age);
-                        Console.WriteLine(" Gender:        " + info.Gender);
-                        Console.WriteLine(" Description:   " + info.Description);
-                        Console.WriteLine(" ID:            " + info.Id);
-                        Console.WriteLine(" Enabled:       " + voice.Enabled);
-                        if (info.SupportedAudioFormats.Count != 0)
-                        {
-                            Console.WriteLine(" Audio formats: " + AudioFormats);
-                        }
-                        else
-                        {
-                            Console.WriteLine(" No supported audio formats found");
-                        }
-
-                        string AdditionalInfo = "";
-                        foreach (string key in info.AdditionalInfo.Keys)
-                        {
-                            AdditionalInfo += String.Format("  {0}: {1}\n", key, info.AdditionalInfo[key]);
-                        }
-
-                        Console.WriteLine(" Additional Info - " + AdditionalInfo);
-                        Console.WriteLine();
-                    }
-                }
-            }
- 
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            //speech_spk = new SpeechSynthesizer();
-            //speech_spk.SetOutputToDefaultAudioDevice();
-            //Debug.Print(TTS_Names());
-            //TTSInfo();
-            TTS_Names();
+            try 
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                TTS_Names();
+            }
+            catch (Exception e)
+            {
+                while(e.InnerException != null)
+                {
+                    e = e.InnerException;
+                }
+                MessageBox.Show($"起動できません.\n {e.Message}",
+                    "エラー",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                Application.Exit();
+            }
             if ( __TTS1Name == "" )
             {
                 __TTS1Name = TTS_NameList[0];
@@ -328,12 +248,25 @@ namespace MabiChatSpeech
                 __TTS2Name = TTS_NameList[0];
             }
 
-
-            //ChanelList();
+            //FontItemList = new Collection();
+            FontFamily[] ffs = FontFamily.Families;
+            foreach (FontFamily ff in ffs)
+            {
+                Font f = new Font(ff,11,FontStyle.Regular);
+                Debug.Print($"{f.Name} : {f.GdiCharSet}");
+                FontItemList.Add(f);
+            }
+            string [] _Pos_Main = __Pos_Main.Split(',');
+            Point winpos = new Point();
+            winpos.X = int.Parse( _Pos_Main[0]);
+            winpos.Y = int.Parse(_Pos_Main[1]);
+            Size winsize = new Size();
+            winsize.Width = int.Parse(_Pos_Main[2]);
+            winsize.Height = int.Parse(_Pos_Main[3]);
 
             Frm_Main = new Main();
-            //cap_init();
-
+            Frm_Main.Location = winpos;
+            Frm_Main.Size = winsize;
             Application.Run(Frm_Main);
         }
     }

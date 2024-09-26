@@ -10,6 +10,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PacketDotNet;
 
 namespace MabiChatSpeech
 {
@@ -21,24 +22,16 @@ namespace MabiChatSpeech
             InitializeComponent();
 
             Lsv_Server.Items.Clear();
-            //サーバー情報をListViewItemに設定
-            string path = @"mabiserverlist.txt";
-
-            // ファイル読み込み＆文字化け防止
-            var lines = File.ReadAllLines(path, Encoding.GetEncoding("utf-8"));
 
             // 1行ずつ読み込んで表示
+            var lines = Program.packets.SVList();
             int cnt = 1;
             foreach (var line in lines)
             {
-                string []coldata = line.Split(',');
-                if( coldata.Length>1 )
-                {
                     var item = Lsv_Server.Items.Add($"{cnt}");
-                    item.SubItems.Add(coldata[0]);
-                    item.SubItems.Add(coldata[1]);
+                    item.SubItems.Add(line.ip);
+                    item.SubItems.Add(line.name);
                     cnt++;
-                }
             }
 
 
@@ -62,42 +55,14 @@ namespace MabiChatSpeech
 
         private void Tim_ServerInfo_Tick(object sender, EventArgs e)
         {
-            /*
-                        var sts = Program.ScanMabiPort();
-                        if (sts == -1)
-                        {
-                            Txt_ServerInfo.Text = "Client Off";
-                            foreach (ListViewItem svrec in Lsv_Server.Items)
-                            {
-                                if (svrec.BackColor != Color.White)
-                                {
-                                    svrec.BackColor = Color.White;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Txt_ServerInfo.Text = "Client Open Port List" + Environment.NewLine ;
-                            foreach (var item in Program.MabiPortList)
-                            {
-                                Txt_ServerInfo.Text += $"{item.RemotePort} {item.RemoteAddr}" + Environment.NewLine;
-                                if ( item.RemotePort == 11020 ) 
-                                { 
-                                    foreach(ListViewItem svrec in Lsv_Server.Items)
-                                    {
-                                        if ( svrec.SubItems[2].Text == item.RemoteAddr ) 
-                                        {
-                                            svrec.BackColor = Color.Yellow;
-                                        }
-                                        else if (svrec.BackColor != Color.White)
-                                        {
-                                            svrec.BackColor = Color.White;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-            */
+            // タイミングでPortListが更新されるのでCopy
+            List<st_MabiPort> Ports = new List<st_MabiPort>(Program.packets.PortList);
+            Txt_ServerInfo.Text = "";
+            foreach ( var pl in Ports)
+            {
+                Txt_ServerInfo.AppendText($"{pl.RemotePort}:{pl.RemoteAddr}" + Environment.NewLine);
+            }
+
         }
     }
 }

@@ -24,7 +24,7 @@ namespace MabiChatSpeech
             Lsv_cs.Items.Clear();
             for (int i = 0; i < MabiPacket.chatDatas.Count; i++)
             {
-                MabiPacket.ChatData item = MabiPacket.chatDatas[i];
+                ChatData item = MabiPacket.chatDatas[i];
                 if (item.CharacterName != null)
                 {
 

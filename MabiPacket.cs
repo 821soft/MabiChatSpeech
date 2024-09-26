@@ -20,51 +20,99 @@ using System.Xml.Linq;
 
 namespace MabiChatSpeech
 {
-    public enum ClinetStatus { off, on, charsel, online }
+    public enum ClinetStatus { OFF, ON, CHARASEL, ONLINE }
     public enum CharacterTypes : byte { User = 0x00, Pet = 0x01, Doll = 0x03 ,Npc = 0xf0 }
-
-    // Event Interface
-    public interface IMabiPacketObject
+    public enum PacketModes { Chat, Dump }
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MIB_TCPROW_OWNER_PID
     {
-        event EventHandler ConnectEvent;
-        event EventHandler ChatEvent;
+        public int State;
+        public int LocalAddr;
+        public int LocalPort;
+        public int RemoteAddr;
+        public int RemotePort;
+        public int OwningPid;
     }
-    public class MabiPacketEventArgs : EventArgs
+
+    enum TCP_TABLE_CLASS
+    {
+        TCP_TABLE_BASIC_LISTENER,
+        TCP_TABLE_BASIC_CONNECTIONS,
+        TCP_TABLE_BASIC_ALL,
+        TCP_TABLE_OWNER_PID_LISTENER,
+        TCP_TABLE_OWNER_PID_CONNECTIONS,
+        TCP_TABLE_OWNER_PID_ALL,
+        TCP_TABLE_OWNER_MODULE_LISTENER,
+        TCP_TABLE_OWNER_MODULE_CONNECTIONS,
+        TCP_TABLE_OWNER_MODULE_ALL
+    };
+    public struct st_MabiPort
+    {
+        public bool uflag;
+        public int State;
+        public string LocalAddr;
+        public int LocalPort;
+        public string RemoteAddr;
+        public int RemotePort;
+
+    }
+    public struct st_MabiServer
+    {
+        public string name;
+        public string ip;
+    }
+    // Chat Data
+    public struct ChatData
     {
         public string CharacterName;
         public CharacterTypes CharacterType;
         public string ChatWord;
     }
 
+    //Nic
+    public struct st_adapter
+    {
+        public string Description;
+        public string Name;
+        public string ipv4Addr;
+        public NetworkInterfaceType ifacetype;
+    }
+
+    // Event Interface
+    public interface IMabiPacketObject
+    {
+        event EventHandler ConnectEvent;
+        event EventHandler ChatEvent;
+        event EventHandler PacketEvent;
+    }
+    public class MabiPacketEventArgs : EventArgs
+    {
+        public string CharacterName;
+        public CharacterTypes CharacterType;
+        public string ChatWord;
+        public string PacketDump;
+        public ClinetStatus csts;
+        public bool cap_sts;
+        public string svname;
+    }
+
     // Mabinogi Packet Class
     public class MabiPacket
     {
-        // Chat Data
-        public struct ChatData
-        {
-            public string CharacterName;
-            public CharacterTypes CharacterType;
-            public string ChatWord;
-        }
-
-        //Nic
-        public struct st_adapter
-        {
-            public string Description;
-            public string Name;
-            public string ipv4Addr;
-            public NetworkInterfaceType ifacetype;
-        }
+        [DllImport("iphlpapi.dll")]
+        extern static int GetExtendedTcpTable(IntPtr pTcpTable, ref int pdwSize,
+        bool bOrder, uint ulAf, TCP_TABLE_CLASS TableClass, int Reserved);
 
         public static List<ChatData> chatDatas = new List<ChatData>();
 
         private System.Timers.Timer WDT = new System.Timers.Timer();
         public ClinetStatus csts;
         private int pid;
-        private List<st_MabiPort> PortList = new List<st_MabiPort>();
+        public List<st_MabiPort> PortList = new List<st_MabiPort>();
         private string svip = "";
         public string svname = "";
         public bool cap_sts = false;
+        public PacketModes PacketMode = PacketModes.Chat;
         private string localip = "";
         private static CaptureDeviceList NetDevs = CaptureDeviceList.Instance;
         private static ILiveDevice capdev;
@@ -105,46 +153,41 @@ namespace MabiChatSpeech
                     else if (unicast.Address.AddressFamily == AddressFamily.InterNetworkV6)
                     {
                         // IPv6アドレス
-                        //ipaddress.Add(unicast.Address);
                     }
                 }
             }
-
             return nicname;
         }
 
         // タイマー監視
         private void onWDT(object sender, ElapsedEventArgs e)
         {
-            ClinetStatus sts = ClinetStatus.off;
+            ClinetStatus sts = ClinetStatus.OFF;
             string ip = "";
             string name = "";
 
             this.pid = GetMabinogiPid();
             if (this.pid != 0)
             {
-                sts = ClinetStatus.on ;
+                sts = ClinetStatus.ON ;
                 PortList.Clear();
                 PortList = ScanMabiPort(this.pid);
                 if ( PortList.Count > 0 ) 
                 {
-                    sts = ClinetStatus.charsel;
+                    sts = ClinetStatus.CHARASEL;
                     if ( localip =="" )
                     {
-
                         // ローカルIP確定 キャプチャデバイスを指定する
                         localip = PortList[0].LocalAddr;
                         var nic = GetNicName(localip);
                         capdev = null;
                         foreach (var dev in NetDevs)
                         {
-                            Debug.Print($"{dev.Name}|{nic}");
                             if (dev.Name.Contains(nic))
                             {
                                 capdev = dev;
                             }
                         }
-
                     }
                     // Caputure開始
                     if ( ( capdev != null) && ( capdev.Started == false) )
@@ -159,17 +202,27 @@ namespace MabiChatSpeech
                         var csv = ServerList.Find(x => x.ip == sv.RemoteAddr);
                         if (csv.name.Length > 0)
                         {
-                            sts = ClinetStatus.online;
+                            sts = ClinetStatus.ONLINE;
                             ip = csv.ip;
                             name = csv.name;
                         }
                     }
                     else
                     {
-                        sts = ClinetStatus.charsel;
+                        sts = ClinetStatus.CHARASEL;
                     }
                 }
             }
+/*
+            if (capdev != null)
+            {
+                Debug.Print($"WDT {csts} {svip} Cap {capdev.Started},{sts},{ip}");
+            }
+            else
+            {
+                Debug.Print($"WDT {csts} {svip} Cap Null {sts},{ip}");
+            }
+*/
             if ( ( sts != csts ) || (svip != ip))
             {
                 svip = ip;
@@ -182,7 +235,19 @@ namespace MabiChatSpeech
         public event EventHandler ConnectEvent;
         void Connect()
         {
-            OnConnect(new MabiPacketEventArgs());
+            var e = new MabiPacketEventArgs();
+            e.csts = csts;
+            if (capdev != null)
+            {
+                e.cap_sts = capdev.Started;
+            }
+            else
+            {
+                e.cap_sts = false;
+            }
+            e.svname = svname;
+
+            OnConnect(e);
         }
         protected virtual void OnConnect(MabiPacketEventArgs e)
         {
@@ -201,43 +266,26 @@ namespace MabiChatSpeech
         {
             ChatEvent?.Invoke(this, e);
         }
+        public event EventHandler PacketEvent;
+        void PacketDumps(string s)
+        {
+            var e = new MabiPacketEventArgs();
+            e.PacketDump = s;
+            OnPacketDump(e);
+        }
+        protected virtual void OnPacketDump(MabiPacketEventArgs e)
+        {
+            PacketEvent?.Invoke(this, e);
+        }
 
         public MabiPacket()
         {
-            ChanelList();
-            csts = ClinetStatus.off;
+            LoadChanelList();
+            csts = ClinetStatus.OFF;
             WDT.Interval = 1000;
             WDT.Elapsed += onWDT;
             WDT.Start();
         }
-        [DllImport("iphlpapi.dll")]
-        extern static int GetExtendedTcpTable(IntPtr pTcpTable, ref int pdwSize,
-        bool bOrder, uint ulAf, TCP_TABLE_CLASS TableClass, int Reserved);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct MIB_TCPROW_OWNER_PID
-        {
-            public int State;
-            public int LocalAddr;
-            public int LocalPort;
-            public int RemoteAddr;
-            public int RemotePort;
-            public int OwningPid;
-        }
-
-        enum TCP_TABLE_CLASS
-        {
-            TCP_TABLE_BASIC_LISTENER,
-            TCP_TABLE_BASIC_CONNECTIONS,
-            TCP_TABLE_BASIC_ALL,
-            TCP_TABLE_OWNER_PID_LISTENER,
-            TCP_TABLE_OWNER_PID_CONNECTIONS,
-            TCP_TABLE_OWNER_PID_ALL,
-            TCP_TABLE_OWNER_MODULE_LISTENER,
-            TCP_TABLE_OWNER_MODULE_CONNECTIONS,
-            TCP_TABLE_OWNER_MODULE_ALL
-        };
-
         private static string ipstr(int addr)
         {
             var b = BitConverter.GetBytes(addr);
@@ -251,7 +299,6 @@ namespace MabiChatSpeech
             return (int)tmp;
         }
 
-
         private static int GetMabinogiPid()
         {
             System.Diagnostics.Process[] ps =
@@ -262,24 +309,12 @@ namespace MabiChatSpeech
             }
             return (0);
         }
-        private struct st_MabiPort
+        public static List<st_MabiServer> ServerList = new List<st_MabiServer>();
+
+        public List<st_MabiServer> SVList()
         {
-            public bool uflag;
-            public int State;
-            public string LocalAddr;
-            public int LocalPort;
-            public string RemoteAddr;
-            public int RemotePort;
-
+            return (ServerList);
         }
-        private struct st_MabiServer
-        {
-            public string name;
-            public string ip;
-        }
-        private static List<st_MabiServer> ServerList = new List<st_MabiServer>();
-
-
         private static List <st_MabiPort> ScanMabiPort(int pid)
         {
             var retval = new List <st_MabiPort>();
@@ -306,7 +341,6 @@ namespace MabiChatSpeech
                     if (o.OwningPid == pid)
                     {
                         // マビノギが開いているポート 
-
                         st_MabiPort arec = new st_MabiPort();
                         arec.uflag = true;
                         arec.State = o.State;
@@ -317,22 +351,17 @@ namespace MabiChatSpeech
 
                         retval.Add(arec);
                     }
-
                     ptr = IntPtr.Add(ptr, Marshal.SizeOf(typeof(MIB_TCPROW_OWNER_PID)));//次のデータ
                 }
                 Marshal.FreeHGlobal(p);  //メモリ開放
             }
             return (retval);
         }
-        private static void ChanelList()
+        private static void LoadChanelList()
         {
             ServerList.Clear();
-
-            string path = @"mabiserverlist.txt";
-
+            string path = @"MabiServerList.txt";
             var lines = File.ReadAllLines(path, Encoding.GetEncoding("utf-8"));
-
-
             foreach (var line in lines)
             {
                 string[] coldata = line.Split(',');
@@ -351,7 +380,6 @@ namespace MabiChatSpeech
             Array.Copy(pay, 0, tcpbuff, pos, len);
             tcpblen = pos + len;
             return (pos + len);
-
         }
 
         private static ChatData analyses_packet(int len)
@@ -367,7 +395,6 @@ namespace MabiChatSpeech
             int st2_len = 0;
             int st2_idx = 0;
             int st1_idx = 0;
-
 
             //*** データ部のサーチ 0x00 
             byte[] PTN_Start = new byte[8] { 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x52, 0x6c }; // 8byte 
@@ -421,12 +448,9 @@ namespace MabiChatSpeech
                     }
                 }
             }
-
-
             // チャットの出力
             if ((st1_len != 0) && (st2_len != 0))
             {
-
                 Array.Copy(tcpbuff, st1_idx + 1, da1, 0, st1_len);
                 Array.Copy(tcpbuff, st2_idx + 1, da2, 0, st2_len);
 
@@ -435,7 +459,6 @@ namespace MabiChatSpeech
                 string s2 = System.Text.Encoding.UTF8.GetString(da2);
                 ret.ChatWord = s2.Replace("\0", "");
             }
-
             return ret;
         }
         public static void chatdatas_add(ChatData data)
@@ -446,8 +469,6 @@ namespace MabiChatSpeech
                 chatDatas.Add(data);
             }
         }
-
-
         private void device_OnPacketArrival(object sender, PacketCapture e)
         {
             var time = e.Header.Timeval.Date;
@@ -472,13 +493,10 @@ namespace MabiChatSpeech
                         svip = csv.ip;
                         svname = csv.name;
                     }
-
                     Connect();
                 }
-
                 if (tcpPacket.Push == false)
                 {
-
                     bpos = push_packet(bpos, tcpPacket.PayloadData, tcpPacket.PayloadData.Length);
                     bpos = 0;
                     //dumptext(tcpPacket, ad, dhd, pushcnt);
@@ -486,22 +504,26 @@ namespace MabiChatSpeech
                     {
                         pushcnt++;
                     }
-
                     return;
                 }
-
-
                 bpos = push_packet(bpos, tcpPacket.PayloadData, tcpPacket.PayloadData.Length);
                 bpos = 0;
-
                 //dumptext(tcpPacket, ad, dhd, pushcnt);
                 pushcnt = 0;
-                ChatData chats = analyses_packet(tcpblen);
-                if ((chats.ChatWord != "") && (chats.CharacterName != ""))
+                if (PacketMode == PacketModes.Chat )
                 {
-                    chatdatas_add(chats);
-                    //チャット受信でイベント
-                    Chat(chats);
+                    ChatData chats = analyses_packet(tcpblen);
+                    if ((chats.ChatWord != "") && (chats.CharacterName != ""))
+                    {
+                        chatdatas_add(chats);
+                        //チャット受信でイベント
+                        Chat(chats);
+                    }
+                }
+                else if(PacketMode == PacketModes.Dump )
+                {
+                    string dumpstr = dumptext();
+                    PacketDumps(dumpstr);
                 }
             }
         }
@@ -510,8 +532,7 @@ namespace MabiChatSpeech
         {
             svip = "";
             svname = "";
-
-            cap_sts = false;
+            cap_sts = capdev.Started;
         }
 
         private void capdev_start()
@@ -520,16 +541,112 @@ namespace MabiChatSpeech
             capdev.OnPacketArrival += device_OnPacketArrival;
             capdev.OnCaptureStopped += device_OnCaptureStopped;
             capdev.Filter = $"tcp src port 11020 and dst host {localip}";// and dst port {lp}";
-            cap_sts = true;
             capdev.StartCapture();
+            cap_sts = capdev.Started;
+
+            Connect();
+
         }
         private void capdev_stop()
         {
             svip = "";
             svname = "";
-            cap_sts = false;
+            cap_sts = capdev.Started; 
         }
+        private string dumptext()
+        {
+            var tm = DateTime.Now;
+            string lstr = "";
+            lstr += $"Time:{tm} Length:{tcpblen}" + Environment.NewLine;
+            lstr += "     | +0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +A +B +C +D +E +F | 0123456789ABCDEF |" + Environment.NewLine;
+            lstr += "-----+-------------------------------------------------+------------------|" + Environment.NewLine;
 
+            for (int i = 0; i < tcpblen; i += 16)
+            {
+                lstr += $"{i:X4} | ";
+                for (int j = 0; j < 16; j++)
+                {
+                    if (i + j >= tcpblen)
+                    {
+                        var feed = 16 - j;
+                        for (int f = feed; f > 0; f--)
+                        {
+                            lstr += "   ";
+                        }
+                        break;
+                    }
+                    lstr += $"{tcpbuff[i + j]:x02} ";
+                }
+
+                lstr += "| ";
+                for (int j = 0; j < 16; j++)
+                {
+                    if (i + j >= tcpblen)
+                    {
+                        var feed = 16 - j;
+                        for (int f = feed; f > 0; f--)
+                        {
+                            lstr += " ";
+                        }
+                        lstr += " ";
+                        break;
+                    }
+
+                    /* UTF8コード*/
+                    byte[] uni = new byte[3];
+                    uni[0] = tcpbuff[i + j];
+                    uni[1] = tcpbuff[i + j + 1];
+                    uni[2] = tcpbuff[i + j + 2];
+
+                    if (((0xe0 <= uni[0]) && (uni[0] <= 0xef)) &&
+                         ((0x80 <= uni[1]) && (uni[1] <= 0xDF)) &&
+                         ((0x80 <= uni[2]) && (uni[2] <= 0xFF)))
+                    {
+                        var encoding = Encoding.GetEncoding("UTF-8");
+                        var text = encoding.GetString(uni);
+
+                        lstr += text;
+                        if (j < 13)
+                        {
+                            lstr += " ";
+                        }
+                        else if (j == 13)
+                        {
+
+                            lstr += "  ";
+                        }
+                        else if (j == 14)
+                        {
+                            lstr += " ";
+                        }
+
+                        j += 2;
+                    }
+                    else
+                    {
+                        if ((0x20 <= tcpbuff[i + j]) && (tcpbuff[i + j] <= 0x7e))
+                        {
+                            char c = (char)tcpbuff[i + j];
+                            lstr += c;
+                        }
+                        else
+                        {
+                            lstr += ".";
+                        }
+
+                        if (j == 15)
+                        {
+                            lstr += " ";
+                        }
+                    }
+                }
+
+                lstr += "|";
+
+                lstr += Environment.NewLine;
+            }
+            lstr += Environment.NewLine;
+            return(lstr);
+        }
     }
-
 }

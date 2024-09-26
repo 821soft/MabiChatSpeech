@@ -85,7 +85,7 @@ namespace MabiChatSpeech.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("11")]
         public float @__ChatFontSize {
             get {
                 return ((float)(this["__ChatFontSize"]));
@@ -356,6 +356,42 @@ namespace MabiChatSpeech.Properties {
             }
             set {
                 this["__TTS2Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        public int @__ChatFColor {
+            get {
+                return ((int)(this["__ChatFColor"]));
+            }
+            set {
+                this["__ChatFColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int @__ChatBColor {
+            get {
+                return ((int)(this["__ChatBColor"]));
+            }
+            set {
+                this["__ChatBColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0,0,700,400")]
+        public string @__Pos_Main {
+            get {
+                return ((string)(this["__Pos_Main"]));
+            }
+            set {
+                this["__Pos_Main"] = value;
             }
         }
     }

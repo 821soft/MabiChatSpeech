@@ -42,16 +42,16 @@
             this.NUD_Speed = new System.Windows.Forms.NumericUpDown();
             this.Cmb_Ct = new System.Windows.Forms.ComboBox();
             this.NUD_Volume = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BTN_Cancel = new System.Windows.Forms.Button();
             this.Btn_Ins = new System.Windows.Forms.Button();
             this.Btn_Ok = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Lsv_Whitelist = new System.Windows.Forms.ListView();
-            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CMN_Menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -212,16 +212,17 @@
             0,
             0});
             // 
-            // button1
+            // BTN_Cancel
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button1.Location = new System.Drawing.Point(384, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 28);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.BTN_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.BTN_Cancel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.BTN_Cancel.Location = new System.Drawing.Point(384, 0);
+            this.BTN_Cancel.Name = "BTN_Cancel";
+            this.BTN_Cancel.Size = new System.Drawing.Size(75, 28);
+            this.BTN_Cancel.TabIndex = 8;
+            this.BTN_Cancel.Text = "Cancel";
+            this.BTN_Cancel.UseVisualStyleBackColor = true;
+            this.BTN_Cancel.Click += new System.EventHandler(this.BTN_Cancel_Click);
             // 
             // Btn_Ins
             // 
@@ -355,7 +356,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.BTN_Cancel);
             this.panel1.Controls.Add(this.Btn_Ok);
             this.panel1.Controls.Add(this.Btn_Ins);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -367,8 +368,10 @@
             // 
             // WhiteList
             // 
+            this.AcceptButton = this.Btn_Ok;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.BTN_Cancel;
             this.ClientSize = new System.Drawing.Size(534, 525);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -379,7 +382,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "WhiteList";
+            this.Text = "キャラ指定リスト";
             this.Load += new System.EventHandler(this.WhiteList_Load);
             this.Shown += new System.EventHandler(this.WhiteList_Shown);
             this.panel2.ResumeLayout(false);
@@ -420,7 +423,7 @@
         private System.Windows.Forms.ContextMenuStrip CMN_Menu;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BTN_Cancel;
         private System.Windows.Forms.ComboBox Cmb_TTSName;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;

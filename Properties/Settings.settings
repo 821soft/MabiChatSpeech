@@ -18,7 +18,7 @@
       <Value Profile="(Default)">ＭＳ Ｐゴシック</Value>
     </Setting>
     <Setting Name="__ChatFontSize" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">11</Value>
     </Setting>
     <Setting Name="__ChatFontStyle" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -85,6 +85,15 @@
     </Setting>
     <Setting Name="__TTS2Name" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="__ChatFColor" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">9</Value>
+    </Setting>
+    <Setting Name="__ChatBColor" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="__Pos_Main" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,0,700,400</Value>
     </Setting>
   </Settings>
 </SettingsFile>

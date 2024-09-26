@@ -114,15 +114,15 @@
             "タルラーク(商店街)",
             "52.193.39.60"}, -1);
             this.Lsv_Server = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.Btn_Close = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Txt_ServerInfo = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.Tim_ServerInfo = new System.Windows.Forms.Timer(this.components);
-            this.Txt_ServerInfo = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -202,6 +202,17 @@
             this.panel1.Size = new System.Drawing.Size(274, 94);
             this.panel1.TabIndex = 3;
             // 
+            // Txt_ServerInfo
+            // 
+            this.Txt_ServerInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Txt_ServerInfo.Location = new System.Drawing.Point(0, 0);
+            this.Txt_ServerInfo.Multiline = true;
+            this.Txt_ServerInfo.Name = "Txt_ServerInfo";
+            this.Txt_ServerInfo.ReadOnly = true;
+            this.Txt_ServerInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.Txt_ServerInfo.Size = new System.Drawing.Size(274, 94);
+            this.Txt_ServerInfo.TabIndex = 0;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.Lsv_Server);
@@ -224,15 +235,6 @@
             // 
             this.Tim_ServerInfo.Interval = 500;
             this.Tim_ServerInfo.Tick += new System.EventHandler(this.Tim_ServerInfo_Tick);
-            // 
-            // Txt_ServerInfo
-            // 
-            this.Txt_ServerInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Txt_ServerInfo.Location = new System.Drawing.Point(0, 0);
-            this.Txt_ServerInfo.Multiline = true;
-            this.Txt_ServerInfo.Name = "Txt_ServerInfo";
-            this.Txt_ServerInfo.Size = new System.Drawing.Size(274, 94);
-            this.Txt_ServerInfo.TabIndex = 0;
             // 
             // ServerInfo
             // 
