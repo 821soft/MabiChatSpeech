@@ -376,10 +376,10 @@ namespace MabiChatSpeech
         }
         private static int push_packet(int pos, byte[] pay, int len)
         {
-            // Debug.Print($"push pos {pos} / len {len}");
+            // Debug.Print($"Push P :{pushcnt}/{pos}/{len}");
             Array.Copy(pay, 0, tcpbuff, pos, len);
             tcpblen = pos + len;
-            return (pos + len);
+            return ( tcpblen );
         }
 
         private static ChatData analyses_packet(int len)
@@ -495,11 +495,18 @@ namespace MabiChatSpeech
                     }
                     Connect();
                 }
+
+                if (PacketMode == PacketModes.Dump)
+                {
+                    string dumpstr = dumptext(tcpPacket);
+                    // string dumpstr = tcpPacket.PrintHex();
+                    PacketDumps(dumpstr);
+                }
+
                 if (tcpPacket.Push == false)
                 {
+                    // パケットの続きあり
                     bpos = push_packet(bpos, tcpPacket.PayloadData, tcpPacket.PayloadData.Length);
-                    bpos = 0;
-                    //dumptext(tcpPacket, ad, dhd, pushcnt);
                     if (tcpPacket.PayloadData.Length > 0)
                     {
                         pushcnt++;
@@ -508,8 +515,8 @@ namespace MabiChatSpeech
                 }
                 bpos = push_packet(bpos, tcpPacket.PayloadData, tcpPacket.PayloadData.Length);
                 bpos = 0;
-                //dumptext(tcpPacket, ad, dhd, pushcnt);
                 pushcnt = 0;
+                //dumptext(tcpPacket, ad, dhd, pushcnt);
                 if (PacketMode == PacketModes.Chat )
                 {
                     ChatData chats = analyses_packet(tcpblen);
@@ -519,11 +526,6 @@ namespace MabiChatSpeech
                         //チャット受信でイベント
                         Chat(chats);
                     }
-                }
-                else if(PacketMode == PacketModes.Dump )
-                {
-                    string dumpstr = dumptext();
-                    PacketDumps(dumpstr);
                 }
             }
         }
@@ -553,20 +555,35 @@ namespace MabiChatSpeech
             svname = "";
             cap_sts = capdev.Started; 
         }
-        private string dumptext()
+
+        
+        private string dumptext( PacketDotNet.TcpPacket p )
         {
             var tm = DateTime.Now;
+
+            if (p.PayloadData == null)
+            {
+                return ("");
+            }
+            var len = p.PayloadData.Length;
+            var payload = p.PayloadData;
             string lstr = "";
-            lstr += $"Time:{tm} Length:{tcpblen}" + Environment.NewLine;
+            
+            if (len < 1)
+            {
+                return ("");
+            }
+
+            lstr += $"Time:{tm} (PSH){p.Push} (Len):{len} (S){p.SequenceNumber} / (A){p.AcknowledgmentNumber}" + Environment.NewLine;
             lstr += "     | +0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +A +B +C +D +E +F | 0123456789ABCDEF |" + Environment.NewLine;
             lstr += "-----+-------------------------------------------------+------------------|" + Environment.NewLine;
 
-            for (int i = 0; i < tcpblen; i += 16)
+            for (int i = 0; i < len; i += 16)
             {
                 lstr += $"{i:X4} | ";
                 for (int j = 0; j < 16; j++)
                 {
-                    if (i + j >= tcpblen)
+                    if (i + j >= len)
                     {
                         var feed = 16 - j;
                         for (int f = feed; f > 0; f--)
@@ -575,13 +592,13 @@ namespace MabiChatSpeech
                         }
                         break;
                     }
-                    lstr += $"{tcpbuff[i + j]:x02} ";
+                    lstr += $"{payload[i + j]:x02} ";
                 }
 
                 lstr += "| ";
                 for (int j = 0; j < 16; j++)
                 {
-                    if (i + j >= tcpblen)
+                    if (i + j >= len)
                     {
                         var feed = 16 - j;
                         for (int f = feed; f > 0; f--)
@@ -592,52 +609,72 @@ namespace MabiChatSpeech
                         break;
                     }
 
-                    /* UTF8コード*/
-                    byte[] uni = new byte[3];
-                    uni[0] = tcpbuff[i + j];
-                    uni[1] = tcpbuff[i + j + 1];
-                    uni[2] = tcpbuff[i + j + 2];
-
-                    if (((0xe0 <= uni[0]) && (uni[0] <= 0xef)) &&
-                         ((0x80 <= uni[1]) && (uni[1] <= 0xDF)) &&
-                         ((0x80 <= uni[2]) && (uni[2] <= 0xFF)))
+                    try
                     {
-                        var encoding = Encoding.GetEncoding("UTF-8");
-                        var text = encoding.GetString(uni);
+                        var Moji = "";
+                        if ((payload[i + j] & 0B1110_0000) == (0B1110_0000))
+                        { // 3
+                            if (i + j + 2 >= len)
+                            { // Over Range // 1ByteData
 
-                        lstr += text;
-                        if (j < 13)
-                        {
-                            lstr += " ";
-                        }
-                        else if (j == 13)
-                        {
+                            }
+                            else
+                            {
+                                /* UTF8コード*/
+                                byte[] uni = new byte[3];
+                                uni[0] = payload[i + j];
+                                uni[1] = payload[i + j + 1];
+                                uni[2] = payload[i + j + 2];
 
-                            lstr += "  ";
-                        }
-                        else if (j == 14)
-                        {
-                            lstr += " ";
+                                if (((0xe0 <= uni[0]) && (uni[0] <= 0xef)) &&
+                                     ((0x80 <= uni[1]) && (uni[1] <= 0xBF)) &&
+                                     ((0x80 <= uni[2]) && (uni[2] <= 0xBF)))
+                                {
+                                    var encoding = Encoding.GetEncoding("UTF-8");
+                                    Moji = encoding.GetString(uni);
+
+                                    if (j < 13)
+                                    {
+                                        Moji += "_";
+                                    }
+                                    else if (j == 13)
+                                    {
+
+                                        Moji += "_ ";
+                                    }
+                                    else if (j == 14)
+                                    {
+                                        Moji += "=";
+                                    }
+
+                                    j += 2;
+                                }
+                            }
                         }
 
-                        j += 2;
+                        if (Moji.Length == 0)
+                        {
+                            if ((0x20 <= payload[i + j]) && (payload[i + j] <= 0x7e))
+                            {
+                                char c = (char)payload[i + j];
+                                Moji += c;
+                            }
+                            else
+                            {
+                                Moji += ".";
+                            }
+
+                            if (j == 15)
+                            {
+                                Moji += " ";
+                            }
+                        }
+
+                        lstr += Moji;
                     }
-                    else
+                    catch
                     {
-                        if ((0x20 <= tcpbuff[i + j]) && (tcpbuff[i + j] <= 0x7e))
-                        {
-                            char c = (char)tcpbuff[i + j];
-                            lstr += c;
-                        }
-                        else
-                        {
-                            lstr += ".";
-                        }
-
-                        if (j == 15)
-                        {
-                            lstr += " ";
-                        }
+                        lstr += " ";
                     }
                 }
 
@@ -646,6 +683,7 @@ namespace MabiChatSpeech
                 lstr += Environment.NewLine;
             }
             lstr += Environment.NewLine;
+
             return(lstr);
         }
     }

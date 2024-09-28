@@ -173,6 +173,21 @@ namespace MabiChatSpeech
 
         private void Main_Shown(object sender, EventArgs e)
         {
+            // Bug.001
+            int h = System.Windows.Forms.Screen.GetWorkingArea(this).Height;
+            int w = System.Windows.Forms.Screen.GetWorkingArea(this).Width;
+            if ( ( 0 > this.Location.X + this.Size.Width - 8 ) || ( ( w - 8 ) <= this.Location.X ) )
+            {
+                this.Location = new Point ( 1 , this.Location.Y );
+            }
+
+            if ((0 > this.Location.Y + this.Size.Height - 8) || ((h - 8) <= this.Location.Y))
+            {
+                this.Location = new Point( this.Location.X , 1 );
+            }
+            // Bug.001
+
+
             settingupd();
             Program.packets.ConnectEvent += onConnect;
             Program.packets.ChatEvent += onChat;
