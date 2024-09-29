@@ -73,18 +73,6 @@ namespace MabiChatSpeech.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ＭＳ Ｐゴシック")]
-        public string @__ChatFontName {
-            get {
-                return ((string)(this["__ChatFontName"]));
-            }
-            set {
-                this["__ChatFontName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("11")]
         public float @__ChatFontSize {
             get {
@@ -392,6 +380,18 @@ namespace MabiChatSpeech.Properties {
             }
             set {
                 this["__Pos_Main"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ＭＳ ゴシック")]
+        public string @__ChatFontName {
+            get {
+                return ((string)(this["__ChatFontName"]));
+            }
+            set {
+                this["__ChatFontName"] = value;
             }
         }
     }

@@ -574,7 +574,8 @@ namespace MabiChatSpeech
                 return ("");
             }
 
-            lstr += $"Time:{tm} (PSH){p.Push} (Len):{len} (S){p.SequenceNumber} / (A){p.AcknowledgmentNumber}" + Environment.NewLine;
+            lstr += $"Time:{tm} (Len):{len} " + Environment.NewLine;
+            lstr += $"(PSH){p.Push} (Flags)0x{p.Flags:X} (S){p.SequenceNumber} / (A){p.AcknowledgmentNumber}" + Environment.NewLine; ;
             lstr += "     | +0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +A +B +C +D +E +F | 0123456789ABCDEF |" + Environment.NewLine;
             lstr += "-----+-------------------------------------------------+------------------|" + Environment.NewLine;
 

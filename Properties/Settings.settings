@@ -14,9 +14,6 @@
     <Setting Name="__SavePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="__ChatFontName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">ＭＳ Ｐゴシック</Value>
-    </Setting>
     <Setting Name="__ChatFontSize" Type="System.Single" Scope="User">
       <Value Profile="(Default)">11</Value>
     </Setting>
@@ -94,6 +91,9 @@
     </Setting>
     <Setting Name="__Pos_Main" Type="System.String" Scope="User">
       <Value Profile="(Default)">0,0,700,400</Value>
+    </Setting>
+    <Setting Name="__ChatFontName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ＭＳ ゴシック</Value>
     </Setting>
   </Settings>
 </SettingsFile>
