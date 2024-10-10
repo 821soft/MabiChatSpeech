@@ -1,0 +1,7 @@
+﻿[*.{cs,vb}]
+
+# IDE0017: オブジェクトの初期化を簡略化します
+dotnet_diagnostic.IDE0017.severity = silent
+
+# Default severity for all analyzer diagnostics
+dotnet_analyzer_diagnostic.severity = silent

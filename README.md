@@ -45,5 +45,10 @@ https://npcap.com/ より　Npcap 1.80 installer を
   →接続先（IP)の変化で状態変化イベント発火
 　→チャットならチャット受信イベント発火
 
-
+機能アイディア
+・client終了時の自アプリ終了
+・clientアクティブ時の音声再生抑止
+・DumpMode のパケット単体 orPSH単位
+　処理単位→パケット or レイヤ
+  
 

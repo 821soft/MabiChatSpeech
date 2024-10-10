@@ -360,6 +360,13 @@ namespace MabiChatSpeech
             if ( f_show == true )
             {
                 TxtChatWriteLine($"{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord} " + Environment.NewLine);
+                if (Btn_Redirect.Tag != null)
+                {
+                    if (Btn_Redirect.Text == "ON")
+                    {
+                        RedirectWriteLine(c.CharacterName, c.ChatWord);
+                    }
+                }
             }
 
             if ( tts_name != "" )
@@ -367,13 +374,6 @@ namespace MabiChatSpeech
                 speech_chat(tts_name, tts_volume, tts_speed, c.CharacterName, c.ChatWord);
             }
 
-            if( Btn_Redirect.Tag != null)
-            {
-                if (Btn_Redirect.Text == "ON")
-                {
-                    RedirectWriteLine(c.CharacterName, c.ChatWord);
-                }
-            }
         }
 
         // Setting 
@@ -449,8 +449,10 @@ namespace MabiChatSpeech
 
         private void Btn_Setup_Click(object sender, EventArgs e)
         {
-            Setting Frm_Setting = new Setting();
-            Frm_Setting.Owner = this;
+            Setting Frm_Setting = new Setting
+            {
+                Owner = this
+            };
             Frm_Setting.ShowDialog();
         }
 
@@ -474,13 +476,13 @@ namespace MabiChatSpeech
             _wi.cbSize = Marshal.SizeOf(_wi);
             WinApi.GetWindowInfo(hWnd, ref _wi);
 
-            var f = !((_wi.dwStyle & 0x10C00000) == 0x10C00000);
+            var f = !((_wi.dwStyle & 0x10000000) == 0x10000000);
 
             if (f)
             {
                 return true;
             }
-
+/*
             f = ((_wi.dwStyle & 0x80000000) == 0x80000000);
             if (f)
             {
@@ -492,6 +494,7 @@ namespace MabiChatSpeech
             {
                 return true;
             }
+  */
             int textLen = WinApi.GetWindowTextLength(hWnd);
             if (0 < textLen)
             {
@@ -500,6 +503,7 @@ namespace MabiChatSpeech
                 WinApi.GetWindowText(hWnd, tsb, tsb.Capacity);
 
                 string ma = $"{tsb}";
+                Debug.Print(ma);
                 if (!ma.Equals("マビノギ"))
                 {
                     var item = BTN_SendTask.DropDownItems.Add(ma);
@@ -537,17 +541,24 @@ namespace MabiChatSpeech
 
         private void Btn_DumpView_Click(object sender, EventArgs e)
         {
-            if ( Btn_DumpView.Checked == false )
+            if ( Program.packets.PacketMode == PacketModes.Chat )
             {
-                TxtChatWriteLine("Dump Log *** Start" + Environment.NewLine);
-                Btn_DumpView.Checked = true;
+                TxtChatWriteLine("Dump Mode *** Start" + Environment.NewLine);
                 Program.packets.PacketMode = PacketModes.Dump;
+                SLB_Mode.Text = $"{Program.packets.PacketMode}" ;
             }
-            else
+            else if (Program.packets.PacketMode == PacketModes.Dump)
             {
-                TxtChatWriteLine("Dump Log *** End" + Environment.NewLine);
-                Btn_DumpView.Checked = false;
-                Program.packets.PacketMode = PacketModes.Chat;
+                //                TxtChatWriteLine("Analysys Mode *** Start" + Environment.NewLine);
+                TxtChatWriteLine("Chat Mode *** Start" + Environment.NewLine);
+                Program.packets.PacketMode = PacketModes.Chat ;
+                SLB_Mode.Text = $"{Program.packets.PacketMode}";
+            }
+            else if (Program.packets.PacketMode == PacketModes.Analysys )
+            {
+                TxtChatWriteLine("Chat Mode *** Start" + Environment.NewLine);
+                Program.packets.PacketMode = PacketModes.Chat ;
+                SLB_Mode.Text = $"{Program.packets.PacketMode}";
             }
         }
 

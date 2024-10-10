@@ -57,28 +57,31 @@ namespace MabiChatSpeech
             foreach ( var t in Program.chatDatas ) {
             var f = Program.CharaList.FindCharacterName("")
             */
-            for ( int idx = 0;idx < Lsv_cs.Items.Count; idx ++ )
+            for (int idx = 0; idx < Lsv_cs.Items.Count; idx++)
             {
                 var a_item = Lsv_cs.Items[idx];
                 if (a_item.Checked == true)
                 {
                     var f = CharaList.FindCharacterName(a_item.Text);
-                    if ( f ==  null )
+                    if (f == null)
                     {
                         CharacterTypes ty;
                         switch (a_item.SubItems[1].Text)
                         {
-                            case "User": ty = CharacterTypes.User; 
+                            case "User":
+                                ty = CharacterTypes.User;
                                 break;
-                            case "Npc": ty = CharacterTypes.Npc;
+                            case "Npc":
+                                ty = CharacterTypes.Npc;
                                 break;
-                            case "Pet": ty = CharacterTypes.Pet;
+                            case "Pet":
+                                ty = CharacterTypes.Pet;
                                 break;
                             default:
                                 ty = (CharacterTypes)byte.Parse(a_item.SubItems[1].Text);
                                 break;
                         }
-                        MabiChat.CharacterNameData item = new MabiChat.CharacterNameData(a_item.Text, true,ty,__TTS1Name,__TTS1Volume,__TTS1Speed);
+                        MabiChat.CharacterNameData item = new MabiChat.CharacterNameData(a_item.Text, true, ty, __TTS1Name, __TTS1Volume, __TTS1Speed);
                         CharaList.CNlist.Add(item);
                     }
                 }
@@ -104,6 +107,31 @@ namespace MabiChatSpeech
         private void Btn_Add_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void allCheckToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int idx = 0; idx < Lsv_cs.Items.Count; idx++)
+            {
+                var a_item = Lsv_cs.Items[idx];
+                a_item.Checked = true;
+            }
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            for (int idx = 0; idx < Lsv_cs.Items.Count; idx++)
+            {
+                var a_item = Lsv_cs.Items[idx];
+                if (a_item.Checked == true)
+                {
+                    a_item.Checked = false;
+                }
+                else
+                {
+                    a_item.Checked = true;
+                }
+            }
         }
     }
 }

@@ -51,6 +51,7 @@
             this.Cmb_User = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.Cmb_Npc = new System.Windows.Forms.ToolStripComboBox();
+            this.SLB_Mode = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -58,6 +59,7 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SLB_Mode,
             this.SLB_SaveMode,
             this.SLB_Client,
             this.SLB_Ip,
@@ -273,6 +275,13 @@
             this.Cmb_Npc.ToolTipText = "その他のキャラ";
             this.Cmb_Npc.SelectedIndexChanged += new System.EventHandler(this.Cmb_Npc_SelectedIndexChanged);
             // 
+            // SLB_Mode
+            // 
+            this.SLB_Mode.Name = "SLB_Mode";
+            this.SLB_Mode.Size = new System.Drawing.Size(31, 17);
+            this.SLB_Mode.Text = "Chat";
+            this.SLB_Mode.ToolTipText = "Mode";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -323,6 +332,7 @@
         private System.Windows.Forms.ToolStripButton Btn_DumpView;
         private System.Windows.Forms.ToolStripDropDownButton BTN_SendTask;
         private System.Windows.Forms.ToolStripStatusLabel Btn_Redirect;
+        private System.Windows.Forms.ToolStripStatusLabel SLB_Mode;
     }
 }
 
