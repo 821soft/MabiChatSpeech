@@ -31,6 +31,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>MabiChatSpeech.ico</ApplicationIcon>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyVersion>1.0.0.2</AssemblyVersion>
+    <FileVersion>1.0.0.2</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

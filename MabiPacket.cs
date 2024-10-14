@@ -400,6 +400,14 @@ namespace MabiChatSpeech
         }
         private static PacketChatData packet_getChat(byte [] buff,int pos)
         {
+
+            /*
+             * [06 00](文字数)[1Byte](文字データ)[nByte][06 00](文字数)[1Byte](文字データ)
+             * 
+             * 
+             * 
+             */
+
             PacketChatData ret = new PacketChatData();
             int ofst = pos;
             ret.CNameType =  buff[ofst];
@@ -457,6 +465,7 @@ namespace MabiChatSpeech
                         var val = new ChatData();
                         val.CharacterType = (CharacterTypes)tcpbuff[bf + 7];
 
+
                         // 吹き出し
                         if (tcpbuff[bf + 7] == 0x00)
                         {
@@ -468,6 +477,24 @@ namespace MabiChatSpeech
                             // NPCの吹き出データ開始位置
                             bd = bf + 18;
                         }
+                        // 03 00 01 00 のパターン位置
+                        for (int i = bf+8 ; i< blen ; i++)
+                        {
+                            if (tcpbuff[i] == 0x03)
+                            {
+                                if (tcpbuff[i + 1] == 0x00)
+                                {
+                                    if (tcpbuff[i + 2] == 0x01)
+                                    {
+                                        if (tcpbuff[i + 3] == 0x00)
+                                        {
+                                            bd = i + 4;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         var cd = packet_getChat(tcpbuff, bd);
                         val.CharacterName = cd.CName;
                         val.ChatWord = cd.CWord;

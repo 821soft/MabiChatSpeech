@@ -110,6 +110,12 @@ namespace MabiChatSpeech
             m_add.Click += toolStripMenuItem1_Click;
             var m_del = CMN_Menu.Items.Add("Delete");
             m_del.Click += deleteToolStripMenuItem_Click;
+            var m_allcheck = CMN_Menu.Items.Add("AllCheck");
+            m_allcheck.Click += allcheck_MNU_Item_Click;
+            var m_alluncheck = CMN_Menu.Items.Add("AllUnCheck");
+            m_alluncheck.Click += alluncheck_MNU_Item_Click;
+            var m_checkrevers = CMN_Menu.Items.Add("AllCheckRevers");
+            m_checkrevers.Click += allcheckrevers_MNU_Item_Click;
 
             if ( Lsv_Whitelist.SelectedItems.Count > 0 )
             {
@@ -202,6 +208,35 @@ namespace MabiChatSpeech
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             InsRec();
+        }
+
+        private void allcheck_MNU_Item_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in Lsv_Whitelist.Items)
+            {
+                item.Checked = true;
+            }
+        }
+        private void alluncheck_MNU_Item_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in Lsv_Whitelist.Items)
+            {
+                item.Checked = false;
+            }
+        }
+        private void allcheckrevers_MNU_Item_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in Lsv_Whitelist.Items)
+            {
+                if ( item.Checked )
+                {
+                    item.Checked = false;
+                }
+                else
+                {
+                    item.Checked = true;
+                }
+            }
         }
 
         private void Btn_Upd_Click(object sender, EventArgs e)
