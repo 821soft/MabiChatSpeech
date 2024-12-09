@@ -117,6 +117,7 @@ namespace MabiChatSpeech
         public bool cap_sts = false;
         public PacketModes PacketMode = PacketModes.Chat;
         private string localip = "";
+        private int localPort;
         private static CaptureDeviceList NetDevs = CaptureDeviceList.Instance;
         private static ILiveDevice capdev;
         private static byte[] tcpbuff = new byte[1024 * 1024 * 4];
@@ -209,6 +210,8 @@ namespace MabiChatSpeech
                             sts = ClinetStatus.ONLINE;
                             ip = csv.ip;
                             name = csv.name;
+                            // ここにPort
+                            localPort = sv.LocalPort;
                         }
                     }
                     else
@@ -533,7 +536,12 @@ namespace MabiChatSpeech
                 int srcPort = tcpPacket.SourcePort;
                 int dstPort = tcpPacket.DestinationPort;
 
-                var sip = $"{srcIp}";
+                if ( localPort != dstPort )
+                {
+                    return;
+                }
+
+                    var sip = $"{srcIp}";
                 if (svip != sip)
                 {
                     // サーバーリストからマッチを探す
