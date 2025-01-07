@@ -110,6 +110,7 @@ namespace MabiChatSpeech
 
         private System.Timers.Timer WDT = new System.Timers.Timer();
         public ClinetStatus csts;
+        public int PortNo = 0;
         private int pid;
         public List<st_MabiPort> PortList = new List<st_MabiPort>();
         private string svip = "";
@@ -202,6 +203,8 @@ namespace MabiChatSpeech
                     var sv = PortList.Find(x => x.RemotePort == 11020);
                     if (sv.RemotePort == 11020)
                     {
+                        // Localポートをホールド
+                        PortNo = sv.LocalPort;
                         // サーバーリストからマッチを探す
                         var csv = ServerList.Find(x => x.ip == sv.RemoteAddr);
                         if (csv.name.Length > 0)
@@ -533,7 +536,16 @@ namespace MabiChatSpeech
                 int srcPort = tcpPacket.SourcePort;
                 int dstPort = tcpPacket.DestinationPort;
 
+
+　              // local側 ipアドレス＋ポート番号で　パケットデータの仕分け
+                var lip = $"{dstIp}:{dstPort}";
                 var sip = $"{srcIp}";
+                // 多重起動しているClient(VM上)のメッセージを除外
+                if ( PortNo != dstPort )
+                {
+                    return;
+                }
+
                 if (svip != sip)
                 {
                     // サーバーリストからマッチを探す

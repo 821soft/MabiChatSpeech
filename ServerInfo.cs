@@ -60,7 +60,7 @@ namespace MabiChatSpeech
             Txt_ServerInfo.Text = "";
             foreach ( var pl in Ports)
             {
-                Txt_ServerInfo.AppendText($"{pl.RemotePort}:{pl.RemoteAddr}" + Environment.NewLine);
+                Txt_ServerInfo.AppendText($"{pl.RemotePort}:{pl.RemoteAddr} -> {pl.LocalAddr}:{pl.LocalPort}" + Environment.NewLine);
             }
 
         }
