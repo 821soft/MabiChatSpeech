@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MabiChatSpeech", "MabiChatSpeech.csproj", "{FE8F96CD-9789-452C-B773-AF09FDA79DCA}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup_MCS", "..\Setup_MCS\Setup_MCS.vdproj", "{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup_MCS", "Setup_MCS\Setup_MCS.vdproj", "{427B227C-2CD4-48FA-8DD4-2F9EBDB766BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,18 +29,12 @@ Global
 		{FE8F96CD-9789-452C-B773-AF09FDA79DCA}.test|Any CPU.Build.0 = test|Any CPU
 		{FE8F96CD-9789-452C-B773-AF09FDA79DCA}.test|x64.ActiveCfg = test|Any CPU
 		{FE8F96CD-9789-452C-B773-AF09FDA79DCA}.test|x64.Build.0 = test|Any CPU
-		{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}.Debug|Any CPU.ActiveCfg = Debug
-		{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}.Debug|Any CPU.Build.0 = Debug
-		{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}.Debug|x64.ActiveCfg = Debug
-		{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}.Debug|x64.Build.0 = Debug
-		{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}.Release|Any CPU.ActiveCfg = Release
-		{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}.Release|Any CPU.Build.0 = Release
-		{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}.Release|x64.ActiveCfg = Release
-		{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}.Release|x64.Build.0 = Release
-		{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}.test|Any CPU.ActiveCfg = test
-		{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}.test|Any CPU.Build.0 = test
-		{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}.test|x64.ActiveCfg = test
-		{EAB13233-10C7-4D64-AC47-B58E4F2EBE57}.test|x64.Build.0 = test
+		{427B227C-2CD4-48FA-8DD4-2F9EBDB766BE}.Debug|Any CPU.ActiveCfg = Debug
+		{427B227C-2CD4-48FA-8DD4-2F9EBDB766BE}.Debug|x64.ActiveCfg = Debug
+		{427B227C-2CD4-48FA-8DD4-2F9EBDB766BE}.Release|Any CPU.ActiveCfg = Release
+		{427B227C-2CD4-48FA-8DD4-2F9EBDB766BE}.Release|x64.ActiveCfg = Release
+		{427B227C-2CD4-48FA-8DD4-2F9EBDB766BE}.test|Any CPU.ActiveCfg = Debug
+		{427B227C-2CD4-48FA-8DD4-2F9EBDB766BE}.test|x64.ActiveCfg = Debug
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
