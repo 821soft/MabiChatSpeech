@@ -264,10 +264,31 @@ namespace MabiChatSpeech
             winsize.Width = int.Parse(_Pos_Main[2]);
             winsize.Height = int.Parse(_Pos_Main[3]);
 
-            Frm_Main = new Main();
-            Frm_Main.Location = winpos;
-            Frm_Main.Size = winsize;
-            Application.Run(Frm_Main);
+            try
+            {
+                Frm_Main = new Main();
+                Frm_Main.Location = winpos;
+                Frm_Main.Size = winsize;
+                Application.Run(Frm_Main);
+            }
+            catch (Exception e)
+            {
+                while (e.InnerException != null)
+                {
+                    e = e.InnerException;
+                }
+                MessageBox.Show($"エラー終了.\n {e.Message}",
+                    "エラー",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                Application.Exit();
+            }
+
         }
+        private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            //どこにもキャッチされなかった例外があったときここが実行される
+        }
+
     }
 }
