@@ -20,6 +20,7 @@ using System.Xml.Linq;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Linq.Expressions;
 
 namespace MabiChatSpeech
 {
@@ -443,6 +444,18 @@ namespace MabiChatSpeech
         private static List <ChatData> analyses_packet2(int len)
         {
             var ret = new List<ChatData>();
+            string [] expression_ = {
+                "(愛)", "(悪)", "(安)", "(怪)", "(感)", "(喜)",
+                "(奇)", "(嬉)", "(輝)", "(疑)", "(泣)", "(叫)",
+                "(恐)", "(驚)", "(緊)", "(苦)", "(嫌)", "(幸)",
+                "(混)", "(惨)", "(酸)", "(邪)", "(照)", "(笑)",
+                "(衝)", "(情)", "(真)", "(辛)", "(酔)", "(正)",
+                "(静)", "(暖)", "(恥)", "(痛)", "(怒)", "(悲)",
+                "(疲)", "(普)", "(変)", "(呆)", "(萌)", "(黙)",
+                "(優)", "(痒)", "(睨)",
+
+            };
+
 
             // Block単位でサーチ
             try
@@ -502,9 +515,19 @@ namespace MabiChatSpeech
                         }
 
                         var cd = packet_getChat(tcpbuff, bd);
-                        val.CharacterName = cd.CName;
-                        val.ChatWord = cd.CWord;
-                        ret.Add(val);
+
+                        foreach (var ex in expression_ )
+                        {
+                            cd.CWord = cd.CWord.Replace(ex, "");
+                        }
+
+                        if ( cd.CWord.Length > 0 )
+                        {
+                            val.CharacterName = cd.CName;
+                            val.ChatWord = cd.CWord;
+                            ret.Add(val);
+                        }
+
                     }
                     b += blen;
                 }

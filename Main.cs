@@ -18,6 +18,7 @@ using static MabiChatSpeech.Program;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Collections;
 using static MabiChatSpeech.MabiChat;
+using System.Threading;
 
 namespace MabiChatSpeech
 {
@@ -64,17 +65,22 @@ namespace MabiChatSpeech
                     //リダイレクト アクティブ切替
                     if (Btn_Redirect.Text == "ON")
                     {
-                        // リダイレクト
-                        WinApi.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
-                        string sayword = "";
-                        if (Program.__TTS_NameCall == true)
-                        {
-                            sayword = c1 + "  ";
-                        }
-                        sayword += c2;
+                        //                        Task.Run(async () => {
+                        //                            await Task.Delay(5000);
+                            // リダイレクト
+                            WinApi.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
+                            string sayword = "";
+                            if (Program.__TTS_NameCall == true)
+                            {
+                                sayword = c1 + "  ";
+                            }
+                            sayword += c2;
 
-                        KeyboardEmulate keyboardEmulate = new KeyboardEmulate();
-                        keyboardEmulate.writeKeys(sayword);
+                            KeyboardEmulate keyboardEmulate = new KeyboardEmulate();
+                            keyboardEmulate.writeKeys(sayword);
+
+//                        });
+
                     }
                 }
             }
