@@ -136,6 +136,11 @@ namespace MabiChatSpeech
             Chk_TTSNameCall.Checked = Program.__TTS_NameCall;
 
             CHK_AutoAdd.Checked = Program.__WhiteList_AutoAdd ;
+
+            checkBox1.Checked = Program.__ChatView_No ;
+            checkBox2.Checked = Program.__ChatView_Time ;
+            checkBox3.Checked = Program.__ChatView_Type ;
+            checkBox4.Checked = Program.__ChatView_Name ;
         }
 
         private void Btn_Ok_Click(object sender, EventArgs e)
@@ -162,6 +167,10 @@ namespace MabiChatSpeech
             Program.__ChatBColor = CMB_BColor.SelectedIndex;
             Program.__ChatFontSize = float.Parse(CMB_FontSize.Text);
 
+            Program.__ChatView_No = checkBox1.Checked;
+            Program.__ChatView_Time = checkBox2.Checked;
+            Program.__ChatView_Type = checkBox3.Checked;
+            Program.__ChatView_Name = checkBox4.Checked;
 
             Font myFont = (Font)CMB_FF.SelectedItem;
             float size = Program.__ChatFontSize;

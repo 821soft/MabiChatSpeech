@@ -177,6 +177,30 @@ namespace MabiChatSpeech
             set { Properties.Settings.Default.__TTS_NameCall = value; }
         }
 
+        public static bool __ChatView_No
+        {
+            get { return Properties.Settings.Default.__ChatView_No; }
+            set { Properties.Settings.Default.__ChatView_No = value; }
+        }
+
+        public static bool __ChatView_Time
+        {
+            get { return Properties.Settings.Default.__ChatView_Time; }
+            set { Properties.Settings.Default.__ChatView_Time = value; }
+        }
+
+        public static bool __ChatView_Type
+        {
+            get { return Properties.Settings.Default.__ChatView_Type; }
+            set { Properties.Settings.Default.__ChatView_Type = value; }
+        }
+
+        public static bool __ChatView_Name
+        {
+            get { return Properties.Settings.Default.__ChatView_Name; }
+            set { Properties.Settings.Default.__ChatView_Name = value; }
+        }
+
         public static bool __WhiteList_AutoAdd
         {
             get { return Properties.Settings.Default.__WhiteList_AutoAdd; }

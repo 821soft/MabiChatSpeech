@@ -95,5 +95,17 @@
     <Setting Name="__ChatFontName" Type="System.String" Scope="User">
       <Value Profile="(Default)">ＭＳ ゴシック</Value>
     </Setting>
+    <Setting Name="__ChatView_No" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="__ChatView_Time" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="__ChatView_Type" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="__ChatView_Name" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
