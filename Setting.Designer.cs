@@ -78,16 +78,16 @@
             CMB_FF = new System.Windows.Forms.ComboBox();
             CMB_FontSize = new System.Windows.Forms.ComboBox();
             CMB_FColor = new System.Windows.Forms.ComboBox();
-            panel1 = new System.Windows.Forms.Panel();
-            Btn_Cancel = new System.Windows.Forms.Button();
-            Btn_Ok = new System.Windows.Forms.Button();
-            openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             label9 = new System.Windows.Forms.Label();
             tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             checkBox1 = new System.Windows.Forms.CheckBox();
             checkBox2 = new System.Windows.Forms.CheckBox();
             checkBox3 = new System.Windows.Forms.CheckBox();
             checkBox4 = new System.Windows.Forms.CheckBox();
+            panel1 = new System.Windows.Forms.Panel();
+            Btn_Cancel = new System.Windows.Forms.Button();
+            Btn_Ok = new System.Windows.Forms.Button();
+            openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
@@ -99,8 +99,8 @@
             ((System.ComponentModel.ISupportInitialize)Nud_TTS2Volume).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Nud_TTS2Speed).BeginInit();
             tableLayoutPanel8.SuspendLayout();
-            panel1.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -143,7 +143,7 @@
             tableLayoutPanel1.Controls.Add(tableLayoutPanel5, 1, 15);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 24;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -427,7 +427,7 @@
             Chk_TTSNameCall.AutoSize = true;
             Chk_TTSNameCall.Dock = System.Windows.Forms.DockStyle.Left;
             Chk_TTSNameCall.Location = new System.Drawing.Point(150, 585);
-            Chk_TTSNameCall.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            Chk_TTSNameCall.Margin = new System.Windows.Forms.Padding(4);
             Chk_TTSNameCall.Name = "Chk_TTSNameCall";
             Chk_TTSNameCall.Size = new System.Drawing.Size(15, 17);
             Chk_TTSNameCall.TabIndex = 19;
@@ -799,43 +799,6 @@
             CMB_FColor.TabIndex = 2;
             CMB_FColor.SelectedIndexChanged += CMB_FColor_SelectedIndexChanged;
             // 
-            // panel1
-            // 
-            panel1.Controls.Add(Btn_Cancel);
-            panel1.Controls.Add(Btn_Ok);
-            panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 654);
-            panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(584, 38);
-            panel1.TabIndex = 1;
-            // 
-            // Btn_Cancel
-            // 
-            Btn_Cancel.Location = new System.Drawing.Point(399, 5);
-            Btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            Btn_Cancel.Name = "Btn_Cancel";
-            Btn_Cancel.Size = new System.Drawing.Size(88, 29);
-            Btn_Cancel.TabIndex = 20;
-            Btn_Cancel.Text = "Cancel";
-            Btn_Cancel.UseVisualStyleBackColor = true;
-            Btn_Cancel.Click += Btn_Cancel_Click;
-            // 
-            // Btn_Ok
-            // 
-            Btn_Ok.Location = new System.Drawing.Point(493, 4);
-            Btn_Ok.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            Btn_Ok.Name = "Btn_Ok";
-            Btn_Ok.Size = new System.Drawing.Size(88, 29);
-            Btn_Ok.TabIndex = 21;
-            Btn_Ok.Text = "Ok";
-            Btn_Ok.UseVisualStyleBackColor = true;
-            Btn_Ok.Click += Btn_Ok_Click;
-            // 
-            // openFileDialog1
-            // 
-            openFileDialog1.FileName = "openFileDialog1";
-            // 
             // label9
             // 
             label9.AutoSize = true;
@@ -911,6 +874,43 @@
             checkBox4.Text = "Name";
             checkBox4.UseVisualStyleBackColor = true;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(Btn_Cancel);
+            panel1.Controls.Add(Btn_Ok);
+            panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel1.Location = new System.Drawing.Point(0, 654);
+            panel1.Margin = new System.Windows.Forms.Padding(4);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(584, 38);
+            panel1.TabIndex = 1;
+            // 
+            // Btn_Cancel
+            // 
+            Btn_Cancel.Location = new System.Drawing.Point(399, 5);
+            Btn_Cancel.Margin = new System.Windows.Forms.Padding(4);
+            Btn_Cancel.Name = "Btn_Cancel";
+            Btn_Cancel.Size = new System.Drawing.Size(88, 29);
+            Btn_Cancel.TabIndex = 20;
+            Btn_Cancel.Text = "Cancel";
+            Btn_Cancel.UseVisualStyleBackColor = true;
+            Btn_Cancel.Click += Btn_Cancel_Click;
+            // 
+            // Btn_Ok
+            // 
+            Btn_Ok.Location = new System.Drawing.Point(493, 4);
+            Btn_Ok.Margin = new System.Windows.Forms.Padding(4);
+            Btn_Ok.Name = "Btn_Ok";
+            Btn_Ok.Size = new System.Drawing.Size(88, 29);
+            Btn_Ok.TabIndex = 21;
+            Btn_Ok.Text = "Ok";
+            Btn_Ok.UseVisualStyleBackColor = true;
+            Btn_Ok.Click += Btn_Ok_Click;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            // 
             // Setting
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -919,7 +919,7 @@
             Controls.Add(panel1);
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            Margin = new System.Windows.Forms.Padding(4);
             Name = "Setting";
             ShowIcon = false;
             ShowInTaskbar = false;
@@ -942,9 +942,9 @@
             ((System.ComponentModel.ISupportInitialize)Nud_TTS2Volume).EndInit();
             ((System.ComponentModel.ISupportInitialize)Nud_TTS2Speed).EndInit();
             tableLayoutPanel8.ResumeLayout(false);
-            panel1.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
