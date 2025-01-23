@@ -24,6 +24,7 @@ namespace MabiChatSpeech
 {
     public partial class Main : Form
     {
+        static public int chat_cnt = 1;
         public Main()
         {
             InitializeComponent();
@@ -365,7 +366,27 @@ namespace MabiChatSpeech
 
             if ( f_show == true )
             {
-                TxtChatWriteLine($"{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord} " + Environment.NewLine);
+                string ChatView = "";
+                if ( __ChatView_No == true )
+                {
+                    ChatView = $"{chat_cnt},";
+                }
+
+                if (__ChatView_Time == true)
+                {
+                    ChatView += $"{t:HH:mm:ss.fff},";
+                }
+                if (__ChatView_Type == true)
+                {
+                    ChatView += $"{cc},";
+                }
+                if (__ChatView_Name == true)
+                {
+                    ChatView += $"{c.CharacterName},";
+                }
+                ChatView += $"{c.ChatWord}";
+                TxtChatWriteLine( ChatView + Environment.NewLine);
+                chat_cnt++;
                 if (Btn_Redirect.Tag != null)
                 {
                     if (Btn_Redirect.Text == "ON")
