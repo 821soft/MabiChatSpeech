@@ -27,6 +27,7 @@ namespace MabiChatSpeech
     {
         public static CharacterNameList CharaList = new CharacterNameList();
         public static Main Frm_Main;
+        public static string _tmpfname =""; 
         static public MabiPacket packets = new MabiPacket();
         public static List<string> TTS_NameList = new List<string>();
         public static Color[] Color16List = {
@@ -239,6 +240,10 @@ namespace MabiChatSpeech
             }
             return (retval_txt.TrimEnd(','));
         }
+        public static void tmpfile_write(string li)
+        {
+            File.AppendAllText(_tmpfname,li);
+        }
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
@@ -290,6 +295,7 @@ namespace MabiChatSpeech
 
             try
             {
+                _tmpfname = Path.GetTempFileName();
                 Frm_Main = new Main();
                 Frm_Main.Location = winpos;
                 Frm_Main.Size = winsize;

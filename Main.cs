@@ -252,6 +252,7 @@ namespace MabiChatSpeech
             var x = (MabiPacket)sender;
             var c = (MabiPacketEventArgs)e;
             TxtChatWriteLine(c.PacketDump);
+            Program.tmpfile_write(c.PacketDump);
         }
         // On Chat
         private void onChat(object sender, EventArgs e)
@@ -367,9 +368,19 @@ namespace MabiChatSpeech
             if ( f_show == true )
             {
                 string ChatView = "";
+                string li = "";
+
+                var cl = "${chat_cnt}";
+                var rc = 5 - cl.Length;
+                if (rc < 0)
+                {
+                    rc = 0;
+                }
+
                 if ( __ChatView_No == true )
                 {
-                    ChatView = $"{chat_cnt},";
+                    ChatView = ChatView.PadLeft(rc, ' ') ;
+                    ChatView += $"{chat_cnt},";
                 }
 
                 if (__ChatView_Time == true)
@@ -385,6 +396,8 @@ namespace MabiChatSpeech
                     ChatView += $"{c.CharacterName},";
                 }
                 ChatView += $"{c.ChatWord}";
+                li = $"{chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}" + Environment.NewLine;
+                Program.tmpfile_write(li);
                 TxtChatWriteLine( ChatView + Environment.NewLine);
                 chat_cnt++;
                 if (Btn_Redirect.Tag != null)
@@ -422,7 +435,8 @@ namespace MabiChatSpeech
         {
             string savefilename = __SavePath + "\\MabiChatLog";
 
-            if (Log.Text.Length == 0)
+            string[] logdata = File.ReadAllLines(Program._tmpfname);
+            if (logdata.Length == 0)
             {
                 return;
             }
@@ -435,17 +449,17 @@ namespace MabiChatSpeech
                 case 1: // 上書き
                     savefilename += ".txt";
                     File.WriteAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    File.AppendAllText(savefilename, Log.Text);
+                    File.AppendAllText(savefilename, logdata[0]);
                     break;
                 case 2: // 追記
                     savefilename += ".txt";
                     File.AppendAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    File.AppendAllText(savefilename, Log.Text);
+                    File.AppendAllText(savefilename, logdata[0]);
                     break;
                 case 3: // タイムスタンプ
                     savefilename += $"_{dt:yyyyMMdd}_{dt:HHmmss}.txt";
                     File.WriteAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    File.AppendAllText(savefilename, Log.Text);
+                    File.AppendAllText(savefilename, logdata[0]);
                     break;
                 default:
                     break;
