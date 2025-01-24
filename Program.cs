@@ -240,9 +240,9 @@ namespace MabiChatSpeech
             }
             return (retval_txt.TrimEnd(','));
         }
-        public static void tmpfile_write(string li)
+        public static void tmpfile_write(string [] li)
         {
-            File.AppendAllText(_tmpfname,li);
+            File.AppendAllLines(_tmpfname, li);
         }
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。

@@ -252,7 +252,8 @@ namespace MabiChatSpeech
             var x = (MabiPacket)sender;
             var c = (MabiPacketEventArgs)e;
             TxtChatWriteLine(c.PacketDump);
-            Program.tmpfile_write(c.PacketDump);
+            var li = c.PacketDump.Split(Environment.NewLine);
+            Program.tmpfile_write(li); 
         }
         // On Chat
         private void onChat(object sender, EventArgs e)
@@ -368,7 +369,7 @@ namespace MabiChatSpeech
             if ( f_show == true )
             {
                 string ChatView = "";
-                string li = "";
+                string [] li = { "" };
 
                 var cl = "${chat_cnt}";
                 var rc = 5 - cl.Length;
@@ -396,7 +397,7 @@ namespace MabiChatSpeech
                     ChatView += $"{c.CharacterName},";
                 }
                 ChatView += $"{c.ChatWord}";
-                li = $"{chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}" + Environment.NewLine;
+                li[0] = $"{chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}" ;
                 Program.tmpfile_write(li);
                 TxtChatWriteLine( ChatView + Environment.NewLine);
                 chat_cnt++;
@@ -449,17 +450,26 @@ namespace MabiChatSpeech
                 case 1: // 上書き
                     savefilename += ".txt";
                     File.WriteAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    File.AppendAllText(savefilename, logdata[0]);
+                    foreach ( var li in logdata )
+                    {
+                        File.AppendAllText(savefilename, li + Environment.NewLine);
+                    }
                     break;
                 case 2: // 追記
                     savefilename += ".txt";
                     File.AppendAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    File.AppendAllText(savefilename, logdata[0]);
+                    foreach (var li in logdata)
+                    {
+                        File.AppendAllText(savefilename, li + Environment.NewLine);
+                    }
                     break;
                 case 3: // タイムスタンプ
                     savefilename += $"_{dt:yyyyMMdd}_{dt:HHmmss}.txt";
                     File.WriteAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    File.AppendAllText(savefilename, logdata[0]);
+                    foreach (var li in logdata)
+                    {
+                        File.AppendAllText(savefilename, li + Environment.NewLine);
+                    }
                     break;
                 default:
                     break;
@@ -481,6 +491,11 @@ namespace MabiChatSpeech
             Program.CharaList.FileTextWrite();
             Properties.Settings.Default.Save();
             ChatLogSave(Txt_Chat);
+            if (File.Exists(_tmpfname))
+            {
+                File.Delete(_tmpfname);
+            }
+
         }
 
         private void Cmb_Whitelist_SelectedIndexChanged(object sender, EventArgs e)
@@ -584,20 +599,31 @@ namespace MabiChatSpeech
         {
             if ( Program.packets.PacketMode == PacketModes.Chat )
             {
-                TxtChatWriteLine("Dump Mode *** Start" + Environment.NewLine);
+                string [] msg = { "Dump Mode *** Start" + Environment.NewLine };
+                TxtChatWriteLine(msg[0]);
+                Program.tmpfile_write(msg);
+
+
+
                 Program.packets.PacketMode = PacketModes.Dump;
                 SLB_Mode.Text = $"{Program.packets.PacketMode}" ;
             }
             else if (Program.packets.PacketMode == PacketModes.Dump)
             {
                 //                TxtChatWriteLine("Analysys Mode *** Start" + Environment.NewLine);
-                TxtChatWriteLine("Chat Mode *** Start" + Environment.NewLine);
+                string[] msg = { "Chat Mode *** Start" + Environment.NewLine };
+                TxtChatWriteLine(msg[0]);
+                Program.tmpfile_write(msg);
+
                 Program.packets.PacketMode = PacketModes.Chat ;
                 SLB_Mode.Text = $"{Program.packets.PacketMode}";
             }
             else if (Program.packets.PacketMode == PacketModes.Analysys )
             {
-                TxtChatWriteLine("Chat Mode *** Start" + Environment.NewLine);
+                string []msg = { "Chat Mode *** Start" + Environment.NewLine } ;
+                TxtChatWriteLine(msg[0]);
+                Program.tmpfile_write(msg);
+
                 Program.packets.PacketMode = PacketModes.Chat ;
                 SLB_Mode.Text = $"{Program.packets.PacketMode}";
             }
