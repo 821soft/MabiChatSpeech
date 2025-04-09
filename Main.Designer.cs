@@ -126,7 +126,7 @@
             Txt_Chat.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             Txt_Chat.ForeColor = System.Drawing.Color.Lime;
             Txt_Chat.Location = new System.Drawing.Point(0, 25);
-            Txt_Chat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            Txt_Chat.Margin = new System.Windows.Forms.Padding(4);
             Txt_Chat.Multiline = true;
             Txt_Chat.Name = "Txt_Chat";
             Txt_Chat.ReadOnly = true;
@@ -265,7 +265,7 @@
             Controls.Add(toolStrip1);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
-            Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            Margin = new System.Windows.Forms.Padding(4);
             MinimumSize = new System.Drawing.Size(756, 240);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;

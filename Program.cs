@@ -25,6 +25,7 @@ namespace MabiChatSpeech
 {
     internal static class Program
     {
+
         public static CharacterNameList CharaList = new CharacterNameList();
         public static Main Frm_Main;
         public static string _tmpfname =""; 
@@ -250,7 +251,8 @@ namespace MabiChatSpeech
         [STAThread]
         static void Main()
         {
-            try 
+
+            try
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);

@@ -19,6 +19,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Collections;
 using static MabiChatSpeech.MabiChat;
 using System.Threading;
+using static MabiChatSpeech.Overlay;
 
 namespace MabiChatSpeech
 {
@@ -31,6 +32,24 @@ namespace MabiChatSpeech
         }
 
         // チャット
+        delegate void deg_Overlay_Label(string text);
+        public void TxtChatOverlayLabel(string sx)
+        {
+            try
+            {
+                if (this.InvokeRequired)
+                {
+                    Invoke(new deg_Overlay_Label(TxtChatOverlayLabel), sx);
+                }
+                else
+                {
+                    Overlay.addlabel(100, 100, sx);
+                }
+            }
+            catch
+            {
+            }
+        }
         delegate void deg_TxtChat_Text(string text);
         public void TxtChatWriteLine(string sx)
         {
@@ -210,6 +229,10 @@ namespace MabiChatSpeech
                 SLB_IP_ForeColor(Color.Black);
             }
 
+            //透過form
+            Overlay Frm_Overlay = new Overlay();
+            Frm_Overlay.Show();
+
 
         }
 
@@ -255,6 +278,7 @@ namespace MabiChatSpeech
             var li = c.PacketDump.Split(Environment.NewLine);
             Program.tmpfile_write(li); 
         }
+
         // On Chat
         private void onChat(object sender, EventArgs e)
         {
@@ -400,6 +424,9 @@ namespace MabiChatSpeech
                 li[0] = $"{chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}" ;
                 Program.tmpfile_write(li);
                 TxtChatWriteLine( ChatView + Environment.NewLine);
+                TxtChatOverlayLabel(ChatView);
+
+
                 chat_cnt++;
                 if (Btn_Redirect.Tag != null)
                 {
