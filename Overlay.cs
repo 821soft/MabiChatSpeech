@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,6 +24,18 @@ namespace MabiChatSpeech
 
 
         static System.Windows.Forms.Control owin;
+
+        //クリックの透過
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x00000020;
+                return cp;
+            }
+        }
+
         public Overlay()
         {
             InitializeComponent();
@@ -77,7 +90,11 @@ namespace MabiChatSpeech
             System.Windows.Forms.Label lb = new System.Windows.Forms.Label();
             lb.AutoSize = true;
             lb.Text = s;
-            lb.Location = new Point(x, y);
+            lb.ForeColor = Color.White;
+            lb.Font = new System.Drawing.Font("ＭＳ ゴシック", 18,
+                System.Drawing.FontStyle.Bold , System.Drawing.GraphicsUnit.Point, 128);
+
+            lb.Location = new Point(owin.Width, y);
             owin.Controls.Add(lb);
         }
     }
