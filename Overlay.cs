@@ -46,8 +46,15 @@ namespace MabiChatSpeech
 
         private void Overlay_Shown(object sender, EventArgs e)
         {
+
             timer1.Enabled = true;
             owin = this;
+            WinApi.RECT rect = new WinApi.RECT();
+            rect = WinApi.GetMabinogiRect();
+            this.Top = rect.top;
+            this.Left = rect.left;
+            this.Width = rect.right - rect.left;
+            this.Height = rect.top - rect.bottom;
         }
 
         private void Overlay_Paint(object sender, PaintEventArgs e)
@@ -64,6 +71,13 @@ namespace MabiChatSpeech
 
         }
 
+        /*
+         * FindWindow でターゲットのwhnd 
+         * GetWindowInfo でターゲット情報
+         * オーバーレイ窓のサイズ設定
+         * 
+         * 
+         */
         private void timer1_Tick(object sender, EventArgs e)
         {
             //子のラベルの位置を更新
@@ -93,6 +107,11 @@ namespace MabiChatSpeech
             lb.ForeColor = Color.White;
             lb.Font = new System.Drawing.Font("ＭＳ ゴシック", 18,
                 System.Drawing.FontStyle.Bold , System.Drawing.GraphicsUnit.Point, 128);
+
+            //領域の高さから行数確定
+            int lmax = (int)(owin.Height / lb.Height) -1 ;
+            Random rnd = new Random();
+            y = rnd.Next(0, lmax) * lb.Height;
 
             lb.Location = new Point(owin.Width, y);
             owin.Controls.Add(lb);

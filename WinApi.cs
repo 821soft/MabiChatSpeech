@@ -53,9 +53,36 @@ namespace MabiChatSpeech
         public static extern bool SetForegroundWindow(IntPtr hWnd);
         [DllImport("USER32.DLL")]
         public static extern IntPtr GetForegroundWindow();
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr FindWindowEx(IntPtr parentWnd, IntPtr previousWnd, string className, string windowText);
+
+        public static IntPtr _FindWindow(string class_name, string window_name)
+        {
+            IntPtr hWnd = IntPtr.Zero;
+            while (IntPtr.Zero != (hWnd = FindWindowEx(IntPtr.Zero, hWnd, class_name, window_name)))
+            {
+                return (hWnd);
+            }
+
+            return (IntPtr.Zero);
+        }
+        
+        public static RECT GetMabinogiRect()
+        {
+            RECT rect = new RECT();
+            WINDOWINFO _wi = new WINDOWINFO();
+
+            IntPtr m = WinApi._FindWindow("Mabinogi", "マビノギ");
+            if (m != IntPtr.Zero)
+            {
+                GetWindowInfo(m, ref _wi);
+                rect = _wi.rcClient ;
+            }
+
+            return (rect);
+        }
     }
     public delegate bool EnumWindowsDelegate(IntPtr hWnd, IntPtr lparam);
-
 
 
     /// <summary>
