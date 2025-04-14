@@ -69,22 +69,34 @@ namespace MabiChatSpeech
         }
         private void mwlist2()
         {
+            WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
 
-            IntPtr dw = WinApi.GetDesktopWindow();
-            IntPtr w = WinApi.GetWindow(dw, WinApi.GW_HWNDFIRST);
-            Debug.Print(System.Runtime.InteropServices.GetLastWin32Error());
-            while (w != IntPtr.Zero )
+            WinApi._WinLayer();
+
+
+            foreach (IntPtr a in WinApi._Win_order )
             {
-                w = WinApi.GetWindow(w, WinApi.GW_HWNDNEXT);
-                int l = WinApi.GetWindowTextLength(w);
-                if (l > 0)
-                {
-                    StringBuilder tsb = new StringBuilder(l + 1);
-                    WinApi.GetWindowText(w, tsb, tsb.Capacity);
-                    Debug.Print(tsb.ToString());
+                WinApi.GetWindowInfo(a, ref _wi);
+                int l = WinApi.GetWindowTextLength(a);
+                StringBuilder tsb = new StringBuilder(l + 1);
+                WinApi.GetWindowText(a, tsb, tsb.Capacity);
+                Debug.Print($"{a:x8} {_wi.dwStyle:x8} " +tsb.ToString());
+            }
 
-                }
+            IntPtr ab = WinApi._Win_order[WinApi._Win_order.Count-1];
 
+            WinApi.SetWindowPos(ab, WinApi.HWND_TOP, 0, 0, 0, 0, ( WinApi.SWP_NOMOVE | WinApi.SWP_NOSIZE));
+            Debug.Print("-------");
+
+            WinApi._WinLayer();
+
+            foreach (IntPtr a in WinApi._Win_order)
+            {
+                WinApi.GetWindowInfo(a, ref _wi);
+                int l = WinApi.GetWindowTextLength(a);
+                StringBuilder tsb = new StringBuilder(l + 1);
+                WinApi.GetWindowText(a, tsb, tsb.Capacity);
+                Debug.Print($"{a:x8} {_wi.dwStyle:x8} " + tsb.ToString());
             }
 
         }

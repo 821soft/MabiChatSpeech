@@ -11,15 +11,16 @@ namespace MabiChatSpeech
 {
     public static class WinApi
     {
+
         [StructLayout(LayoutKind.Sequential)]
         public struct WINDOWINFO
         {
             public int cbSize;
             public RECT rcWindow;
             public RECT rcClient;
-            public int dwStyle;
-            public int dwExStyle;
-            public int dwWindowStatus;
+            public uint dwStyle;
+            public uint dwExStyle;
+            public uint dwWindowStatus;
             public uint cxWindowBorders;
             public uint cyWindowBorders;
             public short atomWindowType;
@@ -47,13 +48,13 @@ namespace MabiChatSpeech
         [DllImport("USER32.DLL", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern IntPtr GetDesktopWindow();
 
-        public const int GW_CHILD = 5;
-        public const int GW_ENABLEDPOPUP = 6;
-        public const int GW_HWNDFIRST = 0;
-        public const int GW_HWNDLAST = 1;
-        public const int GW_HWNDNEXT = 2;
-        public const int GW_HWNDPREV = 3;
-        public const int GW_OWNER = 5;
+        public const uint GW_CHILD = 5;
+        public const uint GW_ENABLEDPOPUP = 6;
+        public const uint GW_HWNDFIRST = 0;
+        public const uint GW_HWNDLAST = 1;
+        public const uint GW_HWNDNEXT = 2;
+        public const uint GW_HWNDPREV = 3;
+        public const uint GW_OWNER = 5;
         [DllImport("USER32.DLL", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern IntPtr GetWindow(IntPtr HWND , uint uCmd);
 
@@ -63,6 +64,35 @@ namespace MabiChatSpeech
 
         [DllImport("USER32.DLL", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int length);
+
+
+        public const uint WS_BORDER = 0x00800000;
+        public const uint WS_CAPTION = 0x00C00000;
+        public const uint WS_CHILD = 0x40000000;
+        public const uint WS_CHILDWINDOW = 0x40000000;
+        public const uint WS_CLIPCHILDREN = 0x02000000;
+        public const uint WS_CLIPSIBLINGS = 0x04000000;
+        public const uint WS_DISABLED = 0x08000000;
+        public const uint WS_DLGFRAME = 0x00400000;
+        public const uint WS_GROUP = 0x00020000;
+        public const uint WS_HSCROLL = 0x00100000;
+        public const uint WS_ICONIC = 0x20000000;
+        public const uint WS_MAXIMIZE = 0x01000000;
+        public const uint WS_MAXIMIZEBOX = 0x00010000;
+        public const uint WS_MINIMIZE = 0x20000000;
+        public const uint WS_MINIMIZEBOX = 0x00020000;
+        public const uint WS_OVERLAPPED = 0x00000000;
+        public const uint WS_OVERLAPPEDWINDOW = (WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX);
+        public const uint WS_POPUP = 0x80000000;
+        public const uint WS_POPUPWINDOW = (WS_POPUP | WS_BORDER | WS_SYSMENU);
+        public const uint WS_SIZEBOX = 0x00040000;
+        public const uint WS_SYSMENU = 0x00080000;
+        public const uint WS_TABSTOP = 0x00010000;
+        public const uint WS_THICKFRAME = 0x00040000;
+        public const uint WS_TILED = 0x00000000;
+        public const uint WS_TILEDWINDOW = (WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX);
+        public const uint WS_VISIBLE = 0x10000000;
+        public const uint WS_VSCROLL = 0x00200000;
 
         [DllImport("user32.dll")]
         public static extern bool GetWindowInfo(IntPtr hwnd, ref WINDOWINFO pwi);
@@ -86,11 +116,37 @@ namespace MabiChatSpeech
         public static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
 
+        public static List<IntPtr> _Win_order = new List <IntPtr>();
         public static void _WinLayer()
         {
-            
+
+            IntPtr w = WinApi.GetDesktopWindow();
+            WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
+
+            WinApi._Win_order.Clear();
+            w = WinApi.GetWindow(w, WinApi.GW_CHILD);
+            WinApi.GetWindowInfo(w, ref _wi);
+
+
+            while (w != IntPtr.Zero)
+            {
+
+                if ((_wi.dwStyle & WinApi.WS_VISIBLE) != 0)
+                {
+                    // if ( ((_wi.dwStyle & WinApi.WS_TABSTOP) != 0) && (_wi.dwStyle & WinApi.WS_ICONIC) == 0) 
+                    if ((_wi.dwStyle & 0x80000000) != 0x80000000)
+                    {
+                        WinApi._Win_order.Add(w);
+
+                    }
+                }
+                w = WinApi.GetWindow(w, WinApi.GW_HWNDNEXT);
+                WinApi.GetWindowInfo(w, ref _wi);
+
+            }
+
         }
-        
+
         public static IntPtr _FindWindow(string class_name, string window_name)
         {
             IntPtr hWnd = IntPtr.Zero;
@@ -126,7 +182,7 @@ namespace MabiChatSpeech
             {
                 GetWindowInfo(m, ref _wi);
                 rect = _wi.rcClient;
-                WinApi.SetWindowPos(ov, HWND_TOPMOST, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, 0);// SWP_NOACTIVATE | SWP_SHOWWINDOW );
+                WinApi.SetWindowPos(ov, HWND_TOP, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, 0);// SWP_NOACTIVATE | SWP_SHOWWINDOW );
             }
 
         }
