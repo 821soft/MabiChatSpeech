@@ -34,10 +34,31 @@ namespace MabiChatSpeech
             public int right;
             public int bottom;
         }
-        private const int SWP_NOMOVE = 0x0002;//現在位置を保持（X,Yパラメーターを無視）。
-        private const int SWP_NOSIZE = 0x0001;//現在のサイズを保持（cx,cyパラメーターを無視）。
-        private const int SWP_NOACTIVATE = 0x0010 ;
-        private const int SWP_SHOWWINDOW = 0x0040;
+        public const int SWP_NOMOVE = 0x0002;//現在位置を保持（X,Yパラメーターを無視）。
+        public const int SWP_NOSIZE = 0x0001;//現在のサイズを保持（cx,cyパラメーターを無視）。
+        public const int SWP_NOACTIVATE = 0x0010 ;
+        public const int SWP_SHOWWINDOW = 0x0040;
+
+        public const int HWND_BOTTOM = 1;
+        public const int HWND_NOTOPMOST = -2;
+        public const int HWND_TOP = 0;
+        public const int HWND_TOPMOST = -1;
+
+        [DllImport("USER32.DLL", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr GetDesktopWindow();
+
+        public const int GW_CHILD = 5;
+        public const int GW_ENABLEDPOPUP = 6;
+        public const int GW_HWNDFIRST = 0;
+        public const int GW_HWNDLAST = 1;
+        public const int GW_HWNDNEXT = 2;
+        public const int GW_HWNDPREV = 3;
+        public const int GW_OWNER = 5;
+        [DllImport("USER32.DLL", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr GetWindow(IntPtr HWND , uint uCmd);
+
+        [DllImport("USER32.DLL", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr GetNextWindow(IntPtr HWND, uint uCmd);
 
 
         [DllImport("USER32.DLL", SetLastError = true, CharSet = CharSet.Auto)]
@@ -65,6 +86,11 @@ namespace MabiChatSpeech
         public static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
 
+        public static void _WinLayer()
+        {
+            
+        }
+        
         public static IntPtr _FindWindow(string class_name, string window_name)
         {
             IntPtr hWnd = IntPtr.Zero;
@@ -100,7 +126,7 @@ namespace MabiChatSpeech
             {
                 GetWindowInfo(m, ref _wi);
                 rect = _wi.rcClient;
-                WinApi.SetWindowPos(ov, -1, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, 0);// SWP_NOACTIVATE | SWP_SHOWWINDOW );
+                WinApi.SetWindowPos(ov, HWND_TOPMOST, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, 0);// SWP_NOACTIVATE | SWP_SHOWWINDOW );
             }
 
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection.Emit;
@@ -44,6 +45,49 @@ namespace MabiChatSpeech
 
         }
 
+        private void mwlist()
+        {
+            int l = 0;
+            //全てのプロセスを列挙する
+            foreach (System.Diagnostics.Process p in
+                System.Diagnostics.Process.GetProcesses())
+            {
+                //メインウィンドウのタイトルがある時だけ列挙する
+                if (p.MainWindowTitle.Length != 0)
+                {
+                    Debug.Print( $"プロセス名:{p.ProcessName}タイトル名:{p.MainWindowTitle}");
+                }
+                WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
+
+                IntPtr m = WinApi._FindWindow(p.ProcessName, p.MainWindowTitle);
+                if (m != IntPtr.Zero)
+                {
+                    WinApi.GetWindowInfo(m, ref _wi);
+                }
+
+            }
+        }
+        private void mwlist2()
+        {
+
+            IntPtr dw = WinApi.GetDesktopWindow();
+            IntPtr w = WinApi.GetWindow(dw, WinApi.GW_HWNDFIRST);
+            Debug.Print(System.Runtime.InteropServices.GetLastWin32Error());
+            while (w != IntPtr.Zero )
+            {
+                w = WinApi.GetWindow(w, WinApi.GW_HWNDNEXT);
+                int l = WinApi.GetWindowTextLength(w);
+                if (l > 0)
+                {
+                    StringBuilder tsb = new StringBuilder(l + 1);
+                    WinApi.GetWindowText(w, tsb, tsb.Capacity);
+                    Debug.Print(tsb.ToString());
+
+                }
+
+            }
+
+        }
         private void Overlay_Shown(object sender, EventArgs e)
         {
 
@@ -53,13 +97,14 @@ namespace MabiChatSpeech
 
             rect = WinApi.GetMabinogiRect();
             WinApi.SetMabinogiOverlay(this.Handle);
+            mwlist2();
 //            this.Text = $"{rect.left},{rect.top},{rect.right},{rect.bottom}";
-/*
-            this.Top = rect.top;
-            this.Left = rect.left;
-            this.Width = rect.right - rect.left;
-            this.Height =   rect.bottom - rect.top;
- */
+            /*
+                        this.Top = rect.top;
+                        this.Left = rect.left;
+                        this.Width = rect.right - rect.left;
+                        this.Height =   rect.bottom - rect.top;
+             */
         }
 
         private void Overlay_Paint(object sender, PaintEventArgs e)
@@ -104,7 +149,7 @@ namespace MabiChatSpeech
                 }
             }
         }
-        static public void addlabel(int x , int y , string s )
+        static public void addlabel( string s )
         {
             System.Windows.Forms.Label lb = new System.Windows.Forms.Label();
             lb.AutoSize = true;
@@ -116,7 +161,23 @@ namespace MabiChatSpeech
             //領域の高さから行数確定
             int lmax = (int)(owin.Height / lb.Height) -1 ;
             Random rnd = new Random();
-            y = rnd.Next(0, lmax) * lb.Height;
+            int y = rnd.Next(0, lmax) * lb.Height;
+
+            lb.Location = new Point(owin.Width, y);
+            owin.Controls.Add(lb);
+        }
+        static public void addlabel_l(int l,string s)
+        {
+            System.Windows.Forms.Label lb = new System.Windows.Forms.Label();
+            lb.AutoSize = true;
+            lb.Text = s;
+            lb.ForeColor = Program.Color16List[Program.__ChatFColor];
+            lb.Font = new System.Drawing.Font("ＭＳ ゴシック", 18,
+                System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 128);
+
+            //領域の高さから行数確定
+            int lmax = (int)(owin.Height / lb.Height) - 1;
+            int y = l * lb.Height;
 
             lb.Location = new Point(owin.Width, y);
             owin.Controls.Add(lb);

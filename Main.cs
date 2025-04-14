@@ -43,7 +43,7 @@ namespace MabiChatSpeech
                 }
                 else
                 {
-                    Overlay.addlabel(100, 100, sx);
+                    Overlay.addlabel(sx);
                 }
             }
             catch
