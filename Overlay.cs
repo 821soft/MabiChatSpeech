@@ -39,7 +39,7 @@ namespace MabiChatSpeech
         public Overlay()
         {
             InitializeComponent();
-            BackColor = Color.Red;
+            BackColor = Program.Color16List[Program.__ChatBColor];
             TransparencyKey = BackColor;
 
         }
@@ -50,11 +50,16 @@ namespace MabiChatSpeech
             timer1.Enabled = true;
             owin = this;
             WinApi.RECT rect = new WinApi.RECT();
+
             rect = WinApi.GetMabinogiRect();
+            WinApi.SetMabinogiOverlay(this.Handle);
+//            this.Text = $"{rect.left},{rect.top},{rect.right},{rect.bottom}";
+/*
             this.Top = rect.top;
             this.Left = rect.left;
             this.Width = rect.right - rect.left;
-            this.Height = rect.top - rect.bottom;
+            this.Height =   rect.bottom - rect.top;
+ */
         }
 
         private void Overlay_Paint(object sender, PaintEventArgs e)
@@ -104,7 +109,7 @@ namespace MabiChatSpeech
             System.Windows.Forms.Label lb = new System.Windows.Forms.Label();
             lb.AutoSize = true;
             lb.Text = s;
-            lb.ForeColor = Color.White;
+            lb.ForeColor = Program.Color16List[Program.__ChatFColor];
             lb.Font = new System.Drawing.Font("ＭＳ ゴシック", 18,
                 System.Drawing.FontStyle.Bold , System.Drawing.GraphicsUnit.Point, 128);
 

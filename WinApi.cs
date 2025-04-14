@@ -34,6 +34,11 @@ namespace MabiChatSpeech
             public int right;
             public int bottom;
         }
+        private const int SWP_NOMOVE = 0x0002;//現在位置を保持（X,Yパラメーターを無視）。
+        private const int SWP_NOSIZE = 0x0001;//現在のサイズを保持（cx,cyパラメーターを無視）。
+        private const int SWP_NOACTIVATE = 0x0010 ;
+        private const int SWP_SHOWWINDOW = 0x0040;
+
 
         [DllImport("USER32.DLL", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int length);
@@ -55,6 +60,10 @@ namespace MabiChatSpeech
         public static extern IntPtr GetForegroundWindow();
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern IntPtr FindWindowEx(IntPtr parentWnd, IntPtr previousWnd, string className, string windowText);
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
 
         public static IntPtr _FindWindow(string class_name, string window_name)
         {
@@ -80,6 +89,20 @@ namespace MabiChatSpeech
             }
 
             return (rect);
+        }
+        public static void SetMabinogiOverlay(IntPtr ov)
+        {
+            RECT rect = new RECT();
+            WINDOWINFO _wi = new WINDOWINFO();
+
+            IntPtr m = WinApi._FindWindow("Mabinogi", "マビノギ");
+            if (m != IntPtr.Zero)
+            {
+                GetWindowInfo(m, ref _wi);
+                rect = _wi.rcClient;
+                WinApi.SetWindowPos(ov, -1, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, 0);// SWP_NOACTIVATE | SWP_SHOWWINDOW );
+            }
+
         }
     }
     public delegate bool EnumWindowsDelegate(IntPtr hWnd, IntPtr lparam);

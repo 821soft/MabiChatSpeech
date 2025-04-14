@@ -38,10 +38,10 @@
             label1.AutoSize = true;
             label1.Font = new System.Drawing.Font("Yu Gothic UI", 18F);
             label1.ForeColor = System.Drawing.Color.Yellow;
-            label1.Location = new System.Drawing.Point(919, 356);
-            label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label1.Location = new System.Drawing.Point(566, 211);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(155, 65);
+            label1.Size = new System.Drawing.Size(78, 32);
             label1.TabIndex = 0;
             label1.Text = "label1";
             // 
@@ -52,21 +52,20 @@
             // 
             // Overlay
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.DarkGray;
-            ClientSize = new System.Drawing.Size(1467, 789);
+            ClientSize = new System.Drawing.Size(773, 325);
             ControlBox = false;
             Controls.Add(label1);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            Margin = new System.Windows.Forms.Padding(4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Overlay";
             ShowIcon = false;
             ShowInTaskbar = false;
             Text = "Overlay";
-            TopMost = true;
             Shown += Overlay_Shown;
             Paint += Overlay_Paint;
             ResumeLayout(false);
