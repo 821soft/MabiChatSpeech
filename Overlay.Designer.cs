@@ -51,7 +51,7 @@
             Name = "Overlay";
             ShowIcon = false;
             ShowInTaskbar = false;
-            Text = "Overlay";
+            Text = "MCSOverlay";
             Shown += Overlay_Shown;
             Paint += Overlay_Paint;
             ResumeLayout(false);

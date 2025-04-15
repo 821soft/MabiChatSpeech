@@ -119,7 +119,6 @@ namespace MabiChatSpeech
         public static List<IntPtr> _Win_order = new List <IntPtr>();
         public static void _WinLayer()
         {
-
             IntPtr w = WinApi.GetDesktopWindow();
             WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
 
@@ -147,6 +146,9 @@ namespace MabiChatSpeech
 
         }
 
+        public static void _SetLayer()
+        {
+        }
         public static IntPtr _FindWindow(string class_name, string window_name)
         {
             IntPtr hWnd = IntPtr.Zero;
@@ -158,34 +160,6 @@ namespace MabiChatSpeech
             return (IntPtr.Zero);
         }
         
-        public static RECT GetMabinogiRect()
-        {
-            RECT rect = new RECT();
-            WINDOWINFO _wi = new WINDOWINFO();
-
-            IntPtr m = WinApi._FindWindow("Mabinogi", "マビノギ");
-            if (m != IntPtr.Zero)
-            {
-                GetWindowInfo(m, ref _wi);
-                rect = _wi.rcClient ;
-            }
-
-            return (rect);
-        }
-        public static void SetMabinogiOverlay(IntPtr ov)
-        {
-            RECT rect = new RECT();
-            WINDOWINFO _wi = new WINDOWINFO();
-
-            IntPtr m = WinApi._FindWindow("Mabinogi", "マビノギ");
-            if (m != IntPtr.Zero)
-            {
-                GetWindowInfo(m, ref _wi);
-                rect = _wi.rcClient;
-                WinApi.SetWindowPos(ov, HWND_TOP, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, 0);// SWP_NOACTIVATE | SWP_SHOWWINDOW );
-            }
-
-        }
     }
     public delegate bool EnumWindowsDelegate(IntPtr hWnd, IntPtr lparam);
 

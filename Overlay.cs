@@ -45,6 +45,7 @@ namespace MabiChatSpeech
 
         }
 
+        private IntPtr _mw  ;
         private void mwlist()
         {
             int l = 0;
@@ -69,54 +70,102 @@ namespace MabiChatSpeech
         }
         private void mwlist2()
         {
+            int x=0,y=0,cx=0,cy=0;
             WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
 
+            // Window一覧取得
             WinApi._WinLayer();
 
-
+            _mw = IntPtr.Zero ;
             foreach (IntPtr a in WinApi._Win_order )
             {
                 WinApi.GetWindowInfo(a, ref _wi);
                 int l = WinApi.GetWindowTextLength(a);
                 StringBuilder tsb = new StringBuilder(l + 1);
                 WinApi.GetWindowText(a, tsb, tsb.Capacity);
-                Debug.Print($"{a:x8} {_wi.dwStyle:x8} " +tsb.ToString());
+
+                if (tsb.ToString() == "マビノギ" )
+                {
+
+                    _mw = a;
+                    x = _wi.rcClient.left;
+                    y = _wi.rcClient.top;
+                    cx = _wi.rcClient.right - _wi.rcClient.left;
+                    cy = _wi.rcClient.bottom - _wi.rcClient.top;
+                }
+
+                //                Debug.Print($"{a:x8} {_wi.dwStyle:x8} " +tsb.ToString());
             }
 
-            IntPtr ab = WinApi._Win_order[WinApi._Win_order.Count-1];
-
-            WinApi.SetWindowPos(ab, WinApi.HWND_TOP, 0, 0, 0, 0, ( WinApi.SWP_NOMOVE | WinApi.SWP_NOSIZE));
-            Debug.Print("-------");
-
-            WinApi._WinLayer();
-
-            foreach (IntPtr a in WinApi._Win_order)
+            if (_mw != IntPtr.Zero)
             {
-                WinApi.GetWindowInfo(a, ref _wi);
-                int l = WinApi.GetWindowTextLength(a);
-                StringBuilder tsb = new StringBuilder(l + 1);
-                WinApi.GetWindowText(a, tsb, tsb.Capacity);
-                Debug.Print($"{a:x8} {_wi.dwStyle:x8} " + tsb.ToString());
+                WinApi.SetForegroundWindow(_mw);
+
+                WinApi.SetWindowPos(this.Handle, WinApi.HWND_TOPMOST, x, y, cx, cy, 0);
+
+                Debug.Print($"---Run Mabinogi {_mw:X8}---");
+
+                WinApi._WinLayer();
+
+                foreach (IntPtr a in WinApi._Win_order)
+                {
+                    WinApi.GetWindowInfo(a, ref _wi);
+                    int l = WinApi.GetWindowTextLength(a);
+                    StringBuilder tsb = new StringBuilder(l + 1);
+                    WinApi.GetWindowText(a, tsb, tsb.Capacity);
+                    Debug.Print($"{a:x8} {_wi.dwStyle:x8} " + tsb.ToString());
+                }
             }
+            else
+            {
+                Debug.Print($"---Mabanogi Not Run---");
+                foreach (IntPtr a in WinApi._Win_order)
+                {
+                    WinApi.GetWindowInfo(a, ref _wi);
+                    int l = WinApi.GetWindowTextLength(a);
+                    StringBuilder tsb = new StringBuilder(l + 1);
+                    WinApi.GetWindowText(a, tsb, tsb.Capacity);
+                    Debug.Print($"{a:x8} {_wi.dwStyle:x8} " + tsb.ToString());
+                }
+            }
+
+
 
         }
+        private void SetOverlayOrder()
+        {
+            WinApi._WinLayer();
+            if (_mw == IntPtr.Zero)
+            {
+                return;
+            }
+
+
+        }
+        private void SetOverlaySize()
+        {
+            if( _mw == IntPtr.Zero )
+            {
+                return;
+            }
+
+            WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
+            int x = 0, y = 0, cx = 0, cy = 0;
+
+            WinApi.GetWindowInfo(_mw , ref _wi);
+            x = _wi.rcClient.left;
+            y = _wi.rcClient.top;
+            cx = _wi.rcClient.right - _wi.rcClient.left;
+            cy = _wi.rcClient.bottom - _wi.rcClient.top;
+            WinApi.SetWindowPos(this.Handle, WinApi.HWND_TOPMOST, x, y, cx, cy, 0);
+        }
+
         private void Overlay_Shown(object sender, EventArgs e)
         {
 
             timer1.Enabled = true;
             owin = this;
-            WinApi.RECT rect = new WinApi.RECT();
-
-            rect = WinApi.GetMabinogiRect();
-            WinApi.SetMabinogiOverlay(this.Handle);
             mwlist2();
-//            this.Text = $"{rect.left},{rect.top},{rect.right},{rect.bottom}";
-            /*
-                        this.Top = rect.top;
-                        this.Left = rect.left;
-                        this.Width = rect.right - rect.left;
-                        this.Height =   rect.bottom - rect.top;
-             */
         }
 
         private void Overlay_Paint(object sender, PaintEventArgs e)
@@ -142,6 +191,24 @@ namespace MabiChatSpeech
          */
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //窓の状況
+            WinApi._WinLayer();
+            if (WinApi._Win_order[1] != _mw)
+            {
+                //子のラベルをクリア
+                foreach (Control co in Controls)
+                {
+                    if (co.GetType().Equals(typeof(System.Windows.Forms.Label)))
+                    {
+                        co.Dispose();
+                    }
+                }
+            }
+            else
+            {
+                SetOverlaySize();
+            }
+
             //子のラベルの位置を更新
             foreach (Control co in Controls)
             {
