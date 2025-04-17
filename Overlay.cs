@@ -11,6 +11,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MabiChatSpeech
 {
@@ -45,7 +46,8 @@ namespace MabiChatSpeech
 
         }
 
-        private IntPtr _mw  ;
+        private IntPtr _mw ;
+        private IntPtr _tw ;
         private void mwlist()
         {
             int l = 0;
@@ -104,20 +106,7 @@ namespace MabiChatSpeech
                 //WinApi.SetWindowPos(_mw, WinApi.HWND_TOP, x, y, cx, cy, (WinApi.SWP_NOMOVE | WinApi.SWP_NOSIZE));
                 // WinApi.SetWindowPos(this.Handle, WinApi.HWND_TOP, x, y, cx, cy, WinApi.SWP_NOACTIVATE);
 
-                WinApi.SetWindowPos(this.Handle, _mw , x, y, cx, cy, WinApi.SWP_NOACTIVATE);
-
-                Debug.Print($"---Run Mabinogi {_mw:X8}---");
-
-                WinApi._WinLayer();
-
-                foreach (IntPtr a in WinApi._Win_order)
-                {
-                    WinApi.GetWindowInfo(a, ref _wi);
-                    int l = WinApi.GetWindowTextLength(a);
-                    StringBuilder tsb = new StringBuilder(l + 1);
-                    WinApi.GetWindowText(a, tsb, tsb.Capacity);
-                    Debug.Print($"{a:x8} {_wi.dwStyle:x8} " + tsb.ToString());
-                }
+                WinApi.SetWindowPos(this.Handle, WinApi.HWND_TOPMOST, x, y, cx, cy, WinApi.SWP_SHOWWINDOW);
             }
             else
             {
@@ -138,6 +127,7 @@ namespace MabiChatSpeech
         private int SetOverlayZOrder()
         {
             WinApi._WinLayer();
+            _tw = IntPtr.Zero;
             if (_mw == IntPtr.Zero)
             {
                 return(0);
@@ -146,11 +136,13 @@ namespace MabiChatSpeech
             int lc = 0;
             int lo = 0;
             int lm = 0;
+            int lt = -1;
             foreach (IntPtr a in WinApi._Win_order)
             {
                 if( a == _mw )
                 {
                     lm = lc;
+                    lt = lc - 1;
                 }
                 if (a == owin.Handle )
                 {
@@ -159,17 +151,31 @@ namespace MabiChatSpeech
                 lc++;
             }
 
-            if ( lo < lm )
+            // マビノギが最上位なら
+            if (lm == 0)
             {
-                Debug.Print($"{lo} {lm}---Order 1 ---");
+                Debug.Print($"(1) lt={lt} lo={lo} lm={lm}");
                 return (1);
             }
+            // オーバーレイがマビノギの下にある場合
             else if (lo > lm)
             {
-                Debug.Print($"{lo} {lm}---Order -1 ---");
+                _tw = WinApi._Win_order[lt];
+                Debug.Print($"(-1) lt={lt} lo={lo} lm={lm}");
                 return (-1);
             }
-            return (0);
+            else if (lo == lm-1)
+            {
+                // 正常
+//                Debug.Print($"(0) lt={lt} lo={lo} lm={lm}");
+                return (0);
+            }
+            else
+            {
+                _tw = WinApi._Win_order[lt];
+                Debug.Print($"(-2) lt={lt} lo={lo} lm={lm}");
+                return (-2);
+            }
 
         }
         private void SetOverlaySize()
@@ -244,21 +250,59 @@ namespace MabiChatSpeech
         {
             //窓の状況
             int z = SetOverlayZOrder();
-            if ( z == 0 )
+            WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
+            WinApi.GetWindowInfo(_mw, ref _wi);
+            int x = _wi.rcClient.left;
+            int y = _wi.rcClient.top;
+            int cx = _wi.rcClient.right - _wi.rcClient.left;
+            int cy = _wi.rcClient.bottom - _wi.rcClient.top;
+/*
+            Debug.Print($"< {z} >");
+            foreach (IntPtr a in WinApi._Win_order)
             {
-                //子のラベルをクリア
-                foreach (Control co in Controls)
-                {
-                    if (co.GetType().Equals(typeof(System.Windows.Forms.Label)))
+                WinApi.GetWindowInfo(a, ref _wi);
+                int l = WinApi.GetWindowTextLength(a);
+                StringBuilder tsb = new StringBuilder(l + 1);
+                WinApi.GetWindowText(a, tsb, tsb.Capacity);
+                Debug.Print($"{a:x8} {_wi.dwStyle:x8} " + tsb.ToString());
+            }
+*/
+            switch ( z )
+            {
+                case 2 :
+                    //子のラベルをクリア
+                    foreach (Control co in Controls)
                     {
-                        co.Dispose();
+                        if (co.GetType().Equals(typeof(System.Windows.Forms.Label)))
+                        {
+                            co.Dispose();
+                        }
                     }
-                }
+                    return;
+                case 1:
+                    WinApi.SetWindowPos(this.Handle , WinApi.HWND_TOPMOST, x, y, cx, cy, (WinApi.SWP_SHOWWINDOW));
+                    break;
+                case 0:
+                    WinApi.SetWindowPos(this.Handle, _tw, x, y, cx, cy, (WinApi.SWP_NOACTIVATE));
+                    break;
+                case -1:
+                    WinApi.SetWindowPos(this.Handle, _tw, x, y, cx, cy, (WinApi.SWP_NOACTIVATE));
+                    break;
+                case -2:
+                    WinApi.SetWindowPos(this.Handle, _tw, x, y, cx, cy, (WinApi.SWP_NOACTIVATE));
+                    break;
+                default:
+                    //子のラベルをクリア
+                    foreach (Control co in Controls)
+                    {
+                        if (co.GetType().Equals(typeof(System.Windows.Forms.Label)))
+                        {
+                            co.Dispose();
+                        }
+                    }
+                    return;
             }
-            else
-            {
-                SetOverlaySize();
-            }
+
 
             //子のラベルの位置を更新
             foreach (Control co in Controls)
