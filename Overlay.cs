@@ -130,7 +130,17 @@ namespace MabiChatSpeech
             _tw = IntPtr.Zero;
             if (_mw == IntPtr.Zero)
             {
-                return(0);
+                Debug.Print("-NoTarget-");
+                foreach (IntPtr a in WinApi._Win_order)
+                {
+                    WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
+                    WinApi.GetWindowInfo(a, ref _wi);
+                    int l = WinApi.GetWindowTextLength(a);
+                    StringBuilder tsb = new StringBuilder(l + 1);
+                    WinApi.GetWindowText(a, tsb, tsb.Capacity);
+                    Debug.Print($"{a:x8} {_wi.dwStyle:x8} " + tsb.ToString());
+                }
+                return (0);
             }
 
             int lc = 0;
