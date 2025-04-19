@@ -39,6 +39,8 @@ namespace MabiChatSpeech
         public const int SWP_NOSIZE = 0x0001;//現在のサイズを保持（cx,cyパラメーターを無視）。
         public const int SWP_NOACTIVATE = 0x0010 ;
         public const int SWP_SHOWWINDOW = 0x0040;
+        public const int SWP_ASYNCWINDOWPOS = 0x4000;
+
 
         public const int HWND_BOTTOM = 1;
         public const int HWND_NOTOPMOST = -2;

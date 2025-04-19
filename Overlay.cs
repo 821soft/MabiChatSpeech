@@ -47,89 +47,37 @@ namespace MabiChatSpeech
         }
 
         private IntPtr _mw ;
-        private IntPtr _tw ;
-        private void mwlist()
+
+        private enum ZOrder { N ,None,Overlaped,Resize,Top,Under,Between};
+
+        private ZOrder SetOverlayZOrder()
         {
-            int l = 0;
-            //全てのプロセスを列挙する
-            foreach (System.Diagnostics.Process p in
-                System.Diagnostics.Process.GetProcesses())
-            {
-                //メインウィンドウのタイトルがある時だけ列挙する
-                if (p.MainWindowTitle.Length != 0)
-                {
-                    Debug.Print( $"プロセス名:{p.ProcessName}タイトル名:{p.MainWindowTitle}");
-                }
-                WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
-
-                IntPtr m = WinApi._FindWindow(p.ProcessName, p.MainWindowTitle);
-                if (m != IntPtr.Zero)
-                {
-                    WinApi.GetWindowInfo(m, ref _wi);
-                }
-
-            }
-        }
-        private void mwlist2()
-        {
-            int x=0,y=0,cx=0,cy=0;
-            WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
-
-            // Window一覧取得
             WinApi._WinLayer();
 
-            _mw = IntPtr.Zero ;
-            foreach (IntPtr a in WinApi._Win_order )
+            int lc = 0;
+            int lo = 0;
+            int lm = 0;
+            foreach (IntPtr a in WinApi._Win_order)
             {
-                WinApi.GetWindowInfo(a, ref _wi);
                 int l = WinApi.GetWindowTextLength(a);
                 StringBuilder tsb = new StringBuilder(l + 1);
                 WinApi.GetWindowText(a, tsb, tsb.Capacity);
 
-                if (tsb.ToString() == "マビノギ" )
+                if (tsb.ToString() == "マビノギ")
                 {
-
                     _mw = a;
-                    x = _wi.rcClient.left;
-                    y = _wi.rcClient.top;
-                    cx = _wi.rcClient.right - _wi.rcClient.left;
-                    cy = _wi.rcClient.bottom - _wi.rcClient.top;
+                    lm = lc;
                 }
-
-                //                Debug.Print($"{a:x8} {_wi.dwStyle:x8} " +tsb.ToString());
-            }
-
-            if (_mw != IntPtr.Zero)
-            {
-                //WinApi.SetForegroundWindow(_mw);
-
-                //WinApi.SetWindowPos(_mw, WinApi.HWND_TOP, x, y, cx, cy, (WinApi.SWP_NOMOVE | WinApi.SWP_NOSIZE));
-                // WinApi.SetWindowPos(this.Handle, WinApi.HWND_TOP, x, y, cx, cy, WinApi.SWP_NOACTIVATE);
-
-                WinApi.SetWindowPos(this.Handle, WinApi.HWND_TOPMOST, x, y, cx, cy, WinApi.SWP_SHOWWINDOW);
-            }
-            else
-            {
-                Debug.Print($"---Mabanogi Not Run---");
-                foreach (IntPtr a in WinApi._Win_order)
+                if (a == this.Handle )
                 {
-                    WinApi.GetWindowInfo(a, ref _wi);
-                    int l = WinApi.GetWindowTextLength(a);
-                    StringBuilder tsb = new StringBuilder(l + 1);
-                    WinApi.GetWindowText(a, tsb, tsb.Capacity);
-                    Debug.Print($"{a:x8} {_wi.dwStyle:x8} " + tsb.ToString());
+                    lo = lc;
                 }
+                lc++;
             }
 
-
-
-        }
-        private int SetOverlayZOrder()
-        {
-            WinApi._WinLayer();
-            _tw = IntPtr.Zero;
             if (_mw == IntPtr.Zero)
             {
+/*
                 Debug.Print("-NoTarget-");
                 foreach (IntPtr a in WinApi._Win_order)
                 {
@@ -140,99 +88,70 @@ namespace MabiChatSpeech
                     WinApi.GetWindowText(a, tsb, tsb.Capacity);
                     Debug.Print($"{a:x8} {_wi.dwStyle:x8} " + tsb.ToString());
                 }
-                return (0);
+*/
+                return (ZOrder.None);
             }
 
-            int lc = 0;
-            int lo = 0;
-            int lm = 0;
-            int lt = -1;
-            foreach (IntPtr a in WinApi._Win_order)
+            int x = 0, y = 0, cx = 0, cy = 0;
+            WinApi.WINDOWINFO _mwi = new WinApi.WINDOWINFO();
+            WinApi.GetWindowInfo(_mw, ref _mwi);
+
+            WinApi.WINDOWINFO _owi = new WinApi.WINDOWINFO();
+            WinApi.GetWindowInfo(this.Handle, ref _owi);
+            Boolean Resize = false;
+
+
+            x = _mwi.rcClient.left;
+            y = _mwi.rcClient.top;
+            cx = _mwi.rcClient.right - _mwi.rcClient.left;
+            cy = _mwi.rcClient.bottom - _mwi.rcClient.top;
+
+            if ( _owi.rcWindow.Equals(_mwi.rcClient) != true )
             {
-                if( a == _mw )
-                {
-                    lm = lc;
-                    lt = lc - 1;
-                }
-                if (a == owin.Handle )
-                {
-                    lo = lc;
-                }
-                lc++;
+                Resize = true;
             }
+
 
             // マビノギが最上位なら
             if (lm == 0)
             {
-                Debug.Print($"(1) lt={lt} lo={lo} lm={lm}");
-                return (1);
+                this.Activate();
+                WinApi.SetWindowPos(this.Handle, WinApi.HWND_TOPMOST, x, y, cx, cy, (WinApi.SWP_NOSIZE | WinApi.SWP_NOMOVE));
+                WinApi.SetWindowPos(WinApi._Win_order[lm], this.Handle, x, y, cx, cy, (WinApi.SWP_NOSIZE | WinApi.SWP_NOMOVE));
+                return (ZOrder.Top);
             }
             // オーバーレイがマビノギの下にある場合
             else if (lo > lm)
             {
-                _tw = WinApi._Win_order[lt];
-                Debug.Print($"(-1) lt={lt} lo={lo} lm={lm}");
-                return (-1);
+                WinApi.SetWindowPos(this.Handle, WinApi._Win_order[lm - 1], x, y, cx, cy, (WinApi.SWP_SHOWWINDOW));
+                return (ZOrder.Under);
             }
-            else if (lo == lm-1)
+            else if (lo == (lm-1) )
             {
                 // 正常
-//                Debug.Print($"(0) lt={lt} lo={lo} lm={lm}");
-                return (0);
+                if ( Resize )
+                {
+                    WinApi.SetWindowPos(this.Handle, WinApi._Win_order[lm - 1], x, y, cx, cy, (WinApi.SWP_ASYNCWINDOWPOS));
+                    return (ZOrder.Resize);
+                }
+                else
+                {
+                    return (ZOrder.Overlaped);
+                }
             }
             else
             {
-                _tw = WinApi._Win_order[lt];
-                Debug.Print($"(-2) lt={lt} lo={lo} lm={lm}");
-                return (-2);
-            }
-
-        }
-        private void SetOverlaySize()
-        {
-            if( _mw == IntPtr.Zero )
-            {
-                return;
-            }
-
-            WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
-            int x = 0, y = 0, cx = 0, cy = 0;
-
-            WinApi.GetWindowInfo(_mw, ref _wi);
-            x = _wi.rcClient.left;
-            y = _wi.rcClient.top;
-            cx = _wi.rcClient.right - _wi.rcClient.left;
-            cy = _wi.rcClient.bottom - _wi.rcClient.top;
-
-            foreach (IntPtr a in WinApi._Win_order)
-            {
-                WinApi.GetWindowInfo(a, ref _wi);
-                int l = WinApi.GetWindowTextLength(a);
-                StringBuilder tsb = new StringBuilder(l + 1);
-                WinApi.GetWindowText(a, tsb, tsb.Capacity);
-                Debug.Print($"{a:x8} {_wi.dwStyle:x8} " + tsb.ToString());
-            }
-
-            switch ( SetOverlayZOrder() )
-            {
-                case 1 :
-                    WinApi.SetWindowPos(this.Handle, _mw, x, y, cx, cy, WinApi.SWP_NOACTIVATE);
-                    break;
-                case -1:
-
-//                    WinApi.SetWindowPos(_mw, WinApi.HWND_TOP, x, y, cx, cy, (WinApi.SWP_NOMOVE| WinApi.SWP_NOSIZE));
-                    WinApi.SetWindowPos(this.Handle, _mw, x, y, cx, cy, WinApi.SWP_NOACTIVATE);
-                    break;
+                // マビノギとオーバーレイの間に他のウィンドウがある場合
+                WinApi.SetWindowPos(this.Handle, WinApi._Win_order[lm - 1], x, y, cx, cy, (WinApi.SWP_NOACTIVATE));
+                return (ZOrder.Between);
             }
 
         }
 
         private void Overlay_Shown(object sender, EventArgs e)
         {
-
             timer1.Enabled = true;
             owin = this;
-            mwlist2();
         }
 
         private void Overlay_Paint(object sender, PaintEventArgs e)
@@ -256,61 +175,46 @@ namespace MabiChatSpeech
          * 
          * 
          */
+        static private ZOrder zsts =ZOrder.N;
         private void timer1_Tick(object sender, EventArgs e)
         {
             //窓の状況
-            int z = SetOverlayZOrder();
-            WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
-            WinApi.GetWindowInfo(_mw, ref _wi);
-            int x = _wi.rcClient.left;
-            int y = _wi.rcClient.top;
-            int cx = _wi.rcClient.right - _wi.rcClient.left;
-            int cy = _wi.rcClient.bottom - _wi.rcClient.top;
-/*
-            Debug.Print($"< {z} >");
-            foreach (IntPtr a in WinApi._Win_order)
+            ZOrder z = SetOverlayZOrder();
+
+            if ( z != zsts )
             {
-                WinApi.GetWindowInfo(a, ref _wi);
-                int l = WinApi.GetWindowTextLength(a);
-                StringBuilder tsb = new StringBuilder(l + 1);
-                WinApi.GetWindowText(a, tsb, tsb.Capacity);
-                Debug.Print($"{a:x8} {_wi.dwStyle:x8} " + tsb.ToString());
+                Debug.Print($"{z}");
+                WinApi.WINDOWINFO _mwi = new WinApi.WINDOWINFO();
+                WinApi.GetWindowInfo(_mw, ref _mwi);
+
+                WinApi.WINDOWINFO _owi = new WinApi.WINDOWINFO();
+                WinApi.GetWindowInfo(this.Handle, ref _owi);
+
+                Debug.Print($"ov ({_owi.rcWindow.left},{_owi.rcWindow.top}),({_owi.rcWindow.right},{_owi.rcWindow.bottom})");
+                Debug.Print($"ma ({_mwi.rcClient.left},{_mwi.rcClient.top}),({_mwi.rcClient.right},{_mwi.rcClient.bottom})");
+                foreach (IntPtr a in WinApi._Win_order)
+                {
+                    WinApi.WINDOWINFO _wi = new WinApi.WINDOWINFO();
+                    WinApi.GetWindowInfo(a, ref _wi);
+                    int l = WinApi.GetWindowTextLength(a);
+                    StringBuilder tsb = new StringBuilder(l + 1);
+                    WinApi.GetWindowText(a, tsb, tsb.Capacity);
+                    Debug.Print($"{a:x8} {_wi.dwStyle:x8} " + tsb.ToString());
+                }
+                zsts = z;
             }
-*/
-            switch ( z )
+
+            if (z == ZOrder.None)
             {
-                case 2 :
-                    //子のラベルをクリア
-                    foreach (Control co in Controls)
+                //子のラベルをクリア
+                foreach (Control co in Controls)
+                {
+                    if (co.GetType().Equals(typeof(System.Windows.Forms.Label)))
                     {
-                        if (co.GetType().Equals(typeof(System.Windows.Forms.Label)))
-                        {
-                            co.Dispose();
-                        }
+                        co.Dispose();
                     }
-                    return;
-                case 1:
-                    WinApi.SetWindowPos(this.Handle , WinApi.HWND_TOPMOST, x, y, cx, cy, (WinApi.SWP_SHOWWINDOW));
-                    break;
-                case 0:
-                    WinApi.SetWindowPos(this.Handle, _tw, x, y, cx, cy, (WinApi.SWP_NOACTIVATE));
-                    break;
-                case -1:
-                    WinApi.SetWindowPos(this.Handle, _tw, x, y, cx, cy, (WinApi.SWP_NOACTIVATE));
-                    break;
-                case -2:
-                    WinApi.SetWindowPos(this.Handle, _tw, x, y, cx, cy, (WinApi.SWP_NOACTIVATE));
-                    break;
-                default:
-                    //子のラベルをクリア
-                    foreach (Control co in Controls)
-                    {
-                        if (co.GetType().Equals(typeof(System.Windows.Forms.Label)))
-                        {
-                            co.Dispose();
-                        }
-                    }
-                    return;
+                }
+                return;
             }
 
 
@@ -329,7 +233,6 @@ namespace MabiChatSpeech
                     {
                         co.Dispose();
                     }
-
                 }
             }
         }
