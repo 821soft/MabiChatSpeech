@@ -230,8 +230,8 @@ namespace MabiChatSpeech
             }
 
             //透過form
-            Overlay Frm_Overlay = new Overlay();
-            Frm_Overlay.Show();
+            //Overlay Frm_Overlay = new Overlay();
+            //Frm_Overlay.Show();
 
 
         }
