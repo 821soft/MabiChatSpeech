@@ -115,7 +115,7 @@ namespace MabiChatSpeech
             // マビノギが最上位なら
             if (lm == 0)
             {
-                this.Activate();
+                // this.Activate();
                 WinApi.SetWindowPos(this.Handle, WinApi.HWND_TOPMOST, x, y, cx, cy, (WinApi.SWP_NOSIZE | WinApi.SWP_NOMOVE));
                 WinApi.SetWindowPos(WinApi._Win_order[lm], this.Handle, x, y, cx, cy, (WinApi.SWP_NOSIZE | WinApi.SWP_NOMOVE));
                 return (ZOrder.Top);

@@ -31,7 +31,7 @@ namespace MabiChatSpeech
             InitializeComponent();
         }
 
-        // チャット
+        // オーバレイ
         delegate void deg_Overlay_Label(string text);
         public void TxtChatOverlayLabel(string sx)
         {
@@ -50,6 +50,8 @@ namespace MabiChatSpeech
             {
             }
         }
+
+        // チャット
         delegate void deg_TxtChat_Text(string text);
         public void TxtChatWriteLine(string sx)
         {
@@ -254,6 +256,8 @@ namespace MabiChatSpeech
             catch { }
         }
 
+
+        // MabiPacket関連のイベント
         // Status Change
         private void onConnect(object sender, EventArgs e)
         {
@@ -270,6 +274,7 @@ namespace MabiChatSpeech
                 SLB_IP_ForeColor(Color.Black);
             }
         }
+        // ダンプメッセージ
         private void onDump(object sender, EventArgs e)
         {
             var x = (MabiPacket)sender;
