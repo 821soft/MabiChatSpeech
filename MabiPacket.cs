@@ -440,7 +440,9 @@ namespace MabiChatSpeech
             return (ret);
 
         }
-
+        //
+        // パケット解析
+        //
         private static List <ChatData> analyses_packet2(int len)
         {
             var ret = new List<ChatData>();
@@ -471,7 +473,7 @@ namespace MabiChatSpeech
                     int bf = b + 5;
                     int bd = 0;
 
-                    // Block判別
+                    // Block判別 オープンチャット判別
                     if ((tcpbuff[bf] == 0x03) &&
                          (tcpbuff[bf + 1] == 0x00) &&
                          (tcpbuff[bf + 2] == 0x00) &&
@@ -529,6 +531,17 @@ namespace MabiChatSpeech
                         }
 
                     }
+                    // 絵チャ判別
+                    if ((tcpbuff[bf] == 0x03) &&
+                         (tcpbuff[bf + 1] == 0x00) &&
+                         (tcpbuff[bf + 2] == 0x00) &&
+                         (tcpbuff[bf + 3] == 0x52) &&
+                         (tcpbuff[bf + 4] == 0x7c) &&
+                         (tcpbuff[bf + 5] == 0x00) &&
+                         (tcpbuff[bf + 6] == 0x10))
+                    {
+                    }
+
                     b += blen;
                 }
             }
