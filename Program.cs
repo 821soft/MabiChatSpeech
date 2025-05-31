@@ -216,6 +216,12 @@ namespace MabiChatSpeech
         }
 
 
+        public static int __Echa
+        {
+            get { return Properties.Settings.Default.__Echa; }
+            set { Properties.Settings.Default.__Echa = value; }
+        }
+
         public static string TTS_Names()
         {
             string retval_txt ="";

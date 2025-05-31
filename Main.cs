@@ -183,6 +183,10 @@ namespace MabiChatSpeech
             {
                 Directory.CreateDirectory(__SavePath);
             }
+            if (!(File.Exists(__SavePath+"\\echa")))
+            {
+                Directory.CreateDirectory(__SavePath + "\\echa");
+            }
 
         }
 

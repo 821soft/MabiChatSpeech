@@ -141,6 +141,8 @@ namespace MabiChatSpeech
             checkBox2.Checked = Program.__ChatView_Time ;
             checkBox3.Checked = Program.__ChatView_Type ;
             checkBox4.Checked = Program.__ChatView_Name ;
+
+            Cmb_Echa.SelectedIndex = Program.__Echa;
         }
 
         private void Btn_Ok_Click(object sender, EventArgs e)
@@ -185,6 +187,7 @@ namespace MabiChatSpeech
             Program.__ChatFontName = myFont.Name;
             Program.__ChatFontSize = size;
             Program.__WhiteList_AutoAdd =CHK_AutoAdd.Checked;
+            Program.__Echa = Cmb_Echa.SelectedIndex ;
 
             Properties.Settings.Default.Save();
             this.Close();

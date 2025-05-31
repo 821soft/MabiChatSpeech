@@ -1,26 +1,29 @@
 ﻿using MabiChatSpeech;
 using SharpPcap;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Security.AccessControl;
+using System.Security.Cryptography;
 using System.Text;
 using System.Timers;
 using System.Windows.Forms;
-using static MabiChatSpeech.Program;
-using System.Collections;
-using static MabiChatSpeech.MabiChat;
-using System.Security.Cryptography;
 using System.Xml.Linq;
-using System.Drawing;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Linq.Expressions;
+using static MabiChatSpeech.MabiChat;
+using static MabiChatSpeech.Program;
 
 namespace MabiChatSpeech
 {
@@ -440,10 +443,91 @@ namespace MabiChatSpeech
             return (ret);
 
         }
+        
+        private enum PacketType { Chat, Echa, Other ,Error}
+        private static PacketType IsPacketType( int blocktop , int blocklen )
+        {
+            int pos = 5 + blocktop;
+            if ((tcpbuff[pos+0] == 0x03) &&
+                 (tcpbuff[pos+1] == 0x00) &&
+                 (tcpbuff[pos+2] == 0x00) &&
+                 (tcpbuff[pos+3] == 0x52) &&
+                 (tcpbuff[pos+4] == 0x6c) &&
+                 (tcpbuff[pos+5] == 0x00) &&
+                 (tcpbuff[pos+6] == 0x10))
+            {
+                return (PacketType.Chat);
+            }
+            else if ((tcpbuff[pos+0] == 0x03) &&
+                         (tcpbuff[pos+1] == 0x00) &&
+                         (tcpbuff[pos+2] == 0x00) &&
+                         (tcpbuff[pos+3] == 0x52) &&
+                         (tcpbuff[pos+4] == 0x7c) &&
+                         (tcpbuff[pos+5] == 0x00) &&
+                         (tcpbuff[pos+6] == 0x10) &&
+                         (tcpbuff[pos+7] == 0x00) &&
+                         (tcpbuff[pos+8] == 0x00) &&
+                         (tcpbuff[pos+9] == 0x00))
+            {
+                return (PacketType.Echa);
+            }
+            else
+            {
+                return (PacketType.Other);
+            }
+        }
+        //参照：http://nanoappli.com/blog/archives/2259
+        //---------------------------------------------------------------------------
+        /// <summary>
+        /// 指定されたURLの画像をImage型オブジェクトとして取得する
+        /// </summary>
+        /// <param name="url">画像データのURL(ex: http://example.com/foo.jpg) </param>
+        /// <returns>         画像データ</returns>
+        //---------------------------------------------------------------------------
+        public static System.Drawing.Image loadImageFromURL(string url)
+        {
+            int buffSize = 65536; // 一度に読み込むサイズ
+            MemoryStream imgStream = new MemoryStream();
+
+            //------------------------
+            // パラメータチェック
+            //------------------------
+            if (url == null || url.Trim().Length <= 0)
+            {
+                return null;
+            }
+
+            //----------------------------
+            // Webサーバに要求を投げる
+            //----------------------------
+            WebRequest req = WebRequest.Create(url);
+            BinaryReader reader = new BinaryReader(req.GetResponse().GetResponseStream());
+
+            //--------------------------------------------------------
+            // Webサーバからの応答データを取得し、imgStreamに保存する
+            //--------------------------------------------------------
+            while (true)
+            {
+                byte[] buff = new byte[buffSize];
+
+                // 応答データの取得
+                int readBytes = reader.Read(buff, 0, buffSize);
+                if (readBytes <= 0)
+                {
+                    // 最後まで取得した->ループを抜ける
+                    break;
+                }
+
+                // バッファに追加
+                imgStream.Write(buff, 0, readBytes);
+            }
+
+            return new Bitmap(imgStream);
+        }
         //
         // パケット解析
         //
-        private static List <ChatData> analyses_packet2(int len)
+        private static List <ChatData> analyses_packet2(int len) // len は tcpblen
         {
             var ret = new List<ChatData>();
             string [] expression_ = {
@@ -465,22 +549,17 @@ namespace MabiChatSpeech
                 for (int b = 0; b < tcpblen;)
                 {
                     byte id = tcpbuff[b];
-                    Int32 blen = System.BitConverter.ToInt32(tcpbuff, b + 1);
-                    if (blen <= 0)
+                    Int32 blocklen = System.BitConverter.ToInt32(tcpbuff, b + 1);
+                    if (blocklen <= 0)
                     {
                         break;
                     }
+                    var btype = IsPacketType(b, blocklen);
                     int bf = b + 5;
                     int bd = 0;
 
                     // Block判別 オープンチャット判別
-                    if ((tcpbuff[bf] == 0x03) &&
-                         (tcpbuff[bf + 1] == 0x00) &&
-                         (tcpbuff[bf + 2] == 0x00) &&
-                         (tcpbuff[bf + 3] == 0x52) &&
-                         (tcpbuff[bf + 4] == 0x6c) &&
-                         (tcpbuff[bf + 5] == 0x00) &&
-                         (tcpbuff[bf + 6] == 0x10))
+                    if (btype==PacketType.Chat)
                     {
 
                         var val = new ChatData();
@@ -499,7 +578,7 @@ namespace MabiChatSpeech
                             bd = bf + 18;
                         }
                         // 03 00 01 00 のパターン位置
-                        for (int i = bf+8 ; i< blen ; i++)
+                        for (int i = bf+8 ; i< blocklen; i++)
                         {
                             if (tcpbuff[i] == 0x03)
                             {
@@ -518,6 +597,7 @@ namespace MabiChatSpeech
 
                         var cd = packet_getChat(tcpbuff, bd);
 
+                        // 顔エモの削除
                         foreach (var ex in expression_ )
                         {
                             cd.CWord = cd.CWord.Replace(ex, "");
@@ -532,17 +612,44 @@ namespace MabiChatSpeech
 
                     }
                     // 絵チャ判別
-                    if ((tcpbuff[bf] == 0x03) &&
-                         (tcpbuff[bf + 1] == 0x00) &&
-                         (tcpbuff[bf + 2] == 0x00) &&
-                         (tcpbuff[bf + 3] == 0x52) &&
-                         (tcpbuff[bf + 4] == 0x7c) &&
-                         (tcpbuff[bf + 5] == 0x00) &&
-                         (tcpbuff[bf + 6] == 0x10))
+                    else if ( ( btype == PacketType.Echa ) && ( Program.__Echa != 0 ))
                     {
-                    }
+                        var val = new ChatData();
+                        val.CharacterType = (CharacterTypes)tcpbuff[bf + 7];
 
-                    b += blen;
+
+                        // 05 00 のパターン位置
+                        for (int i = bf + 14; i < blocklen; i++)
+                        {
+                            if (tcpbuff[i] == 0x05)
+                            {
+                                if (tcpbuff[i + 1] == 0x00)
+                                {
+                                            bd = i + 2;
+                                }
+                            }
+                        }
+
+                        var cd = packet_getChat(tcpbuff, bd);
+
+                        if (cd.CWord.Length > 0)
+                        {
+                            var img = loadImageFromURL(cd.CWord);
+                            string[] urlname = cd.CWord.Split('/');
+
+                            if (Program.__Echa > 1) //保存する
+                            {
+                                img.Save(__SavePath + "\\echa\\" + urlname[urlname.Length - 1], ImageFormat.Png);
+                            }
+                            val.CharacterName = cd.CName;
+                            val.ChatWord = urlname[urlname.Length - 1];
+                            if ( ( Program.__Echa == 1 ) || ( Program.__Echa == 2 ) )
+                            {
+                                ret.Add(val);
+                            }
+                        }
+                    }
+                    b += blocklen;
                 }
             }
             catch
