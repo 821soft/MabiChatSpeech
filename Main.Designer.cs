@@ -93,8 +93,12 @@
             // SLB_Ip
             // 
             SLB_Ip.AutoSize = false;
+            SLB_Ip.Image = Properties.Resources.icn_ruairi;
+            SLB_Ip.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            SLB_Ip.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_Ip.Name = "SLB_Ip";
             SLB_Ip.Size = new System.Drawing.Size(120, 19);
+            SLB_Ip.Text = "000";
             SLB_Ip.ToolTipText = "接続先";
             // 
             // BTN_SendTask

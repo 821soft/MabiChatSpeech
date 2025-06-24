@@ -10,8 +10,9 @@
 
 namespace MabiChatSpeech.Properties {
     using System;
-    
-    
+    using System.Drawing;
+
+
     /// <summary>
     ///   ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
     /// </summary>
@@ -23,7 +24,9 @@ namespace MabiChatSpeech.Properties {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
-        
+        internal static Image icn_mari;
+        internal static Image icn_ruairi;
+        internal static Image icn_tarlach;
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;

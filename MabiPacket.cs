@@ -68,6 +68,20 @@ namespace MabiChatSpeech
         public string name;
         public string ip;
     }
+
+    public struct st_MabiServerList
+    {
+        public string ip;
+        public int svno;
+        public int chno;
+        public st_MabiServerList(string p1 , int p2 , int p3)
+        {
+            this.ip = p1;
+            this.svno = p2;
+            this.chno = p3;
+        }
+    };
+
     // Chat Data
     public struct ChatData
     {
@@ -101,6 +115,7 @@ namespace MabiChatSpeech
         public ClinetStatus csts;
         public bool cap_sts;
         public string svname;
+        public string svip;
     }
 
     // Mabinogi Packet Class
@@ -131,6 +146,31 @@ namespace MabiChatSpeech
         private static int pushcnt = 0;
         private static string dumppath = "";
 
+        static public st_MabiServerList[] MabiServerList =
+        {
+        new st_MabiServerList("52.196.142.146",1,1),
+        new st_MabiServerList("54.199.99.252",1,2),
+        new st_MabiServerList("52.197.188.102",1,3),
+        new st_MabiServerList("52.194.60.149",1,4),
+        new st_MabiServerList("13.112.198.165",1,5),
+        new st_MabiServerList("52.192.125.124",1,6),
+        new st_MabiServerList("52.194.32.74",1,7),
+        new st_MabiServerList("52.199.154.240",2,1),
+        new st_MabiServerList("13.115.244.90",2,2),
+        new st_MabiServerList("18.182.71.159",2,3),
+        new st_MabiServerList("52.192.156.33",2,4),
+        new st_MabiServerList("52.196.130.66",2,5),
+        new st_MabiServerList("52.68.142.88",2,6),
+        new st_MabiServerList("52.193.116.167",2,7),
+        new st_MabiServerList("52.196.108.60",3,1),
+        new st_MabiServerList("52.194.180.89",3,2),
+        new st_MabiServerList("13.115.108.145",3,3),
+        new st_MabiServerList("13.114.246.104",3,4),
+        new st_MabiServerList("54.250.200.139",3,5),
+        new st_MabiServerList("52.69.23.101",3,6),
+        new st_MabiServerList("52.193.39.60",3,7)
+        };
+        
         private static string GetNicName(string ip)
         {
             string nicname = "";
@@ -250,6 +290,7 @@ namespace MabiChatSpeech
                 e.cap_sts = false;
             }
             e.svname = svname;
+            e.svip = svip;
 
             OnConnect(e);
         }

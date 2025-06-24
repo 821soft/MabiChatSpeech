@@ -26,9 +26,15 @@ namespace MabiChatSpeech
     public partial class Main : Form
     {
         static public int chat_cnt = 1;
+        Image i1;
+        Image i2;
+        Image i3;
         public Main()
         {
             InitializeComponent();
+            i1 = Properties.Resources.icn_mari;
+            i2 = Properties.Resources.icn_ruairi;
+            i3 = Properties.Resources.icn_tarlach;
         }
 
         // オーバレイ
@@ -259,7 +265,25 @@ namespace MabiChatSpeech
             }
             catch { }
         }
+        private st_MabiServerList ConnectSvInfo(string ip)
+        {
+            st_MabiServerList ret = new st_MabiServerList();
+            foreach (var item in MabiPacket.MabiServerList)
+            {
+                if (item.ip == ip)
+                {
+                    ret.ip = ip;
+                    ret.svno = item.svno;
+                    ret.chno = item.chno;
+                    return (ret);
+                }
+            }
+            ret.ip = "";
+            ret.svno = 0;
+            ret.chno = 0;
+            return (ret);
 
+        }
 
         // MabiPacket関連のイベント
         // Status Change
@@ -268,7 +292,27 @@ namespace MabiChatSpeech
             var x = (MabiPacket)sender;
             var ex = (MabiPacketEventArgs)e;
             SLB_Client.Text = $"{ex.csts}";
-            SLB_Ip.Text = ex.svname;
+            var sv = ConnectSvInfo(ex.svip);
+            
+            switch(sv.svno)
+            {
+                case 1:
+                    SLB_Ip.Image = i1;
+                    SLB_Ip.Text = $"{sv.chno} ch";
+                    break;
+                case 2:
+                    SLB_Ip.Image = i2;
+                    SLB_Ip.Text = $"{sv.chno} ch";
+                    break;
+                case 3:
+                    SLB_Ip.Image = i3;
+                    SLB_Ip.Text = $"{sv.chno} ch";
+                    break;
+                default:
+                    SLB_Ip.Text = "";
+                    break;
+            }
+
             if (ex.cap_sts)
             {
                 SLB_IP_ForeColor( Color.Red );
