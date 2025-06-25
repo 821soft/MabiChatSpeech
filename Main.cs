@@ -26,15 +26,9 @@ namespace MabiChatSpeech
     public partial class Main : Form
     {
         static public int chat_cnt = 1;
-        Image i1;
-        Image i2;
-        Image i3;
         public Main()
         {
             InitializeComponent();
-            i1 = Properties.Resources.icn_mari;
-            i2 = Properties.Resources.icn_ruairi;
-            i3 = Properties.Resources.icn_tarlach;
         }
 
         // オーバレイ
@@ -231,6 +225,7 @@ namespace MabiChatSpeech
             Program.packets.ChatEvent += onChat;
             Program.packets.PacketEvent += onDump;
             SLB_Client.Text = $"{Program.packets.csts}";
+            SLB_Ip.Image = null;
             SLB_Ip.Text = Program.packets.svname;
             if (Program.packets.cap_sts)
             {
@@ -297,15 +292,15 @@ namespace MabiChatSpeech
             switch(sv.svno)
             {
                 case 1:
-                    SLB_Ip.Image = i1;
+                    SLB_Ip.Image = Properties.Resources.icn_mari;
                     SLB_Ip.Text = $"{sv.chno} ch";
                     break;
                 case 2:
-                    SLB_Ip.Image = i2;
+                    SLB_Ip.Image = Properties.Resources.icn_ruairi;
                     SLB_Ip.Text = $"{sv.chno} ch";
                     break;
                 case 3:
-                    SLB_Ip.Image = i3;
+                    SLB_Ip.Image = Properties.Resources.icn_tarlach;
                     SLB_Ip.Text = $"{sv.chno} ch";
                     break;
                 default:

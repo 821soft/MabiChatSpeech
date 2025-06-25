@@ -10,9 +10,8 @@
 
 namespace MabiChatSpeech.Properties {
     using System;
-    using System.Drawing;
-
-
+    
+    
     /// <summary>
     ///   ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
     /// </summary>
@@ -23,10 +22,8 @@ namespace MabiChatSpeech.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
-        internal static Image icn_mari;
-        internal static Image icn_ruairi;
-        internal static Image icn_tarlach;
+    public class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
@@ -39,7 +36,7 @@ namespace MabiChatSpeech.Properties {
         ///   このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MabiChatSpeech.Properties.Resources", typeof(Resources).Assembly);
@@ -54,7 +51,7 @@ namespace MabiChatSpeech.Properties {
         ///   現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -66,7 +63,7 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap ChatData {
+        public static System.Drawing.Bitmap ChatData {
             get {
                 object obj = ResourceManager.GetObject("ChatData", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -76,7 +73,7 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap ClearWindowContent {
+        public static System.Drawing.Bitmap ClearWindowContent {
             get {
                 object obj = ResourceManager.GetObject("ClearWindowContent", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -86,7 +83,37 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap imageres {
+        public static System.Drawing.Bitmap icn_mari {
+            get {
+                object obj = ResourceManager.GetObject("icn_mari", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap icn_ruairi {
+            get {
+                object obj = ResourceManager.GetObject("icn_ruairi", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap icn_tarlach {
+            get {
+                object obj = ResourceManager.GetObject("icn_tarlach", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap imageres {
             get {
                 object obj = ResourceManager.GetObject("imageres", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -96,7 +123,7 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap NewTeamProject {
+        public static System.Drawing.Bitmap NewTeamProject {
             get {
                 object obj = ResourceManager.GetObject("NewTeamProject", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -106,7 +133,7 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap setting {
+        public static System.Drawing.Bitmap setting {
             get {
                 object obj = ResourceManager.GetObject("setting", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -116,7 +143,7 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap SettingsPanel {
+        public static System.Drawing.Bitmap SettingsPanel {
             get {
                 object obj = ResourceManager.GetObject("SettingsPanel", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -126,7 +153,7 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap setup {
+        public static System.Drawing.Bitmap setup {
             get {
                 object obj = ResourceManager.GetObject("setup", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -136,7 +163,7 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap TeamProject {
+        public static System.Drawing.Bitmap TeamProject {
             get {
                 object obj = ResourceManager.GetObject("TeamProject", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -146,7 +173,7 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap Userlist {
+        public static System.Drawing.Bitmap Userlist {
             get {
                 object obj = ResourceManager.GetObject("Userlist", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -156,7 +183,7 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   &apos;キャラ名,Enabled,TTS,Volume,Speed に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string WhiteList {
+        public static string WhiteList {
             get {
                 return ResourceManager.GetString("WhiteList", resourceCulture);
             }
