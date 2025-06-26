@@ -202,6 +202,26 @@ namespace MabiChatSpeech
         {
             Txt_Chat.Text = "";
         }
+        private void SLB_Clinet_Set(ClinetStatus sts)
+        {
+            switch (sts)
+            {
+                case ClinetStatus.OFF:
+                    SLB_Client.Image = Properties.Resources.ClientStatus_offline;
+                    break;
+                case ClinetStatus.ON:
+                    SLB_Client.Image = Properties.Resources.ClientStatus_connect;
+                    break;
+                case ClinetStatus.CHARASEL:
+                    SLB_Client.Image = Properties.Resources.ClientStatus_select;
+                    break;
+                case ClinetStatus.ONLINE:
+                    SLB_Client.Image = Properties.Resources.ClientStatus_online;
+                    break;
+                default:
+                    break;
+            }
+        }
 
         private void Main_Shown(object sender, EventArgs e)
         {
@@ -224,7 +244,7 @@ namespace MabiChatSpeech
             Program.packets.ConnectEvent += onConnect;
             Program.packets.ChatEvent += onChat;
             Program.packets.PacketEvent += onDump;
-            SLB_Client.Text = $"{Program.packets.csts}";
+            SLB_Clinet_Set(Program.packets.csts);
             SLB_Ip.Image = null;
             SLB_Ip.Text = Program.packets.svname;
             if (Program.packets.cap_sts)
@@ -286,7 +306,7 @@ namespace MabiChatSpeech
         {
             var x = (MabiPacket)sender;
             var ex = (MabiPacketEventArgs)e;
-            SLB_Client.Text = $"{ex.csts}";
+            SLB_Clinet_Set(ex.csts);
             var sv = ConnectSvInfo(ex.svip);
             
             switch(sv.svno)
