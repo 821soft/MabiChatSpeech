@@ -520,11 +520,11 @@ namespace MabiChatSpeech
             Cmb_Npc.SelectedIndex = Program.__ChatSelNpc;
             switch (Program.__SaveMode)
             {
-                case 0: SLB_SaveMode.Text = "しない"; break;
-                case 1: SLB_SaveMode.Text = "上書き"; break;
-                case 2: SLB_SaveMode.Text = "追記"; break;
-                case 3: SLB_SaveMode.Text = "タイムスタンプ"; break;
-                default: SLB_SaveMode.Text = "----"; break;
+                case 0: SLB_SaveMode.Image = Properties.Resources.WriteMode_none; break;
+                case 1: SLB_SaveMode.Image = Properties.Resources.WriteMode_overwrite; break;
+                case 2: SLB_SaveMode.Image = Properties.Resources.WriteMode_append; break;
+                case 3: SLB_SaveMode.Image = Properties.Resources.WriteMode_timestamp; break;
+                default: SLB_SaveMode.Image = null; break;
             }
         }
         private void ChatLogSave(System.Windows.Forms.TextBox Log)
@@ -690,6 +690,22 @@ namespace MabiChatSpeech
             }
         }
 
+        private void SLB_Mode_Icon( PacketModes pm)
+        {
+            switch(pm)
+            {
+                case PacketModes.Chat:
+                    SLB_Mode.Image = Properties.Resources.LogMode_chat; 
+                    break;
+                case PacketModes.Dump:
+                    SLB_Mode.Image = Properties.Resources.LogMode_dump;
+                    break;
+                default:
+                    SLB_Mode.Image = null;
+                    break;
+            }
+        }
+
         private void Btn_DumpView_Click(object sender, EventArgs e)
         {
             if ( Program.packets.PacketMode == PacketModes.Chat )
@@ -701,7 +717,7 @@ namespace MabiChatSpeech
 
 
                 Program.packets.PacketMode = PacketModes.Dump;
-                SLB_Mode.Text = $"{Program.packets.PacketMode}" ;
+                SLB_Mode_Icon(Program.packets.PacketMode);
             }
             else if (Program.packets.PacketMode == PacketModes.Dump)
             {
@@ -711,7 +727,7 @@ namespace MabiChatSpeech
                 Program.tmpfile_write(msg);
 
                 Program.packets.PacketMode = PacketModes.Chat ;
-                SLB_Mode.Text = $"{Program.packets.PacketMode}";
+                SLB_Mode_Icon(Program.packets.PacketMode);
             }
             else if (Program.packets.PacketMode == PacketModes.Analysys )
             {
@@ -720,7 +736,7 @@ namespace MabiChatSpeech
                 Program.tmpfile_write(msg);
 
                 Program.packets.PacketMode = PacketModes.Chat ;
-                SLB_Mode.Text = $"{Program.packets.PacketMode}";
+                SLB_Mode_Icon(Program.packets.PacketMode);
             }
         }
 
