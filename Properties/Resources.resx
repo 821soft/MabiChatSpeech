@@ -124,9 +124,6 @@
   <data name="TeamProject" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TeamProject.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ClientStatus_online" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientStatus_online.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ChatData" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ChatData.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,49 +139,22 @@
   <data name="setup" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\setup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LogMode_chat" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogMode_chat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LogMode_dump" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogMode_dump.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="NewTeamProject" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NewTeamProject.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icn_ruairi" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icn_ruairi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WriteMode_none" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WriteMode_none.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icn_tarlach" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icn_tarlach.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ClientStatus_connect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientStatus_connect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="imageres" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\imageres.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ClientStatus_offline" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientStatus_offline.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WriteMode_append" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WriteMode_append.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icn_mari" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icn_mari.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Userlist" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Userlist.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ClientStatus_select" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientStatus_select.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WriteMode_overwrite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WriteMode_overwrite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WriteMode_timestamp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WriteMode_timestamp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
