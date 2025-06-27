@@ -83,6 +83,46 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap ClientStatus_connect {
+            get {
+                object obj = ResourceManager.GetObject("ClientStatus_connect", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap ClientStatus_offline {
+            get {
+                object obj = ResourceManager.GetObject("ClientStatus_offline", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap ClientStatus_online {
+            get {
+                object obj = ResourceManager.GetObject("ClientStatus_online", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap ClientStatus_select {
+            get {
+                object obj = ResourceManager.GetObject("ClientStatus_select", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap icn_mari {
             get {
                 object obj = ResourceManager.GetObject("icn_mari", resourceCulture);
@@ -116,6 +156,26 @@ namespace MabiChatSpeech.Properties {
         public static System.Drawing.Bitmap imageres {
             get {
                 object obj = ResourceManager.GetObject("imageres", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap LogMode_chat {
+            get {
+                object obj = ResourceManager.GetObject("LogMode_chat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap LogMode_dump {
+            get {
+                object obj = ResourceManager.GetObject("LogMode_dump", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -186,6 +246,46 @@ namespace MabiChatSpeech.Properties {
         public static string WhiteList {
             get {
                 return ResourceManager.GetString("WhiteList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap WriteMode_append {
+            get {
+                object obj = ResourceManager.GetObject("WriteMode_append", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap WriteMode_none {
+            get {
+                object obj = ResourceManager.GetObject("WriteMode_none", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap WriteMode_overwrite {
+            get {
+                object obj = ResourceManager.GetObject("WriteMode_overwrite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap WriteMode_timestamp {
+            get {
+                object obj = ResourceManager.GetObject("WriteMode_timestamp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
