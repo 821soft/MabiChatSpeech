@@ -56,7 +56,6 @@
     <Content Include="MabiChatSpeech_Help1.png" />
     <Content Include="Resources\NewTeamProject.png" />
     <Content Include="Resources\Reload.png" />
-    <Content Include="Resources\setting.png" />
     <Content Include="Resources\SettingsPanel.png" />
     <Content Include="Resources\SettingsPanel.svg" />
     <Content Include="Resources\setup.png" />

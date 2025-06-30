@@ -29,6 +29,11 @@ ToDo
 
 ・テキストをオーバーレイ表示
 　overlayで実装中
+
+アイコン統一 https://fonts.google.com/icons
 　
+ユーザーキャラ、NPCキャラのアイコン
+ＯＦＦ、チャット、Ｖｏｉｃｅのアイコン
+
 
 
