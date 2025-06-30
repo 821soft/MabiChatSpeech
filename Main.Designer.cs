@@ -42,6 +42,7 @@
             toolStrip1 = new System.Windows.Forms.ToolStrip();
             Btn_Clear = new System.Windows.Forms.ToolStripButton();
             Btn_Setup = new System.Windows.Forms.ToolStripButton();
+            Btn_echa = new System.Windows.Forms.ToolStripButton();
             Btn_List = new System.Windows.Forms.ToolStripButton();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
@@ -50,7 +51,6 @@
             Cmb_User = new System.Windows.Forms.ToolStripComboBox();
             toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             Cmb_Npc = new System.Windows.Forms.ToolStripComboBox();
-            Btn_echa = new System.Windows.Forms.ToolStripButton();
             statusStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
@@ -58,11 +58,11 @@
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip, BTN_SendTask, Btn_Redirect });
-            statusStrip1.Location = new System.Drawing.Point(0, 172);
+            statusStrip1.Location = new System.Drawing.Point(0, 226);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
             statusStrip1.ShowItemToolTips = true;
-            statusStrip1.Size = new System.Drawing.Size(740, 29);
+            statusStrip1.Size = new System.Drawing.Size(846, 29);
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -117,7 +117,7 @@
             // Btn_Redirect
             // 
             Btn_Redirect.Name = "Btn_Redirect";
-            Btn_Redirect.Size = new System.Drawing.Size(28, 24);
+            Btn_Redirect.Size = new System.Drawing.Size(34, 24);
             Btn_Redirect.Text = "OFF";
             Btn_Redirect.ToolTipText = "リダイレクトのONOFF";
             Btn_Redirect.Click += Btn_Redirect_Click;
@@ -129,12 +129,12 @@
             Txt_Chat.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             Txt_Chat.ForeColor = System.Drawing.Color.Lime;
             Txt_Chat.Location = new System.Drawing.Point(0, 31);
-            Txt_Chat.Margin = new System.Windows.Forms.Padding(4);
+            Txt_Chat.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             Txt_Chat.Multiline = true;
             Txt_Chat.Name = "Txt_Chat";
             Txt_Chat.ReadOnly = true;
             Txt_Chat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            Txt_Chat.Size = new System.Drawing.Size(740, 141);
+            Txt_Chat.Size = new System.Drawing.Size(846, 195);
             Txt_Chat.TabIndex = 0;
             Txt_Chat.WordWrap = false;
             // 
@@ -147,7 +147,7 @@
             toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Btn_Clear, Btn_Setup, Btn_echa, Btn_List, toolStripSeparator1, toolStripLabel4, Cmb_Whitelist, toolStripLabel1, Cmb_User, toolStripLabel3, Cmb_Npc });
             toolStrip1.Location = new System.Drawing.Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new System.Drawing.Size(740, 31);
+            toolStrip1.Size = new System.Drawing.Size(846, 31);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -171,6 +171,16 @@
             Btn_Setup.ToolTipText = "各種設定";
             Btn_Setup.Click += Btn_Setup_Click;
             // 
+            // Btn_echa
+            // 
+            Btn_echa.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            Btn_echa.Image = Properties.Resources.Icn_echa_off;
+            Btn_echa.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Btn_echa.ImageTransparentColor = System.Drawing.Color.Magenta;
+            Btn_echa.Name = "Btn_echa";
+            Btn_echa.Size = new System.Drawing.Size(28, 28);
+            Btn_echa.Text = "toolStripButton1";
+            // 
             // Btn_List
             // 
             Btn_List.Image = Properties.Resources.Icn_UserList_;
@@ -191,8 +201,7 @@
             toolStripLabel4.Image = Properties.Resources.Icn_SelectUser;
             toolStripLabel4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripLabel4.Name = "toolStripLabel4";
-            toolStripLabel4.Size = new System.Drawing.Size(80, 28);
-            toolStripLabel4.Text = "キャラ指定";
+            toolStripLabel4.Size = new System.Drawing.Size(24, 28);
             // 
             // Cmb_Whitelist
             // 
@@ -201,7 +210,7 @@
             Cmb_Whitelist.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             Cmb_Whitelist.Items.AddRange(new object[] { "OFF", "ChatOnly", "Voice" });
             Cmb_Whitelist.Name = "Cmb_Whitelist";
-            Cmb_Whitelist.Size = new System.Drawing.Size(87, 31);
+            Cmb_Whitelist.Size = new System.Drawing.Size(99, 31);
             Cmb_Whitelist.ToolTipText = "リストに登録したキャラのみ";
             Cmb_Whitelist.SelectedIndexChanged += Cmb_Whitelist_SelectedIndexChanged;
             // 
@@ -210,7 +219,7 @@
             toolStripLabel1.Image = Properties.Resources.Icn_User;
             toolStripLabel1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new System.Drawing.Size(54, 28);
+            toolStripLabel1.Size = new System.Drawing.Size(61, 28);
             toolStripLabel1.Text = "User";
             // 
             // Cmb_User
@@ -220,7 +229,7 @@
             Cmb_User.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             Cmb_User.Items.AddRange(new object[] { "OFF", "ChatOnly", "Voice 1", "Voice 2" });
             Cmb_User.Name = "Cmb_User";
-            Cmb_User.Size = new System.Drawing.Size(87, 31);
+            Cmb_User.Size = new System.Drawing.Size(99, 31);
             Cmb_User.ToolTipText = "一般ユーザーすべて";
             Cmb_User.SelectedIndexChanged += Cmb_User_SelectedIndexChanged;
             // 
@@ -229,7 +238,7 @@
             toolStripLabel3.Image = Properties.Resources.Icn_NPC;
             toolStripLabel3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripLabel3.Name = "toolStripLabel3";
-            toolStripLabel3.Size = new System.Drawing.Size(53, 28);
+            toolStripLabel3.Size = new System.Drawing.Size(57, 28);
             toolStripLabel3.Text = "Npc";
             // 
             // Cmb_Npc
@@ -239,32 +248,22 @@
             Cmb_Npc.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             Cmb_Npc.Items.AddRange(new object[] { "OFF", "ChatOnly", "Voice 1", "Voice 2" });
             Cmb_Npc.Name = "Cmb_Npc";
-            Cmb_Npc.Size = new System.Drawing.Size(87, 31);
+            Cmb_Npc.Size = new System.Drawing.Size(99, 31);
             Cmb_Npc.ToolTipText = "その他のキャラ";
             Cmb_Npc.SelectedIndexChanged += Cmb_Npc_SelectedIndexChanged;
             // 
-            // Btn_echa
-            // 
-            Btn_echa.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            Btn_echa.Image = Properties.Resources.Icn_echa_off;
-            Btn_echa.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            Btn_echa.ImageTransparentColor = System.Drawing.Color.Magenta;
-            Btn_echa.Name = "Btn_echa";
-            Btn_echa.Size = new System.Drawing.Size(28, 28);
-            Btn_echa.Text = "toolStripButton1";
-            // 
             // Main
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(740, 201);
+            ClientSize = new System.Drawing.Size(846, 255);
             Controls.Add(Txt_Chat);
             Controls.Add(statusStrip1);
             Controls.Add(toolStrip1);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
-            Margin = new System.Windows.Forms.Padding(4);
-            MinimumSize = new System.Drawing.Size(753, 234);
+            Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            MinimumSize = new System.Drawing.Size(857, 284);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "MabiChatSpeech(ベータ5.2)";

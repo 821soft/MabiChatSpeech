@@ -518,6 +518,21 @@ namespace MabiChatSpeech
             Cmb_Whitelist.SelectedIndex = Program.__ChatSelWhitelist;
             Cmb_User.SelectedIndex = Program.__ChatSelUser;
             Cmb_Npc.SelectedIndex = Program.__ChatSelNpc;
+            switch (Program.__Echa )
+            {
+                case 0:
+                case 1:
+                    Btn_echa.Image = Properties.Resources.Icn_echa_off;
+                    break;
+                case 2:
+                case 3:
+                    Btn_echa.Image = Properties.Resources.Icn_echa_Rec; ;
+                    break;
+                default:
+                    Btn_echa.Image = null;
+                    break;
+
+            }
             switch (Program.__SaveMode)
             {
                 case 0: SLB_SaveMode.Image = Properties.Resources.WriteMode_none; break;
