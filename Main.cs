@@ -67,14 +67,14 @@ namespace MabiChatSpeech
 
                 }
             }
-            catch 
-            { 
+            catch
+            {
             }
         }
 
         // リダイレクト
-        delegate void deg_Redirect_Text(string c1 , string c2);
-        public void RedirectWriteLine(string c1 , string c2)
+        delegate void deg_Redirect_Text(string c1, string c2);
+        public void RedirectWriteLine(string c1, string c2)
         {
             try
             {
@@ -89,31 +89,31 @@ namespace MabiChatSpeech
                     {
                         //                        Task.Run(async () => {
                         //                            await Task.Delay(5000);
-                            // リダイレクト
-                            WinApi.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
-                            string sayword = "";
-                            if (Program.__TTS_NameCall == true)
-                            {
-                                sayword = c1 + "  ";
-                            }
-                            sayword += c2;
+                        // リダイレクト
+                        WinApi.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
+                        string sayword = "";
+                        if (Program.__TTS_NameCall == true)
+                        {
+                            sayword = c1 + "  ";
+                        }
+                        sayword += c2;
 
-                            KeyboardEmulate keyboardEmulate = new KeyboardEmulate();
-                            keyboardEmulate.writeKeys(sayword);
+                        KeyboardEmulate keyboardEmulate = new KeyboardEmulate();
+                        keyboardEmulate.writeKeys(sayword);
 
-//                        });
+                        //                        });
 
                     }
                 }
             }
             catch
-            { 
-            } 
+            {
+            }
         }
 
         // 読上げ
-        delegate void deg_speechChat(string cn , int cv , int cs, string c1, string c2);
-        private void speech_chat(string cn , int cv , int cs , string c1, string c2)
+        delegate void deg_speechChat(string cn, int cv, int cs, string c1, string c2);
+        private void speech_chat(string cn, int cv, int cs, string c1, string c2)
         {
             try
             {
@@ -140,7 +140,7 @@ namespace MabiChatSpeech
                 }
             }
             catch
-            { 
+            {
             }
         }
 
@@ -157,8 +157,8 @@ namespace MabiChatSpeech
                 Txt_Chat.ForeColor = Program.Color16List[Program.__ChatFColor];
                 Txt_Chat.BackColor = Program.Color16List[Program.__ChatBColor];
             }
-            catch 
-            { 
+            catch
+            {
             }
 
 
@@ -166,7 +166,7 @@ namespace MabiChatSpeech
             try
             {
                 FontStyle ffs = (FontStyle)Program.__ChatFontStyle;
-                Font ff = new Font(Program.__ChatFontName, Program.__ChatFontSize,ffs);
+                Font ff = new Font(Program.__ChatFontName, Program.__ChatFontSize, ffs);
                 Txt_Chat.Font = ff;
             }
             catch
@@ -177,13 +177,13 @@ namespace MabiChatSpeech
             if (Program.__SavePath == "")
             {
                 // Program.__SavePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-                Program.__SavePath = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal) +"\\821Soft";
+                Program.__SavePath = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\821Soft";
             }
             if (!(File.Exists(__SavePath)))
             {
                 Directory.CreateDirectory(__SavePath);
             }
-            if (!(File.Exists(__SavePath+"\\echa")))
+            if (!(File.Exists(__SavePath + "\\echa")))
             {
                 Directory.CreateDirectory(__SavePath + "\\echa");
             }
@@ -193,7 +193,7 @@ namespace MabiChatSpeech
         private void Btn_Add_Click(object sender, EventArgs e)
         {
 
-            charlist csw  = new charlist();
+            charlist csw = new charlist();
             csw.ShowDialog();
 
         }
@@ -228,14 +228,14 @@ namespace MabiChatSpeech
             // Bug.001
             int h = System.Windows.Forms.Screen.GetWorkingArea(this).Height;
             int w = System.Windows.Forms.Screen.GetWorkingArea(this).Width;
-            if ( ( 0 > this.Location.X + this.Size.Width - 8 ) || ( ( w - 8 ) <= this.Location.X ) )
+            if ((0 > this.Location.X + this.Size.Width - 8) || ((w - 8) <= this.Location.X))
             {
-                this.Location = new Point ( 1 , this.Location.Y );
+                this.Location = new Point(1, this.Location.Y);
             }
 
             if ((0 > this.Location.Y + this.Size.Height - 8) || ((h - 8) <= this.Location.Y))
             {
-                this.Location = new Point( this.Location.X , 1 );
+                this.Location = new Point(this.Location.X, 1);
             }
             // Bug.001
 
@@ -308,8 +308,8 @@ namespace MabiChatSpeech
             var ex = (MabiPacketEventArgs)e;
             SLB_Clinet_Set(ex.csts);
             var sv = ConnectSvInfo(ex.svip);
-            
-            switch(sv.svno)
+
+            switch (sv.svno)
             {
                 case 1:
                     SLB_Ip.Image = Properties.Resources.icn_mari;
@@ -330,7 +330,7 @@ namespace MabiChatSpeech
 
             if (ex.cap_sts)
             {
-                SLB_IP_ForeColor( Color.Red );
+                SLB_IP_ForeColor(Color.Red);
             }
             else
             {
@@ -344,7 +344,7 @@ namespace MabiChatSpeech
             var c = (MabiPacketEventArgs)e;
             TxtChatWriteLine(c.PacketDump);
             var li = c.PacketDump.Split(Environment.NewLine);
-            Program.tmpfile_write(li); 
+            Program.tmpfile_write(li);
         }
 
         // On Chat
@@ -359,26 +359,26 @@ namespace MabiChatSpeech
             int tts_speed = 0;
             int tts_volume = 0;
 
-            if ( ( Program.__WhiteList_AutoAdd == true ) && ( c.CharacterType == CharacterTypes.User) )
+            if ((Program.__WhiteList_AutoAdd == true) && (c.CharacterType == CharacterTypes.User))
             {
                 var fc = Program.CharaList.FindCharacterName(c.CharacterName);
 
                 if (fc == null)
                 {
-                    var item = new CharacterNameData(c.CharacterName,true,c.CharacterType,
-                                                        __TTS1Name,__TTS1Volume,__TTS1Speed);
+                    var item = new CharacterNameData(c.CharacterName, true, c.CharacterType,
+                                                        __TTS1Name, __TTS1Volume, __TTS1Speed);
                     Program.CharaList.CNlist.Add(item);
                 }
             }
 
             // フィルタリング
-            if ( __ChatSelWhitelist == 0)
+            if (__ChatSelWhitelist == 0)
             {
-                if ( c.CharacterType == CharacterTypes.User )
+                if (c.CharacterType == CharacterTypes.User)
                 {
                     cc = "PC ";
                     f_show = true;
-                    switch ( __ChatSelUser )
+                    switch (__ChatSelUser)
                     {
                         case 0: // OFF
                             f_show = false;
@@ -404,7 +404,7 @@ namespace MabiChatSpeech
                 {
                     cc = "NPC";
                     f_show = true;
-                    switch ( __ChatSelNpc )
+                    switch (__ChatSelNpc)
                     {
                         case 0: // OFF
                             f_show = false;
@@ -431,7 +431,7 @@ namespace MabiChatSpeech
             {
                 var fc = Program.CharaList.FindCharacterName(c.CharacterName);
 
-                if (fc != null )
+                if (fc != null)
                 {
                     if (fc.CharacterType == c.CharacterType)
                     {
@@ -458,10 +458,10 @@ namespace MabiChatSpeech
 
             }
 
-            if ( f_show == true )
+            if (f_show == true)
             {
                 string ChatView = "";
-                string [] li = { "" };
+                string[] li = { "" };
 
                 var cl = "${chat_cnt}";
                 var rc = 5 - cl.Length;
@@ -470,9 +470,9 @@ namespace MabiChatSpeech
                     rc = 0;
                 }
 
-                if ( __ChatView_No == true )
+                if (__ChatView_No == true)
                 {
-                    ChatView = ChatView.PadLeft(rc, ' ') ;
+                    ChatView = ChatView.PadLeft(rc, ' ');
                     ChatView += $"{chat_cnt},";
                 }
 
@@ -489,9 +489,9 @@ namespace MabiChatSpeech
                     ChatView += $"{c.CharacterName},";
                 }
                 ChatView += $"{c.ChatWord}";
-                li[0] = $"{chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}" ;
+                li[0] = $"{chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
                 Program.tmpfile_write(li);
-                TxtChatWriteLine( ChatView + Environment.NewLine);
+                TxtChatWriteLine(ChatView + Environment.NewLine);
                 TxtChatOverlayLabel(ChatView);
 
 
@@ -505,7 +505,7 @@ namespace MabiChatSpeech
                 }
             }
 
-            if ( tts_name != "" )
+            if (tts_name != "")
             {
                 speech_chat(tts_name, tts_volume, tts_speed, c.CharacterName, c.ChatWord);
             }
@@ -518,7 +518,7 @@ namespace MabiChatSpeech
             Cmb_Whitelist.SelectedIndex = Program.__ChatSelWhitelist;
             Cmb_User.SelectedIndex = Program.__ChatSelUser;
             Cmb_Npc.SelectedIndex = Program.__ChatSelNpc;
-            switch (Program.__Echa )
+            switch (Program.__Echa)
             {
                 case 0:
                 case 1:
@@ -560,7 +560,7 @@ namespace MabiChatSpeech
                 case 1: // 上書き
                     savefilename += ".txt";
                     File.WriteAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    foreach ( var li in logdata )
+                    foreach (var li in logdata)
                     {
                         File.AppendAllText(savefilename, li + Environment.NewLine);
                     }
@@ -648,19 +648,19 @@ namespace MabiChatSpeech
             {
                 return true;
             }
-/*
-            f = ((_wi.dwStyle & 0x80000000) == 0x80000000);
-            if (f)
-            {
-                return true;
-            }
+            /*
+                        f = ((_wi.dwStyle & 0x80000000) == 0x80000000);
+                        if (f)
+                        {
+                            return true;
+                        }
 
-            f = ((_wi.dwExStyle & 0x00040000) == 0x00040000);
-            if (f)
-            {
-                return true;
-            }
-  */
+                        f = ((_wi.dwExStyle & 0x00040000) == 0x00040000);
+                        if (f)
+                        {
+                            return true;
+                        }
+              */
             int textLen = WinApi.GetWindowTextLength(hWnd);
             if (0 < textLen)
             {
@@ -689,28 +689,30 @@ namespace MabiChatSpeech
         private void BTN_SendTask_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             Btn_Redirect.Tag = e.ClickedItem.Tag;
-            BTN_SendTask.Text =  e.ClickedItem.Text;
+            BTN_SendTask.Text = e.ClickedItem.Text;
             WinApi.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
         }
 
         private void Btn_Redirect_Click(object sender, EventArgs e)
         {
-            if ( Btn_Redirect.Text == "OFF" )
+            if (Btn_Redirect.Text == "OFF")
             {
                 Btn_Redirect.Text = "ON";
+                Btn_Redirect.Image = Properties.Resources.Icn_Sendplay;
             }
             else
             {
                 Btn_Redirect.Text = "OFF";
+                Btn_Redirect.Image = Properties.Resources.Icn_Sendstop;
             }
         }
 
-        private void SLB_Mode_Icon( PacketModes pm)
+        private void SLB_Mode_Icon(PacketModes pm)
         {
-            switch(pm)
+            switch (pm)
             {
                 case PacketModes.Chat:
-                    SLB_Mode.Image = Properties.Resources.LogMode_chat; 
+                    SLB_Mode.Image = Properties.Resources.LogMode_chat;
                     break;
                 case PacketModes.Dump:
                     SLB_Mode.Image = Properties.Resources.LogMode_dump;
@@ -723,9 +725,9 @@ namespace MabiChatSpeech
 
         private void Btn_DumpView_Click(object sender, EventArgs e)
         {
-            if ( Program.packets.PacketMode == PacketModes.Chat )
+            if (Program.packets.PacketMode == PacketModes.Chat)
             {
-                string [] msg = { "Dump Mode *** Start" + Environment.NewLine };
+                string[] msg = { "Dump Mode *** Start" + Environment.NewLine };
                 TxtChatWriteLine(msg[0]);
                 Program.tmpfile_write(msg);
 
@@ -741,16 +743,16 @@ namespace MabiChatSpeech
                 TxtChatWriteLine(msg[0]);
                 Program.tmpfile_write(msg);
 
-                Program.packets.PacketMode = PacketModes.Chat ;
+                Program.packets.PacketMode = PacketModes.Chat;
                 SLB_Mode_Icon(Program.packets.PacketMode);
             }
-            else if (Program.packets.PacketMode == PacketModes.Analysys )
+            else if (Program.packets.PacketMode == PacketModes.Analysys)
             {
-                string []msg = { "Chat Mode *** Start" + Environment.NewLine } ;
+                string[] msg = { "Chat Mode *** Start" + Environment.NewLine };
                 TxtChatWriteLine(msg[0]);
                 Program.tmpfile_write(msg);
 
-                Program.packets.PacketMode = PacketModes.Chat ;
+                Program.packets.PacketMode = PacketModes.Chat;
                 SLB_Mode_Icon(Program.packets.PacketMode);
             }
         }
@@ -767,11 +769,11 @@ namespace MabiChatSpeech
         {
             switch (e.KeyCode)
             {
-                 /*
-                  *  Q  W  E  R
-                  *   A  S  D  F
-                  *    Z  X  C  V  B  N 
-                  */
+                /*
+                 *  Q  W  E  R
+                 *   A  S  D  F
+                 *    Z  X  C  V  B  N 
+                 */
                 case Keys.Q: //Quit
                     this.Close();
                     break;
@@ -842,6 +844,11 @@ namespace MabiChatSpeech
                 default:
                     break;
             }
+
+        }
+
+        private void Cmb_User_Click(object sender, EventArgs e)
+        {
 
         }
     }

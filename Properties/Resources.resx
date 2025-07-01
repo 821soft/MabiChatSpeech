@@ -211,4 +211,13 @@
   <data name="Icn_SelectUser" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icn_SelectUser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Icn_Sendtask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_Sendtask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_Sendplay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_Sendplay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_Sendstop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_Sendstop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
