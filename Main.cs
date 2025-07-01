@@ -518,6 +518,52 @@ namespace MabiChatSpeech
             Cmb_Whitelist.SelectedIndex = Program.__ChatSelWhitelist;
             Cmb_User.SelectedIndex = Program.__ChatSelUser;
             Cmb_Npc.SelectedIndex = Program.__ChatSelNpc;
+
+            switch (Program.__ChatSelWhitelist)
+            {
+                case 0:
+                    SLB_SelectUser.Image = Properties.Resources.Icn_SelectUser_off;
+                    break;
+                case 1:
+                    SLB_SelectUser.Image = Properties.Resources.Icn_SelectUser_chat;
+                    break;
+                case 2:
+                    SLB_SelectUser.Image = Properties.Resources.Icn_SelectUser_voice;
+                    break;
+            }
+
+            switch (Program.__ChatSelUser)
+            {
+                case 0:
+                    SLB_User.Image = Properties.Resources.Icn_User_off;
+                    break;
+                case 1:
+                    SLB_User.Image = Properties.Resources.Icn_User_chat;
+                    break;
+                case 2:
+                    SLB_User.Image = Properties.Resources.Icn_User_v1;
+                    break;
+                case 3:
+                    SLB_User.Image = Properties.Resources.Icn_User_v2;
+                    break;
+            }
+
+            switch (Program.__ChatSelNpc)
+            {
+                case 0:
+                    SLB_Npc.Image = Properties.Resources.Icn_Npc_off;
+                    break;
+                case 1:
+                    SLB_Npc.Image = Properties.Resources.Icn_Npc_chat;
+                    break;
+                case 2:
+                    SLB_Npc.Image = Properties.Resources.Icn_Npc_v1;
+                    break;
+                case 3:
+                    SLB_Npc.Image = Properties.Resources.Icn_Npc_v2;
+                    break;
+            }
+
             switch (Program.__Echa)
             {
                 case 0:
@@ -850,6 +896,92 @@ namespace MabiChatSpeech
         private void Cmb_User_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Cmb_Whitelist_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SLB_SelectUser_Click(object sender, EventArgs e)
+        {
+            if (Program.__ChatSelWhitelist == 2)
+            {
+                Program.__ChatSelWhitelist = 0;
+            }
+            else
+            {
+                Program.__ChatSelWhitelist++;
+            }
+            switch (Program.__ChatSelWhitelist)
+            {
+                case 0:
+                    SLB_SelectUser.Image = Properties.Resources.Icn_SelectUser_off;
+                    break;
+                case 1:
+                    SLB_SelectUser.Image = Properties.Resources.Icn_SelectUser_chat;
+                    break;
+                case 2:
+                    SLB_SelectUser.Image = Properties.Resources.Icn_SelectUser_voice;
+                    break;
+            }
+
+        }
+
+        private void SLB_User_Click(object sender, EventArgs e)
+        {
+            if (Program.__ChatSelUser == 3)
+            {
+                Program.__ChatSelUser = 0;
+            }
+            else
+            {
+                Program.__ChatSelUser++;
+            }
+            switch (Program.__ChatSelUser)
+            {
+                case 0:
+                    SLB_User.Image = Properties.Resources.Icn_User_off;
+                    break;
+                case 1:
+                    SLB_User.Image = Properties.Resources.Icn_User_chat;
+                    break;
+                case 2:
+                    SLB_User.Image = Properties.Resources.Icn_User_v1;
+                    break;
+                case 3:
+                    SLB_User.Image = Properties.Resources.Icn_User_v2;
+                    break;
+            }
+
+        }
+
+        private void SLB_Npc_Click(object sender, EventArgs e)
+        {
+
+            if (Program.__ChatSelNpc == 3)
+            {
+                Program.__ChatSelNpc = 0;
+            }
+            else
+            {
+                Program.__ChatSelNpc++;
+            }
+            switch (Program.__ChatSelNpc)
+            {
+                case 0:
+                    SLB_Npc.Image = Properties.Resources.Icn_Npc_off;
+                    break;
+                case 1:
+                    SLB_Npc.Image = Properties.Resources.Icn_Npc_chat;
+                    break;
+                case 2:
+                    SLB_Npc.Image = Properties.Resources.Icn_Npc_v1;
+                    break;
+                case 3:
+                    SLB_Npc.Image = Properties.Resources.Icn_Npc_v2;
+                    break;
+            }
         }
     }
 }

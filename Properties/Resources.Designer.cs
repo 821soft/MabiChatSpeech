@@ -183,6 +183,46 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap Icn_Npc_chat {
+            get {
+                object obj = ResourceManager.GetObject("Icn_Npc_chat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_Npc_off {
+            get {
+                object obj = ResourceManager.GetObject("Icn_Npc_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_Npc_v1 {
+            get {
+                object obj = ResourceManager.GetObject("Icn_Npc_v1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_Npc_v2 {
+            get {
+                object obj = ResourceManager.GetObject("Icn_Npc_v2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap Icn_pageclear {
             get {
                 object obj = ResourceManager.GetObject("Icn_pageclear", resourceCulture);
@@ -206,6 +246,36 @@ namespace MabiChatSpeech.Properties {
         public static System.Drawing.Bitmap Icn_SelectUser {
             get {
                 object obj = ResourceManager.GetObject("Icn_SelectUser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_SelectUser_chat {
+            get {
+                object obj = ResourceManager.GetObject("Icn_SelectUser_chat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_SelectUser_off {
+            get {
+                object obj = ResourceManager.GetObject("Icn_SelectUser_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_SelectUser_voice {
+            get {
+                object obj = ResourceManager.GetObject("Icn_SelectUser_voice", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -266,6 +336,46 @@ namespace MabiChatSpeech.Properties {
         public static System.Drawing.Bitmap Icn_User {
             get {
                 object obj = ResourceManager.GetObject("Icn_User", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_User_chat {
+            get {
+                object obj = ResourceManager.GetObject("Icn_User_chat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_User_off {
+            get {
+                object obj = ResourceManager.GetObject("Icn_User_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_User_v1 {
+            get {
+                object obj = ResourceManager.GetObject("Icn_User_v1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_User_v2 {
+            get {
+                object obj = ResourceManager.GetObject("Icn_User_v2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
