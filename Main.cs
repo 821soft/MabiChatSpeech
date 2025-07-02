@@ -515,54 +515,9 @@ namespace MabiChatSpeech
         // Setting 
         public void settingupd()
         {
-            Cmb_Whitelist.SelectedIndex = Program.__ChatSelWhitelist;
-            Cmb_User.SelectedIndex = Program.__ChatSelUser;
-            Cmb_Npc.SelectedIndex = Program.__ChatSelNpc;
-
-            switch (Program.__ChatSelWhitelist)
-            {
-                case 0:
-                    SLB_SelectUser.Image = Properties.Resources.Icn_SelectUser_off;
-                    break;
-                case 1:
-                    SLB_SelectUser.Image = Properties.Resources.Icn_SelectUser_chat;
-                    break;
-                case 2:
-                    SLB_SelectUser.Image = Properties.Resources.Icn_SelectUser_voice;
-                    break;
-            }
-
-            switch (Program.__ChatSelUser)
-            {
-                case 0:
-                    SLB_User.Image = Properties.Resources.Icn_User_off;
-                    break;
-                case 1:
-                    SLB_User.Image = Properties.Resources.Icn_User_chat;
-                    break;
-                case 2:
-                    SLB_User.Image = Properties.Resources.Icn_User_v1;
-                    break;
-                case 3:
-                    SLB_User.Image = Properties.Resources.Icn_User_v2;
-                    break;
-            }
-
-            switch (Program.__ChatSelNpc)
-            {
-                case 0:
-                    SLB_Npc.Image = Properties.Resources.Icn_Npc_off;
-                    break;
-                case 1:
-                    SLB_Npc.Image = Properties.Resources.Icn_Npc_chat;
-                    break;
-                case 2:
-                    SLB_Npc.Image = Properties.Resources.Icn_Npc_v1;
-                    break;
-                case 3:
-                    SLB_Npc.Image = Properties.Resources.Icn_Npc_v2;
-                    break;
-            }
+            SDB_Npc_Setdata();
+            SDB_User_Setdata();
+            SDB_SelectList_Setdata();
 
             switch (Program.__Echa)
             {
@@ -632,15 +587,6 @@ namespace MabiChatSpeech
             }
         }
 
-        private void Cmb_User_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Program.__ChatSelUser = Cmb_User.SelectedIndex;
-        }
-
-        private void Cmb_Npc_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Program.__ChatSelNpc = Cmb_Npc.SelectedIndex;
-        }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -652,11 +598,6 @@ namespace MabiChatSpeech
                 File.Delete(_tmpfname);
             }
 
-        }
-
-        private void Cmb_Whitelist_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Program.__ChatSelWhitelist = Cmb_Whitelist.SelectedIndex;
         }
 
         private void Btn_Setup_Click(object sender, EventArgs e)
@@ -852,32 +793,10 @@ namespace MabiChatSpeech
                     Btn_Clear_Click(sender, (EventArgs)null);
                     break;
                 case Keys.V: //Choice
-                    var nc = Cmb_Whitelist.SelectedIndex;
-                    nc++;
-                    Debug.Print($"{Cmb_Whitelist.Items.Count}:{nc}");
-                    if (Cmb_Whitelist.Items.Count <= nc)
-                    {
-                        nc = 0;
-                    }
-                    Cmb_Whitelist.SelectedIndex = nc;
                     break;
                 case Keys.B: //User
-                    var nu = Cmb_User.SelectedIndex;
-                    nu++;
-                    if (Cmb_User.Items.Count <= nu)
-                    {
-                        nu = 0;
-                    }
-                    Cmb_User.SelectedIndex = nu;
                     break;
                 case Keys.N: //NPC
-                    var nn = Cmb_Npc.SelectedIndex;
-                    nn++;
-                    if (Cmb_Npc.Items.Count <= nn)
-                    {
-                        nn = 0;
-                    }
-                    Cmb_Npc.SelectedIndex = nn;
                     break;
                 case Keys.F1: //Help
                     if (this.sf == null || this.sf.IsDisposed)
@@ -905,30 +824,70 @@ namespace MabiChatSpeech
 
         private void SLB_SelectUser_Click(object sender, EventArgs e)
         {
-            if (Program.__ChatSelWhitelist == 2)
-            {
-                Program.__ChatSelWhitelist = 0;
-            }
-            else
-            {
-                Program.__ChatSelWhitelist++;
-            }
-            switch (Program.__ChatSelWhitelist)
-            {
-                case 0:
-                    SLB_SelectUser.Image = Properties.Resources.Icn_SelectUser_off;
-                    break;
-                case 1:
-                    SLB_SelectUser.Image = Properties.Resources.Icn_SelectUser_chat;
-                    break;
-                case 2:
-                    SLB_SelectUser.Image = Properties.Resources.Icn_SelectUser_voice;
-                    break;
-            }
-
         }
 
         private void SLB_User_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SDB_Npc_Click(object sender, EventArgs e)
+        {
+            if ( Program.__ChatSelNpc == 3 )
+            {
+                Program.__ChatSelNpc = 0;
+            }
+            else
+            {
+                Program.__ChatSelNpc++;
+            }
+
+            SDB_Npc_Setdata();
+        }
+
+        private void SDB_Npc_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            SDB_Npc.Image = e.ClickedItem.Image;
+            Program.__ChatSelNpc = int.Parse(e.ClickedItem.Tag.ToString());
+        }
+
+        private void SDB_Npc_DropDownOpening(object sender, EventArgs e)
+        {
+            int cnt = 0;
+            foreach (ToolStripMenuItem item in SDB_Npc.DropDownItems)
+            {
+                if (cnt == Program.__ChatSelNpc)
+                {
+                    item.Checked = true;
+                }
+                else
+                {
+                    item.Checked = false;
+                }
+                cnt++;
+            }
+        }
+
+        private void SDB_Npc_Setdata()
+        {
+            switch (Program.__ChatSelNpc)
+            {
+                case 0:
+                    SDB_Npc.Image = Properties.Resources.Icn_Npc_off;
+                    break;
+                case 1:
+                    SDB_Npc.Image = Properties.Resources.Icn_Npc_chat;
+                    break;
+                case 2:
+                    SDB_Npc.Image = Properties.Resources.Icn_Npc_v1;
+                    break;
+                case 3:
+                    SDB_Npc.Image = Properties.Resources.Icn_Npc_v2;
+                    break;
+            }
+        }
+
+        private void SDB_User_Click(object sender, EventArgs e)
         {
             if (Program.__ChatSelUser == 3)
             {
@@ -938,50 +897,105 @@ namespace MabiChatSpeech
             {
                 Program.__ChatSelUser++;
             }
+            SDB_User_Setdata();
+
+        }
+
+        private void SDB_User_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+            SDB_User.Image = e.ClickedItem.Image;
+            Program.__ChatSelUser = int.Parse(e.ClickedItem.Tag.ToString());
+        }
+
+        private void SDB_User_DropDownOpening(object sender, EventArgs e)
+        {
+            int cnt = 0;
+            foreach (ToolStripMenuItem item in SDB_User.DropDownItems)
+            {
+                if (cnt == Program.__ChatSelUser)
+                {
+                    item.Checked = true;
+                }
+                else
+                {
+                    item.Checked = false;
+                }
+                cnt++;
+            }
+
+        }
+
+        private void SDB_User_Setdata()
+        {
             switch (Program.__ChatSelUser)
             {
                 case 0:
-                    SLB_User.Image = Properties.Resources.Icn_User_off;
+                    SDB_User.Image = Properties.Resources.Icn_User_off;
                     break;
                 case 1:
-                    SLB_User.Image = Properties.Resources.Icn_User_chat;
+                    SDB_User.Image = Properties.Resources.Icn_User_chat;
                     break;
                 case 2:
-                    SLB_User.Image = Properties.Resources.Icn_User_v1;
+                    SDB_User.Image = Properties.Resources.Icn_User_v1;
                     break;
                 case 3:
-                    SLB_User.Image = Properties.Resources.Icn_User_v2;
+                    SDB_User.Image = Properties.Resources.Icn_User_v2;
                     break;
             }
-
         }
 
-        private void SLB_Npc_Click(object sender, EventArgs e)
+        private void SDB_SelectList_Click(object sender, EventArgs e)
         {
-
-            if (Program.__ChatSelNpc == 3)
+            if (Program.__ChatSelWhitelist == 2)
             {
-                Program.__ChatSelNpc = 0;
+                Program.__ChatSelWhitelist = 0;
             }
             else
             {
-                Program.__ChatSelNpc++;
+                Program.__ChatSelWhitelist++;
             }
-            switch (Program.__ChatSelNpc)
+            SDB_SelectList_Setdata();
+        }
+
+        private void SDB_SelectList_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            SDB_SelectList.Image = e.ClickedItem.Image;
+            Program.__ChatSelWhitelist = int.Parse(e.ClickedItem.Tag.ToString());
+        }
+
+        private void SDB_SelectList_DropDownOpening(object sender, EventArgs e)
+        {
+
+            int cnt = 0;
+            foreach (ToolStripMenuItem item in SDB_SelectList.DropDownItems)
+            {
+                if (cnt == Program.__ChatSelWhitelist)
+                {
+                    item.Checked = true;
+                }
+                else
+                {
+                    item.Checked = false;
+                }
+                cnt++;
+            }
+        }
+        private void SDB_SelectList_Setdata()
+        {
+            switch (Program.__ChatSelWhitelist)
             {
                 case 0:
-                    SLB_Npc.Image = Properties.Resources.Icn_Npc_off;
+                    SDB_SelectList.Image = Properties.Resources.Icn_SelectUser_off;
                     break;
                 case 1:
-                    SLB_Npc.Image = Properties.Resources.Icn_Npc_chat;
+                    SDB_SelectList.Image = Properties.Resources.Icn_SelectUser_chat;
                     break;
                 case 2:
-                    SLB_Npc.Image = Properties.Resources.Icn_Npc_v1;
-                    break;
-                case 3:
-                    SLB_Npc.Image = Properties.Resources.Icn_Npc_v2;
+                    SDB_SelectList.Image = Properties.Resources.Icn_SelectUser_voice;
                     break;
             }
         }
+
     }
 }
