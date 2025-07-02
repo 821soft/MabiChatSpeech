@@ -253,4 +253,28 @@
   <data name="Icn_Npc_v1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icn_Npc_v1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Icn_ViewSwtch_Name_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_Name_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_ViewSwtch_Name_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_Name_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_ViewSwtch_No_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_No_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_ViewSwtch_No_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_No_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_ViewSwtch_Time_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_Time_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_ViewSwtch_Time_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_Time_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_ViewSwtch_Type_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_Type_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_ViewSwtch_Type_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_Type_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

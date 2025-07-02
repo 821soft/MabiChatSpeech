@@ -85,12 +85,12 @@ namespace MabiChatSpeech
                 else
                 {
                     //リダイレクト アクティブ切替
-                    if (Btn_Redirect.Text == "ON")
+                    if (BTN_Redirect.Text == "ON")
                     {
                         //                        Task.Run(async () => {
                         //                            await Task.Delay(5000);
                         // リダイレクト
-                        WinApi.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
+                        WinApi.SetForegroundWindow((IntPtr)BTN_Redirect.Tag);
                         string sayword = "";
                         if (Program.__TTS_NameCall == true)
                         {
@@ -313,19 +313,29 @@ namespace MabiChatSpeech
             {
                 case 1:
                     SLB_Ip.Image = Properties.Resources.icn_mari;
-                    SLB_Ip.Text = $"{sv.chno} ch";
                     break;
                 case 2:
                     SLB_Ip.Image = Properties.Resources.icn_ruairi;
-                    SLB_Ip.Text = $"{sv.chno} ch";
                     break;
                 case 3:
                     SLB_Ip.Image = Properties.Resources.icn_tarlach;
-                    SLB_Ip.Text = $"{sv.chno} ch";
                     break;
                 default:
                     SLB_Ip.Text = "";
                     break;
+            }
+
+            if (sv.chno == 0)
+            {
+                SLB_Ip.Text = "";
+            }
+            else if (sv.chno == 7)
+            {
+                SLB_Ip.Text = "商店街";
+            }
+            else
+            {
+                SLB_Ip.Text = $"{sv.chno} ch";
             }
 
             if (ex.cap_sts)
@@ -496,9 +506,9 @@ namespace MabiChatSpeech
 
 
                 chat_cnt++;
-                if (Btn_Redirect.Tag != null)
+                if (BTN_Redirect.Tag != null)
                 {
-                    if (Btn_Redirect.Text == "ON")
+                    if (BTN_Redirect.Text == "ON")
                     {
                         RedirectWriteLine(c.CharacterName, c.ChatWord);
                     }
@@ -519,6 +529,44 @@ namespace MabiChatSpeech
             SDB_User_Setdata();
             SDB_SelectList_Setdata();
 
+            if (Program.__ChatView_No == true)
+            {
+                BTN_No.Image = Properties.Resources.Icn_ViewSwtch_No_on;
+            }
+            else
+            {
+                BTN_No.Image = Properties.Resources.Icn_ViewSwtch_No_off;
+            }
+
+            if (Program.__ChatView_Time == true)
+            {
+                BTN_Time.Image = Properties.Resources.Icn_ViewSwtch_Time_on;
+            }
+            else
+            {
+                BTN_Time.Image = Properties.Resources.Icn_ViewSwtch_Time_off;
+            }
+
+            if (Program.__ChatView_Type == true)
+            {
+                BTN_Type.Image = Properties.Resources.Icn_ViewSwtch_Type_on;
+            }
+            else
+            {
+                BTN_Type.Image = Properties.Resources.Icn_ViewSwtch_Type_off;
+            }
+
+            if (Program.__ChatView_Name == true)
+            {
+                BTN_Name.Image = Properties.Resources.Icn_ViewSwtch_Name_on;
+            }
+            else
+            {
+                BTN_Name.Image = Properties.Resources.Icn_ViewSwtch_Name_off;
+            }
+
+
+
             switch (Program.__Echa)
             {
                 case 0:
@@ -532,8 +580,10 @@ namespace MabiChatSpeech
                 default:
                     Btn_echa.Image = null;
                     break;
-
             }
+
+            SLB_Mode_Icon(Program.packets.PacketMode);
+
             switch (Program.__SaveMode)
             {
                 case 0: SLB_SaveMode.Image = Properties.Resources.WriteMode_none; break;
@@ -659,38 +709,38 @@ namespace MabiChatSpeech
                 Debug.Print(ma);
                 if (!ma.Equals("マビノギ"))
                 {
-                    var item = BTN_SendTask.DropDownItems.Add(ma);
+                    var item = SDB_SendTask.DropDownItems.Add(ma);
                     item.Tag = hWnd;
                 }
             }
             return true;
         }
 
-        private void BTN_SendTask_DropDownOpening(object sender, EventArgs e)
+        private void SDB_SendTask_DropDownOpening(object sender, EventArgs e)
         {
-            BTN_SendTask.DropDownItems.Clear();
+            SDB_SendTask.DropDownItems.Clear();
             twlist.Clear();
             WinApi.EnumWindows(new EnumWindowsDelegate(EnumWindowCallBack), IntPtr.Zero);
         }
 
-        private void BTN_SendTask_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void SDB_SendTask_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            Btn_Redirect.Tag = e.ClickedItem.Tag;
-            BTN_SendTask.Text = e.ClickedItem.Text;
-            WinApi.SetForegroundWindow((IntPtr)Btn_Redirect.Tag);
+            BTN_Redirect.Tag = e.ClickedItem.Tag;
+            SDB_SendTask.Text = e.ClickedItem.Text;
+            WinApi.SetForegroundWindow((IntPtr)BTN_Redirect.Tag);
         }
 
-        private void Btn_Redirect_Click(object sender, EventArgs e)
+        private void BTN_Redirect_Click(object sender, EventArgs e)
         {
-            if (Btn_Redirect.Text == "OFF")
+            if (BTN_Redirect.Text == "OFF")
             {
-                Btn_Redirect.Text = "ON";
-                Btn_Redirect.Image = Properties.Resources.Icn_Sendplay;
+                BTN_Redirect.Text = "ON";
+                BTN_Redirect.Image = Properties.Resources.Icn_Sendplay;
             }
             else
             {
-                Btn_Redirect.Text = "OFF";
-                Btn_Redirect.Image = Properties.Resources.Icn_Sendstop;
+                BTN_Redirect.Text = "OFF";
+                BTN_Redirect.Image = Properties.Resources.Icn_Sendstop;
             }
         }
 
@@ -769,7 +819,7 @@ namespace MabiChatSpeech
                 case Keys.E:
                     break;
                 case Keys.R: //Redirect Switch
-                    Btn_Redirect_Click(sender, (EventArgs)null);
+                    BTN_Redirect_Click(sender, (EventArgs)null);
                     break;
 
                 case Keys.A:
@@ -812,28 +862,9 @@ namespace MabiChatSpeech
 
         }
 
-        private void Cmb_User_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Cmb_Whitelist_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SLB_SelectUser_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void SLB_User_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void SDB_Npc_Click(object sender, EventArgs e)
         {
-            if ( Program.__ChatSelNpc == 3 )
+            if (Program.__ChatSelNpc == 3)
             {
                 Program.__ChatSelNpc = 0;
             }
@@ -997,5 +1028,76 @@ namespace MabiChatSpeech
             }
         }
 
+        private void BTN_No_Click(object sender, EventArgs e)
+        {
+            if (Program.__ChatView_No == true)
+            {
+                BTN_No.Image = Properties.Resources.Icn_ViewSwtch_No_off;
+                Program.__ChatView_No = false;
+            }
+            else
+            {
+                BTN_No.Image = Properties.Resources.Icn_ViewSwtch_No_on;
+                Program.__ChatView_No = true;
+            }
+        }
+
+        private void BTN_Time_Click(object sender, EventArgs e)
+        {
+
+            if (Program.__ChatView_Time == true)
+            {
+                BTN_Time.Image = Properties.Resources.Icn_ViewSwtch_Time_off;
+                Program.__ChatView_Time = false;
+            }
+            else
+            {
+                BTN_Time.Image = Properties.Resources.Icn_ViewSwtch_Time_on;
+                Program.__ChatView_Time = true;
+            }
+        }
+
+        private void BTN_Type_Click(object sender, EventArgs e)
+        {
+
+            if (Program.__ChatView_Type == true)
+            {
+                BTN_Type.Image = Properties.Resources.Icn_ViewSwtch_Type_off;
+                Program.__ChatView_Type = false;
+            }
+            else
+            {
+                BTN_Type.Image = Properties.Resources.Icn_ViewSwtch_Type_on;
+                Program.__ChatView_Type = true;
+            }
+        }
+
+        private void BTN_Name_Click(object sender, EventArgs e)
+        {
+            if (Program.__ChatView_Name == true)
+            {
+                BTN_Name.Image = Properties.Resources.Icn_ViewSwtch_Name_off;
+                Program.__ChatView_Name = false;
+            }
+            else
+            {
+                BTN_Name.Image = Properties.Resources.Icn_ViewSwtch_Name_on;
+                Program.__ChatView_Name = true;
+            }
+        }
+
+        private void Btn_echa_Click(object sender, EventArgs e)
+        {
+            if (Program.__Echa <= 1)
+            {
+                Program.__Echa = 3;
+                Btn_echa.Image = Properties.Resources.Icn_echa_Rec;
+            }
+            else
+            {
+                Program.__Echa = 0;
+                Btn_echa.Image = Properties.Resources.Icn_echa_off;
+            }
+        }
     }
 }

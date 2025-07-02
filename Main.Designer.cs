@@ -35,15 +35,11 @@
             SLB_SaveMode = new System.Windows.Forms.ToolStripStatusLabel();
             SLB_Client = new System.Windows.Forms.ToolStripStatusLabel();
             SLB_Ip = new System.Windows.Forms.ToolStripStatusLabel();
-            SLB_SendTask = new System.Windows.Forms.ToolStripStatusLabel();
-            BTN_SendTask = new System.Windows.Forms.ToolStripDropDownButton();
-            Btn_Redirect = new System.Windows.Forms.ToolStripStatusLabel();
             Txt_Chat = new System.Windows.Forms.TextBox();
             Tim_Status = new System.Windows.Forms.Timer(components);
             toolStrip1 = new System.Windows.Forms.ToolStrip();
             Btn_Clear = new System.Windows.Forms.ToolStripButton();
             Btn_Setup = new System.Windows.Forms.ToolStripButton();
-            Btn_echa = new System.Windows.Forms.ToolStripButton();
             Btn_List = new System.Windows.Forms.ToolStripButton();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             SDB_SelectList = new System.Windows.Forms.ToolStripDropDownButton();
@@ -61,30 +57,35 @@
             toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            Btn_echa = new System.Windows.Forms.ToolStripButton();
+            BTN_No = new System.Windows.Forms.ToolStripButton();
+            BTN_Time = new System.Windows.Forms.ToolStripButton();
+            BTN_Type = new System.Windows.Forms.ToolStripButton();
+            BTN_Name = new System.Windows.Forms.ToolStripButton();
+            toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            BTN_Redirect = new System.Windows.Forms.ToolStripButton();
+            SDB_SendTask = new System.Windows.Forms.ToolStripDropDownButton();
             statusStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // statusStrip1
             // 
-            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip, SLB_SendTask, BTN_SendTask, Btn_Redirect });
-            statusStrip1.Location = new System.Drawing.Point(0, 172);
+            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip });
+            statusStrip1.Location = new System.Drawing.Point(0, 226);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
             statusStrip1.ShowItemToolTips = true;
-            statusStrip1.Size = new System.Drawing.Size(740, 29);
+            statusStrip1.Size = new System.Drawing.Size(846, 29);
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
             // 
             // SLB_Mode
             // 
+            SLB_Mode.AutoSize = false;
             SLB_Mode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_Mode.Name = "SLB_Mode";
-            SLB_Mode.Size = new System.Drawing.Size(0, 24);
+            SLB_Mode.Size = new System.Drawing.Size(64, 24);
             SLB_Mode.ToolTipText = "Mode";
             // 
             // SLB_SaveMode
@@ -106,43 +107,14 @@
             // SLB_Ip
             // 
             SLB_Ip.AutoSize = false;
+            SLB_Ip.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             SLB_Ip.Image = Properties.Resources.icn_tarlach;
             SLB_Ip.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             SLB_Ip.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_Ip.Name = "SLB_Ip";
             SLB_Ip.Size = new System.Drawing.Size(120, 24);
-            SLB_Ip.Text = "000";
+            SLB_Ip.Text = "商店街";
             SLB_Ip.ToolTipText = "接続先";
-            // 
-            // SLB_SendTask
-            // 
-            SLB_SendTask.Image = Properties.Resources.Icn_Sendtask;
-            SLB_SendTask.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            SLB_SendTask.Name = "SLB_SendTask";
-            SLB_SendTask.Size = new System.Drawing.Size(24, 24);
-            // 
-            // BTN_SendTask
-            // 
-            BTN_SendTask.AutoSize = false;
-            BTN_SendTask.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            BTN_SendTask.Image = (System.Drawing.Image)resources.GetObject("BTN_SendTask.Image");
-            BTN_SendTask.ImageTransparentColor = System.Drawing.Color.Magenta;
-            BTN_SendTask.Name = "BTN_SendTask";
-            BTN_SendTask.Size = new System.Drawing.Size(200, 27);
-            BTN_SendTask.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            BTN_SendTask.ToolTipText = "リダイレクト先タスク";
-            BTN_SendTask.DropDownOpening += BTN_SendTask_DropDownOpening;
-            BTN_SendTask.DropDownItemClicked += BTN_SendTask_DropDownItemClicked;
-            // 
-            // Btn_Redirect
-            // 
-            Btn_Redirect.Image = Properties.Resources.Icn_Sendstop;
-            Btn_Redirect.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            Btn_Redirect.Name = "Btn_Redirect";
-            Btn_Redirect.Size = new System.Drawing.Size(52, 24);
-            Btn_Redirect.Text = "OFF";
-            Btn_Redirect.ToolTipText = "リダイレクトのONOFF";
-            Btn_Redirect.Click += Btn_Redirect_Click;
             // 
             // Txt_Chat
             // 
@@ -151,12 +123,12 @@
             Txt_Chat.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             Txt_Chat.ForeColor = System.Drawing.Color.Lime;
             Txt_Chat.Location = new System.Drawing.Point(0, 31);
-            Txt_Chat.Margin = new System.Windows.Forms.Padding(4);
+            Txt_Chat.Margin = new System.Windows.Forms.Padding(5);
             Txt_Chat.Multiline = true;
             Txt_Chat.Name = "Txt_Chat";
             Txt_Chat.ReadOnly = true;
             Txt_Chat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            Txt_Chat.Size = new System.Drawing.Size(740, 141);
+            Txt_Chat.Size = new System.Drawing.Size(846, 195);
             Txt_Chat.TabIndex = 0;
             Txt_Chat.WordWrap = false;
             // 
@@ -166,10 +138,10 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Btn_Clear, Btn_Setup, Btn_echa, Btn_List, toolStripSeparator1, SDB_SelectList, SDB_User, SDB_Npc, toolStripSeparator2, toolStripButton1, toolStripButton2, toolStripButton3, toolStripButton4 });
+            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Btn_Clear, Btn_Setup, Btn_List, toolStripSeparator1, SDB_SelectList, SDB_User, SDB_Npc, toolStripSeparator2, Btn_echa, BTN_No, BTN_Time, BTN_Type, BTN_Name, toolStripSeparator3, BTN_Redirect, SDB_SendTask });
             toolStrip1.Location = new System.Drawing.Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new System.Drawing.Size(740, 31);
+            toolStrip1.Size = new System.Drawing.Size(846, 31);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -192,16 +164,6 @@
             Btn_Setup.Size = new System.Drawing.Size(28, 28);
             Btn_Setup.ToolTipText = "各種設定";
             Btn_Setup.Click += Btn_Setup_Click;
-            // 
-            // Btn_echa
-            // 
-            Btn_echa.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            Btn_echa.Image = Properties.Resources.Icn_echa_off;
-            Btn_echa.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            Btn_echa.ImageTransparentColor = System.Drawing.Color.Magenta;
-            Btn_echa.Name = "Btn_echa";
-            Btn_echa.Size = new System.Drawing.Size(28, 28);
-            Btn_echa.Text = "toolStripButton1";
             // 
             // Btn_List
             // 
@@ -237,7 +199,7 @@
             toolStripMenuItem9.Image = Properties.Resources.Icn_SelectUser_off;
             toolStripMenuItem9.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem9.Name = "toolStripMenuItem9";
-            toolStripMenuItem9.Size = new System.Drawing.Size(181, 30);
+            toolStripMenuItem9.Size = new System.Drawing.Size(201, 30);
             toolStripMenuItem9.Tag = "0";
             toolStripMenuItem9.Text = "SelectList Off";
             // 
@@ -246,7 +208,7 @@
             toolStripMenuItem10.Image = Properties.Resources.Icn_SelectUser_chat;
             toolStripMenuItem10.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem10.Name = "toolStripMenuItem10";
-            toolStripMenuItem10.Size = new System.Drawing.Size(181, 30);
+            toolStripMenuItem10.Size = new System.Drawing.Size(201, 30);
             toolStripMenuItem10.Tag = "1";
             toolStripMenuItem10.Text = "SelectList Chatonly";
             // 
@@ -255,7 +217,7 @@
             toolStripMenuItem11.Image = Properties.Resources.Icn_SelectUser_voice;
             toolStripMenuItem11.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem11.Name = "toolStripMenuItem11";
-            toolStripMenuItem11.Size = new System.Drawing.Size(181, 30);
+            toolStripMenuItem11.Size = new System.Drawing.Size(201, 30);
             toolStripMenuItem11.Tag = "2";
             toolStripMenuItem11.Text = "SelectList Voice";
             // 
@@ -278,7 +240,7 @@
             toolStripMenuItem5.Image = Properties.Resources.Icn_User_off;
             toolStripMenuItem5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem5.Name = "toolStripMenuItem5";
-            toolStripMenuItem5.Size = new System.Drawing.Size(155, 30);
+            toolStripMenuItem5.Size = new System.Drawing.Size(173, 30);
             toolStripMenuItem5.Tag = "0";
             toolStripMenuItem5.Text = "User Off";
             // 
@@ -287,7 +249,7 @@
             toolStripMenuItem6.Image = Properties.Resources.Icn_User_chat;
             toolStripMenuItem6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem6.Name = "toolStripMenuItem6";
-            toolStripMenuItem6.Size = new System.Drawing.Size(155, 30);
+            toolStripMenuItem6.Size = new System.Drawing.Size(173, 30);
             toolStripMenuItem6.Tag = "1";
             toolStripMenuItem6.Text = "User Chatonly";
             // 
@@ -296,7 +258,7 @@
             toolStripMenuItem7.Image = Properties.Resources.Icn_User_v1;
             toolStripMenuItem7.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem7.Name = "toolStripMenuItem7";
-            toolStripMenuItem7.Size = new System.Drawing.Size(155, 30);
+            toolStripMenuItem7.Size = new System.Drawing.Size(173, 30);
             toolStripMenuItem7.Tag = "2";
             toolStripMenuItem7.Text = "User Voice1";
             // 
@@ -305,7 +267,7 @@
             toolStripMenuItem8.Image = Properties.Resources.Icn_User_v2;
             toolStripMenuItem8.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem8.Name = "toolStripMenuItem8";
-            toolStripMenuItem8.Size = new System.Drawing.Size(155, 30);
+            toolStripMenuItem8.Size = new System.Drawing.Size(173, 30);
             toolStripMenuItem8.Tag = "3";
             toolStripMenuItem8.Text = "User Voice2";
             // 
@@ -328,7 +290,7 @@
             toolStripMenuItem1.Image = Properties.Resources.Icn_Npc_off;
             toolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(188, 30);
+            toolStripMenuItem1.Size = new System.Drawing.Size(172, 30);
             toolStripMenuItem1.Tag = "0";
             toolStripMenuItem1.Text = "NPC Off";
             // 
@@ -337,7 +299,7 @@
             toolStripMenuItem2.Image = Properties.Resources.Icn_Npc_chat;
             toolStripMenuItem2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new System.Drawing.Size(188, 30);
+            toolStripMenuItem2.Size = new System.Drawing.Size(172, 30);
             toolStripMenuItem2.Tag = "1";
             toolStripMenuItem2.Text = "NPC Chatonly";
             // 
@@ -346,7 +308,7 @@
             toolStripMenuItem3.Image = Properties.Resources.Icn_Npc_v1;
             toolStripMenuItem3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new System.Drawing.Size(188, 30);
+            toolStripMenuItem3.Size = new System.Drawing.Size(172, 30);
             toolStripMenuItem3.Tag = "2";
             toolStripMenuItem3.Text = "NPC Voice1";
             // 
@@ -355,7 +317,7 @@
             toolStripMenuItem4.Image = Properties.Resources.Icn_Npc_v2;
             toolStripMenuItem4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem4.Name = "toolStripMenuItem4";
-            toolStripMenuItem4.Size = new System.Drawing.Size(188, 30);
+            toolStripMenuItem4.Size = new System.Drawing.Size(172, 30);
             toolStripMenuItem4.Tag = "3";
             toolStripMenuItem4.Text = "NPC Voice2";
             // 
@@ -364,54 +326,100 @@
             toolStripSeparator2.Name = "toolStripSeparator2";
             toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
             // 
-            // toolStripButton1
+            // Btn_echa
             // 
-            toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton1.Image = (System.Drawing.Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new System.Drawing.Size(23, 28);
-            toolStripButton1.Text = "toolStripButton1";
+            Btn_echa.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            Btn_echa.Image = Properties.Resources.Icn_echa_off;
+            Btn_echa.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Btn_echa.ImageTransparentColor = System.Drawing.Color.Magenta;
+            Btn_echa.Name = "Btn_echa";
+            Btn_echa.Size = new System.Drawing.Size(28, 28);
+            Btn_echa.Text = "toolStripButton1";
+            Btn_echa.Click += Btn_echa_Click;
             // 
-            // toolStripButton2
+            // BTN_No
             // 
-            toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton2.Image = (System.Drawing.Image)resources.GetObject("toolStripButton2.Image");
-            toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            toolStripButton2.Name = "toolStripButton2";
-            toolStripButton2.Size = new System.Drawing.Size(23, 28);
-            toolStripButton2.Text = "toolStripButton2";
+            BTN_No.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            BTN_No.Image = Properties.Resources.Icn_ViewSwtch_No_off;
+            BTN_No.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            BTN_No.ImageTransparentColor = System.Drawing.Color.Magenta;
+            BTN_No.Name = "BTN_No";
+            BTN_No.Size = new System.Drawing.Size(28, 28);
+            BTN_No.Text = "toolStripButton1";
+            BTN_No.Click += BTN_No_Click;
             // 
-            // toolStripButton3
+            // BTN_Time
             // 
-            toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton3.Image = (System.Drawing.Image)resources.GetObject("toolStripButton3.Image");
-            toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new System.Drawing.Size(23, 28);
-            toolStripButton3.Text = "toolStripButton3";
+            BTN_Time.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            BTN_Time.Image = Properties.Resources.Icn_ViewSwtch_Time_off;
+            BTN_Time.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            BTN_Time.ImageTransparentColor = System.Drawing.Color.Magenta;
+            BTN_Time.Name = "BTN_Time";
+            BTN_Time.Size = new System.Drawing.Size(28, 28);
+            BTN_Time.Text = "toolStripButton2";
+            BTN_Time.Click += BTN_Time_Click;
             // 
-            // toolStripButton4
+            // BTN_Type
             // 
-            toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton4.Image = (System.Drawing.Image)resources.GetObject("toolStripButton4.Image");
-            toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            toolStripButton4.Name = "toolStripButton4";
-            toolStripButton4.Size = new System.Drawing.Size(23, 28);
-            toolStripButton4.Text = "toolStripButton4";
+            BTN_Type.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            BTN_Type.Image = Properties.Resources.Icn_ViewSwtch_Type_off;
+            BTN_Type.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            BTN_Type.ImageTransparentColor = System.Drawing.Color.Magenta;
+            BTN_Type.Name = "BTN_Type";
+            BTN_Type.Size = new System.Drawing.Size(28, 28);
+            BTN_Type.Text = "toolStripButton3";
+            BTN_Type.Click += BTN_Type_Click;
+            // 
+            // BTN_Name
+            // 
+            BTN_Name.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            BTN_Name.Image = Properties.Resources.Icn_ViewSwtch_Name_off;
+            BTN_Name.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            BTN_Name.ImageTransparentColor = System.Drawing.Color.Magenta;
+            BTN_Name.Name = "BTN_Name";
+            BTN_Name.Size = new System.Drawing.Size(28, 28);
+            BTN_Name.Text = "toolStripButton4";
+            BTN_Name.Click += BTN_Name_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
+            // 
+            // BTN_Redirect
+            // 
+            BTN_Redirect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            BTN_Redirect.Image = Properties.Resources.Icn_Sendstop;
+            BTN_Redirect.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            BTN_Redirect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            BTN_Redirect.Name = "BTN_Redirect";
+            BTN_Redirect.Size = new System.Drawing.Size(28, 28);
+            BTN_Redirect.Text = "toolStripDropDownButton1";
+            BTN_Redirect.Click += BTN_Redirect_Click;
+            // 
+            // SDB_SendTask
+            // 
+            SDB_SendTask.AutoSize = false;
+            SDB_SendTask.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            SDB_SendTask.Image = (System.Drawing.Image)resources.GetObject("SDB_SendTask.Image");
+            SDB_SendTask.ImageTransparentColor = System.Drawing.Color.Magenta;
+            SDB_SendTask.Name = "SDB_SendTask";
+            SDB_SendTask.Size = new System.Drawing.Size(250, 28);
+            SDB_SendTask.DropDownOpening += SDB_SendTask_DropDownOpening;
+            SDB_SendTask.DropDownItemClicked += SDB_SendTask_DropDownItemClicked;
             // 
             // Main
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(740, 201);
+            ClientSize = new System.Drawing.Size(846, 255);
             Controls.Add(Txt_Chat);
             Controls.Add(statusStrip1);
             Controls.Add(toolStrip1);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
-            Margin = new System.Windows.Forms.Padding(4);
-            MinimumSize = new System.Drawing.Size(751, 230);
+            Margin = new System.Windows.Forms.Padding(5);
+            MinimumSize = new System.Drawing.Size(855, 279);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "MabiChatSpeech(ベータ5.2)";
@@ -440,16 +448,15 @@
         private System.Windows.Forms.ToolStripStatusLabel SLB_SaveMode;
         private System.Windows.Forms.ToolStripButton Btn_List;
         private System.Windows.Forms.ToolStripButton Btn_Setup;
-        private System.Windows.Forms.ToolStripDropDownButton BTN_SendTask;
-        private System.Windows.Forms.ToolStripStatusLabel Btn_Redirect;
+        private System.Windows.Forms.ToolStripButton BTN_Redirect;
         private System.Windows.Forms.ToolStripStatusLabel SLB_Mode;
         private System.Windows.Forms.ToolStripButton Btn_echa;
         private System.Windows.Forms.ToolStripStatusLabel SLB_SendTask;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.ToolStripButton BTN_No;
+        private System.Windows.Forms.ToolStripButton BTN_Time;
+        private System.Windows.Forms.ToolStripButton BTN_Type;
+        private System.Windows.Forms.ToolStripButton BTN_Name;
         private System.Windows.Forms.ToolStripDropDownButton SDB_Npc;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
@@ -464,6 +471,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripDropDownButton SDB_SendTask;
     }
 }
 

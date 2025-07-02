@@ -393,6 +393,86 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap Icn_ViewSwtch_Name_off {
+            get {
+                object obj = ResourceManager.GetObject("Icn_ViewSwtch_Name_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_ViewSwtch_Name_on {
+            get {
+                object obj = ResourceManager.GetObject("Icn_ViewSwtch_Name_on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_ViewSwtch_No_off {
+            get {
+                object obj = ResourceManager.GetObject("Icn_ViewSwtch_No_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_ViewSwtch_No_on {
+            get {
+                object obj = ResourceManager.GetObject("Icn_ViewSwtch_No_on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_ViewSwtch_Time_off {
+            get {
+                object obj = ResourceManager.GetObject("Icn_ViewSwtch_Time_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_ViewSwtch_Time_on {
+            get {
+                object obj = ResourceManager.GetObject("Icn_ViewSwtch_Time_on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_ViewSwtch_Type_off {
+            get {
+                object obj = ResourceManager.GetObject("Icn_ViewSwtch_Type_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icn_ViewSwtch_Type_on {
+            get {
+                object obj = ResourceManager.GetObject("Icn_ViewSwtch_Type_on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap Icn_Voice {
             get {
                 object obj = ResourceManager.GetObject("Icn_Voice", resourceCulture);
