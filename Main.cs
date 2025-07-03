@@ -707,6 +707,7 @@ namespace MabiChatSpeech
 
                 string ma = $"{tsb}";
                 Debug.Print(ma);
+                // マビノギ以外のタイトルのみリスト追加
                 if (!ma.Equals("マビノギ"))
                 {
                     var item = SDB_SendTask.DropDownItems.Add(ma);
@@ -862,6 +863,7 @@ namespace MabiChatSpeech
 
         }
 
+        //  NPC
         private void SDB_Npc_Click(object sender, EventArgs e)
         {
             if (Program.__ChatSelNpc == 3)
@@ -918,6 +920,7 @@ namespace MabiChatSpeech
             }
         }
 
+        //  プレイヤー
         private void SDB_User_Click(object sender, EventArgs e)
         {
             if (Program.__ChatSelUser == 3)
@@ -976,6 +979,7 @@ namespace MabiChatSpeech
             }
         }
 
+//  キャラクターモード
         private void SDB_SelectList_Click(object sender, EventArgs e)
         {
             if (Program.__ChatSelWhitelist == 2)
@@ -993,6 +997,7 @@ namespace MabiChatSpeech
         {
             SDB_SelectList.Image = e.ClickedItem.Image;
             Program.__ChatSelWhitelist = int.Parse(e.ClickedItem.Tag.ToString());
+            SDB_SelectList_Setdata();
         }
 
         private void SDB_SelectList_DropDownOpening(object sender, EventArgs e)
@@ -1018,12 +1023,18 @@ namespace MabiChatSpeech
             {
                 case 0:
                     SDB_SelectList.Image = Properties.Resources.Icn_SelectUser_off;
+                    SDB_User.Enabled = true;
+                    SDB_Npc.Enabled = true;
                     break;
                 case 1:
                     SDB_SelectList.Image = Properties.Resources.Icn_SelectUser_chat;
+                    SDB_User.Enabled = false;
+                    SDB_Npc.Enabled = false;
                     break;
                 case 2:
                     SDB_SelectList.Image = Properties.Resources.Icn_SelectUser_voice;
+                    SDB_User.Enabled = false;
+                    SDB_Npc.Enabled = false;
                     break;
             }
         }
