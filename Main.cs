@@ -679,25 +679,20 @@ namespace MabiChatSpeech
             _wi.cbSize = Marshal.SizeOf(_wi);
             WinApi.GetWindowInfo(hWnd, ref _wi);
 
-            var f = !((_wi.dwStyle & 0x10000000) == 0x10000000);
+            var f = !((_wi.dwStyle & 0x10000000) == 0x10000000); //WS_VISIBLE 
 
             if (f)
             {
                 return true;
             }
-            /*
-                        f = ((_wi.dwStyle & 0x80000000) == 0x80000000);
-                        if (f)
-                        {
-                            return true;
-                        }
 
-                        f = ((_wi.dwExStyle & 0x00040000) == 0x00040000);
-                        if (f)
-                        {
-                            return true;
-                        }
-              */
+            f = !((_wi.dwStyle & 0x00C00000) == 0x00C00000); // WS_CAPTION
+            if (f)
+            {
+                return true;
+            }
+
+
             int textLen = WinApi.GetWindowTextLength(hWnd);
             if (0 < textLen)
             {
