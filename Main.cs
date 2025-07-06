@@ -470,6 +470,7 @@ namespace MabiChatSpeech
 
             if (f_show == true)
             {
+                // chat log show
                 string ChatView = "";
                 string[] li = { "" };
 
@@ -499,6 +500,7 @@ namespace MabiChatSpeech
                     ChatView += $"{c.CharacterName},";
                 }
                 ChatView += $"{c.ChatWord}";
+                // chat log write
                 li[0] = $"{chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
                 Program.tmpfile_write(li);
                 TxtChatWriteLine(ChatView + Environment.NewLine);
