@@ -72,6 +72,40 @@ namespace MabiChatSpeech
             }
         }
 
+        // LSV_chat
+        public void LSV_chat_ItemAdd(string no, string ti, string ty, string cn, string wd)
+        {
+            var citem = LSV_chat.Items.Add(no);
+            citem.SubItems.Add(ti);
+            citem.SubItems.Add(ty);
+            citem.SubItems.Add(cn);
+            citem.SubItems.Add(wd);
+
+            if ( LSV_chat.SelectedItems.Count == 0 )
+            {
+                LSV_chat.EnsureVisible(LSV_chat.Items.Count - 1);
+            }
+
+        }
+        delegate void deg_LSV_chat_Add(string no, string ti, string ty, string cn, string wd);
+        public void LSV_chatWriteLine(string no, string ti, string ty, string cn, string wd)
+        {
+            try
+            {
+                if (this.InvokeRequired)
+                {
+                    Invoke(new deg_LSV_chat_Add(LSV_chatWriteLine), no,ti,ty,cn,wd);
+                }
+                else
+                {
+                    LSV_chat_ItemAdd(no, ti, ty, cn, wd);
+                }
+            }
+            catch
+            {
+            }
+        }
+
         // リダイレクト
         delegate void deg_Redirect_Text(string c1, string c2);
         public void RedirectWriteLine(string c1, string c2)
@@ -201,6 +235,7 @@ namespace MabiChatSpeech
         private void Btn_Clear_Click(object sender, EventArgs e)
         {
             Txt_Chat.Text = "";
+            LSV_chat.Items.Clear();
         }
         private void SLB_Clinet_Set(ClinetStatus sts)
         {
@@ -481,6 +516,8 @@ namespace MabiChatSpeech
                     rc = 0;
                 }
 
+                LSV_chatWriteLine($"{chat_cnt}", $"{t:HH:mm:ss.fff}", $"{cc}", $"{c.CharacterName}", $"{c.ChatWord}");
+
                 if (__ChatView_No == true)
                 {
                     ChatView = ChatView.PadLeft(rc, ' ');
@@ -504,7 +541,7 @@ namespace MabiChatSpeech
                 li[0] = $"{chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
                 Program.tmpfile_write(li);
                 TxtChatWriteLine(ChatView + Environment.NewLine);
-                TxtChatOverlayLabel(ChatView);
+                //TxtChatOverlayLabel(ChatView);
 
 
                 chat_cnt++;
@@ -1041,11 +1078,13 @@ namespace MabiChatSpeech
             if (Program.__ChatView_No == true)
             {
                 BTN_No.Image = Properties.Resources.Icn_ViewSwtch_No_off;
+                LSV_chat.Columns[0].Width = 0;
                 Program.__ChatView_No = false;
             }
             else
             {
                 BTN_No.Image = Properties.Resources.Icn_ViewSwtch_No_on;
+                LSV_chat.Columns[0].Width = 50;
                 Program.__ChatView_No = true;
             }
         }
@@ -1056,11 +1095,13 @@ namespace MabiChatSpeech
             if (Program.__ChatView_Time == true)
             {
                 BTN_Time.Image = Properties.Resources.Icn_ViewSwtch_Time_off;
+                LSV_chat.Columns[1].Width = 0;
                 Program.__ChatView_Time = false;
             }
             else
             {
                 BTN_Time.Image = Properties.Resources.Icn_ViewSwtch_Time_on;
+                LSV_chat.Columns[1].Width = 100;
                 Program.__ChatView_Time = true;
             }
         }
@@ -1071,11 +1112,13 @@ namespace MabiChatSpeech
             if (Program.__ChatView_Type == true)
             {
                 BTN_Type.Image = Properties.Resources.Icn_ViewSwtch_Type_off;
+                LSV_chat.Columns[2].Width = 0;
                 Program.__ChatView_Type = false;
             }
             else
             {
                 BTN_Type.Image = Properties.Resources.Icn_ViewSwtch_Type_on;
+                LSV_chat.Columns[2].Width = 50;
                 Program.__ChatView_Type = true;
             }
         }
@@ -1085,11 +1128,13 @@ namespace MabiChatSpeech
             if (Program.__ChatView_Name == true)
             {
                 BTN_Name.Image = Properties.Resources.Icn_ViewSwtch_Name_off;
+                LSV_chat.Columns[3].Width = 0;
                 Program.__ChatView_Name = false;
             }
             else
             {
                 BTN_Name.Image = Properties.Resources.Icn_ViewSwtch_Name_on;
+                LSV_chat.Columns[3].Width = 140;
                 Program.__ChatView_Name = true;
             }
         }
