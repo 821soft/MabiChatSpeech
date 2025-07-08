@@ -711,90 +711,98 @@ namespace MabiChatSpeech
         {
             try
             {
-            var time = e.Header.Timeval.Date;
-            var rawPacket = e.GetPacket();
-            var packet = PacketDotNet.Packet.ParsePacket(rawPacket.LinkLayerType, rawPacket.Data);
-            var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
-            if (tcpPacket != null)
-            {
-                var ipPacket = (PacketDotNet.IPPacket)tcpPacket.ParentPacket;
-                System.Net.IPAddress srcIp = ipPacket.SourceAddress;
-                System.Net.IPAddress dstIp = ipPacket.DestinationAddress;
-                int srcPort = tcpPacket.SourcePort;
-                int dstPort = tcpPacket.DestinationPort;
-
-
-　              // local側 ipアドレス＋ポート番号で　パケットデータの仕分け
-                var lip = $"{dstIp}:{dstPort}";
-                var sip = $"{srcIp}";
-                // 多重起動しているClient(VM上)のメッセージを除外
-                if ( PortNo != dstPort )
+                var time = e.Header.Timeval.Date;
+                var rawPacket = e.GetPacket();
+                var packet = PacketDotNet.Packet.ParsePacket(rawPacket.LinkLayerType, rawPacket.Data);
+                var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
+                if (tcpPacket != null)
                 {
-                    return;
-                }
+                    var ipPacket = (PacketDotNet.IPPacket)tcpPacket.ParentPacket;
+                    System.Net.IPAddress srcIp = ipPacket.SourceAddress;
+                    System.Net.IPAddress dstIp = ipPacket.DestinationAddress;
+                    int srcPort = tcpPacket.SourcePort;
+                    int dstPort = tcpPacket.DestinationPort;
 
-                if (svip != sip)
-                {
-                    // サーバーリストからマッチを探す
-                    var csv = ServerList.Find(x => x.ip == sip);
-                    if (csv.name.Length > 0)
+
+                    // local側 ipアドレス＋ポート番号で　パケットデータの仕分け
+                    var lip = $"{dstIp}:{dstPort}";
+                    var sip = $"{srcIp}";
+                    // 多重起動しているClient(VM上)のメッセージを除外
+                    if (PortNo != dstPort)
                     {
-                        svip = csv.ip;
-                        svname = csv.name;
+                        return;
                     }
-                    Connect();
-                }
 
-                if (PacketMode == PacketModes.Dump)
-                {
-                    string dumpstr = dumptext(tcpPacket);
-                    PacketDumps(dumpstr);
-//                    PacketDumpWrite(dumpstr);
-                }
-
-                if (tcpPacket.Push == false)
-                {
-                    // パケットの続きあり
-                    bpos = push_packet(tcpPacket , bpos, tcpPacket.PayloadData, tcpPacket.PayloadData.Length);
-                    if (tcpPacket.PayloadData.Length > 0)
+                    if (svip != sip)
                     {
-                        pushcnt++;
-                    }
-                    return;
-                }
-                bpos = push_packet(tcpPacket , bpos, tcpPacket.PayloadData, tcpPacket.PayloadData.Length);
-
-                if (PacketMode == PacketModes.Chat)
-                {
-                    var chats = analyses_packet2(tcpblen);
-                    foreach (var chat in chats )
-                    {
-                        if ((chat.ChatWord != "") && (chat.CharacterName != ""))
+                        // サーバーリストからマッチを探す
+                        var csv = ServerList.Find(x => x.ip == sip);
+                        if (csv.name.Length > 0)
                         {
-                            chatdatas_add(chat);
-                            //チャット受信でイベント
-                            Chat(chat);
+                            svip = csv.ip;
+                            svname = csv.name;
                         }
+                        Connect();
                     }
-                }
-                else if (PacketMode == PacketModes.Dump)
-                {
-                    string dumpstr = Analysys_packet();
-                    PacketDumps(dumpstr);
-                }
-                else if (PacketMode == PacketModes.Analysys)
-                {
-                    string dumpstr  = Analysys_packet();
-                    PacketDumps(dumpstr);
-                }
 
-                bpos = 0;
-                pushcnt = 0;
-                tcp_blist.Clear();
-            }
+//                    if (PacketMode == PacketModes.Dump)
+//                    {
+                        string dumpstr = dumptext(tcpPacket);
+                        PacketDumps(dumpstr);
+                        //                    PacketDumpWrite(dumpstr);
+//                    }
+
+                    if (tcpPacket.Push == false)
+                    {
+                        // パケットの続きあり
+                        bpos = push_packet(tcpPacket, bpos, tcpPacket.PayloadData, tcpPacket.PayloadData.Length);
+                        if (tcpPacket.PayloadData.Length > 0)
+                        {
+                            pushcnt++;
+                        }
+                        return;
+                    }
+                    // パケット確定
+                    bpos = push_packet(tcpPacket, bpos, tcpPacket.PayloadData, tcpPacket.PayloadData.Length);
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
+
+//                    if (PacketMode == PacketModes.Chat)
+//                    {
+                        var chats = analyses_packet2(tcpblen);
+                        foreach (var chat in chats)
+                        {
+                            if ((chat.ChatWord != "") && (chat.CharacterName != ""))
+                            {
+                                chatdatas_add(chat);
+                                //チャット受信でイベント
+                                Chat(chat);
+                            }
+                        }
+//                    }
+//                    else if (PacketMode == PacketModes.Dump)
+//                    {
+                        string dumpstr2 = Analysys_packet();
+                        PacketDumps(dumpstr2);
+//
+//                    }
+/*                    else if (PacketMode == PacketModes.Analysys)
+                    {
+                        string dumpstr = Analysys_packet();
+                        PacketDumps(dumpstr);
+                    }
+*/
+                    bpos = 0;
+                    pushcnt = 0;
+                    tcp_blist.Clear();
+                    sw.Stop();
+                    Debug.Print($"on Packet 処理時間: {sw.Elapsed.TotalMilliseconds}ms");
+
+                }
             }
             catch (Exception ex)
-            {
+            { 
+            
                 MessageBox.Show(ex.Message , "OnPacketArrive Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -835,12 +843,12 @@ namespace MabiChatSpeech
                 return ("");
             }
 
-            lstr += "     | +0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +A +B +C +D +E +F | 0123456789ABCDEF |" + Environment.NewLine;
-            lstr += "-----+-------------------------------------------------+------------------|" + Environment.NewLine;
+            lstr += "D      | +0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +A +B +C +D +E +F | 0123456789ABCDEF |" + Environment.NewLine;
+            lstr += "D -----+-------------------------------------------------+------------------|" + Environment.NewLine;
 
             for (int i = 0; i < len; i += 16)
             {
-                lstr += $"{i:X4} | ";
+                lstr += $"D {i:X4} | ";
                 for (int j = 0; j < 16; j++)
                 {
                     if (i + j >= len)
@@ -942,6 +950,7 @@ namespace MabiChatSpeech
 
                 lstr += Environment.NewLine;
             }
+            lstr += "D ";
             lstr += Environment.NewLine;
 
             return (lstr);
@@ -1041,20 +1050,21 @@ namespace MabiChatSpeech
             int Ad = 0;
             if( tcp_blist.Count > 1 )
             {
-                ret_val += "SegmentData" + Environment.NewLine;
+                ret_val += "D SegmentData" + Environment.NewLine;
             }
             else
             {
-                ret_val += "SingleData" + Environment.NewLine;
+                ret_val += "D SingleData" + Environment.NewLine;
             }
 
             foreach (var he in tcp_blist)
             {
-                ret_val+= he;
+                ret_val += "D ";
+                ret_val += he;
                 ret_val += Environment.NewLine;
             }
             tcp_blist.Clear ();
-            ret_val += $"  Segmant Length:{tcpblen} 0x{tcpblen:x8} Count:{pushcnt}"+ Environment.NewLine ;
+            ret_val += $"D   Segmant Length:{tcpblen} 0x{tcpblen:x8} Count:{pushcnt}"+ Environment.NewLine ;
 
             if (tcpblen < 8 )
             {
@@ -1082,7 +1092,7 @@ namespace MabiChatSpeech
                         }
                         bs += $"{tcpbuff[idx + 5 + i]:x2} ";
                     }
-                    ret_val += ($"  {bcount:d4},ID 0x{tcpbuff[idx]:x2},BSize 0x{blocksize:x8},BNext {NextAddr:x8},Data " + bs + Environment.NewLine);
+                    ret_val += ($"D   {bcount:d4},ID 0x{tcpbuff[idx]:x2},BSize 0x{blocksize:x8},BNext {NextAddr:x8},Data " + bs + Environment.NewLine);
                     bcount++ ;
                     if (blocksize <= 0)
                     {
@@ -1094,13 +1104,13 @@ namespace MabiChatSpeech
             }
             catch
             {
-                ret_val += Environment.NewLine + $"_Error:{bcount}"+ Environment.NewLine;
+                ret_val += Environment.NewLine + $"D _Error:{bcount}"+ Environment.NewLine;
             }
             if ( Ad != tcpblen )
             {
-                ret_val += Environment.NewLine + $"_Block Error: 0x{Ad:x8}" + Environment.NewLine ;
+                ret_val += Environment.NewLine + $"D _Block Error: 0x{Ad:x8}" + Environment.NewLine ;
             }
-            ret_val += Environment.NewLine;
+            ret_val += ("D "+Environment.NewLine);
             return (ret_val);
         }
 
@@ -1116,8 +1126,8 @@ namespace MabiChatSpeech
             var len = p.PayloadData.Length;
             var payload = p.PayloadData;
             string lstr = "";
-            lstr += $"Time:{tm} (Len):{len} (WSize):{p.WindowSize:d8}" + Environment.NewLine;
-            lstr += $"(PSH){p.Push} (Flags)0x{p.Flags:X} (S){p.SequenceNumber} / (A){p.AcknowledgmentNumber}" + Environment.NewLine; ;
+            lstr += $"D Time:{tm} (Len):{len} (WSize):{p.WindowSize:d8}" + Environment.NewLine;
+            lstr += $"D (PSH){p.Push} (Flags)0x{p.Flags:X} (S){p.SequenceNumber} / (A){p.AcknowledgmentNumber}" + Environment.NewLine; ;
             lstr += dumptext_Format(payload, len);
             return (lstr);
 

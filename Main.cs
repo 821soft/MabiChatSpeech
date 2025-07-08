@@ -385,16 +385,23 @@ namespace MabiChatSpeech
         // ダンプメッセージ
         private void onDump(object sender, EventArgs e)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             var x = (MabiPacket)sender;
             var c = (MabiPacketEventArgs)e;
             TxtChatWriteLine(c.PacketDump);
             var li = c.PacketDump.Split(Environment.NewLine);
             Program.tmpfile_write(li);
+            sw.Stop();
+            Debug.Print($"on Dump 処理時間: {sw.Elapsed.TotalMilliseconds}ms");
+
         }
 
         // On Chat
         private void onChat(object sender, EventArgs e)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             var x = (MabiPacket)sender;
             var c = (MabiPacketEventArgs)e;
             var t = DateTime.Now;
@@ -518,6 +525,7 @@ namespace MabiChatSpeech
 
                 LSV_chatWriteLine($"{chat_cnt}", $"{t:HH:mm:ss.fff}", $"{cc}", $"{c.CharacterName}", $"{c.ChatWord}");
 
+/*
                 if (__ChatView_No == true)
                 {
                     ChatView = ChatView.PadLeft(rc, ' ');
@@ -537,10 +545,11 @@ namespace MabiChatSpeech
                     ChatView += $"{c.CharacterName},";
                 }
                 ChatView += $"{c.ChatWord}";
+*/  
                 // chat log write
-                li[0] = $"{chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
+                li[0] = $"C {chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
                 Program.tmpfile_write(li);
-                TxtChatWriteLine(ChatView + Environment.NewLine);
+                TxtChatWriteLine( li + Environment.NewLine);
                 //TxtChatOverlayLabel(ChatView);
 
 
@@ -558,6 +567,9 @@ namespace MabiChatSpeech
             {
                 speech_chat(tts_name, tts_volume, tts_speed, c.CharacterName, c.ChatWord);
             }
+
+            sw.Stop();
+            Debug.Print($"on Chat 処理時間: {sw.Elapsed.TotalMilliseconds}ms");
 
         }
 
