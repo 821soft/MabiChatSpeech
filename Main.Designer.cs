@@ -65,12 +65,17 @@
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             BTN_Redirect = new System.Windows.Forms.ToolStripButton();
             SDB_SendTask = new System.Windows.Forms.ToolStripDropDownButton();
+            SDB_ViewMode = new System.Windows.Forms.ToolStripDropDownButton();
+            SDB_View_ItemList = new System.Windows.Forms.ToolStripMenuItem();
+            SDB_View_ItemText = new System.Windows.Forms.ToolStripMenuItem();
             LSV_chat = new System.Windows.Forms.ListView();
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
             columnHeader3 = new System.Windows.Forms.ColumnHeader();
             columnHeader4 = new System.Windows.Forms.ColumnHeader();
             columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            ItemChatMode = new System.Windows.Forms.ToolStripMenuItem();
+            ItemDumpMode = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
@@ -78,11 +83,11 @@
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip });
-            statusStrip1.Location = new System.Drawing.Point(0, 226);
+            statusStrip1.Location = new System.Drawing.Point(0, 172);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
+            statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
             statusStrip1.ShowItemToolTips = true;
-            statusStrip1.Size = new System.Drawing.Size(846, 29);
+            statusStrip1.Size = new System.Drawing.Size(740, 29);
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -129,12 +134,12 @@
             Txt_Chat.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             Txt_Chat.ForeColor = System.Drawing.Color.Lime;
             Txt_Chat.Location = new System.Drawing.Point(0, 31);
-            Txt_Chat.Margin = new System.Windows.Forms.Padding(5);
+            Txt_Chat.Margin = new System.Windows.Forms.Padding(4);
             Txt_Chat.Multiline = true;
             Txt_Chat.Name = "Txt_Chat";
             Txt_Chat.ReadOnly = true;
             Txt_Chat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            Txt_Chat.Size = new System.Drawing.Size(846, 195);
+            Txt_Chat.Size = new System.Drawing.Size(740, 141);
             Txt_Chat.TabIndex = 0;
             Txt_Chat.WordWrap = false;
             // 
@@ -144,10 +149,10 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Btn_Clear, Btn_Setup, Btn_List, toolStripSeparator1, SDB_SelectList, SDB_User, SDB_Npc, toolStripSeparator2, Btn_echa, BTN_No, BTN_Time, BTN_Type, BTN_Name, toolStripSeparator3, BTN_Redirect, SDB_SendTask });
+            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Btn_Clear, Btn_Setup, Btn_List, toolStripSeparator1, SDB_SelectList, SDB_User, SDB_Npc, toolStripSeparator2, Btn_echa, BTN_No, BTN_Time, BTN_Type, BTN_Name, toolStripSeparator3, BTN_Redirect, SDB_SendTask, SDB_ViewMode });
             toolStrip1.Location = new System.Drawing.Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new System.Drawing.Size(846, 31);
+            toolStrip1.Size = new System.Drawing.Size(740, 31);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -206,7 +211,7 @@
             toolStripMenuItem9.Image = Properties.Resources.Icn_SelectUser_off;
             toolStripMenuItem9.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem9.Name = "toolStripMenuItem9";
-            toolStripMenuItem9.Size = new System.Drawing.Size(217, 30);
+            toolStripMenuItem9.Size = new System.Drawing.Size(193, 30);
             toolStripMenuItem9.Tag = "0";
             toolStripMenuItem9.Text = "CharaMode Off";
             // 
@@ -215,7 +220,7 @@
             toolStripMenuItem10.Image = Properties.Resources.Icn_SelectUser_chat;
             toolStripMenuItem10.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem10.Name = "toolStripMenuItem10";
-            toolStripMenuItem10.Size = new System.Drawing.Size(217, 30);
+            toolStripMenuItem10.Size = new System.Drawing.Size(193, 30);
             toolStripMenuItem10.Tag = "1";
             toolStripMenuItem10.Text = "CharaMode Chatonly";
             // 
@@ -224,7 +229,7 @@
             toolStripMenuItem11.Image = Properties.Resources.Icn_SelectUser_voice;
             toolStripMenuItem11.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem11.Name = "toolStripMenuItem11";
-            toolStripMenuItem11.Size = new System.Drawing.Size(217, 30);
+            toolStripMenuItem11.Size = new System.Drawing.Size(193, 30);
             toolStripMenuItem11.Tag = "2";
             toolStripMenuItem11.Text = "CharaMode Voice";
             // 
@@ -247,7 +252,7 @@
             toolStripMenuItem5.Image = Properties.Resources.Icn_User_off;
             toolStripMenuItem5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem5.Name = "toolStripMenuItem5";
-            toolStripMenuItem5.Size = new System.Drawing.Size(182, 30);
+            toolStripMenuItem5.Size = new System.Drawing.Size(164, 30);
             toolStripMenuItem5.Tag = "0";
             toolStripMenuItem5.Text = "Player Off";
             // 
@@ -256,7 +261,7 @@
             toolStripMenuItem6.Image = Properties.Resources.Icn_User_chat;
             toolStripMenuItem6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem6.Name = "toolStripMenuItem6";
-            toolStripMenuItem6.Size = new System.Drawing.Size(182, 30);
+            toolStripMenuItem6.Size = new System.Drawing.Size(164, 30);
             toolStripMenuItem6.Tag = "1";
             toolStripMenuItem6.Text = "Player Chatonly";
             // 
@@ -265,7 +270,7 @@
             toolStripMenuItem7.Image = Properties.Resources.Icn_User_v1;
             toolStripMenuItem7.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem7.Name = "toolStripMenuItem7";
-            toolStripMenuItem7.Size = new System.Drawing.Size(182, 30);
+            toolStripMenuItem7.Size = new System.Drawing.Size(164, 30);
             toolStripMenuItem7.Tag = "2";
             toolStripMenuItem7.Text = "Player Voice1";
             // 
@@ -274,7 +279,7 @@
             toolStripMenuItem8.Image = Properties.Resources.Icn_User_v2;
             toolStripMenuItem8.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem8.Name = "toolStripMenuItem8";
-            toolStripMenuItem8.Size = new System.Drawing.Size(182, 30);
+            toolStripMenuItem8.Size = new System.Drawing.Size(164, 30);
             toolStripMenuItem8.Tag = "3";
             toolStripMenuItem8.Text = "Player Voice2";
             // 
@@ -297,7 +302,7 @@
             toolStripMenuItem1.Image = Properties.Resources.Icn_Npc_off;
             toolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(172, 30);
+            toolStripMenuItem1.Size = new System.Drawing.Size(155, 30);
             toolStripMenuItem1.Tag = "0";
             toolStripMenuItem1.Text = "NPC Off";
             // 
@@ -306,7 +311,7 @@
             toolStripMenuItem2.Image = Properties.Resources.Icn_Npc_chat;
             toolStripMenuItem2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new System.Drawing.Size(172, 30);
+            toolStripMenuItem2.Size = new System.Drawing.Size(155, 30);
             toolStripMenuItem2.Tag = "1";
             toolStripMenuItem2.Text = "NPC Chatonly";
             // 
@@ -315,7 +320,7 @@
             toolStripMenuItem3.Image = Properties.Resources.Icn_Npc_v1;
             toolStripMenuItem3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new System.Drawing.Size(172, 30);
+            toolStripMenuItem3.Size = new System.Drawing.Size(155, 30);
             toolStripMenuItem3.Tag = "2";
             toolStripMenuItem3.Text = "NPC Voice1";
             // 
@@ -324,7 +329,7 @@
             toolStripMenuItem4.Image = Properties.Resources.Icn_Npc_v2;
             toolStripMenuItem4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem4.Name = "toolStripMenuItem4";
-            toolStripMenuItem4.Size = new System.Drawing.Size(172, 30);
+            toolStripMenuItem4.Size = new System.Drawing.Size(155, 30);
             toolStripMenuItem4.Tag = "3";
             toolStripMenuItem4.Text = "NPC Voice2";
             // 
@@ -421,6 +426,31 @@
             SDB_SendTask.DropDownOpening += SDB_SendTask_DropDownOpening;
             SDB_SendTask.DropDownItemClicked += SDB_SendTask_DropDownItemClicked;
             // 
+            // SDB_ViewMode
+            // 
+            SDB_ViewMode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            SDB_ViewMode.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { SDB_View_ItemList, SDB_View_ItemText });
+            SDB_ViewMode.Image = (System.Drawing.Image)resources.GetObject("SDB_ViewMode.Image");
+            SDB_ViewMode.ImageTransparentColor = System.Drawing.Color.Magenta;
+            SDB_ViewMode.Name = "SDB_ViewMode";
+            SDB_ViewMode.Size = new System.Drawing.Size(29, 28);
+            SDB_ViewMode.Text = "toolStripDropDownButton2";
+            // 
+            // SDB_View_ItemList
+            // 
+            SDB_View_ItemList.Name = "SDB_View_ItemList";
+            SDB_View_ItemList.Size = new System.Drawing.Size(180, 22);
+            SDB_View_ItemList.Text = "ListView";
+            SDB_View_ItemList.Click += SDB_View_ItemList_Click;
+            // 
+            // SDB_View_ItemText
+            // 
+            SDB_View_ItemText.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { ItemChatMode, ItemDumpMode });
+            SDB_View_ItemText.Name = "SDB_View_ItemText";
+            SDB_View_ItemText.Size = new System.Drawing.Size(180, 22);
+            SDB_View_ItemText.Text = "TextView";
+            SDB_View_ItemText.Click += SDB_View_ItemText_Click;
+            // 
             // LSV_chat
             // 
             LSV_chat.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5 });
@@ -428,9 +458,10 @@
             LSV_chat.FullRowSelect = true;
             LSV_chat.GridLines = true;
             LSV_chat.Location = new System.Drawing.Point(0, 31);
+            LSV_chat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             LSV_chat.MultiSelect = false;
             LSV_chat.Name = "LSV_chat";
-            LSV_chat.Size = new System.Drawing.Size(846, 195);
+            LSV_chat.Size = new System.Drawing.Size(740, 141);
             LSV_chat.TabIndex = 2;
             LSV_chat.UseCompatibleStateImageBehavior = false;
             LSV_chat.View = System.Windows.Forms.View.Details;
@@ -460,19 +491,33 @@
             columnHeader5.Text = "Chat";
             columnHeader5.Width = 710;
             // 
+            // ItemChatMode
+            // 
+            ItemChatMode.Name = "ItemChatMode";
+            ItemChatMode.Size = new System.Drawing.Size(180, 22);
+            ItemChatMode.Text = "ChatMode";
+            ItemChatMode.Click += ItemChatMode_Click;
+            // 
+            // ItemDumpMode
+            // 
+            ItemDumpMode.Name = "ItemDumpMode";
+            ItemDumpMode.Size = new System.Drawing.Size(180, 22);
+            ItemDumpMode.Text = "DumpMode";
+            ItemDumpMode.Click += ItemDumpMode_Click;
+            // 
             // Main
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(846, 255);
+            ClientSize = new System.Drawing.Size(740, 201);
             Controls.Add(LSV_chat);
             Controls.Add(Txt_Chat);
             Controls.Add(statusStrip1);
             Controls.Add(toolStrip1);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
-            Margin = new System.Windows.Forms.Padding(5);
-            MinimumSize = new System.Drawing.Size(853, 274);
+            Margin = new System.Windows.Forms.Padding(4);
+            MinimumSize = new System.Drawing.Size(748, 225);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "MabiChatSpeech(ベータ5.2)";
@@ -533,6 +578,11 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ToolStripDropDownButton SDB_ViewMode;
+        private System.Windows.Forms.ToolStripMenuItem SDB_View_ItemList;
+        private System.Windows.Forms.ToolStripMenuItem SDB_View_ItemText;
+        private System.Windows.Forms.ToolStripMenuItem ItemChatMode;
+        private System.Windows.Forms.ToolStripMenuItem ItemDumpMode;
     }
 }
 

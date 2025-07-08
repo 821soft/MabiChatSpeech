@@ -81,7 +81,7 @@ namespace MabiChatSpeech
             citem.SubItems.Add(cn);
             citem.SubItems.Add(wd);
 
-            if ( LSV_chat.SelectedItems.Count == 0 )
+            if (LSV_chat.SelectedItems.Count == 0)
             {
                 LSV_chat.EnsureVisible(LSV_chat.Items.Count - 1);
             }
@@ -94,7 +94,7 @@ namespace MabiChatSpeech
             {
                 if (this.InvokeRequired)
                 {
-                    Invoke(new deg_LSV_chat_Add(LSV_chatWriteLine), no,ti,ty,cn,wd);
+                    Invoke(new deg_LSV_chat_Add(LSV_chatWriteLine), no, ti, ty, cn, wd);
                 }
                 else
                 {
@@ -795,37 +795,43 @@ namespace MabiChatSpeech
             }
         }
 
+        private void TextViewMode(PacketModes mode)
+        {
+            string[] msg = { "" };
+            switch ( mode )
+            {
+                case PacketModes.Chat:
+                    msg[0] = "Chat Mode *** Start" + Environment.NewLine ;
+                    TxtChatWriteLine(msg[0]);
+                    Program.tmpfile_write(msg);
+                    Program.packets.PacketMode = PacketModes.Chat;
+                    SLB_Mode_Icon(Program.packets.PacketMode);
+                    break;
+                case PacketModes.Dump:
+                    msg[0] = "Dump Mode *** Start" + Environment.NewLine ;
+                    TxtChatWriteLine(msg[0]);
+                    Program.tmpfile_write(msg);
+                    Program.packets.PacketMode = PacketModes.Dump;
+                    SLB_Mode_Icon(Program.packets.PacketMode);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void Btn_DumpView_Click(object sender, EventArgs e)
         {
             if (Program.packets.PacketMode == PacketModes.Chat)
             {
-                string[] msg = { "Dump Mode *** Start" + Environment.NewLine };
-                TxtChatWriteLine(msg[0]);
-                Program.tmpfile_write(msg);
-
-
-
-                Program.packets.PacketMode = PacketModes.Dump;
-                SLB_Mode_Icon(Program.packets.PacketMode);
+                TextViewMode(PacketModes.Dump);
             }
             else if (Program.packets.PacketMode == PacketModes.Dump)
             {
-                //                TxtChatWriteLine("Analysys Mode *** Start" + Environment.NewLine);
-                string[] msg = { "Chat Mode *** Start" + Environment.NewLine };
-                TxtChatWriteLine(msg[0]);
-                Program.tmpfile_write(msg);
-
-                Program.packets.PacketMode = PacketModes.Chat;
-                SLB_Mode_Icon(Program.packets.PacketMode);
+                TextViewMode(PacketModes.Chat);
             }
             else if (Program.packets.PacketMode == PacketModes.Analysys)
             {
-                string[] msg = { "Chat Mode *** Start" + Environment.NewLine };
-                TxtChatWriteLine(msg[0]);
-                Program.tmpfile_write(msg);
-
-                Program.packets.PacketMode = PacketModes.Chat;
-                SLB_Mode_Icon(Program.packets.PacketMode);
+                TextViewMode(PacketModes.Chat);
             }
         }
 
@@ -1013,7 +1019,7 @@ namespace MabiChatSpeech
             }
         }
 
-//  キャラクターモード
+        //  キャラクターモード
         private void SDB_SelectList_Click(object sender, EventArgs e)
         {
             if (Program.__ChatSelWhitelist == 2)
@@ -1151,6 +1157,29 @@ namespace MabiChatSpeech
                 Program.__Echa = 0;
                 Btn_echa.Image = Properties.Resources.Icn_echa_off;
             }
+        }
+
+        private void SDB_View_ItemList_Click(object sender, EventArgs e)
+        {
+            LSV_chat.Visible = true;
+        }
+
+        private void SDB_View_ItemText_Click(object sender, EventArgs e)
+        {
+            LSV_chat.Visible = false;
+        }
+
+        private void ItemChatMode_Click(object sender, EventArgs e)
+        {
+            LSV_chat.Visible = false;
+            TextViewMode(PacketModes.Chat);
+        }
+
+        private void ItemDumpMode_Click(object sender, EventArgs e)
+        {
+            LSV_chat.Visible = false;
+            TextViewMode(PacketModes.Dump);
+
         }
     }
 }
