@@ -666,7 +666,7 @@ namespace MabiChatSpeech
                             {
                                 if (tcpbuff[i + 1] == 0x00)
                                 {
-                                            bd = i + 2;
+                                    bd = i + 2;
                                 }
                             }
                         }
@@ -696,7 +696,7 @@ namespace MabiChatSpeech
             catch
             {
             }
-            Debug.Print($" {ret.Count:d2} ");
+            // Debug.Print($" {ret.Count:d2} ");
             return ret;
         }
         public static void chatdatas_add(ChatData data)
@@ -744,13 +744,11 @@ namespace MabiChatSpeech
                         }
                         Connect();
                     }
-
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
-                    string dumpstr = dumptext(tcpPacket);
-                    sw.Stop();
-                    dumpstr += $"T dumptext{sw.Elapsed.TotalMilliseconds}ms";
-                    PacketDumps(dumpstr);
+                    if ( Program.packets.PacketMode == PacketModes.Dump )
+                    {
+                        string dumpstr = dumptext(tcpPacket);
+                        PacketDumps(dumpstr);
+                    }
 
                     if (tcpPacket.Push == false)
                     {
@@ -765,10 +763,9 @@ namespace MabiChatSpeech
                     // パケット確定
                     bpos = push_packet(tcpPacket, bpos, tcpPacket.PayloadData, tcpPacket.PayloadData.Length);
 
-                    sw.Reset();
+                    Stopwatch sw = new Stopwatch();
                     sw.Start();
                     var chats = analyses_packet2(tcpblen);
-                    sw.Stop();
                     foreach (var chat in chats)
                     {
                         if ((chat.ChatWord != "") && (chat.CharacterName != ""))
@@ -778,11 +775,19 @@ namespace MabiChatSpeech
                                 Chat(chat);
                         }
                     }
-                    sw.Restart();
-                    string dumpstr2 = Analysys_packet();
                     sw.Stop();
-                    dumpstr2 += $"T Analysys_packet{sw.Elapsed.TotalMilliseconds}ms";
-                    PacketDumps(dumpstr2);
+                    string [] tst = { $"T {sw.Elapsed.TotalMilliseconds}ms Analysys_packet2()" + Environment.NewLine };
+
+                    Program.tmpfile_write( tst );
+                    sw.Reset();
+                    sw.Start();
+                    if (Program.packets.PacketMode == PacketModes.Dump)
+                    {
+                        string dumpstr2 = Analysys_packet();
+                        sw.Stop();
+                        dumpstr2 += $"T {sw.Elapsed.TotalMilliseconds}ms Analysys_packet()" + Environment.NewLine;
+                        PacketDumps(dumpstr2);
+                    }
                     bpos = 0;
                     pushcnt = 0;
                     tcp_blist.Clear();

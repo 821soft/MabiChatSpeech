@@ -304,6 +304,7 @@ namespace MabiChatSpeech
             try
             {
                 _tmpfname = Path.GetTempFileName();
+                Debug.Print($"tmpname {_tmpfname}"); 
                 Frm_Main = new Main();
                 Frm_Main.Location = winpos;
                 Frm_Main.Size = winsize;
