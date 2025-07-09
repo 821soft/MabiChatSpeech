@@ -745,12 +745,12 @@ namespace MabiChatSpeech
                         Connect();
                     }
 
-//                    if (PacketMode == PacketModes.Dump)
-//                    {
-                        string dumpstr = dumptext(tcpPacket);
-                        PacketDumps(dumpstr);
-                        //                    PacketDumpWrite(dumpstr);
-//                    }
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
+                    string dumpstr = dumptext(tcpPacket);
+                    sw.Stop();
+                    dumpstr += $"T dumptext{sw.Elapsed.TotalMilliseconds}ms";
+                    PacketDumps(dumpstr);
 
                     if (tcpPacket.Push == false)
                     {
@@ -764,40 +764,28 @@ namespace MabiChatSpeech
                     }
                     // パケット確定
                     bpos = push_packet(tcpPacket, bpos, tcpPacket.PayloadData, tcpPacket.PayloadData.Length);
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
 
-//                    if (PacketMode == PacketModes.Chat)
-//                    {
-                        var chats = analyses_packet2(tcpblen);
-                        foreach (var chat in chats)
+                    sw.Reset();
+                    sw.Start();
+                    var chats = analyses_packet2(tcpblen);
+                    sw.Stop();
+                    foreach (var chat in chats)
+                    {
+                        if ((chat.ChatWord != "") && (chat.CharacterName != ""))
                         {
-                            if ((chat.ChatWord != "") && (chat.CharacterName != ""))
-                            {
                                 chatdatas_add(chat);
                                 //チャット受信でイベント
                                 Chat(chat);
-                            }
                         }
-//                    }
-//                    else if (PacketMode == PacketModes.Dump)
-//                    {
-                        string dumpstr2 = Analysys_packet();
-                        PacketDumps(dumpstr2);
-//
-//                    }
-/*                    else if (PacketMode == PacketModes.Analysys)
-                    {
-                        string dumpstr = Analysys_packet();
-                        PacketDumps(dumpstr);
                     }
-*/
+                    sw.Restart();
+                    string dumpstr2 = Analysys_packet();
+                    sw.Stop();
+                    dumpstr2 += $"T Analysys_packet{sw.Elapsed.TotalMilliseconds}ms";
+                    PacketDumps(dumpstr2);
                     bpos = 0;
                     pushcnt = 0;
                     tcp_blist.Clear();
-                    sw.Stop();
-                    Debug.Print($"on Packet 処理時間: {sw.Elapsed.TotalMilliseconds}ms");
-
                 }
             }
             catch (Exception ex)

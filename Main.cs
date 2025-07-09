@@ -391,8 +391,8 @@ namespace MabiChatSpeech
             var c = (MabiPacketEventArgs)e;
             TxtChatWriteLine(c.PacketDump);
             var li = c.PacketDump.Split(Environment.NewLine);
-            Program.tmpfile_write(li);
             sw.Stop();
+            Program.tmpfile_write(li);
             Debug.Print($"on Dump 処理時間: {sw.Elapsed.TotalMilliseconds}ms");
 
         }
@@ -411,6 +411,7 @@ namespace MabiChatSpeech
             int tts_speed = 0;
             int tts_volume = 0;
 
+            // キャラリスト自動追加
             if ((Program.__WhiteList_AutoAdd == true) && (c.CharacterType == CharacterTypes.User))
             {
                 var fc = Program.CharaList.FindCharacterName(c.CharacterName);
@@ -423,11 +424,14 @@ namespace MabiChatSpeech
                 }
             }
 
-            // フィルタリング
+            // フィルタリング　キャラモード 0=OFF 1=ChatOnly 2=VoiceON
             if (__ChatSelWhitelist == 0)
+            // キャラモード OFF時
             {
+                //　発言者で分岐
                 if (c.CharacterType == CharacterTypes.User)
                 {
+                    // プレイヤーの場合
                     cc = "PC ";
                     f_show = true;
                     switch (__ChatSelUser)
@@ -454,6 +458,7 @@ namespace MabiChatSpeech
                 }
                 else
                 {
+                    // NPCの場合
                     cc = "NPC";
                     f_show = true;
                     switch (__ChatSelNpc)
@@ -480,11 +485,12 @@ namespace MabiChatSpeech
                 }
             }
             else
+            // チャットまたは読上げ時、キャラリストに発言者が含まれるかチェック
             {
                 var fc = Program.CharaList.FindCharacterName(c.CharacterName);
 
                 if (fc != null)
-                {
+                { // リストに該当有
                     if (fc.CharacterType == c.CharacterType)
                     {
                         if (fc.Enabled)
@@ -498,6 +504,7 @@ namespace MabiChatSpeech
                                 cc = "NPC";
                             }
                             f_show = true;
+                            // 読上げONの場合
                             if (__ChatSelWhitelist == 2)
                             {
                                 tts_name = fc.TtsName;
@@ -510,42 +517,14 @@ namespace MabiChatSpeech
 
             }
 
+            // 表示処理
+
             if (f_show == true)
             {
                 // chat log show
-                string ChatView = "";
                 string[] li = { "" };
-
-                var cl = "${chat_cnt}";
-                var rc = 5 - cl.Length;
-                if (rc < 0)
-                {
-                    rc = 0;
-                }
-
                 LSV_chatWriteLine($"{chat_cnt}", $"{t:HH:mm:ss.fff}", $"{cc}", $"{c.CharacterName}", $"{c.ChatWord}");
 
-/*
-                if (__ChatView_No == true)
-                {
-                    ChatView = ChatView.PadLeft(rc, ' ');
-                    ChatView += $"{chat_cnt},";
-                }
-
-                if (__ChatView_Time == true)
-                {
-                    ChatView += $"{t:HH:mm:ss.fff},";
-                }
-                if (__ChatView_Type == true)
-                {
-                    ChatView += $"{cc},";
-                }
-                if (__ChatView_Name == true)
-                {
-                    ChatView += $"{c.CharacterName},";
-                }
-                ChatView += $"{c.ChatWord}";
-*/  
                 // chat log write
                 li[0] = $"C {chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
                 Program.tmpfile_write(li);
@@ -554,6 +533,8 @@ namespace MabiChatSpeech
 
 
                 chat_cnt++;
+
+                // リダイレクト処理
                 if (BTN_Redirect.Tag != null)
                 {
                     if (BTN_Redirect.Text == "ON")
@@ -563,6 +544,7 @@ namespace MabiChatSpeech
                 }
             }
 
+            // 読上げ処理
             if (tts_name != "")
             {
                 speech_chat(tts_name, tts_volume, tts_speed, c.CharacterName, c.ChatWord);
