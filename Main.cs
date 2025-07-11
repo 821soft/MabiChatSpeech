@@ -64,6 +64,7 @@ namespace MabiChatSpeech
                 else
                 {
                     Txt_Chat.AppendText(sx);
+                    TPB_Max.Text = $"{Txt_Chat.Lines.Length}";
                 }
             }
             catch
@@ -235,6 +236,8 @@ namespace MabiChatSpeech
         {
             Txt_Chat.Text = "";
             LSV_chat.Items.Clear();
+            File.Create(_tmpfname);
+
         }
         private void SLB_Clinet_Set(ClinetStatus sts)
         {
@@ -621,12 +624,23 @@ namespace MabiChatSpeech
         {
             string savefilename = __SavePath + "\\MabiChatLog";
 
+            if (__SaveMode == 0)
+            {
+                return;
+            }
+
+            DateTime dt = DateTime.Now;
+
             string[] logdata = File.ReadAllLines(Program._tmpfname);
             if (logdata.Length == 0)
             {
                 return;
             }
-            DateTime dt = DateTime.Now;
+            int linecnt = 0;
+            TPB_Save.Visible = true;
+            TPB_Save.Value = 0 ;
+            TPB_Save.Maximum = logdata.Length;
+            TPB_Max.Text = "";
 
             switch (__SaveMode)
             {
@@ -638,6 +652,9 @@ namespace MabiChatSpeech
                     foreach (var li in logdata)
                     {
                         File.AppendAllText(savefilename, li + Environment.NewLine);
+                        linecnt++;
+                        TPB_Max.Text = $"{linecnt}/{TPB_Save.Maximum}" ;
+                        TPB_Save.Value = linecnt;
                     }
                     break;
                 case 2: // 追記
@@ -646,6 +663,9 @@ namespace MabiChatSpeech
                     foreach (var li in logdata)
                     {
                         File.AppendAllText(savefilename, li + Environment.NewLine);
+                        linecnt++;
+                        TPB_Max.Text = $"{linecnt}/{TPB_Save.Maximum}";
+                        TPB_Save.Value = linecnt;
                     }
                     break;
                 case 3: // タイムスタンプ
@@ -654,11 +674,16 @@ namespace MabiChatSpeech
                     foreach (var li in logdata)
                     {
                         File.AppendAllText(savefilename, li + Environment.NewLine);
+                        linecnt++;
+                        TPB_Max.Text = $"{linecnt}/{TPB_Save.Maximum}";
+                        TPB_Save.Value = linecnt;
                     }
                     break;
                 default:
                     break;
             }
+            // TPB_Save.Visible = false;
+
         }
 
 
