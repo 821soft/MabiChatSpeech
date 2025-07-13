@@ -116,6 +116,7 @@ namespace MabiChatSpeech
         public bool cap_sts;
         public string svname;
         public string svip;
+        public long ElapsedMilliseconds;
     }
 
     // Mabinogi Packet Class
@@ -299,12 +300,13 @@ namespace MabiChatSpeech
             ConnectEvent?.Invoke(this, e);
         }
         public event EventHandler ChatEvent;
-        void Chat(ChatData d)
+        void Chat(ChatData d , long ms)
         {
             var e = new MabiPacketEventArgs();
             e.CharacterName = d.CharacterName;
             e.ChatWord = d.ChatWord;
             e.CharacterType = d.CharacterType;
+            e.ElapsedMilliseconds = ms;
             OnChat(e);
         }
         protected virtual void OnChat(MabiPacketEventArgs e)
@@ -312,10 +314,11 @@ namespace MabiChatSpeech
             ChatEvent?.Invoke(this, e);
         }
         public event EventHandler PacketEvent;
-        void PacketDumps(string s)
+        void PacketDumps(string s,long ms)
         {
             var e = new MabiPacketEventArgs();
             e.PacketDump = s;
+            e.ElapsedMilliseconds = ms;
             OnPacketDump(e);
         }
         protected virtual void OnPacketDump(MabiPacketEventArgs e)
@@ -747,7 +750,7 @@ namespace MabiChatSpeech
                     if ( Program.packets.PacketMode == PacketModes.Dump )
                     {
                         string dumpstr = dumptext(tcpPacket);
-                        PacketDumps(dumpstr);
+                        PacketDumps(dumpstr,0);
                     }
 
                     if (tcpPacket.Push == false)
@@ -766,27 +769,25 @@ namespace MabiChatSpeech
                     Stopwatch sw = new Stopwatch();
                     sw.Start();
                     var chats = analyses_packet2(tcpblen);
+                    sw.Stop();
+
                     foreach (var chat in chats)
                     {
                         if ((chat.ChatWord != "") && (chat.CharacterName != ""))
                         {
-                                chatdatas_add(chat);
-                                //チャット受信でイベント
-                                Chat(chat);
+                            chatdatas_add(chat);
+                            //チャット受信でイベント
+                            Chat(chat,sw.ElapsedMilliseconds);
                         }
                     }
-                    sw.Stop();
-                    string [] tst = { $"T {sw.Elapsed.TotalMilliseconds}ms Analysys_packet2()" + Environment.NewLine };
 
-                    Program.tmpfile_write( tst );
                     sw.Reset();
                     sw.Start();
                     if (Program.packets.PacketMode == PacketModes.Dump)
                     {
                         string dumpstr2 = Analysys_packet();
                         sw.Stop();
-                        dumpstr2 += $"T {sw.Elapsed.TotalMilliseconds}ms Analysys_packet()" + Environment.NewLine;
-                        PacketDumps(dumpstr2);
+                        PacketDumps(dumpstr2, sw.ElapsedMilliseconds);
                     }
                     bpos = 0;
                     pushcnt = 0;
@@ -820,11 +821,12 @@ namespace MabiChatSpeech
             Connect();
 
         }
-        private void capdev_stop()
+        public void capdev_stop()
         {
-            svip = "";
-            svname = "";
-            cap_sts = capdev.Started; 
+            if (capdev != null)
+            {
+                capdev.StartCapture();
+            }
         }
 
         static private string dumptext_Format(byte[] payload , int len )

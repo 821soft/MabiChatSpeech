@@ -131,14 +131,15 @@
             // 
             // TPB_Save
             // 
+            TPB_Save.Maximum = int.MaxValue;
             TPB_Save.Name = "TPB_Save";
             TPB_Save.Size = new System.Drawing.Size(100, 23);
             // 
             // TPB_Max
             // 
+            TPB_Max.AutoSize = false;
             TPB_Max.Name = "TPB_Max";
             TPB_Max.Size = new System.Drawing.Size(169, 24);
-            TPB_Max.Text = "00000000000000000000";
             // 
             // Txt_Chat
             // 
@@ -443,7 +444,7 @@
             // 
             SDB_ViewMode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             SDB_ViewMode.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { SDB_View_ItemList, SDB_View_ItemText });
-            SDB_ViewMode.Image = (System.Drawing.Image)resources.GetObject("SDB_ViewMode.Image");
+            SDB_ViewMode.Image = Properties.Resources.description;
             SDB_ViewMode.ImageTransparentColor = System.Drawing.Color.Magenta;
             SDB_ViewMode.Name = "SDB_ViewMode";
             SDB_ViewMode.Size = new System.Drawing.Size(29, 28);
@@ -452,7 +453,7 @@
             // SDB_View_ItemList
             // 
             SDB_View_ItemList.Name = "SDB_View_ItemList";
-            SDB_View_ItemList.Size = new System.Drawing.Size(131, 24);
+            SDB_View_ItemList.Size = new System.Drawing.Size(130, 24);
             SDB_View_ItemList.Text = "ListView";
             SDB_View_ItemList.Click += SDB_View_ItemList_Click;
             // 
@@ -460,8 +461,8 @@
             // 
             SDB_View_ItemText.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { ItemChatMode, ItemDumpMode });
             SDB_View_ItemText.Name = "SDB_View_ItemText";
-            SDB_View_ItemText.Size = new System.Drawing.Size(131, 24);
-            SDB_View_ItemText.Text = "TextView";
+            SDB_View_ItemText.Size = new System.Drawing.Size(130, 24);
+            SDB_View_ItemText.Text = "LogView";
             SDB_View_ItemText.Click += SDB_View_ItemText_Click;
             // 
             // ItemChatMode

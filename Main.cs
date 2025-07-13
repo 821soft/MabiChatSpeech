@@ -65,6 +65,7 @@ namespace MabiChatSpeech
                 {
                     Txt_Chat.AppendText(sx);
                     TPB_Max.Text = $"{Txt_Chat.Lines.Length}";
+                    TPB_Save.Value = Txt_Chat.Lines.Length;
                 }
             }
             catch
@@ -236,7 +237,6 @@ namespace MabiChatSpeech
         {
             Txt_Chat.Text = "";
             LSV_chat.Items.Clear();
-            File.Create(_tmpfname);
 
         }
         private void SLB_Clinet_Set(ClinetStatus sts)
@@ -296,8 +296,6 @@ namespace MabiChatSpeech
             //透過form
             //Overlay Frm_Overlay = new Overlay();
             //Frm_Overlay.Show();
-
-
         }
 
         // Capture Status Color
@@ -391,7 +389,6 @@ namespace MabiChatSpeech
             var c = (MabiPacketEventArgs)e;
             TxtChatWriteLine(c.PacketDump);
             var li = c.PacketDump.Split(Environment.NewLine);
-            Program.tmpfile_write(li);
 
         }
 
@@ -523,7 +520,6 @@ namespace MabiChatSpeech
 
                 // chat log write
                 li[0] = $"C {chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
-                Program.tmpfile_write(li);
                 TxtChatWriteLine(li[0] + Environment.NewLine);
                 //TxtChatOverlayLabel(ChatView);
 
@@ -545,7 +541,6 @@ namespace MabiChatSpeech
             {
                 speech_chat(tts_name, tts_volume, tts_speed, c.CharacterName, c.ChatWord);
             }
-
 
         }
 
@@ -631,16 +626,6 @@ namespace MabiChatSpeech
 
             DateTime dt = DateTime.Now;
 
-            string[] logdata = File.ReadAllLines(Program._tmpfname);
-            if (logdata.Length == 0)
-            {
-                return;
-            }
-            int linecnt = 0;
-            TPB_Save.Visible = true;
-            TPB_Save.Value = 0 ;
-            TPB_Save.Maximum = logdata.Length;
-            TPB_Max.Text = "";
 
             switch (__SaveMode)
             {
@@ -648,40 +633,20 @@ namespace MabiChatSpeech
                     break;
                 case 1: // 上書き
                     savefilename += ".txt";
-                    File.WriteAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    foreach (var li in logdata)
-                    {
-                        File.AppendAllText(savefilename, li + Environment.NewLine);
-                        linecnt++;
-                        TPB_Max.Text = $"{linecnt}/{TPB_Save.Maximum}" ;
-                        TPB_Save.Value = linecnt;
-                    }
+                    File.WriteAllText(savefilename, Log.Text);
                     break;
                 case 2: // 追記
                     savefilename += ".txt";
-                    File.AppendAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    foreach (var li in logdata)
-                    {
-                        File.AppendAllText(savefilename, li + Environment.NewLine);
-                        linecnt++;
-                        TPB_Max.Text = $"{linecnt}/{TPB_Save.Maximum}";
-                        TPB_Save.Value = linecnt;
-                    }
+                    File.AppendAllText(savefilename, Log.Text);
                     break;
                 case 3: // タイムスタンプ
                     savefilename += $"_{dt:yyyyMMdd}_{dt:HHmmss}.txt";
-                    File.WriteAllText(savefilename, $"Chat Log ***{dt:F}***" + Environment.NewLine);
-                    foreach (var li in logdata)
-                    {
-                        File.AppendAllText(savefilename, li + Environment.NewLine);
-                        linecnt++;
-                        TPB_Max.Text = $"{linecnt}/{TPB_Save.Maximum}";
-                        TPB_Save.Value = linecnt;
-                    }
+                    File.WriteAllText(savefilename, Log.Text);
                     break;
                 default:
                     break;
             }
+            TPB_Max.Text = "";
             // TPB_Save.Visible = false;
 
         }
@@ -813,14 +778,12 @@ namespace MabiChatSpeech
                 case PacketModes.Chat:
                     msg[0] = "Chat Mode *** Start" + Environment.NewLine ;
                     TxtChatWriteLine(msg[0]);
-                    Program.tmpfile_write(msg);
                     Program.packets.PacketMode = PacketModes.Chat;
                     SLB_Mode_Icon(Program.packets.PacketMode);
                     break;
                 case PacketModes.Dump:
                     msg[0] = "Dump Mode *** Start" + Environment.NewLine ;
                     TxtChatWriteLine(msg[0]);
-                    Program.tmpfile_write(msg);
                     Program.packets.PacketMode = PacketModes.Dump;
                     SLB_Mode_Icon(Program.packets.PacketMode);
                     break;
@@ -849,7 +812,7 @@ namespace MabiChatSpeech
         {
             string _Pos_Main = $"{this.Location.X},{this.Location.Y},{this.Width},{this.Height}";
             Program.__Pos_Main = _Pos_Main;
-
+            packets.capdev_stop();
         }
 
         public Help sf = null;
