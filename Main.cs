@@ -25,7 +25,7 @@ namespace MabiChatSpeech
 {
     public partial class Main : Form
     {
-        static public int chat_cnt = 1;
+        static public int chat_cnt = 1; //チャットのナンバリング
         public Main()
         {
             InitializeComponent();
@@ -179,11 +179,21 @@ namespace MabiChatSpeech
             }
         }
 
+        /// <summary>
+        /// 終了操作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MNI_Quit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        /// <summary>
+        /// メインLoad
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Main_Load(object sender, EventArgs e)
         {
 
@@ -224,7 +234,11 @@ namespace MabiChatSpeech
             }
 
         }
-
+        /// <summary>
+        /// キャラクターリスト追加
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Add_Click(object sender, EventArgs e)
         {
 
@@ -232,13 +246,22 @@ namespace MabiChatSpeech
             csw.ShowDialog();
 
         }
-
+        /// <summary>
+        /// ビュークリア
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Clear_Click(object sender, EventArgs e)
         {
             Txt_Chat.Text = "";
             LSV_chat.Items.Clear();
+            chat_cnt = 1;
 
         }
+        /// <summary>
+        /// 接続状態表示
+        /// </summary>
+        /// <param name="sts"></param>
         private void SLB_Clinet_Set(ClinetStatus sts)
         {
             switch (sts)
@@ -259,7 +282,11 @@ namespace MabiChatSpeech
                     break;
             }
         }
-
+        /// <summary>
+        /// メイン表示イベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Main_Shown(object sender, EventArgs e)
         {
             // Bug.001
@@ -337,6 +364,11 @@ namespace MabiChatSpeech
 
         // MabiPacket関連のイベント
         // Status Change
+        /// <summary>
+        /// 接続状態イベント受信
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onConnect(object sender, EventArgs e)
         {
             var x = (MabiPacket)sender;
@@ -383,6 +415,11 @@ namespace MabiChatSpeech
             }
         }
         // ダンプメッセージ
+        /// <summary>
+        /// ダンプイベント受信
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onDump(object sender, EventArgs e)
         {
             var x = (MabiPacket)sender;
@@ -393,6 +430,11 @@ namespace MabiChatSpeech
         }
 
         // On Chat
+        /// <summary>
+        /// チャットイベント受信
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onChat(object sender, EventArgs e)
         {
             var x = (MabiPacket)sender;
@@ -545,6 +587,9 @@ namespace MabiChatSpeech
         }
 
         // Setting 
+        /// <summary>
+        /// 設定状態の保存
+        /// </summary>
         public void settingupd()
         {
             SDB_Npc_Setdata();
@@ -615,6 +660,11 @@ namespace MabiChatSpeech
                 default: SLB_SaveMode.Image = null; break;
             }
         }
+
+        /// <summary>
+        /// ログのファイル出力
+        /// </summary>
+        /// <param name="Log"></param>
         private void ChatLogSave(System.Windows.Forms.TextBox Log)
         {
             string savefilename = __SavePath + "\\MabiChatLog";
@@ -651,7 +701,11 @@ namespace MabiChatSpeech
 
         }
 
-
+        /// <summary>
+        /// メインクローズ後の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.CharaList.FileTextWrite();
@@ -663,7 +717,11 @@ namespace MabiChatSpeech
             }
 
         }
-
+        /// <summary>
+        /// 設定ボタン押下
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Setup_Click(object sender, EventArgs e)
         {
             Setting Frm_Setting = new Setting
@@ -672,7 +730,11 @@ namespace MabiChatSpeech
             };
             Frm_Setting.ShowDialog();
         }
-
+        /// <summary>
+        /// キャラクターボタン押下
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_List_Click(object sender, EventArgs e)
         {
             WhiteList Frm_WhiteList = new WhiteList();
@@ -684,7 +746,12 @@ namespace MabiChatSpeech
 
         // Redirect Window Hndle List
         private List<IntPtr> twlist = new List<IntPtr>();
-
+        /// <summary>
+        /// タスクリスト取得コールバック
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="lparam"></param>
+        /// <returns></returns>
         private bool EnumWindowCallBack(IntPtr hWnd, IntPtr lparam)
         {
             //throw new NotImplementedException();
@@ -725,21 +792,33 @@ namespace MabiChatSpeech
             }
             return true;
         }
-
+        /// <summary>
+        /// リダイレクト先ドロップダウンリスト設定
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SDB_SendTask_DropDownOpening(object sender, EventArgs e)
         {
             SDB_SendTask.DropDownItems.Clear();
             twlist.Clear();
             WinApi.EnumWindows(new EnumWindowsDelegate(EnumWindowCallBack), IntPtr.Zero);
         }
-
+        /// <summary>
+        /// リダイレクト先ドロップダウンリスト選択
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SDB_SendTask_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             BTN_Redirect.Tag = e.ClickedItem.Tag;
             SDB_SendTask.Text = e.ClickedItem.Text;
             WinApi.SetForegroundWindow((IntPtr)BTN_Redirect.Tag);
         }
-
+        /// <summary>
+        /// リダイレクト有効無効ボタン押下
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BTN_Redirect_Click(object sender, EventArgs e)
         {
             if (BTN_Redirect.Text == "OFF")
@@ -753,7 +832,10 @@ namespace MabiChatSpeech
                 BTN_Redirect.Image = Properties.Resources.Icn_Sendstop;
             }
         }
-
+        /// <summary>
+        /// ログモード表示設定
+        /// </summary>
+        /// <param name="pm"></param>
         private void SLB_Mode_Icon(PacketModes pm)
         {
             switch (pm)
@@ -769,7 +851,10 @@ namespace MabiChatSpeech
                     break;
             }
         }
-
+        /// <summary>
+        /// ログモード切替
+        /// </summary>
+        /// <param name="mode"></param>
         private void TextViewMode(PacketModes mode)
         {
             string[] msg = { "" };
@@ -791,7 +876,11 @@ namespace MabiChatSpeech
                     break;
             }
         }
-
+        /// <summary>
+        /// ログモード切替
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_DumpView_Click(object sender, EventArgs e)
         {
             if (Program.packets.PacketMode == PacketModes.Chat)
@@ -807,7 +896,11 @@ namespace MabiChatSpeech
                 TextViewMode(PacketModes.Chat);
             }
         }
-
+        /// <summary>
+        /// メインフォームクローズ処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             string _Pos_Main = $"{this.Location.X},{this.Location.Y},{this.Width},{this.Height}";
@@ -816,6 +909,11 @@ namespace MabiChatSpeech
         }
 
         public Help sf = null;
+        /// <summary>
+        /// メインキー入力処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -877,6 +975,11 @@ namespace MabiChatSpeech
         }
 
         //  NPC
+        /// <summary>
+        /// NPCモード
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SDB_Npc_Click(object sender, EventArgs e)
         {
             if (Program.__ChatSelNpc == 3)
@@ -934,6 +1037,11 @@ namespace MabiChatSpeech
         }
 
         //  プレイヤー
+        /// <summary>
+        /// プレイヤーのモード
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SDB_User_Click(object sender, EventArgs e)
         {
             if (Program.__ChatSelUser == 3)
@@ -992,7 +1100,11 @@ namespace MabiChatSpeech
             }
         }
 
-        //  キャラクターモード
+        /// <summary>
+        /// キャラクターモード設定
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SDB_SelectList_Click(object sender, EventArgs e)
         {
             if (Program.__ChatSelWhitelist == 2)
