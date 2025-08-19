@@ -385,7 +385,7 @@
             label13.Name = "label13";
             label13.Size = new System.Drawing.Size(138, 50);
             label13.TabIndex = 23;
-            label13.Text = "　　Voice 1";
+            label13.Text = "　　音声１";
             label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label14
@@ -397,7 +397,7 @@
             label14.Name = "label14";
             label14.Size = new System.Drawing.Size(138, 50);
             label14.TabIndex = 24;
-            label14.Text = "　　Voice 2";
+            label14.Text = "　　音声２";
             label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label15

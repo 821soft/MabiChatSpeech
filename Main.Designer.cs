@@ -85,11 +85,11 @@
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip, TPB_Save, TPB_Max });
-            statusStrip1.Location = new System.Drawing.Point(0, 226);
+            statusStrip1.Location = new System.Drawing.Point(0, 172);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
+            statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
             statusStrip1.ShowItemToolTips = true;
-            statusStrip1.Size = new System.Drawing.Size(846, 29);
+            statusStrip1.Size = new System.Drawing.Size(740, 29);
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -133,7 +133,7 @@
             // 
             TPB_Save.Maximum = int.MaxValue;
             TPB_Save.Name = "TPB_Save";
-            TPB_Save.Size = new System.Drawing.Size(100, 23);
+            TPB_Save.Size = new System.Drawing.Size(88, 23);
             // 
             // TPB_Max
             // 
@@ -148,12 +148,12 @@
             Txt_Chat.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             Txt_Chat.ForeColor = System.Drawing.Color.Lime;
             Txt_Chat.Location = new System.Drawing.Point(0, 31);
-            Txt_Chat.Margin = new System.Windows.Forms.Padding(5);
+            Txt_Chat.Margin = new System.Windows.Forms.Padding(4);
             Txt_Chat.Multiline = true;
             Txt_Chat.Name = "Txt_Chat";
             Txt_Chat.ReadOnly = true;
             Txt_Chat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            Txt_Chat.Size = new System.Drawing.Size(846, 195);
+            Txt_Chat.Size = new System.Drawing.Size(740, 141);
             Txt_Chat.TabIndex = 0;
             Txt_Chat.WordWrap = false;
             // 
@@ -166,7 +166,7 @@
             toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Btn_Clear, Btn_Setup, Btn_List, toolStripSeparator1, SDB_SelectList, SDB_User, SDB_Npc, toolStripSeparator2, Btn_echa, BTN_No, BTN_Time, BTN_Type, BTN_Name, toolStripSeparator3, BTN_Redirect, SDB_SendTask, SDB_ViewMode });
             toolStrip1.Location = new System.Drawing.Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new System.Drawing.Size(846, 31);
+            toolStrip1.Size = new System.Drawing.Size(740, 31);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -225,27 +225,27 @@
             toolStripMenuItem9.Image = Properties.Resources.Icn_SelectUser_off;
             toolStripMenuItem9.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem9.Name = "toolStripMenuItem9";
-            toolStripMenuItem9.Size = new System.Drawing.Size(217, 30);
+            toolStripMenuItem9.Size = new System.Drawing.Size(188, 30);
             toolStripMenuItem9.Tag = "0";
-            toolStripMenuItem9.Text = "CharaMode Off";
+            toolStripMenuItem9.Text = "OFF";
             // 
             // toolStripMenuItem10
             // 
             toolStripMenuItem10.Image = Properties.Resources.Icn_SelectUser_chat;
             toolStripMenuItem10.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem10.Name = "toolStripMenuItem10";
-            toolStripMenuItem10.Size = new System.Drawing.Size(217, 30);
+            toolStripMenuItem10.Size = new System.Drawing.Size(188, 30);
             toolStripMenuItem10.Tag = "1";
-            toolStripMenuItem10.Text = "CharaMode Chatonly";
+            toolStripMenuItem10.Text = "チャットのみ";
             // 
             // toolStripMenuItem11
             // 
             toolStripMenuItem11.Image = Properties.Resources.Icn_SelectUser_voice;
             toolStripMenuItem11.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem11.Name = "toolStripMenuItem11";
-            toolStripMenuItem11.Size = new System.Drawing.Size(217, 30);
+            toolStripMenuItem11.Size = new System.Drawing.Size(188, 30);
             toolStripMenuItem11.Tag = "2";
-            toolStripMenuItem11.Text = "CharaMode Voice";
+            toolStripMenuItem11.Text = "音声あり";
             // 
             // SDB_User
             // 
@@ -257,6 +257,7 @@
             SDB_User.Name = "SDB_User";
             SDB_User.Size = new System.Drawing.Size(37, 28);
             SDB_User.Text = "Player";
+            SDB_User.ToolTipText = "プレイヤー動作";
             SDB_User.DropDownOpening += SDB_User_DropDownOpening;
             SDB_User.DropDownItemClicked += SDB_User_DropDownItemClicked;
             SDB_User.DoubleClick += SDB_User_Click;
@@ -266,36 +267,36 @@
             toolStripMenuItem5.Image = Properties.Resources.Icn_User_off;
             toolStripMenuItem5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem5.Name = "toolStripMenuItem5";
-            toolStripMenuItem5.Size = new System.Drawing.Size(182, 30);
+            toolStripMenuItem5.Size = new System.Drawing.Size(188, 30);
             toolStripMenuItem5.Tag = "0";
-            toolStripMenuItem5.Text = "Player Off";
+            toolStripMenuItem5.Text = "Off";
             // 
             // toolStripMenuItem6
             // 
             toolStripMenuItem6.Image = Properties.Resources.Icn_User_chat;
             toolStripMenuItem6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem6.Name = "toolStripMenuItem6";
-            toolStripMenuItem6.Size = new System.Drawing.Size(182, 30);
+            toolStripMenuItem6.Size = new System.Drawing.Size(188, 30);
             toolStripMenuItem6.Tag = "1";
-            toolStripMenuItem6.Text = "Player Chatonly";
+            toolStripMenuItem6.Text = "チャットのみ";
             // 
             // toolStripMenuItem7
             // 
             toolStripMenuItem7.Image = Properties.Resources.Icn_User_v1;
             toolStripMenuItem7.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem7.Name = "toolStripMenuItem7";
-            toolStripMenuItem7.Size = new System.Drawing.Size(182, 30);
+            toolStripMenuItem7.Size = new System.Drawing.Size(188, 30);
             toolStripMenuItem7.Tag = "2";
-            toolStripMenuItem7.Text = "Player Voice1";
+            toolStripMenuItem7.Text = "音声１";
             // 
             // toolStripMenuItem8
             // 
             toolStripMenuItem8.Image = Properties.Resources.Icn_User_v2;
             toolStripMenuItem8.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem8.Name = "toolStripMenuItem8";
-            toolStripMenuItem8.Size = new System.Drawing.Size(182, 30);
+            toolStripMenuItem8.Size = new System.Drawing.Size(188, 30);
             toolStripMenuItem8.Tag = "3";
-            toolStripMenuItem8.Text = "Player Voice2";
+            toolStripMenuItem8.Text = "音声２";
             // 
             // SDB_Npc
             // 
@@ -316,36 +317,36 @@
             toolStripMenuItem1.Image = Properties.Resources.Icn_Npc_off;
             toolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(172, 30);
+            toolStripMenuItem1.Size = new System.Drawing.Size(188, 30);
             toolStripMenuItem1.Tag = "0";
-            toolStripMenuItem1.Text = "NPC Off";
+            toolStripMenuItem1.Text = "Off";
             // 
             // toolStripMenuItem2
             // 
             toolStripMenuItem2.Image = Properties.Resources.Icn_Npc_chat;
             toolStripMenuItem2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new System.Drawing.Size(172, 30);
+            toolStripMenuItem2.Size = new System.Drawing.Size(188, 30);
             toolStripMenuItem2.Tag = "1";
-            toolStripMenuItem2.Text = "NPC Chatonly";
+            toolStripMenuItem2.Text = "チャットのみ";
             // 
             // toolStripMenuItem3
             // 
             toolStripMenuItem3.Image = Properties.Resources.Icn_Npc_v1;
             toolStripMenuItem3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new System.Drawing.Size(172, 30);
+            toolStripMenuItem3.Size = new System.Drawing.Size(188, 30);
             toolStripMenuItem3.Tag = "2";
-            toolStripMenuItem3.Text = "NPC Voice1";
+            toolStripMenuItem3.Text = "音声１";
             // 
             // toolStripMenuItem4
             // 
             toolStripMenuItem4.Image = Properties.Resources.Icn_Npc_v2;
             toolStripMenuItem4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripMenuItem4.Name = "toolStripMenuItem4";
-            toolStripMenuItem4.Size = new System.Drawing.Size(172, 30);
+            toolStripMenuItem4.Size = new System.Drawing.Size(188, 30);
             toolStripMenuItem4.Tag = "3";
-            toolStripMenuItem4.Text = "NPC Voice2";
+            toolStripMenuItem4.Text = "音声２";
             // 
             // toolStripSeparator2
             // 
@@ -361,7 +362,7 @@
             Btn_echa.Name = "Btn_echa";
             Btn_echa.Size = new System.Drawing.Size(28, 28);
             Btn_echa.Text = "toolStripButton1";
-            Btn_echa.ToolTipText = "Echa";
+            Btn_echa.ToolTipText = "絵チャ保存動作";
             Btn_echa.Click += Btn_echa_Click;
             // 
             // BTN_No
@@ -373,7 +374,7 @@
             BTN_No.Name = "BTN_No";
             BTN_No.Size = new System.Drawing.Size(28, 28);
             BTN_No.Text = "toolStripButton1";
-            BTN_No.ToolTipText = "Display SeqNo";
+            BTN_No.ToolTipText = "SeqNo";
             BTN_No.Click += BTN_No_Click;
             // 
             // BTN_Time
@@ -385,7 +386,7 @@
             BTN_Time.Name = "BTN_Time";
             BTN_Time.Size = new System.Drawing.Size(28, 28);
             BTN_Time.Text = "toolStripButton2";
-            BTN_Time.ToolTipText = "Display Time";
+            BTN_Time.ToolTipText = "Time";
             BTN_Time.Click += BTN_Time_Click;
             // 
             // BTN_Type
@@ -397,7 +398,7 @@
             BTN_Type.Name = "BTN_Type";
             BTN_Type.Size = new System.Drawing.Size(28, 28);
             BTN_Type.Text = "toolStripButton3";
-            BTN_Type.ToolTipText = "Display Type";
+            BTN_Type.ToolTipText = "Type";
             BTN_Type.Click += BTN_Type_Click;
             // 
             // BTN_Name
@@ -409,7 +410,7 @@
             BTN_Name.Name = "BTN_Name";
             BTN_Name.Size = new System.Drawing.Size(28, 28);
             BTN_Name.Text = "toolStripButton4";
-            BTN_Name.ToolTipText = "Display CharaName";
+            BTN_Name.ToolTipText = "キャ名";
             BTN_Name.Click += BTN_Name_Click;
             // 
             // toolStripSeparator3
@@ -426,7 +427,7 @@
             BTN_Redirect.Name = "BTN_Redirect";
             BTN_Redirect.Size = new System.Drawing.Size(28, 28);
             BTN_Redirect.Text = "toolStripDropDownButton1";
-            BTN_Redirect.ToolTipText = "Redirect Action";
+            BTN_Redirect.ToolTipText = "リダイレクト";
             BTN_Redirect.Click += BTN_Redirect_Click;
             // 
             // SDB_SendTask
@@ -449,34 +450,35 @@
             SDB_ViewMode.Name = "SDB_ViewMode";
             SDB_ViewMode.Size = new System.Drawing.Size(29, 28);
             SDB_ViewMode.Text = "toolStripDropDownButton2";
+            SDB_ViewMode.ToolTipText = "表示モード切替";
             // 
             // SDB_View_ItemList
             // 
             SDB_View_ItemList.Name = "SDB_View_ItemList";
-            SDB_View_ItemList.Size = new System.Drawing.Size(130, 24);
-            SDB_View_ItemList.Text = "ListView";
+            SDB_View_ItemList.Size = new System.Drawing.Size(180, 22);
+            SDB_View_ItemList.Text = "リストビュー";
             SDB_View_ItemList.Click += SDB_View_ItemList_Click;
             // 
             // SDB_View_ItemText
             // 
             SDB_View_ItemText.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { ItemChatMode, ItemDumpMode });
             SDB_View_ItemText.Name = "SDB_View_ItemText";
-            SDB_View_ItemText.Size = new System.Drawing.Size(130, 24);
-            SDB_View_ItemText.Text = "LogView";
+            SDB_View_ItemText.Size = new System.Drawing.Size(180, 22);
+            SDB_View_ItemText.Text = "テキストビュー";
             SDB_View_ItemText.Click += SDB_View_ItemText_Click;
             // 
             // ItemChatMode
             // 
             ItemChatMode.Name = "ItemChatMode";
-            ItemChatMode.Size = new System.Drawing.Size(152, 24);
-            ItemChatMode.Text = "ChatMode";
+            ItemChatMode.Size = new System.Drawing.Size(180, 22);
+            ItemChatMode.Text = "チャット";
             ItemChatMode.Click += ItemChatMode_Click;
             // 
             // ItemDumpMode
             // 
             ItemDumpMode.Name = "ItemDumpMode";
-            ItemDumpMode.Size = new System.Drawing.Size(152, 24);
-            ItemDumpMode.Text = "DumpMode";
+            ItemDumpMode.Size = new System.Drawing.Size(180, 22);
+            ItemDumpMode.Text = "通信ダンプ";
             ItemDumpMode.Click += ItemDumpMode_Click;
             // 
             // LSV_chat
@@ -486,9 +488,10 @@
             LSV_chat.FullRowSelect = true;
             LSV_chat.GridLines = true;
             LSV_chat.Location = new System.Drawing.Point(0, 31);
+            LSV_chat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             LSV_chat.MultiSelect = false;
             LSV_chat.Name = "LSV_chat";
-            LSV_chat.Size = new System.Drawing.Size(846, 195);
+            LSV_chat.Size = new System.Drawing.Size(740, 141);
             LSV_chat.TabIndex = 2;
             LSV_chat.UseCompatibleStateImageBehavior = false;
             LSV_chat.View = System.Windows.Forms.View.Details;
@@ -520,20 +523,20 @@
             // 
             // Main
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(846, 255);
+            ClientSize = new System.Drawing.Size(740, 201);
             Controls.Add(LSV_chat);
             Controls.Add(Txt_Chat);
             Controls.Add(statusStrip1);
             Controls.Add(toolStrip1);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
-            Margin = new System.Windows.Forms.Padding(5);
-            MinimumSize = new System.Drawing.Size(851, 272);
+            Margin = new System.Windows.Forms.Padding(4);
+            MinimumSize = new System.Drawing.Size(747, 223);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Text = "MabiChatSpeech(ベータ5.2)";
+            Text = "MabiChatSpeech (Ver.1.00)";
             FormClosing += Main_FormClosing;
             FormClosed += Main_FormClosed;
             Load += Main_Load;
