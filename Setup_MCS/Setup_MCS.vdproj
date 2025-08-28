@@ -21,6 +21,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_4C20D7FA2C7F492EA67767C7DB337600"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_92D40BB261FF42CB93D65C2A3ED8CEB3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9FB325D949974A62943163024279E549"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -33,6 +45,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C464E3121D534D12B020A66F6514184E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C5C9794828FC44AEBA1C07D3B9B1A43B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -40,6 +58,12 @@
         "Entry"
         {
         "MsmKey" = "8:_CFB590559468491CA9E9938BEDC78DCA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E844823258CA494FA4205E4DBDFFBAD9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -83,7 +107,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Setup_MCS_B051.msi"
+        "OutputFilename" = "8:Release\\Setup_MCS_V105.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -148,6 +172,46 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4C20D7FA2C7F492EA67767C7DB337600"
+            {
+            "SourcePath" = "8:..\\MabiChatSpeech_Text.png"
+            "TargetName" = "8:MabiChatSpeech_Text.png"
+            "Tag" = "8:"
+            "Folder" = "8:_C2E82964DC234B30B868E191FB1ABBF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_92D40BB261FF42CB93D65C2A3ED8CEB3"
+            {
+            "SourcePath" = "8:..\\MabiChatSpeech_Userlist.png"
+            "TargetName" = "8:MabiChatSpeech_Userlist.png"
+            "Tag" = "8:"
+            "Folder" = "8:_C2E82964DC234B30B868E191FB1ABBF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9FB325D949974A62943163024279E549"
             {
             "SourcePath" = "8:..\\MabiChatSpeech_Key.png"
@@ -188,6 +252,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C464E3121D534D12B020A66F6514184E"
+            {
+            "SourcePath" = "8:..\\MabiChatSpeech_Setup.png"
+            "TargetName" = "8:MabiChatSpeech_Setup.png"
+            "Tag" = "8:"
+            "Folder" = "8:_C2E82964DC234B30B868E191FB1ABBF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C5C9794828FC44AEBA1C07D3B9B1A43B"
             {
             "SourcePath" = "8:..\\MabiChatSpeech.ico"
@@ -212,6 +296,26 @@
             {
             "SourcePath" = "8:..\\Help.html"
             "TargetName" = "8:Help.html"
+            "Tag" = "8:"
+            "Folder" = "8:_C2E82964DC234B30B868E191FB1ABBF1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E844823258CA494FA4205E4DBDFFBAD9"
+            {
+            "SourcePath" = "8:..\\MabiChatSpeech_Main.png"
+            "TargetName" = "8:MabiChatSpeech_Main.png"
             "Tag" = "8:"
             "Folder" = "8:_C2E82964DC234B30B868E191FB1ABBF1"
             "Condition" = "8:"
@@ -295,15 +399,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MabiChatSpeech"
-        "ProductCode" = "8:{F4F86FE9-BAB1-403B-9D9A-2153CBBA6EDB}"
-        "PackageCode" = "8:{9B8BD3B6-3D98-479A-9A67-4E0FD43D4BEC}"
+        "ProductCode" = "8:{1FAEDAB7-8903-4708-A865-778497E7EC1B}"
+        "PackageCode" = "8:{CC9BF7EC-1E26-42E1-8874-9A6751A3BA32}"
         "UpgradeCode" = "8:{E80C9010-E93A-4A4C-B263-42E7A517DDF4}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.00"
+        "ProductVersion" = "8:1.0.5"
         "Manufacturer" = "8:821Soft"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
