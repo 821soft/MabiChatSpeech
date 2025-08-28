@@ -22,73 +22,127 @@
             margin: 2px;
         }
         #p3 {
+            font-size: small;
             font-style: italic;
-            padding-left: 2em;
+            padding-left: 3em;
             background-color: white;
             margin: 2px;
+        }
+        #p4 {
+            font-weight: bold;
+            text-indent: 1em;
+            margin: 4px;
+            color: white;
+            background-color: mediumblue;
+        }
+        .image_c {
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <p id="p0"><h2>メインウィンドウの説明</h2></p>
-    <p id="p0"><img src="MabiChatSpeech_Help1.png" title="画面">  <img src="MabiChatSpeech_Key.png" title="キー割当"></p>
-    <p id="p1">①表示クリア [C]</p>
-    <p id="p2">⑦表示エリアのテキストを消去する</p>
-    <p id="p1">②設定画面 [S]</p>
-    <p id="p2">表示エリアのフォント、文字色、背景色、音声など各種設定</p>
-    <p id="p1">③キャラ指定リスト [X]</p>
-    <p id="p2">キャラクタ選択リストの編集</p>
-    <p id="p1">④キャラ指定動作 [V]</p>
-    <p id="p2">
-        キャラ指定リストで有効なキャラのみ適用
-    </p>
-    <p id="p3">
-        OFF      : User、Npcの動作が有効<BR>
-        ChatOnly : チャット文字のみ、読上げは行わない<BR>
-        Voice    : キャラ選択リストで設定した読上げ
-    </p>
-    <p id="p1">⑤User動作 [B]</p>
-    <p id="p2">
-        ユーザーキャラの設定
-    </p>
-    <p id="p3">
-        OFF      : Userの動作が無効<BR>
-        ChatOnly : チャット文字のみ、読上げは行わない<BR>
-        Voice1   : Voice1に設定した内容で読上げ<BR>
-        Voice2   : Voice2に設定した内容で読上げ
-    </p>
-    <p id="p1">⑥Npc動作 [N]</p>
-    <p id="p2">
-        NPCキャラの設定
-    </p>
-    <p id="p3">
-        OFF      : NPCの動作が無効<BR>
-        ChatOnly : チャット文字のみ、読上げは行わない<BR>
-        Voice1   : Voice1に設定した内容で読上げ<BR>
-        Voice2   : Voice2に設定した内容で読上げ
-    </p>
 
-    <p id="p1">⑦表示エリア</p>
-    <p id="p2">
-        チャットの表示 （オープンチャットのみ）<br>
-        タイムスタンプ、キャラクタ種別、キャラクタ名、チャット内容<br>
-        ※ゲーム内のログより少し範囲が広め<BR>
-        ※NPCは見えていないキャラもセリフが表示されます
-    </p>
-    <p id="p1">⑧ログ保存動作　⑨接続状態　⑩接続先</p>
-    <p id="p2">
-        情報表示<br>
-        ⑨接続状態はOFF,ON,CHARASEL,ONLINEのいずれかで赤字ならキャプチャ中
-    </p>
-    <p id="p1">⑪リダイレクト先ウィンドウ</p>
-    <p id="p2">
-        チャットテキストを送るウィンドウを指定する<BR>
-        対象ウインドウに対して文字を送るのであらかじめ<BR>
-        入力コントロールを選択しておく必要あり
-    </p>
-    <p id="p1">⑫リダイレクトのON/OFF切替 [R]</p>
-    <p id="p2">
-        ON OFF を切替　OFFの場合リダイレクトをしない
-    </p>
+    <div class="image_c">
+        <img src="MabiChatSpeech_Main.png" title="リスト表示">
+        <img src="MabiChatSpeech_Text.png" title="テキスト表示">
+    </div>
+
+
+        <p id="p1">①表示クリア [C]</p>
+        <p id="p2">⑦表示エリアのテキストを消去する</p>
+
+        <p id="p1">②設定画面 [S]</p>
+        <p id="p2">表示エリアのフォント、文字色、背景色、音声など各種設定</p>
+        <p id="p1">③キャラ指定リスト [X]</p>
+        <p id="p2">キャラクタ選択リストの編集</p>
+        <p id="p1">④キャラ指定動作 [V]</p>
+        <p id="p2">
+            キャラ指定リストで有効なキャラのみ適用
+        </p>
+        <p id="p3">
+            OFF      : User、Npcの動作が有効<BR>
+            ChatOnly : チャット文字のみ、読上げは行わない<BR>
+            Voice    : キャラ選択リストで設定した読上げ
+        </p>
+
+        <p id="p1">⑤User動作 [B]</p>
+        <p id="p2">
+            ユーザーキャラの設定
+        </p>
+        <p id="p3">
+            off: 動作が無効<BR>
+            チャットのみ: チャット文字のみ、読上げは行わない<BR>
+            音声１: 音声１に設定した内容で読上げ<BR>
+            音声２: 音声２に設定した内容で読上げ
+        </p>
+
+        <p id="p1">⑥Npc動作 [N]</p>
+        <p id="p2">
+            NPCキャラの設定
+        </p>
+        <p id="p3">
+            設定項目はユーザーキャラの設定と同じ
+        </p>
+
+        <p id="p1">⑦絵チャット保存</p>
+        <p id="p2">
+            絵チャット保存動作の切替<BR>
+            onの時、絵チャットを保存先パス下のEchaフォルダに保存する
+        </p>
+
+        <p id="p1">⑧表示項目</p>
+        <p id="p2">下記表示項目のON/OFF切替
+        <p id="p3">
+            番号　　　　　シーケンシャル番号<BR>
+            時刻　　　　　日付、時刻<BR>
+            タイプ　　　　PC、NPC<BR>
+            キャラクタ名　発言キャラクタ名<BR>
+        </p>
+
+        <p id="p1">⑨リダイレクト</p>
+        <p id="p2">
+            チャットテキストを送るウィンドウを指定する<BR>
+            アイコンボタンでON/OFF切替、ドロップダウンリストでリダイレクト先を選択
+        </p>
+        <p id="p3">
+            リダイレクトウインドウに対して文字を送るのであらかじめ
+            入力コントロールにフォーカスしておく事<BR>
+        </p>
+
+        <p id="p1">⑩表示モード</p>
+        <p id="p2">
+            ドロップダウンリストで<BR>
+            リストビュー、テキストビュー（チャット）、テキストビュー（通信ダンプ）から選択
+        </p>
+
+        <p id="p1">⑪表示エリア</p>
+        <p id="p2">
+            マビノギ内の吹き出し内容が表示されます
+        </p>
+        <p id="p3">
+            ※ゲーム内のログより少し範囲が広め<BR>
+            ※NPCは見えていないキャラもセリフが表示されます
+        </p>
+        <p id="p1">⑫処理モード(Chat,Dump)　⑬ログ保存動作　⑭Clientの状態</p>
+        <p id="p2">
+            情報表示<br>
+        </p>
+        <p id="p3">
+            ⑭Onlineであれば、接続サーバー及びチャンネルを表示
+        </p>
+        <p id="p4">キーマップ</p>
+        <div class="image_c">
+            <img src="MabiChatSpeech_Key.png" title="キー割当">
+        </div>
+        <p id="p4">設定ウィンドウ</p>
+        <div class="image_c">
+            <img src="MabiChatSpeech_Setup.png" title="設定画面">
+        </div>
+        <p id="p4">キャラクタリスト</p>
+        <div class="image_c">
+            <img src="MabiChatSpeech_Userlist.png" title="キャラクタリスト画面">
+        </div>
+
 </body>
 </html>
