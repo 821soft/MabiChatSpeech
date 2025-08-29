@@ -62,4 +62,8 @@ ToDo
   　Dump　上記にパケットのダンプデータを含む
 
    
-
+メモ
+V1.05
+x.com 　https://x.com/honeybunny_mabi/status/1961032960620269958
+Bug.105_01	テキストDump中に表示モードをリストビューに切り替えた時
+			Dumpモードのまま　→　Chatモードとするべき（要：周辺確認）
