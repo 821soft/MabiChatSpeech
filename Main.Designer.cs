@@ -455,7 +455,7 @@
             // SDB_View_ItemList
             // 
             SDB_View_ItemList.Name = "SDB_View_ItemList";
-            SDB_View_ItemList.Size = new System.Drawing.Size(132, 22);
+            SDB_View_ItemList.Size = new System.Drawing.Size(180, 22);
             SDB_View_ItemList.Text = "リストビュー";
             SDB_View_ItemList.Click += SDB_View_ItemList_Click;
             // 
@@ -463,7 +463,7 @@
             // 
             SDB_View_ItemText.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { ItemChatMode, ItemDumpMode });
             SDB_View_ItemText.Name = "SDB_View_ItemText";
-            SDB_View_ItemText.Size = new System.Drawing.Size(132, 22);
+            SDB_View_ItemText.Size = new System.Drawing.Size(180, 22);
             SDB_View_ItemText.Text = "テキストビュー";
             SDB_View_ItemText.Click += SDB_View_ItemText_Click;
             // 
@@ -536,7 +536,7 @@
             MinimumSize = new System.Drawing.Size(747, 223);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Text = "MabiChatSpeech (Ver.1.05)";
+            Text = "MabiChatSpeech (Ver.1.06)";
             FormClosing += Main_FormClosing;
             FormClosed += Main_FormClosed;
             Load += Main_Load;

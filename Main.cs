@@ -1247,6 +1247,8 @@ namespace MabiChatSpeech
         private void SDB_View_ItemList_Click(object sender, EventArgs e)
         {
             LSV_chat.Visible = true;
+            // 強制ChatMode
+            TextViewMode(PacketModes.Chat);　// Bug.105_01
         }
 
         private void SDB_View_ItemText_Click(object sender, EventArgs e)
