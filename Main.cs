@@ -125,7 +125,9 @@ namespace MabiChatSpeech
                         //                        Task.Run(async () => {
                         //                            await Task.Delay(5000);
                         // リダイレクト
-                        WinApi.SetForegroundWindow((IntPtr)BTN_Redirect.Tag);
+                        IntPtr storewHnd = WinApi.GetForegroundWindow();
+                        //WinApi.SetForegroundWindow((IntPtr)BTN_Redirect.Tag);
+                        WinApi._ActiveWin((IntPtr)BTN_Redirect.Tag );
                         string sayword = "";
                         if (Program.__TTS_NameCall == true)
                         {
@@ -134,7 +136,11 @@ namespace MabiChatSpeech
                         sayword += c2;
 
                         KeyboardEmulate keyboardEmulate = new KeyboardEmulate();
-                        keyboardEmulate.writeKeys(sayword);
+                        bool ret = keyboardEmulate.writeKeys(sayword);
+                        Debug.Print($"Redirect sts:{ret}");
+                        //WinApi.SetForegroundWindow(storewHnd);
+                        WinApi._ActiveWin(storewHnd);
+
 
                         //                        });
 

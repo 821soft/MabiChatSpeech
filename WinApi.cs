@@ -151,6 +151,17 @@ namespace MabiChatSpeech
         public static void _SetLayer()
         {
         }
+        public static bool _ActiveWin(IntPtr w)
+        {
+            if (w == IntPtr.Zero)
+            {
+                return (false);
+
+            }
+            return ( SetWindowPos(w, HWND_TOP, 0, 0, 0, 0, (SWP_NOMOVE| SWP_NOSIZE)));
+
+        }
+
         public static IntPtr _FindWindow(string class_name, string window_name)
         {
             IntPtr hWnd = IntPtr.Zero;
@@ -175,21 +186,22 @@ namespace MabiChatSpeech
         /// 現在選択されているウィンドウに対してキーを送信
         /// </summary>
         /// <param name="keys">送信するキー</param>
-        public void writeKeys(string keys)
+        public bool writeKeys(string keys)
         {
             // 選択しているウィンドウを取得
             IntPtr targetWindowHandle = WinApi.GetForegroundWindow();
             if (targetWindowHandle == IntPtr.Zero)
             {
                 // 操作できるウィンドウがない
-                return;
+                return(false);
             }
 
             // 現在選択しているウィンドウに対してキーを送信
             SendKeys.Send(keys+ "~");
 
-//            // タイプ後にENTERを送信
-//            SendKeys.Send("{ENTER}");
+            //            // タイプ後にENTERを送信
+            //            SendKeys.Send("{ENTER}");
+            return (true);
         }
 
     }
