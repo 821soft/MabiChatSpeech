@@ -151,14 +151,14 @@ namespace MabiChatSpeech
         public static void _SetLayer()
         {
         }
-        public static bool _ActiveWin(IntPtr w)
+        public static bool _ActiveWin(IntPtr w,IntPtr w2)
         {
             if (w == IntPtr.Zero)
             {
                 return (false);
 
             }
-            return ( SetWindowPos(w, HWND_TOP, 0, 0, 0, 0, (SWP_NOMOVE| SWP_NOSIZE)));
+            return ( SetWindowPos(w, w2, 0, 0, 0, 0, (SWP_NOMOVE| SWP_NOSIZE| SWP_SHOWWINDOW)));
 
         }
 
@@ -186,7 +186,7 @@ namespace MabiChatSpeech
         /// 現在選択されているウィンドウに対してキーを送信
         /// </summary>
         /// <param name="keys">送信するキー</param>
-        public bool writeKeys(string keys)
+        public bool writeKeys(IntPtr wHnd , string keys)
         {
             // 選択しているウィンドウを取得
             IntPtr targetWindowHandle = WinApi.GetForegroundWindow();
@@ -194,6 +194,11 @@ namespace MabiChatSpeech
             {
                 // 操作できるウィンドウがない
                 return(false);
+            }
+            if (wHnd != targetWindowHandle)
+            {
+                //ターゲットではない
+                return (false);
             }
 
             // 現在選択しているウィンドウに対してキーを送信

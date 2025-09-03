@@ -1,25 +1,26 @@
 ﻿
 using System;
-using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Speech.Synthesis;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MabiChatSpeech.Program;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Collections;
 using static MabiChatSpeech.MabiChat;
-using System.Threading;
 using static MabiChatSpeech.Overlay;
+using static MabiChatSpeech.Program;
+using static MabiChatSpeech.WinApi;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MabiChatSpeech
 {
@@ -127,7 +128,21 @@ namespace MabiChatSpeech
                         // リダイレクト
                         IntPtr storewHnd = WinApi.GetForegroundWindow();
                         //WinApi.SetForegroundWindow((IntPtr)BTN_Redirect.Tag);
-                        WinApi._ActiveWin((IntPtr)BTN_Redirect.Tag );
+
+                        IntPtr setWindowHandle = (IntPtr)BTN_Redirect.Tag;
+
+                        bool a = WinApi._ActiveWin(setWindowHandle, HWND_TOPMOST);
+                        IntPtr targetWindowHandle = WinApi.GetForegroundWindow();
+                        if (setWindowHandle != targetWindowHandle)
+                        {
+                            Debug.Print($"Redirect Change To : {setWindowHandle:x} NowCur : {targetWindowHandle:x}");
+                            //BTN_Redirect.Text = "OFF";
+                            return;
+                        }
+
+                        bool b = WinApi._ActiveWin(setWindowHandle, HWND_NOTOPMOST);
+
+
                         string sayword = "";
                         if (Program.__TTS_NameCall == true)
                         {
@@ -135,11 +150,19 @@ namespace MabiChatSpeech
                         }
                         sayword += c2;
 
-                        KeyboardEmulate keyboardEmulate = new KeyboardEmulate();
-                        bool ret = keyboardEmulate.writeKeys(sayword);
-                        Debug.Print($"Redirect sts:{ret}");
+                        if (a != false)
+                        {
+                            KeyboardEmulate keyboardEmulate = new KeyboardEmulate();
+                            bool ret = keyboardEmulate.writeKeys(setWindowHandle,sayword);
+                            Debug.Print($"Redirect sts:{ret}");
+                        }
+                        else
+                        {
+                            Debug.Print($"Redirect ChangeError : {a}");
+                        }
                         //WinApi.SetForegroundWindow(storewHnd);
-                        WinApi._ActiveWin(storewHnd);
+                        WinApi._ActiveWin(storewHnd, HWND_TOPMOST);
+                        WinApi._ActiveWin(storewHnd, HWND_NOTOPMOST);
 
 
                         //                        });
