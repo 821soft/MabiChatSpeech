@@ -195,7 +195,7 @@ namespace MabiChatSpeech
         /// 現在選択されているウィンドウに対してキーを送信
         /// </summary>
         /// <param name="keys">送信するキー</param>
-        public bool writeKeys(IntPtr wHnd , string keys)
+        public async Task<bool> writeKeys(IntPtr wHnd , string keys)
         {
             // 選択しているウィンドウを取得
             IntPtr targetWindowHandle = WinApi.GetForegroundWindow();
@@ -211,7 +211,8 @@ namespace MabiChatSpeech
             }
 
             // 現在選択しているウィンドウに対してキーを送信
-            SendKeys.Send(keys+ "~");
+            SendKeys.Send(keys+ "{ENTER}");
+            await Task.Delay(50);
 
             //            // タイプ後にENTERを送信
             //            SendKeys.Send("{ENTER}");
