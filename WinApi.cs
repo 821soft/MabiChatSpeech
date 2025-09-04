@@ -116,6 +116,8 @@ namespace MabiChatSpeech
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr SetActiveWindow(IntPtr hwnd);
 
 
         public static List<IntPtr> _Win_order = new List <IntPtr>();
@@ -151,14 +153,21 @@ namespace MabiChatSpeech
         public static void _SetLayer()
         {
         }
-        public static bool _ActiveWin(IntPtr w,IntPtr w2)
+        public static bool _ActiveWin(IntPtr w)
         {
             if (w == IntPtr.Zero)
             {
                 return (false);
-
             }
-            return ( SetWindowPos(w, w2, 0, 0, 0, 0, (SWP_NOMOVE| SWP_NOSIZE| SWP_SHOWWINDOW)));
+            if (SetForegroundWindow(w) != false)
+            {
+                //                bool topb = SetWindowPos(w, HWND_TOPMOST, 0, 0, 0, 0, (SWP_NOMOVE | SWP_NOSIZE));
+                bool notopb = SetWindowPos(w, HWND_NOTOPMOST, 0, 0, 0, 0, (SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW));
+                return (notopb);
+            }
+
+            return (false);
+
 
         }
 

@@ -126,21 +126,29 @@ namespace MabiChatSpeech
                         //                        Task.Run(async () => {
                         //                            await Task.Delay(5000);
                         // リダイレクト
+                        // アクティブを取得
                         IntPtr storewHnd = WinApi.GetForegroundWindow();
                         //WinApi.SetForegroundWindow((IntPtr)BTN_Redirect.Tag);
 
+                        // アクティブを切替
                         IntPtr setWindowHandle = (IntPtr)BTN_Redirect.Tag;
+                        bool a = WinApi._ActiveWin(setWindowHandle);
 
-                        bool a = WinApi._ActiveWin(setWindowHandle, HWND_TOPMOST);
                         IntPtr targetWindowHandle = WinApi.GetForegroundWindow();
                         if (setWindowHandle != targetWindowHandle)
                         {
+                            bool b = WinApi._ActiveWin(this.Handle);
                             Debug.Print($"Redirect Change To : {setWindowHandle:x} NowCur : {targetWindowHandle:x}");
-                            //BTN_Redirect.Text = "OFF";
+
+                            SDB_SendTask.Text = "";
+                            BTN_Redirect.Image = Properties.Resources.Icn_Sendplay;
+                            BTN_Redirect.Text = "OFF";
+                            BTN_Redirect.Tag = null;
+
                             return;
                         }
 
-                        bool b = WinApi._ActiveWin(setWindowHandle, HWND_NOTOPMOST);
+                        bool c = WinApi._ActiveWin(setWindowHandle);
 
 
                         string sayword = "";
@@ -161,8 +169,7 @@ namespace MabiChatSpeech
                             Debug.Print($"Redirect ChangeError : {a}");
                         }
                         //WinApi.SetForegroundWindow(storewHnd);
-                        WinApi._ActiveWin(storewHnd, HWND_TOPMOST);
-                        WinApi._ActiveWin(storewHnd, HWND_NOTOPMOST);
+                        WinApi._ActiveWin(storewHnd);
 
 
                         //                        });
@@ -842,6 +849,8 @@ namespace MabiChatSpeech
             BTN_Redirect.Tag = e.ClickedItem.Tag;
             SDB_SendTask.Text = e.ClickedItem.Text;
             WinApi.SetForegroundWindow((IntPtr)BTN_Redirect.Tag);
+            BTN_Redirect.Text = "ON";
+            BTN_Redirect.Image = Properties.Resources.Icn_Sendplay;
         }
         /// <summary>
         /// リダイレクト有効無効ボタン押下

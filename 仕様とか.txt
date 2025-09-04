@@ -72,3 +72,15 @@ Bug.105_01	テキストDump中に表示モードをリストビューに切り�
 V1.06
 アプリマニュフェストにて管理者権限を適用
 リダイレクト機能の修正（アクティブ切替）
+
+アクティブ切替部
+\HKEY_CURRENT_USER\Control Panel\Desktop
+ForegroundLockTimeout 200000 => 0 
+→無意味だった
+
+WinApi._ActiveWin()参照
+・SetForegroundWindow()とSetWindowPos()をコールで解決
+
+UI部
+ドロップダウン選択時にリダイレクトONへ
+リダイレクト失敗時、リダイレクトOFF、ドロップダウンクリアへ
