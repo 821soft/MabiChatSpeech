@@ -213,7 +213,7 @@ namespace MabiChatSpeech
 
             // 現在選択しているウィンドウに対してキーを送信
             SendKeys.Send(keys+ "{ENTER}");
-            Thread.Sleep(TimeSpan.FromMilliseconds(100));
+            Thread.Sleep(TimeSpan.FromMilliseconds(100));//欠落防止
 
             //            // タイプ後にENTERを送信
             //            SendKeys.Send("{ENTER}");
