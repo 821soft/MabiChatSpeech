@@ -300,7 +300,7 @@ namespace MabiChatSpeech
             ConnectEvent?.Invoke(this, e);
         }
         public event EventHandler ChatEvent;
-        void Chat(ChatData d , long ms)
+        void _Chat(ChatData d , long ms)
         {
             var e = new MabiPacketEventArgs();
             e.CharacterName = d.CharacterName;
@@ -710,6 +710,7 @@ namespace MabiChatSpeech
                 chatDatas.Add(data);
             }
         }
+        public uint _ArrivedSeqNo = 0;
         private void device_OnPacketArrival(object sender, PacketCapture e)
         {
             try
@@ -726,7 +727,12 @@ namespace MabiChatSpeech
                     int srcPort = tcpPacket.SourcePort;
                     int dstPort = tcpPacket.DestinationPort;
 
-
+                    // 同一のSeqNoは弾く
+                    if (_ArrivedSeqNo == tcpPacket.SequenceNumber)
+                    {
+                        return;
+                    }
+                    _ArrivedSeqNo = tcpPacket.SequenceNumber;
                     // local側 ipアドレス＋ポート番号で　パケットデータの仕分け
                     var lip = $"{dstIp}:{dstPort}";
                     var sip = $"{srcIp}";
@@ -777,7 +783,7 @@ namespace MabiChatSpeech
                         {
                             chatdatas_add(chat);
                             //チャット受信でイベント
-                            Chat(chat,sw.ElapsedMilliseconds);
+                            _Chat(chat,sw.ElapsedMilliseconds);
                         }
                     }
 
