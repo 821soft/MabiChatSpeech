@@ -78,13 +78,14 @@
             columnHeader3 = new System.Windows.Forms.ColumnHeader();
             columnHeader4 = new System.Windows.Forms.ColumnHeader();
             columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            TPB_Event = new System.Windows.Forms.ToolStripStatusLabel();
             statusStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // statusStrip1
             // 
-            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip, TPB_Save, TPB_Max });
+            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip, TPB_Save, TPB_Max, TPB_Event });
             statusStrip1.Location = new System.Drawing.Point(0, 155);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
@@ -455,7 +456,7 @@
             // SDB_View_ItemList
             // 
             SDB_View_ItemList.Name = "SDB_View_ItemList";
-            SDB_View_ItemList.Size = new System.Drawing.Size(180, 22);
+            SDB_View_ItemList.Size = new System.Drawing.Size(132, 22);
             SDB_View_ItemList.Text = "リストビュー";
             SDB_View_ItemList.Click += SDB_View_ItemList_Click;
             // 
@@ -463,7 +464,7 @@
             // 
             SDB_View_ItemText.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { ItemChatMode, ItemDumpMode });
             SDB_View_ItemText.Name = "SDB_View_ItemText";
-            SDB_View_ItemText.Size = new System.Drawing.Size(180, 22);
+            SDB_View_ItemText.Size = new System.Drawing.Size(132, 22);
             SDB_View_ItemText.Text = "テキストビュー";
             SDB_View_ItemText.Click += SDB_View_ItemText_Click;
             // 
@@ -520,6 +521,12 @@
             // 
             columnHeader5.Text = "Chat";
             columnHeader5.Width = 710;
+            // 
+            // TPB_Event
+            // 
+            TPB_Event.Name = "TPB_Event";
+            TPB_Event.Size = new System.Drawing.Size(125, 24);
+            TPB_Event.Spring = true;
             // 
             // Main
             // 
@@ -601,6 +608,7 @@
         private System.Windows.Forms.ToolStripMenuItem ItemDumpMode;
         private System.Windows.Forms.ToolStripProgressBar TPB_Save;
         private System.Windows.Forms.ToolStripStatusLabel TPB_Max;
+        private System.Windows.Forms.ToolStripStatusLabel TPB_Event;
     }
 }
 
