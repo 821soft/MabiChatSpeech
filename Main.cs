@@ -144,7 +144,8 @@ namespace MabiChatSpeech
                             BTN_Redirect.Image = Properties.Resources.Icn_Sendplay;
                             BTN_Redirect.Text = "OFF";
                             BTN_Redirect.Tag = null;
-                            TPB_Event.Text = $"Err:{Txt_Chat.Lines.Length}";
+                            TPB_Event.Text += $" Error:{chat_cnt}";
+
                             return;
                         }
 
@@ -292,6 +293,14 @@ namespace MabiChatSpeech
             Txt_Chat.Text = "";
             LSV_chat.Items.Clear();
             chat_cnt = 1;
+            if ( BTN_Redirect.Text== "ON" )
+            {
+                TPB_Event.Text = $"CStart:{chat_cnt}";
+            }
+            else
+            {
+                TPB_Event.Text = "" ;
+            }
 
         }
         /// <summary>
@@ -848,9 +857,13 @@ namespace MabiChatSpeech
         {
             BTN_Redirect.Tag = e.ClickedItem.Tag;
             SDB_SendTask.Text = e.ClickedItem.Text;
+            TPB_Event.Text = $"Start:{chat_cnt}";
             WinApi.SetForegroundWindow((IntPtr)BTN_Redirect.Tag);
+            //リスト選択でリダイレクト開始
             BTN_Redirect.Text = "ON";
             BTN_Redirect.Image = Properties.Resources.Icn_Sendplay;
+
+
         }
         /// <summary>
         /// リダイレクト有効無効ボタン押下
@@ -863,14 +876,12 @@ namespace MabiChatSpeech
             {
                 BTN_Redirect.Text = "ON";
                 BTN_Redirect.Image = Properties.Resources.Icn_Sendplay;
-                TPB_Event.Text = "";
+                TPB_Event.Text = $"Start:{chat_cnt}";
             }
             else
             {
                 BTN_Redirect.Text = "OFF";
                 BTN_Redirect.Image = Properties.Resources.Icn_Sendstop;
-                BTN_Redirect.Tag = null;
-                SDB_SendTask.Text = "";
             }
         }
         /// <summary>
