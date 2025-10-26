@@ -37,6 +37,7 @@
             SLB_Ip = new System.Windows.Forms.ToolStripStatusLabel();
             TPB_Save = new System.Windows.Forms.ToolStripProgressBar();
             TPB_Max = new System.Windows.Forms.ToolStripStatusLabel();
+            TPB_Event = new System.Windows.Forms.ToolStripStatusLabel();
             Txt_Chat = new System.Windows.Forms.TextBox();
             Tim_Status = new System.Windows.Forms.Timer(components);
             toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -78,7 +79,6 @@
             columnHeader3 = new System.Windows.Forms.ColumnHeader();
             columnHeader4 = new System.Windows.Forms.ColumnHeader();
             columnHeader5 = new System.Windows.Forms.ColumnHeader();
-            TPB_Event = new System.Windows.Forms.ToolStripStatusLabel();
             statusStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
@@ -141,6 +141,12 @@
             TPB_Max.AutoSize = false;
             TPB_Max.Name = "TPB_Max";
             TPB_Max.Size = new System.Drawing.Size(169, 24);
+            // 
+            // TPB_Event
+            // 
+            TPB_Event.Name = "TPB_Event";
+            TPB_Event.Size = new System.Drawing.Size(156, 24);
+            TPB_Event.Spring = true;
             // 
             // Txt_Chat
             // 
@@ -522,12 +528,6 @@
             columnHeader5.Text = "Chat";
             columnHeader5.Width = 710;
             // 
-            // TPB_Event
-            // 
-            TPB_Event.Name = "TPB_Event";
-            TPB_Event.Size = new System.Drawing.Size(125, 24);
-            TPB_Event.Spring = true;
-            // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -543,7 +543,7 @@
             MinimumSize = new System.Drawing.Size(747, 223);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Text = "MabiChatSpeech (Ver.1.06)";
+            Text = "MabiChatSpeech (Ver.1.07)";
             FormClosing += Main_FormClosing;
             FormClosed += Main_FormClosed;
             Load += Main_Load;

@@ -1012,6 +1012,10 @@ namespace MabiChatSpeech
                     break;
                 case Keys.N: //NPC
                     break;
+                case Keys.P: //Export
+                    ExportSRT frm_ExportSrt = new ExportSRT();
+                    frm_ExportSrt.ShowDialog();
+                    break;
                 case Keys.F1: //Help
                     if (this.sf == null || this.sf.IsDisposed)
                     { /* ヌル、または破棄されていたら */
