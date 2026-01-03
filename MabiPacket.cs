@@ -711,6 +711,8 @@ namespace MabiChatSpeech
             }
         }
         public uint _ArrivedSeqNo = 0;
+        public bool _ArrivedSeqNo_Flag = false;
+
         private void device_OnPacketArrival(object sender, PacketCapture e)
         {
             try
@@ -730,7 +732,7 @@ namespace MabiChatSpeech
                     // 同一のSeqNoは弾く
                     if (_ArrivedSeqNo == tcpPacket.SequenceNumber)
                     {
-                        return;
+                        //                        return;
                     }
                     _ArrivedSeqNo = tcpPacket.SequenceNumber;
                     // local側 ipアドレス＋ポート番号で　パケットデータの仕分け

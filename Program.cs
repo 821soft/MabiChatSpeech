@@ -1,24 +1,25 @@
-﻿using SharpPcap;
+﻿using AudioSwitcher.AudioApi.CoreAudio;
+using MabiChatSpeech;
+using SharpPcap;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Diagnostics;
+using System.Diagnostics.PerformanceData;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using System.Speech.AudioFormat;
 using System.Speech.Synthesis;
-using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Net.Mail;
 using System.Web;
-using System.Collections;
-using System.Data.SqlTypes;
-using System.Speech.AudioFormat;
-using System.Diagnostics.PerformanceData;
-using MabiChatSpeech;
+using System.Windows.Forms;
 using static MabiChatSpeech.MabiChat;
 
 namespace MabiChatSpeech
@@ -38,6 +39,8 @@ namespace MabiChatSpeech
                 Color.Navy,Color.Blue,Color.Teal,Color.Aqua
             };
         public static List<Font> FontItemList = new List<Font>();
+        public static CoreAudioController controller = new CoreAudioController();
+        public static List<CoreAudioDevice> AudioDevList;
         /*
          * 設定データ
          */
@@ -221,6 +224,11 @@ namespace MabiChatSpeech
             get { return Properties.Settings.Default.__Echa; }
             set { Properties.Settings.Default.__Echa = value; }
         }
+        public static string __AudioDevice
+        {
+            get { return Properties.Settings.Default.__AudioDevice; }
+            set { Properties.Settings.Default.__AudioDevice = value; }
+        }
 
         public static string TTS_Names()
         {
@@ -251,6 +259,8 @@ namespace MabiChatSpeech
         {
             File.AppendAllLines(_tmpfname, li);
         }
+
+
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
@@ -262,6 +272,21 @@ namespace MabiChatSpeech
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
+                // 出力デバイスリスト
+                // 利用可能な再生デバイスを列挙
+                
+                AudioDevList = controller.GetPlaybackDevices().ToList();
+
+                Debug.Print("audiodev----");
+                foreach (var devno in AudioDevList)
+                {
+                    if (devno.State == AudioSwitcher.AudioApi.DeviceState.Active )
+                    {
+                        Debug.Print($"{devno.Name} {devno.State}");
+                    }
+                }
+                Debug.Print("audiodev-End");
+
                 TTS_Names();
             }
             catch (Exception e)
@@ -290,7 +315,7 @@ namespace MabiChatSpeech
             foreach (FontFamily ff in ffs)
             {
                 Font f = new Font(ff,11,FontStyle.Regular);
-                Debug.Print($"{f.Name} : {f.GdiCharSet}");
+                //Debug.Print($"{f.Name} : {f.GdiCharSet}");
                 FontItemList.Add(f);
             }
             string [] _Pos_Main = __Pos_Main.Split(',');

@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Speech.Synthesis;
@@ -183,6 +184,7 @@ namespace MabiChatSpeech
             }
         }
 
+
         // 読上げ
         delegate void deg_speechChat(string cn, int cv, int cs, string c1, string c2);
         private void speech_chat(string cn, int cv, int cs, string c1, string c2)
@@ -195,6 +197,7 @@ namespace MabiChatSpeech
                 }
                 else
                 {
+
                     SpeechSynthesizer speech_spkp = new SpeechSynthesizer();
                     speech_spkp.SetOutputToDefaultAudioDevice();
                     string[] cnn = cn.Split(']');
@@ -269,6 +272,13 @@ namespace MabiChatSpeech
             {
                 Directory.CreateDirectory(__SavePath + "\\echa");
             }
+            var desiredDevice = Program.AudioDevList.FirstOrDefault(d => d.Name.Contains(Program.__AudioDevice));
+
+            if (desiredDevice != null)
+            {
+                Program.controller.SetDefaultDevice(desiredDevice);
+            }
+
 
         }
         /// <summary>

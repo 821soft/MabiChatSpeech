@@ -143,26 +143,44 @@ namespace MabiChatSpeech
             checkBox4.Checked = Program.__ChatView_Name ;
 
             Cmb_Echa.SelectedIndex = Program.__Echa;
+            AudioDevices.Items.Clear();
+            AudioDevices.Items.Add("Default");
+            
+
+            foreach ( var ad in Program.AudioDevList )
+            {
+                if( ad.State == AudioSwitcher.AudioApi.DeviceState.Active)
+                {
+                    AudioDevices.Items.Add(ad.Name);
+                }
+            }
+
+            AudioDevices.SelectedItem = Program.__AudioDevice;
+            if (AudioDevices.SelectedItem == null)
+            { 
+                AudioDevices.SelectedIndex = 0;
+            }
+
         }
 
         private void Btn_Ok_Click(object sender, EventArgs e)
         {
             // データセット
-            Program.__CapureProgram = Txt_CapProgram.Text ;
-            Program.__CapturePort = uint.Parse(Txt_CapPort.Text) ;
+            Program.__CapureProgram = Txt_CapProgram.Text;
+            Program.__CapturePort = uint.Parse(Txt_CapPort.Text);
 
-            Program.__SaveMode = Cmb_SaveMode.SelectedIndex ;
-            Program.__SavePath = Txt_SavePath.Text ;
-            Program.__ChatSelWhitelist = Cmb_Whitelist.SelectedIndex ;
-            Program.__ChatSelUser = Cmb_User.SelectedIndex ;
-            Program.__ChatSelNpc = Cmb_NPC.SelectedIndex ;
+            Program.__SaveMode = Cmb_SaveMode.SelectedIndex;
+            Program.__SavePath = Txt_SavePath.Text;
+            Program.__ChatSelWhitelist = Cmb_Whitelist.SelectedIndex;
+            Program.__ChatSelUser = Cmb_User.SelectedIndex;
+            Program.__ChatSelNpc = Cmb_NPC.SelectedIndex;
 
-            Program.__TTS1Name = Cmb_TTS1Name.Text ;
+            Program.__TTS1Name = Cmb_TTS1Name.Text;
             Program.__TTS1Volume = (int)(Nud_TTS1Volume.Value);
             Program.__TTS1Speed = (int)Nud_TTS1Speed.Value;
             Program.__TTS2Name = Cmb_TTS2Name.Text;
-            Program.__TTS2Volume = (int)Nud_TTS2Volume.Value ;
-            Program.__TTS2Speed = (int)Nud_TTS2Speed.Value ;
+            Program.__TTS2Volume = (int)Nud_TTS2Volume.Value;
+            Program.__TTS2Speed = (int)Nud_TTS2Speed.Value;
             Program.__TTS_Mute = Chk_TTSMute.Checked;
             Program.__TTS_NameCall = Chk_TTSNameCall.Checked;
             Program.__ChatFColor = CMB_FColor.SelectedIndex;
@@ -186,8 +204,16 @@ namespace MabiChatSpeech
 
             Program.__ChatFontName = myFont.Name;
             Program.__ChatFontSize = size;
-            Program.__WhiteList_AutoAdd =CHK_AutoAdd.Checked;
-            Program.__Echa = Cmb_Echa.SelectedIndex ;
+            Program.__WhiteList_AutoAdd = CHK_AutoAdd.Checked;
+            Program.__Echa = Cmb_Echa.SelectedIndex;
+            Program.__AudioDevice = (string)AudioDevices.Items[AudioDevices.SelectedIndex];
+
+            var desiredDevice = Program.AudioDevList.FirstOrDefault(d => d.Name.Contains(Program.__AudioDevice));
+
+            if (desiredDevice != null)
+            {
+                Program.controller.SetDefaultDevice(desiredDevice);
+            }
 
             Properties.Settings.Default.Save();
             this.Close();
