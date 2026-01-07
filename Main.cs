@@ -1,4 +1,5 @@
 ﻿
+using NAudio.Wave;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
+using System.Speech.AudioFormat;
 using System.Speech.Synthesis;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -198,8 +200,10 @@ namespace MabiChatSpeech
                 else
                 {
 
+
                     SpeechSynthesizer speech_spkp = new SpeechSynthesizer();
                     speech_spkp.SetOutputToDefaultAudioDevice();
+
                     string[] cnn = cn.Split(']');
                     speech_spkp.SelectVoice(cnn[1]);
 
@@ -212,6 +216,7 @@ namespace MabiChatSpeech
                     speech_spkp.Volume = cv;
                     speech_spkp.Rate = cs;
                     speech_spkp.SpeakAsync(sayword);
+
                 }
             }
             catch
@@ -272,12 +277,30 @@ namespace MabiChatSpeech
             {
                 Directory.CreateDirectory(__SavePath + "\\echa");
             }
-            var desiredDevice = Program.AudioDevList.FirstOrDefault(d => d.Name.Contains(Program.__AudioDevice));
 
-            if (desiredDevice != null)
+            // 出力デバイス
+
+            /*
+            foreach (var dev in Program.Audio_Devices)
             {
-                Program.controller.SetDefaultDevice(desiredDevice);
+                if( dev.FriendlyName == __AudioDevice )
+                {
+                    Program.Audio_Device = dev;
+                }
+                Debug.Print($"{dev.FriendlyName} / {dev.ID}");
             }
+
+
+            if ( Program.Audio_Device != null)
+            {
+
+                TPB_Event.Text = Program.Audio_Device.FriendlyName;
+            }
+            else
+            {
+                TPB_Event.Text = "Default";
+            }
+            */
 
 
         }
@@ -378,6 +401,17 @@ namespace MabiChatSpeech
             //透過form
             //Overlay Frm_Overlay = new Overlay();
             //Frm_Overlay.Show();
+            SpeechSynthesizer speech_spkp = new SpeechSynthesizer();
+            speech_spkp.SetOutputToDefaultAudioDevice();
+            if (Program.packets.csts == ClinetStatus.OFF)
+            {
+                speech_spkp.SpeakAsync("クライアントはOFFです");
+            }
+            else
+            {
+                speech_spkp.SpeakAsync("クライアントはONです");
+            }
+
         }
 
         // Capture Status Color
@@ -714,6 +748,17 @@ namespace MabiChatSpeech
                 case 3: SLB_SaveMode.Image = Properties.Resources.WriteMode_timestamp; break;
                 default: SLB_SaveMode.Image = null; break;
             }
+/*
+            if (Program.Audio_Device != null)
+            {
+                TPB_Event.Text = Program.Audio_Device.DeviceFriendlyName;
+            }
+            else 
+            {
+                TPB_Event.Text = "Default";
+            }
+*/
+
         }
 
         /// <summary>

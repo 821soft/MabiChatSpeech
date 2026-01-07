@@ -63,9 +63,8 @@
     <Content Include="Resources\Userlist.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AudioSwitcher.AudioApi" Version="3.0.0" />
-    <PackageReference Include="AudioSwitcher.AudioApi.CoreAudio" Version="3.0.3" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="PacketDotNet" Version="1.4.7" />
     <PackageReference Include="SharpPcap" Version="6.3.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />

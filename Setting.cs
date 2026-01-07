@@ -143,24 +143,7 @@ namespace MabiChatSpeech
             checkBox4.Checked = Program.__ChatView_Name ;
 
             Cmb_Echa.SelectedIndex = Program.__Echa;
-            AudioDevices.Items.Clear();
-            AudioDevices.Items.Add("Default");
             
-
-            foreach ( var ad in Program.AudioDevList )
-            {
-                if( ad.State == AudioSwitcher.AudioApi.DeviceState.Active)
-                {
-                    AudioDevices.Items.Add(ad.Name);
-                }
-            }
-
-            AudioDevices.SelectedItem = Program.__AudioDevice;
-            if (AudioDevices.SelectedItem == null)
-            { 
-                AudioDevices.SelectedIndex = 0;
-            }
-
         }
 
         private void Btn_Ok_Click(object sender, EventArgs e)
@@ -206,14 +189,7 @@ namespace MabiChatSpeech
             Program.__ChatFontSize = size;
             Program.__WhiteList_AutoAdd = CHK_AutoAdd.Checked;
             Program.__Echa = Cmb_Echa.SelectedIndex;
-            Program.__AudioDevice = (string)AudioDevices.Items[AudioDevices.SelectedIndex];
 
-            var desiredDevice = Program.AudioDevList.FirstOrDefault(d => d.Name.Contains(Program.__AudioDevice));
-
-            if (desiredDevice != null)
-            {
-                Program.controller.SetDefaultDevice(desiredDevice);
-            }
 
             Properties.Settings.Default.Save();
             this.Close();

@@ -1,5 +1,4 @@
-﻿using AudioSwitcher.AudioApi.CoreAudio;
-using MabiChatSpeech;
+﻿using MabiChatSpeech;
 using SharpPcap;
 using System;
 using System.Collections;
@@ -39,8 +38,7 @@ namespace MabiChatSpeech
                 Color.Navy,Color.Blue,Color.Teal,Color.Aqua
             };
         public static List<Font> FontItemList = new List<Font>();
-        public static CoreAudioController controller = new CoreAudioController();
-        public static List<CoreAudioDevice> AudioDevList;
+
         /*
          * 設定データ
          */
@@ -224,12 +222,6 @@ namespace MabiChatSpeech
             get { return Properties.Settings.Default.__Echa; }
             set { Properties.Settings.Default.__Echa = value; }
         }
-        public static string __AudioDevice
-        {
-            get { return Properties.Settings.Default.__AudioDevice; }
-            set { Properties.Settings.Default.__AudioDevice = value; }
-        }
-
         public static string TTS_Names()
         {
             string retval_txt ="";
@@ -274,18 +266,20 @@ namespace MabiChatSpeech
                 Application.SetCompatibleTextRenderingDefault(false);
                 // 出力デバイスリスト
                 // 利用可能な再生デバイスを列挙
-                
-                AudioDevList = controller.GetPlaybackDevices().ToList();
+                /*
+                Audio_Enum = new MMDeviceEnumerator();
+
+                Audio_Devices = Audio_Enum.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
 
                 Debug.Print("audiodev----");
-                foreach (var devno in AudioDevList)
+                foreach (var devno in Audio_Devices)
                 {
-                    if (devno.State == AudioSwitcher.AudioApi.DeviceState.Active )
-                    {
-                        Debug.Print($"{devno.Name} {devno.State}");
-                    }
+                        Debug.Print($"{devno.ID} {devno.State}");
                 }
                 Debug.Print("audiodev-End");
+
+                Audio_Device = null;
+                */
 
                 TTS_Names();
             }
