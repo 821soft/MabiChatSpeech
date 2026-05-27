@@ -1,0 +1,27 @@
+\chapter{Mabi\+Chat\+Speech }
+\hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{MabiChatSpeech@{MabiChatSpeech}}
+\label{md__r_e_a_d_m_e_autotoc_md0}%
+\Hypertarget{md__r_e_a_d_m_e_autotoc_md0}%
+
+
+●浬+T要 ソ}ビノソ+Mのソ+I―+[プンボ\ttfamily ャットをソ+Lャプマャして テソ+Lソ+Xト表textbackslash{}示―+A音声合成します。 また他のソ+Aプリにリソ+\_\+ソ+Cレソ+Nトが可能textbackslash{}です。
+
+●ソ+Cンソ+Xト―+[ル ソ+Lャプソ`{}ャについては―+A『\+Npcap』を利用するので、 \href{https://npcap.com/}{\texttt{https:\+/\+/\+npcap.\+com/\+}} より　\+Npcap 1.\+80 installer を ソ+Cンソ+Xト―+[ルしてください。
+
+音声については各言語パッソ+P―+[ソ+Wをソ+Cンソ+Xト―+[ルすることで 他言語も利用可能textbackslash{}です。
+
+●ソ+Aンソ+Cンソ+Xト―+[ル 設定→ソ+Aプリ→ソ+Cンソ+Xト―+[ルされているソ+Aプリから削除して下さい。 レソ+Wソ+Xトリは使用していません。
+
+●保存デ―+[ソtexorpdfstring{$^\wedge$}{\string^} 保存デ―+[ソtexorpdfstring{$^\wedge$}{\string^}はユ―+[ソ+U―+[のドソ+Lュメントフソ+Hルソ+\_\+に『821\+Soft』フソ+Hルソ+\_\+が 作られ―+Aロソ+Oデ―+[ソtexorpdfstring{$^\wedge$}{\string^}―+Aソ+Lャラ曾+I択デ―+[ソtexorpdfstring{$^\wedge$}{\string^}が保存されます。 ※設定でフソ+Hルソ+\_\+は変構+X可。
+
+履歴 2024.\+08.\+24 ソ+Aルファ版リリ―+[ソ+X（ソ+Cンソ+Xト―+[ラ―+[なし） 2024.\+09.\+25 ベ―+[ソtexorpdfstring{$^\wedge$}{\string^}版リリ―+[ス （ソ+Cンソ+Xト―+[ラ―+[あり） 2024.\+09.\+26 機能textbackslash{}追加（ソ+L―+[ソ{―+[ドソ+Aソ+Tソ+Cン―+Aヘルプ）―+Eバソ+O十+C正(\+Auto Add) 2024.\+09.\+29 EXEにソ+Aソ+Cソ+Rン埋め込み―+ADump内容十+C正―+Aバ―+[ソ+Wョン付予texorpdfstring{$^\wedge$}{\string^} 1.\+0.\+0.\+1 2024.\+10.\+14 1.\+0.\+0.\+2 ワ―+[ソ+Nフレ―+[ム変更 ( Framework → .NET8 )―+Aバソ+O十+C正
+
+仕様
+
+1.ソtexorpdfstring{$^\wedge$}{\string^}ソ+Cソ}―+[監視 Client.\+exe のプロソ+Zソ+XIDを監視―+Bプロソ+Zソ+Xを見つけたら、 　プロソ+Zソ+Xが浬+Jいている\+TCPTableを監視 　―+Eロ―+[ソ+Jル（\+IP―+Aソtexorpdfstring{$\vert$}{|}―+[ト番号）―+A接続先（\+IP―+Aソtexorpdfstring{$\vert$}{|}―+[ト番号） 　→プロソ+Zソ+XID―+ATCPTable状態の変化で状態変化ソ+Cベント発火
+
+2.パソ+Pットソ+Lャプソ`{}ャ浬+J始 ―+E接続先（ソtexorpdfstring{$\vert$}{|}―+[ト番号）―+Aロ―+[ソ+Jル（\+IP)でフソ+Bルソtexorpdfstring{$^\wedge$}{\string^}リング
+
+3.パソ+Pット受信 内容解析 →接続先（\+IP)の変化で状態変化ソ+Cベント発火 　→ボ\ttfamily ャットならマャット受申+Mソ+Cベント発火
+
+機能textbackslash{}ソ+Aソ+Cデソ+Bア ―+Eclient十+I了時の自ソ+Aプリ十+I了 ―+Eclientソ+Aソ+Nテソ+Bブ時の音声再生予}蚕texorpdfstring{$\sim$}{\string~} ―+EDump\+Mode のパソ+Pット箪+P体 or\+PSH箪+P位 　処理箪+P位→パソ+Pット or レソ+Cヤ 
