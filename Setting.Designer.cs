@@ -86,10 +86,14 @@
             checkBox3 = new System.Windows.Forms.CheckBox();
             checkBox4 = new System.Windows.Forms.CheckBox();
             Cmb_Echa = new System.Windows.Forms.ComboBox();
+            label23 = new System.Windows.Forms.Label();
+            label24 = new System.Windows.Forms.Label();
+            textBox1 = new System.Windows.Forms.TextBox();
             panel1 = new System.Windows.Forms.Panel();
             Btn_Cancel = new System.Windows.Forms.Button();
             Btn_Ok = new System.Windows.Forms.Button();
             openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
@@ -145,11 +149,14 @@
             tableLayoutPanel1.Controls.Add(label9, 0, 15);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel5, 1, 15);
             tableLayoutPanel1.Controls.Add(Cmb_Echa, 1, 16);
+            tableLayoutPanel1.Controls.Add(label23, 0, 24);
+            tableLayoutPanel1.Controls.Add(label24, 0, 25);
+            tableLayoutPanel1.Controls.Add(textBox1, 1, 25);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 25;
+            tableLayoutPanel1.RowCount = 27;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -173,9 +180,11 @@
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(584, 715);
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(584, 787);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // label10
@@ -443,7 +452,7 @@
             Chk_TTSNameCall.AutoSize = true;
             Chk_TTSNameCall.Dock = System.Windows.Forms.DockStyle.Left;
             Chk_TTSNameCall.Location = new System.Drawing.Point(150, 615);
-            Chk_TTSNameCall.Margin = new System.Windows.Forms.Padding(4);
+            Chk_TTSNameCall.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             Chk_TTSNameCall.Name = "Chk_TTSNameCall";
             Chk_TTSNameCall.Size = new System.Drawing.Size(15, 17);
             Chk_TTSNameCall.TabIndex = 19;
@@ -902,13 +911,42 @@
             Cmb_Echa.Size = new System.Drawing.Size(179, 23);
             Cmb_Echa.TabIndex = 51;
             // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Dock = System.Windows.Forms.DockStyle.Fill;
+            label23.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 128);
+            label23.Location = new System.Drawing.Point(3, 658);
+            label23.Name = "label23";
+            label23.Size = new System.Drawing.Size(140, 25);
+            label23.TabIndex = 52;
+            label23.Text = "Youtube";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Dock = System.Windows.Forms.DockStyle.Fill;
+            label24.Location = new System.Drawing.Point(3, 683);
+            label24.Name = "label24";
+            label24.Size = new System.Drawing.Size(140, 25);
+            label24.TabIndex = 53;
+            label24.Text = "　　jsonファイル";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new System.Drawing.Point(149, 685);
+            textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new System.Drawing.Size(351, 23);
+            textBox1.TabIndex = 54;
+            // 
             // panel1
             // 
             panel1.Controls.Add(Btn_Cancel);
             panel1.Controls.Add(Btn_Ok);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 677);
-            panel1.Margin = new System.Windows.Forms.Padding(4);
+            panel1.Location = new System.Drawing.Point(0, 749);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(584, 38);
             panel1.TabIndex = 1;
@@ -916,7 +954,7 @@
             // Btn_Cancel
             // 
             Btn_Cancel.Location = new System.Drawing.Point(399, 5);
-            Btn_Cancel.Margin = new System.Windows.Forms.Padding(4);
+            Btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             Btn_Cancel.Name = "Btn_Cancel";
             Btn_Cancel.Size = new System.Drawing.Size(88, 29);
             Btn_Cancel.TabIndex = 20;
@@ -927,7 +965,7 @@
             // Btn_Ok
             // 
             Btn_Ok.Location = new System.Drawing.Point(493, 4);
-            Btn_Ok.Margin = new System.Windows.Forms.Padding(4);
+            Btn_Ok.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             Btn_Ok.Name = "Btn_Ok";
             Btn_Ok.Size = new System.Drawing.Size(88, 29);
             Btn_Ok.TabIndex = 21;
@@ -939,15 +977,19 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
+            // openFileDialog2
+            // 
+            openFileDialog2.FileName = "openFileDialog2";
+            // 
             // Setting
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(584, 715);
+            ClientSize = new System.Drawing.Size(584, 787);
             Controls.Add(panel1);
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            Margin = new System.Windows.Forms.Padding(4);
+            Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             Name = "Setting";
             ShowIcon = false;
             ShowInTaskbar = false;
@@ -1040,5 +1082,9 @@
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox Cmb_Echa;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
