@@ -154,7 +154,7 @@
             tableLayoutPanel1.Controls.Add(textBox1, 1, 25);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 27;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -452,7 +452,7 @@
             Chk_TTSNameCall.AutoSize = true;
             Chk_TTSNameCall.Dock = System.Windows.Forms.DockStyle.Left;
             Chk_TTSNameCall.Location = new System.Drawing.Point(150, 615);
-            Chk_TTSNameCall.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            Chk_TTSNameCall.Margin = new System.Windows.Forms.Padding(4);
             Chk_TTSNameCall.Name = "Chk_TTSNameCall";
             Chk_TTSNameCall.Size = new System.Drawing.Size(15, 17);
             Chk_TTSNameCall.TabIndex = 19;
@@ -946,7 +946,7 @@
             panel1.Controls.Add(Btn_Ok);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             panel1.Location = new System.Drawing.Point(0, 749);
-            panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            panel1.Margin = new System.Windows.Forms.Padding(4);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(584, 38);
             panel1.TabIndex = 1;
@@ -954,7 +954,7 @@
             // Btn_Cancel
             // 
             Btn_Cancel.Location = new System.Drawing.Point(399, 5);
-            Btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            Btn_Cancel.Margin = new System.Windows.Forms.Padding(4);
             Btn_Cancel.Name = "Btn_Cancel";
             Btn_Cancel.Size = new System.Drawing.Size(88, 29);
             Btn_Cancel.TabIndex = 20;
@@ -965,7 +965,7 @@
             // Btn_Ok
             // 
             Btn_Ok.Location = new System.Drawing.Point(493, 4);
-            Btn_Ok.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            Btn_Ok.Margin = new System.Windows.Forms.Padding(4);
             Btn_Ok.Name = "Btn_Ok";
             Btn_Ok.Size = new System.Drawing.Size(88, 29);
             Btn_Ok.TabIndex = 21;
@@ -989,7 +989,7 @@
             Controls.Add(panel1);
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            Margin = new System.Windows.Forms.Padding(4);
             Name = "Setting";
             ShowIcon = false;
             ShowInTaskbar = false;
