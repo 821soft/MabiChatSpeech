@@ -598,5 +598,15 @@ namespace MabiChatSpeech.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap YouTubeAPI {
+            get {
+                object obj = ResourceManager.GetObject("YouTubeAPI", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

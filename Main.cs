@@ -165,7 +165,7 @@ namespace MabiChatSpeech
                         if (a != false)
                         {
                             KeyboardEmulate keyboardEmulate = new KeyboardEmulate();
-                            bool ret = keyboardEmulate.writeKeys(setWindowHandle,sayword);
+                            bool ret = keyboardEmulate.writeKeys(setWindowHandle, sayword);
                             Debug.Print($"Redirect sts:{ret}");
                         }
                         else
@@ -326,13 +326,13 @@ namespace MabiChatSpeech
             Txt_Chat.Text = "";
             LSV_chat.Items.Clear();
             chat_cnt = 1;
-            if ( BTN_Redirect.Text== "ON" )
+            if (BTN_Redirect.Text == "ON")
             {
                 TPB_Event.Text = $"CStart:{chat_cnt}";
             }
             else
             {
-                TPB_Event.Text = "" ;
+                TPB_Event.Text = "";
             }
 
         }
@@ -517,6 +517,7 @@ namespace MabiChatSpeech
             var li = c.PacketDump.Split(Environment.NewLine);
 
         }
+        public Frm_browser ChatPop = new Frm_browser();
 
         // On Chat
         /// <summary>
@@ -665,6 +666,13 @@ namespace MabiChatSpeech
                         RedirectWriteLine(c.CharacterName, c.ChatWord);
                     }
                 }
+
+                // ChatPopupへ出力
+                if( ChatPop.Visible )
+                {
+                    ChatPop.ChatPopupSend(c.ChatWord);
+                }
+
             }
 
             // 読上げ処理
@@ -748,16 +756,16 @@ namespace MabiChatSpeech
                 case 3: SLB_SaveMode.Image = Properties.Resources.WriteMode_timestamp; break;
                 default: SLB_SaveMode.Image = null; break;
             }
-/*
-            if (Program.Audio_Device != null)
-            {
-                TPB_Event.Text = Program.Audio_Device.DeviceFriendlyName;
-            }
-            else 
-            {
-                TPB_Event.Text = "Default";
-            }
-*/
+            /*
+                        if (Program.Audio_Device != null)
+                        {
+                            TPB_Event.Text = Program.Audio_Device.DeviceFriendlyName;
+                        }
+                        else 
+                        {
+                            TPB_Event.Text = "Default";
+                        }
+            */
 
         }
 
@@ -965,16 +973,16 @@ namespace MabiChatSpeech
         private void TextViewMode(PacketModes mode)
         {
             string[] msg = { "" };
-            switch ( mode )
+            switch (mode)
             {
                 case PacketModes.Chat:
-                    msg[0] = "Chat Mode *** Start" + Environment.NewLine ;
+                    msg[0] = "Chat Mode *** Start" + Environment.NewLine;
                     TxtChatWriteLine(msg[0]);
                     Program.packets.PacketMode = PacketModes.Chat;
                     SLB_Mode_Icon(Program.packets.PacketMode);
                     break;
                 case PacketModes.Dump:
-                    msg[0] = "Dump Mode *** Start" + Environment.NewLine ;
+                    msg[0] = "Dump Mode *** Start" + Environment.NewLine;
                     TxtChatWriteLine(msg[0]);
                     Program.packets.PacketMode = PacketModes.Dump;
                     SLB_Mode_Icon(Program.packets.PacketMode);
@@ -1378,6 +1386,14 @@ namespace MabiChatSpeech
             LSV_chat.Visible = false;
             TextViewMode(PacketModes.Dump);
 
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            if (ChatPop.Visible == false)
+            {
+                ChatPop.Show();
+            }
         }
     }
 }
