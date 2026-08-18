@@ -111,80 +111,6 @@ namespace MabiChatSpeech
             }
         }
 
-        // リダイレクト
-        delegate void deg_Redirect_Text(string c1, string c2);
-        public void RedirectWriteLine(string c1, string c2)
-        {
-            try
-            {
-                if (this.InvokeRequired)
-                {
-                    Invoke(new deg_Redirect_Text(RedirectWriteLine), c1, c2);
-                }
-                else
-                {
-                    //リダイレクト アクティブ切替
-                    if (BTN_Redirect.Text == "ON")
-                    {
-                        //                        Task.Run(async () => {
-                        //                            await Task.Delay(5000);
-                        // リダイレクト
-                        // アクティブを取得
-                        IntPtr storewHnd = WinApi.GetForegroundWindow();
-                        //WinApi.SetForegroundWindow((IntPtr)BTN_Redirect.Tag);
-
-                        // アクティブを切替
-                        IntPtr setWindowHandle = (IntPtr)BTN_Redirect.Tag;
-                        bool a = WinApi._ActiveWin(setWindowHandle);
-
-                        IntPtr targetWindowHandle = WinApi.GetForegroundWindow();
-                        if (setWindowHandle != targetWindowHandle)
-                        {
-                            bool b = WinApi._ActiveWin(this.Handle);
-                            Debug.Print($"Redirect Change To : {setWindowHandle:x} NowCur : {targetWindowHandle:x}");
-
-                            SDB_SendTask.Text = "";
-                            BTN_Redirect.Image = Properties.Resources.Icn_Sendplay;
-                            BTN_Redirect.Text = "OFF";
-                            BTN_Redirect.Tag = null;
-                            TPB_Event.Text += $" Error:{chat_cnt}";
-
-                            return;
-                        }
-
-                        bool c = WinApi._ActiveWin(setWindowHandle);
-
-
-                        string sayword = "";
-                        if (Program.__TTS_NameCall == true)
-                        {
-                            sayword = c1 + "  ";
-                        }
-                        sayword += c2;
-
-                        if (a != false)
-                        {
-                            KeyboardEmulate keyboardEmulate = new KeyboardEmulate();
-                            bool ret = keyboardEmulate.writeKeys(setWindowHandle, sayword);
-                            Debug.Print($"Redirect sts:{ret}");
-                        }
-                        else
-                        {
-                            Debug.Print($"Redirect ChangeError : {a}");
-                        }
-                        //WinApi.SetForegroundWindow(storewHnd);
-                        WinApi._ActiveWin(storewHnd);
-
-
-                        //                        });
-
-                    }
-                }
-            }
-            catch
-            {
-            }
-        }
 
 
         // 読上げ
@@ -301,6 +227,53 @@ namespace MabiChatSpeech
                 TPB_Event.Text = "Default";
             }
             */
+            /* Menuのアイコン設定*/
+            // Mnu_PlayerList.Image 
+            switch (Program.__ChatSelWhitelist)
+            {
+                case 0:
+                    Mnu_PlayerList.Image = Properties.Resources.Icn_SelectUser_off;
+                    break;
+                case 1:
+                    Mnu_PlayerList.Image = Properties.Resources.Icn_SelectUser_chat;
+                    break;
+                case 2:
+                    Mnu_PlayerList.Image = Properties.Resources.Icn_SelectUser_voice;
+                    break;
+            }
+
+            switch (Program.__ChatSelUser)
+            {
+                case 0:
+                    Mnu_Player.Image = Properties.Resources.Icn_User_off;
+                    break;
+                case 1:
+                    Mnu_Player.Image = Properties.Resources.Icn_User_chat;
+                    break;
+                case 2:
+                    Mnu_Player.Image = Properties.Resources.Icn_User_v1;
+                    break;
+                case 3:
+                    Mnu_Player.Image = Properties.Resources.Icn_User_v2;
+                    break;
+            }
+
+            switch (Program.__ChatSelNpc)
+            {
+                case 0:
+                    Mnu_NPC.Image = Properties.Resources.Icn_Npc_off;
+                    break;
+                case 1:
+                    Mnu_NPC.Image = Properties.Resources.Icn_Npc_chat;
+                    break;
+                case 2:
+                    Mnu_NPC.Image = Properties.Resources.Icn_Npc_v1;
+                    break;
+                case 3:
+                    Mnu_NPC.Image = Properties.Resources.Icn_Npc_v2;
+                    break;
+            }
+
 
 
         }
@@ -326,14 +299,7 @@ namespace MabiChatSpeech
             Txt_Chat.Text = "";
             LSV_chat.Items.Clear();
             chat_cnt = 1;
-            if (BTN_Redirect.Text == "ON")
-            {
-                TPB_Event.Text = $"CStart:{chat_cnt}";
-            }
-            else
-            {
-                TPB_Event.Text = "";
-            }
+            TPB_Event.Text = "";
 
         }
         /// <summary>
@@ -658,17 +624,9 @@ namespace MabiChatSpeech
 
                 chat_cnt++;
 
-                // リダイレクト処理
-                if (BTN_Redirect.Tag != null)
-                {
-                    if (BTN_Redirect.Text == "ON")
-                    {
-                        RedirectWriteLine(c.CharacterName, c.ChatWord);
-                    }
-                }
 
                 // ChatPopupへ出力
-                if( ChatPop.Visible )
+                if (ChatPop.Visible)
                 {
                     ChatPop.ChatPopupSend(c.ChatWord);
                 }
@@ -860,93 +818,6 @@ namespace MabiChatSpeech
         /// <param name="hWnd"></param>
         /// <param name="lparam"></param>
         /// <returns></returns>
-        private bool EnumWindowCallBack(IntPtr hWnd, IntPtr lparam)
-        {
-            //throw new NotImplementedException();
-            //ウィンドウのタイトルの長さを取得する
-            var _wi = new WinApi.WINDOWINFO();
-            _wi.cbSize = Marshal.SizeOf(_wi);
-            WinApi.GetWindowInfo(hWnd, ref _wi);
-
-            var f = !((_wi.dwStyle & 0x10000000) == 0x10000000); //WS_VISIBLE 
-
-            if (f)
-            {
-                return true;
-            }
-
-            f = !((_wi.dwStyle & 0x00C00000) == 0x00C00000); // WS_CAPTION
-            if (f)
-            {
-                return true;
-            }
-
-
-            int textLen = WinApi.GetWindowTextLength(hWnd);
-            if (0 < textLen)
-            {
-                //ウィンドウのタイトルを取得する
-                StringBuilder tsb = new StringBuilder(textLen + 1);
-                WinApi.GetWindowText(hWnd, tsb, tsb.Capacity);
-
-                string ma = $"{tsb}";
-                Debug.Print(ma);
-                // マビノギ以外のタイトルのみリスト追加
-                if (!ma.Equals("マビノギ"))
-                {
-                    var item = SDB_SendTask.DropDownItems.Add(ma);
-                    item.Tag = hWnd;
-                }
-            }
-            return true;
-        }
-        /// <summary>
-        /// リダイレクト先ドロップダウンリスト設定
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SDB_SendTask_DropDownOpening(object sender, EventArgs e)
-        {
-            SDB_SendTask.DropDownItems.Clear();
-            twlist.Clear();
-            WinApi.EnumWindows(new EnumWindowsDelegate(EnumWindowCallBack), IntPtr.Zero);
-        }
-        /// <summary>
-        /// リダイレクト先ドロップダウンリスト選択
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SDB_SendTask_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            BTN_Redirect.Tag = e.ClickedItem.Tag;
-            SDB_SendTask.Text = e.ClickedItem.Text;
-            TPB_Event.Text = $"Start:{chat_cnt}";
-            WinApi.SetForegroundWindow((IntPtr)BTN_Redirect.Tag);
-            //リスト選択でリダイレクト開始
-            BTN_Redirect.Text = "ON";
-            BTN_Redirect.Image = Properties.Resources.Icn_Sendplay;
-
-
-        }
-        /// <summary>
-        /// リダイレクト有効無効ボタン押下
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BTN_Redirect_Click(object sender, EventArgs e)
-        {
-            if (BTN_Redirect.Text == "OFF")
-            {
-                BTN_Redirect.Text = "ON";
-                BTN_Redirect.Image = Properties.Resources.Icn_Sendplay;
-                TPB_Event.Text = $"Start:{chat_cnt}";
-            }
-            else
-            {
-                BTN_Redirect.Text = "OFF";
-                BTN_Redirect.Image = Properties.Resources.Icn_Sendstop;
-            }
-        }
         /// <summary>
         /// ログモード表示設定
         /// </summary>
@@ -1046,7 +917,7 @@ namespace MabiChatSpeech
                 case Keys.E:
                     break;
                 case Keys.R: //Redirect Switch
-                    BTN_Redirect_Click(sender, (EventArgs)null);
+                             //                    BTN_Redirect_Click(sender, (EventArgs)null);
                     break;
 
                 case Keys.A:
@@ -1394,6 +1265,121 @@ namespace MabiChatSpeech
             {
                 ChatPop.Show();
             }
+        }
+
+        private void tToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void offToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Mnu_Clear_Click(object sender, EventArgs e)
+        {
+            Btn_Clear_Click(sender, e);
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Mnu_Player_Off_Click(object sender, EventArgs e)
+        {
+            Program.__ChatSelUser = 0;
+            Mnu_Player.Image = Properties.Resources.Icn_User_off;
+
+        }
+
+        private void Mnu_Player_Text_Click(object sender, EventArgs e)
+        {
+            Program.__ChatSelUser = 1;
+            Mnu_Player.Image = Properties.Resources.Icn_User_chat;
+
+        }
+
+        private void Mnu_Player_Voice1_Click(object sender, EventArgs e)
+        {
+            Program.__ChatSelUser = 2;
+            Mnu_Player.Image = Properties.Resources.Icn_User_v1;
+
+        }
+
+        private void Mnu_Player_Voice2_Click(object sender, EventArgs e)
+        {
+            Program.__ChatSelUser = 3;
+            Mnu_Player.Image = Properties.Resources.Icn_User_v2;
+        }
+
+        private void Mnu_NPC_Off_Click(object sender, EventArgs e)
+        {
+            Program.__ChatSelNpc = 0;
+            Mnu_NPC.Image = Properties.Resources.Icn_Npc_off;
+
+        }
+
+        private void Mnu_NPC_Text_Click(object sender, EventArgs e)
+        {
+            Program.__ChatSelNpc = 1;
+            Mnu_NPC.Image = Properties.Resources.Icn_Npc_chat;
+        }
+
+        private void Mnu_NPC_Voice1_Click(object sender, EventArgs e)
+        {
+            Program.__ChatSelNpc = 2;
+            Mnu_NPC.Image = Properties.Resources.Icn_Npc_v1;
+        }
+
+        private void Mnu_NPC_Voice2_Click(object sender, EventArgs e)
+        {
+            Program.__ChatSelNpc = 3;
+            Mnu_NPC.Image = Properties.Resources.Icn_Npc_v2;
+        }
+
+        private void Mnu_PlayerList_Off_Click(object sender, EventArgs e)
+        {
+            Program.__ChatSelWhitelist = 0;
+            Mnu_PlayerList.Image = Properties.Resources.Icn_SelectUser_off;
+        }
+
+        private void Mnu_PlayerList_Text_Click(object sender, EventArgs e)
+        {
+            Program.__ChatSelWhitelist = 1;
+            Mnu_PlayerList.Image = Properties.Resources.Icn_SelectUser_chat;
+
+        }
+
+        private void Mnu_PlayerList_Voice_Click(object sender, EventArgs e)
+        {
+            Program.__ChatSelWhitelist = 2;
+            Mnu_PlayerList.Image = Properties.Resources.Icn_SelectUser_voice;
+        }
+
+        private void Mnu_PlayerListEdit_Click(object sender, EventArgs e)
+        {
+            Btn_List_Click(sender, e);
+        }
+
+        private void Mnu_Setup_Click(object sender, EventArgs e)
+        {
+            Btn_Setup_Click(sender, e);
+        }
+
+        private void Mnu_YoutubeLive_Click(object sender, EventArgs e)
+        {
+            if (ChatPop.Visible == false)
+            {
+                ChatPop.Show();
+            }
+
         }
     }
 }
