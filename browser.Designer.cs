@@ -33,6 +33,7 @@
             BTN_Studio = new System.Windows.Forms.ToolStripButton();
             TST_ChannelID = new System.Windows.Forms.ToolStripTextBox();
             TSL_LiveStream = new System.Windows.Forms.ToolStripButton();
+            TSL_LiveChatPopup = new System.Windows.Forms.ToolStripButton();
             TST_LiveID = new System.Windows.Forms.ToolStripTextBox();
             TSL_UrlPos = new System.Windows.Forms.ToolStripLabel();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -41,7 +42,6 @@
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             panel1 = new System.Windows.Forms.Panel();
             webView = new Microsoft.Web.WebView2.WinForms.WebView2();
-            TSL_LiveChatPopup = new System.Windows.Forms.ToolStripButton();
             toolStrip1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)webView).BeginInit();
@@ -71,7 +71,9 @@
             // TST_ChannelID
             // 
             TST_ChannelID.BackColor = System.Drawing.SystemColors.Info;
+            TST_ChannelID.Enabled = false;
             TST_ChannelID.Name = "TST_ChannelID";
+            TST_ChannelID.ReadOnly = true;
             TST_ChannelID.Size = new System.Drawing.Size(88, 25);
             // 
             // TSL_LiveStream
@@ -84,10 +86,21 @@
             TSL_LiveStream.Text = "Live";
             TSL_LiveStream.Click += TSL_LiveStream_Click;
             // 
+            // TSL_LiveChatPopup
+            // 
+            TSL_LiveChatPopup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            TSL_LiveChatPopup.Image = (System.Drawing.Image)resources.GetObject("TSL_LiveChatPopup.Image");
+            TSL_LiveChatPopup.ImageTransparentColor = System.Drawing.Color.Magenta;
+            TSL_LiveChatPopup.Name = "TSL_LiveChatPopup";
+            TSL_LiveChatPopup.Size = new System.Drawing.Size(35, 22);
+            TSL_LiveChatPopup.Text = "Chat";
+            TSL_LiveChatPopup.Click += TSL_LiveChatPopup_Click;
+            // 
             // TST_LiveID
             // 
             TST_LiveID.BackColor = System.Drawing.SystemColors.Info;
             TST_LiveID.Name = "TST_LiveID";
+            TST_LiveID.ReadOnly = true;
             TST_LiveID.Size = new System.Drawing.Size(120, 25);
             TST_LiveID.ToolTipText = "LiveIDを入力、EnterでChatPopupに移動";
             TST_LiveID.KeyDown += TST_LiveID_KeyDown;
@@ -149,16 +162,6 @@
             webView.SourceChanged += webView_SourceChanged;
             webView.ContentLoading += webView_ContentLoading;
             // 
-            // TSL_LiveChatPopup
-            // 
-            TSL_LiveChatPopup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            TSL_LiveChatPopup.Image = (System.Drawing.Image)resources.GetObject("TSL_LiveChatPopup.Image");
-            TSL_LiveChatPopup.ImageTransparentColor = System.Drawing.Color.Magenta;
-            TSL_LiveChatPopup.Name = "TSL_LiveChatPopup";
-            TSL_LiveChatPopup.Size = new System.Drawing.Size(35, 22);
-            TSL_LiveChatPopup.Text = "Chat";
-            TSL_LiveChatPopup.Click += TSL_LiveChatPopup_Click;
-            // 
             // Frm_browser
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -166,6 +169,7 @@
             ClientSize = new System.Drawing.Size(1005, 450);
             Controls.Add(panel1);
             Controls.Add(toolStrip1);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Name = "Frm_browser";
             Text = "YoutubeChat";
             FormClosing += Frm_browser_FormClosing;

@@ -27,6 +27,11 @@ namespace MabiChatSpeech
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// URL文字列からchannelIDを取り出す
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         private string GetChannelID(string url)
         {
             string ret = "";
@@ -39,6 +44,12 @@ namespace MabiChatSpeech
             }
             return (ret);
         }
+
+        /// <summary>
+        /// URL文字列からliveIDを取り出す
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         private string GetLiveID(string url)
         {
             string ret = "";
@@ -56,6 +67,12 @@ namespace MabiChatSpeech
         }
 
         enum UrlPos { Studio , Channel , Console , ChatPopup , Other};
+        /// <summary>
+        /// URL文字列から状態を判定する
+        /// </summary>
+        /// <param name="s">　呼び出し元</param>
+        /// <param name="url">　URL </param>
+        /// <returns></returns>
         private  UrlPos URL_Type(string s , string url)
         {
             UrlPos ret = UrlPos.Other;
@@ -74,6 +91,9 @@ namespace MabiChatSpeech
                 TSL_UrlPos.Text = "Studio";
                 TSL_LiveStream.Enabled = false;
                 TSL_LiveChatPopup.Enabled = false;
+                TSL_LiveChatPopup.ForeColor = Color.Black;
+                TSL_LiveChatPopup.BackColor = SystemColors.Control;
+
                 ChannelID = "";
                 TST_ChannelID.Text = ChannelID;
                 LiveChatID = "";
@@ -89,6 +109,7 @@ namespace MabiChatSpeech
                 TSL_LiveChatPopup.Enabled = false;
                 TSL_LiveStream.ForeColor = Color.Black;
                 TSL_LiveChatPopup.ForeColor = Color.Black;
+                TSL_LiveChatPopup.BackColor = SystemColors.Control;
                 TST_ChannelID.Text = ChannelID;
 
                 ret = UrlPos.Channel;
@@ -101,6 +122,7 @@ namespace MabiChatSpeech
                 TSL_LiveChatPopup.Enabled = true;
                 TSL_LiveStream.ForeColor = Color.Red;
                 TSL_LiveChatPopup.ForeColor = Color.Black;
+                TSL_LiveChatPopup.BackColor = SystemColors.Control;
 
                 TST_LiveID.Text = LiveChatID;
 
@@ -112,7 +134,8 @@ namespace MabiChatSpeech
                 TSL_LiveStream.Enabled = true;
                 TSL_LiveChatPopup.Enabled = true;
                 TSL_LiveStream.ForeColor = Color.Red;
-                TSL_LiveChatPopup.ForeColor = Color.Red;
+                TSL_LiveChatPopup.ForeColor = Color.White;
+                TSL_LiveChatPopup.BackColor = Color.Red ;
                 ret = UrlPos.ChatPopup;
             }
             else
@@ -122,24 +145,40 @@ namespace MabiChatSpeech
                 TSL_LiveChatPopup.Enabled = false;
                 TSL_LiveStream.ForeColor = Color.Gray;
                 TSL_LiveChatPopup.ForeColor = Color.Gray;
+                TSL_LiveChatPopup.BackColor = SystemColors.Control;
                 ret = UrlPos.Other;
             }
             Debug.Print($"Call:{s} URLPOS:({CurUrlPos}=>{ret}) {url} ChannelID{ChannelID} LiveID{LiveChatID}");
 
             return ret;
         }
-
+        /// <summary>
+        /// URL移動開始
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void webView_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
         {
             var str = webView.Source.ToString();
             CurUrlPos = URL_Type("→NavigationStarting.URL",str);
         }
 
+        /// <summary>
+        /// コンテンツロード開始
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void webView_ContentLoading(object sender, CoreWebView2ContentLoadingEventArgs e)
         {
             var str = webView.Source.ToString();
             Debug.Print($"→ContentLoading.URL={str}");
         }
+
+        /// <summary>
+        /// URL移動完了
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void webView_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
             var str = webView.Source.ToString();
@@ -166,6 +205,11 @@ namespace MabiChatSpeech
             CurUrlPos = URL_Type("→SourceChanged.URL" , str);
             //URL_Check();
         }
+
+        /// <summary>
+        /// ChatPopoutにJavaScriptでコメントを送信する
+        /// </summary>
+        /// <param name="message"></param>
         public async void SendYouTubeLiveChatPopupAsync(string message)
         {
             // JavaScriptのエスケープ処理
@@ -205,6 +249,10 @@ namespace MabiChatSpeech
             // 実行結果をデバッグ出力（"Sent" が返れば成功）
             Debug.Print($"Chat Result: {result}");
         }
+        /// <summary>
+        /// chatpopupに送信のスレッド操作
+        /// </summary>
+        /// <param name="s"></param>
         public void ChatPopupSend(string s)
         {
             if (webView.InvokeRequired)
@@ -222,6 +270,11 @@ namespace MabiChatSpeech
             }
         }
 
+        /// <summary>
+        /// Formを閉じる動作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Frm_browser_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
@@ -284,12 +337,22 @@ namespace MabiChatSpeech
 
 
         }
+
+        /// <summary>
+        /// WebView2の環境設定
+        /// </summary>
         private async void InitializeAsync()
         {
             var cacheFolderPath = System.IO.Path.Combine(Program.__SavePath, "webview2cache");
             var webView2Environment = await Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(null, cacheFolderPath);
             await webView.EnsureCoreWebView2Async(webView2Environment);
         }
+
+        /// <summary>
+        /// Youtube Studioボタン
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BTN_Studio_Click(object sender, EventArgs e)
         {
             Debug.Print("StudioClick");
@@ -299,6 +362,11 @@ namespace MabiChatSpeech
             webView.Source = url;
             TST_Url.Text = YoutubeStudioURL;
         }
+        /// <summary>
+        /// Live Streamボタン
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TSL_LiveStream_Click(object sender, EventArgs e)
         {
             Debug.Print("LiveClick");
@@ -309,6 +377,11 @@ namespace MabiChatSpeech
             TST_Url.Text = LiveChatUrl;
 
         }
+        /// <summary>
+        /// Live Chatボタン
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TSL_LiveChatPopup_Click(object sender, EventArgs e)
         {
             Debug.Print("ChatClick");
