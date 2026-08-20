@@ -241,6 +241,7 @@ namespace MabiChatSpeech
                     Mnu_PlayerList.Image = Properties.Resources.Icn_SelectUser_voice;
                     break;
             }
+            SSL_UserList.Image = Mnu_PlayerList.Image;
 
             switch (Program.__ChatSelUser)
             {
@@ -257,6 +258,7 @@ namespace MabiChatSpeech
                     Mnu_Player.Image = Properties.Resources.Icn_User_v2;
                     break;
             }
+            SSL_Player.Image = Mnu_Player.Image;
 
             switch (Program.__ChatSelNpc)
             {
@@ -273,8 +275,27 @@ namespace MabiChatSpeech
                     Mnu_NPC.Image = Properties.Resources.Icn_Npc_v2;
                     break;
             }
+            SSL_NPC.Image = Mnu_NPC.Image;
 
+            switch (Program.__Echa)
+            {
+                case 0:
+                case 1:
+                    Mnu_Echa.Image = Properties.Resources.Icn_echa_off;
+                    Mnu_Echa.Checked = false;
+                    break;
+                case 2:
+                case 3:
+                    Mnu_Echa.Image = Properties.Resources.Icn_echa_Rec;
+                    Mnu_Echa.Checked = true;
+                    break;
 
+            }
+            SSL_Echa.Image = Mnu_Echa.Image;
+            Mnu_ViewList_No.Checked = Program.__ChatView_No;
+            Mnu_ViewList_Time.Checked = Program.__ChatView_Time;
+            Mnu_ViewList_Type.Checked = Program.__ChatView_Type;
+            Mnu_ViewList_Name.Checked = Program.__ChatView_Name;
 
         }
         /// <summary>
@@ -1161,12 +1182,14 @@ namespace MabiChatSpeech
                 BTN_No.Image = Properties.Resources.Icn_ViewSwtch_No_off;
                 LSV_chat.Columns[0].Width = 0;
                 Program.__ChatView_No = false;
+                Mnu_ViewList_No.Checked = false;
             }
             else
             {
                 BTN_No.Image = Properties.Resources.Icn_ViewSwtch_No_on;
                 LSV_chat.Columns[0].Width = 50;
                 Program.__ChatView_No = true;
+                Mnu_ViewList_No.Checked = true;
             }
         }
 
@@ -1178,12 +1201,14 @@ namespace MabiChatSpeech
                 BTN_Time.Image = Properties.Resources.Icn_ViewSwtch_Time_off;
                 LSV_chat.Columns[1].Width = 0;
                 Program.__ChatView_Time = false;
+                Mnu_ViewList_Time.Checked = false;
             }
             else
             {
                 BTN_Time.Image = Properties.Resources.Icn_ViewSwtch_Time_on;
                 LSV_chat.Columns[1].Width = 100;
                 Program.__ChatView_Time = true;
+                Mnu_ViewList_Time.Checked = true;
             }
         }
 
@@ -1195,12 +1220,15 @@ namespace MabiChatSpeech
                 BTN_Type.Image = Properties.Resources.Icn_ViewSwtch_Type_off;
                 LSV_chat.Columns[2].Width = 0;
                 Program.__ChatView_Type = false;
+                Mnu_ViewList_Type.Checked = false;
+
             }
             else
             {
                 BTN_Type.Image = Properties.Resources.Icn_ViewSwtch_Type_on;
                 LSV_chat.Columns[2].Width = 50;
                 Program.__ChatView_Type = true;
+                Mnu_ViewList_Type.Checked = true;
             }
         }
 
@@ -1211,12 +1239,14 @@ namespace MabiChatSpeech
                 BTN_Name.Image = Properties.Resources.Icn_ViewSwtch_Name_off;
                 LSV_chat.Columns[3].Width = 0;
                 Program.__ChatView_Name = false;
+                Mnu_ViewList_Name.Checked = false;
             }
             else
             {
                 BTN_Name.Image = Properties.Resources.Icn_ViewSwtch_Name_on;
                 LSV_chat.Columns[3].Width = 140;
                 Program.__ChatView_Name = true;
+                Mnu_ViewList_Name.Checked = true;
             }
         }
 
@@ -1267,15 +1297,6 @@ namespace MabiChatSpeech
             }
         }
 
-        private void tToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void offToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Mnu_Clear_Click(object sender, EventArgs e)
         {
@@ -1296,6 +1317,7 @@ namespace MabiChatSpeech
         {
             Program.__ChatSelUser = 0;
             Mnu_Player.Image = Properties.Resources.Icn_User_off;
+            SSL_Player.Image = Mnu_Player.Image;
 
         }
 
@@ -1303,6 +1325,7 @@ namespace MabiChatSpeech
         {
             Program.__ChatSelUser = 1;
             Mnu_Player.Image = Properties.Resources.Icn_User_chat;
+            SSL_Player.Image = Mnu_Player.Image;
 
         }
 
@@ -1310,6 +1333,7 @@ namespace MabiChatSpeech
         {
             Program.__ChatSelUser = 2;
             Mnu_Player.Image = Properties.Resources.Icn_User_v1;
+            SSL_Player.Image = Mnu_Player.Image;
 
         }
 
@@ -1317,12 +1341,14 @@ namespace MabiChatSpeech
         {
             Program.__ChatSelUser = 3;
             Mnu_Player.Image = Properties.Resources.Icn_User_v2;
+            SSL_Player.Image = Mnu_Player.Image;
         }
 
         private void Mnu_NPC_Off_Click(object sender, EventArgs e)
         {
             Program.__ChatSelNpc = 0;
             Mnu_NPC.Image = Properties.Resources.Icn_Npc_off;
+            SSL_NPC.Image = Mnu_NPC.Image;
 
         }
 
@@ -1330,30 +1356,35 @@ namespace MabiChatSpeech
         {
             Program.__ChatSelNpc = 1;
             Mnu_NPC.Image = Properties.Resources.Icn_Npc_chat;
+            SSL_NPC.Image = Mnu_NPC.Image;
         }
 
         private void Mnu_NPC_Voice1_Click(object sender, EventArgs e)
         {
             Program.__ChatSelNpc = 2;
             Mnu_NPC.Image = Properties.Resources.Icn_Npc_v1;
+            SSL_NPC.Image = Mnu_NPC.Image;
         }
 
         private void Mnu_NPC_Voice2_Click(object sender, EventArgs e)
         {
             Program.__ChatSelNpc = 3;
             Mnu_NPC.Image = Properties.Resources.Icn_Npc_v2;
+            SSL_NPC.Image = Mnu_NPC.Image;
         }
 
         private void Mnu_PlayerList_Off_Click(object sender, EventArgs e)
         {
             Program.__ChatSelWhitelist = 0;
             Mnu_PlayerList.Image = Properties.Resources.Icn_SelectUser_off;
+            SSL_UserList.Image = Mnu_PlayerList.Image;
         }
 
         private void Mnu_PlayerList_Text_Click(object sender, EventArgs e)
         {
             Program.__ChatSelWhitelist = 1;
             Mnu_PlayerList.Image = Properties.Resources.Icn_SelectUser_chat;
+            SSL_UserList.Image = Mnu_PlayerList.Image;
 
         }
 
@@ -1361,6 +1392,7 @@ namespace MabiChatSpeech
         {
             Program.__ChatSelWhitelist = 2;
             Mnu_PlayerList.Image = Properties.Resources.Icn_SelectUser_voice;
+            SSL_UserList.Image = Mnu_PlayerList.Image;
         }
 
         private void Mnu_PlayerListEdit_Click(object sender, EventArgs e)
@@ -1380,6 +1412,62 @@ namespace MabiChatSpeech
                 ChatPop.Show();
             }
 
+        }
+
+        private void Mnu_Echa_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Mnu_Echa.Checked)
+            {
+                Mnu_Echa.Image = Properties.Resources.Icn_echa_Rec;
+                Program.__Echa = 3;
+            }
+            else
+            {
+                Mnu_Echa.Image = Properties.Resources.Icn_echa_off;
+                Program.__Echa = 0;
+            }
+            SSL_Echa.Image = Mnu_Echa.Image;
+        }
+
+        private void Mnu_ViewText_Click(object sender, EventArgs e)
+        {
+
+            LSV_chat.Visible = false;
+            TextViewMode(PacketModes.Chat);
+
+        }
+
+        private void Mnu_ViewDump_Click(object sender, EventArgs e)
+        {
+            LSV_chat.Visible = false;
+            TextViewMode(PacketModes.Dump);
+        }
+
+        private void Mnu_ViewList_Click(object sender, EventArgs e)
+        {
+
+            LSV_chat.Visible = true;
+            // 強制ChatMode
+            TextViewMode(PacketModes.Chat);　// Bug.105_01
+
+        }
+        public void SSL_Youtube_State(int sts)
+        {
+            if (sts == 0)
+            {
+                SSL_Youtube.Image = null;
+
+            }
+            else
+            {
+                SSL_Youtube.Image = Properties.Resources.Youtube_js;
+            }
+
+        }
+
+        private void Mnu_Quit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

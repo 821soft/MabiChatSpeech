@@ -174,6 +174,7 @@
             Text = "YoutubeChat";
             FormClosing += Frm_browser_FormClosing;
             Load += Frm_browser_Load;
+            VisibleChanged += Frm_browser_VisibleChanged;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             panel1.ResumeLayout(false);

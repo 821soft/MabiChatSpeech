@@ -22,7 +22,7 @@ namespace MabiChatSpeech
         private string LiveConsoleURL = "https://studio.youtube.com/video/";
         private string LiveChatID = "";
         private string ChannelID = "";
-        private UrlPos CurUrlPos=UrlPos.Other;
+        private UrlPos CurUrlPos = UrlPos.Other;
         public Frm_browser()
         {
             InitializeComponent();
@@ -39,8 +39,8 @@ namespace MabiChatSpeech
             {
                 string[] sub = url.Split('/');
 
-                int i = Array.IndexOf(sub,"channel");
-                ret = sub[i+1];
+                int i = Array.IndexOf(sub, "channel");
+                ret = sub[i + 1];
             }
             return (ret);
         }
@@ -66,14 +66,14 @@ namespace MabiChatSpeech
             return (ret);
         }
 
-        enum UrlPos { Studio , Channel , Console , ChatPopup , Other};
+        enum UrlPos { Studio, Channel, Console, ChatPopup, Other };
         /// <summary>
         /// URL文字列から状態を判定する
         /// </summary>
         /// <param name="s">　呼び出し元</param>
         /// <param name="url">　URL </param>
         /// <returns></returns>
-        private  UrlPos URL_Type(string s , string url)
+        private UrlPos URL_Type(string s, string url)
         {
             UrlPos ret = UrlPos.Other;
             string url_studio = YoutubeStudioURL;
@@ -101,7 +101,7 @@ namespace MabiChatSpeech
 
                 ret = UrlPos.Studio;
             }
-            else if (url.Contains( url_studio_LiveChannel))
+            else if (url.Contains(url_studio_LiveChannel))
             {
                 TSL_UrlPos.Text = "Channel";
                 ChannelID = GetChannelID(url);
@@ -135,7 +135,7 @@ namespace MabiChatSpeech
                 TSL_LiveChatPopup.Enabled = true;
                 TSL_LiveStream.ForeColor = Color.Red;
                 TSL_LiveChatPopup.ForeColor = Color.White;
-                TSL_LiveChatPopup.BackColor = Color.Red ;
+                TSL_LiveChatPopup.BackColor = Color.Red;
                 ret = UrlPos.ChatPopup;
             }
             else
@@ -160,7 +160,7 @@ namespace MabiChatSpeech
         private void webView_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
         {
             var str = webView.Source.ToString();
-            CurUrlPos = URL_Type("→NavigationStarting.URL",str);
+            CurUrlPos = URL_Type("→NavigationStarting.URL", str);
         }
 
         /// <summary>
@@ -187,9 +187,10 @@ namespace MabiChatSpeech
             {
                 return;
             }
-            if (CurUrlPos == UrlPos.ChatPopup )
+            if (CurUrlPos == UrlPos.ChatPopup)
             {
                 ChatPopupSend("Start forwarding the chat by MCS.");
+                Program.Frm_Main.SSL_Youtube_State(1);
             }
 
         }
@@ -202,7 +203,11 @@ namespace MabiChatSpeech
         private void webView_SourceChanged(object sender, Microsoft.Web.WebView2.Core.CoreWebView2SourceChangedEventArgs e)
         {
             var str = webView.Source.ToString();
-            CurUrlPos = URL_Type("→SourceChanged.URL" , str);
+            CurUrlPos = URL_Type("→SourceChanged.URL", str);
+            if (CurUrlPos != UrlPos.ChatPopup)
+            {
+                Program.Frm_Main.SSL_Youtube_State(0);
+            }
             //URL_Check();
         }
 
@@ -424,6 +429,21 @@ namespace MabiChatSpeech
             }
         }
 
+        private void Frm_browser_VisibleChanged(object sender, EventArgs e)
+        {
+            Debug.Print("Visible  chng");
+            if (this.Visible == true)
+            { // 表示中
+                if (CurUrlPos == UrlPos.ChatPopup)
+                {
+                    Program.Frm_Main.SSL_Youtube_State(1);
+                }
+            }
+            else
+            {
+                Program.Frm_Main.SSL_Youtube_State(0);
 
+            }
+        }
     }
 }
