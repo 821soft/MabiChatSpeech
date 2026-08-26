@@ -86,9 +86,6 @@
             checkBox3 = new System.Windows.Forms.CheckBox();
             checkBox4 = new System.Windows.Forms.CheckBox();
             Cmb_Echa = new System.Windows.Forms.ComboBox();
-            label23 = new System.Windows.Forms.Label();
-            label24 = new System.Windows.Forms.Label();
-            textBox1 = new System.Windows.Forms.TextBox();
             panel1 = new System.Windows.Forms.Panel();
             Btn_Cancel = new System.Windows.Forms.Button();
             Btn_Ok = new System.Windows.Forms.Button();
@@ -149,9 +146,6 @@
             tableLayoutPanel1.Controls.Add(label9, 0, 15);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel5, 1, 15);
             tableLayoutPanel1.Controls.Add(Cmb_Echa, 1, 16);
-            tableLayoutPanel1.Controls.Add(label23, 0, 24);
-            tableLayoutPanel1.Controls.Add(label24, 0, 25);
-            tableLayoutPanel1.Controls.Add(textBox1, 1, 25);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
@@ -911,35 +905,6 @@
             Cmb_Echa.Size = new System.Drawing.Size(179, 23);
             Cmb_Echa.TabIndex = 51;
             // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Dock = System.Windows.Forms.DockStyle.Fill;
-            label23.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 128);
-            label23.Location = new System.Drawing.Point(3, 658);
-            label23.Name = "label23";
-            label23.Size = new System.Drawing.Size(140, 25);
-            label23.TabIndex = 52;
-            label23.Text = "Youtube";
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Dock = System.Windows.Forms.DockStyle.Fill;
-            label24.Location = new System.Drawing.Point(3, 683);
-            label24.Name = "label24";
-            label24.Size = new System.Drawing.Size(140, 25);
-            label24.TabIndex = 53;
-            label24.Text = "　　jsonファイル";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new System.Drawing.Point(149, 685);
-            textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(351, 23);
-            textBox1.TabIndex = 54;
-            // 
             // panel1
             // 
             panel1.Controls.Add(Btn_Cancel);
@@ -1082,9 +1047,6 @@
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox Cmb_Echa;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }

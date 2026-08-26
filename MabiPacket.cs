@@ -492,6 +492,7 @@ namespace MabiChatSpeech
         private static PacketType IsPacketType( int blocktop , int blocklen )
         {
             int pos = 5 + blocktop;
+//            Debug.Print($"IsPacketType {tcpbuff[pos + 0]:x2}{tcpbuff[pos + 1]:x2}{tcpbuff[pos + 2]:x2}{tcpbuff[pos + 3]:x2}{tcpbuff[pos + 4]:x2}{tcpbuff[pos + 5]:x2}{tcpbuff[pos + 6]:x2}{tcpbuff[pos + 7]:x2}{tcpbuff[pos + 8]:x2}{tcpbuff[pos + 9]:x2}");
             if ((tcpbuff[pos+0] == 0x03) &&
                  (tcpbuff[pos+1] == 0x00) &&
                  (tcpbuff[pos+2] == 0x00) &&
@@ -506,7 +507,7 @@ namespace MabiChatSpeech
                          (tcpbuff[pos+1] == 0x00) &&
                          (tcpbuff[pos+2] == 0x00) &&
                          (tcpbuff[pos+3] == 0x52) &&
-                         (tcpbuff[pos+4] == 0x7c) &&
+                         (tcpbuff[pos+4] == 0x7d) &&
                          (tcpbuff[pos+5] == 0x00) &&
                          (tcpbuff[pos+6] == 0x10) &&
                          (tcpbuff[pos+7] == 0x00) &&
@@ -602,6 +603,7 @@ namespace MabiChatSpeech
                     int bf = b + 5;
                     int bd = 0;
 
+                    Debug.Print($"Echa {Program.__Echa} {btype}");
                     // Block判別 オープンチャット判別
                     if (btype==PacketType.Chat)
                     {

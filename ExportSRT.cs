@@ -64,37 +64,50 @@ namespace MabiChatSpeech
             list_SRT.Clear();
 
             System.IO.StreamReader sr = new System.IO.StreamReader(fname, System.Text.Encoding.UTF8);
-            //内容を一行ずつ読み込む
-            while (sr.Peek() > -1)
+            try
             {
-                var rec = sr.ReadLine();
-                if (rec.StartsWith("C") == true)
+                //内容を一行ずつ読み込む
+                while (sr.Peek() > -1)
                 {
-                    // ２４時またぎのチェック
-                    string[] c_rec = rec.Split(',');
-                    string c_time = c_rec[1];
-                    TimeSpan t1 = TimeSpan.Parse(c_time);
-
-                    listBox1.Items.Add(rec);
-                    var item = rec2SrtData(rec);
-
-                    if (list_SRT.Count > 1) // 最初でなければ
+                    var rec = sr.ReadLine();
+                    if (rec.StartsWith("C") == true)
                     {
-                        // １つ前の時間と比較
-                        if (list_SRT[list_SRT.Count - 1].basetime > item.basetime)
+                        // ２４時またぎのチェック
+                        string[] c_rec = rec.Split(',');
+                        string c_time = c_rec[1];
+                        TimeSpan t1 = TimeSpan.Parse(c_time);
+
+                        listBox1.Items.Add(rec);
+                        var item = rec2SrtData(rec);
+
+                        if (list_SRT.Count > 1) // 最初でなければ
                         {
-                            // またぎ発生で加算
-                            item.basetime = item.basetime.Add(c_day);
+                            // １つ前の時間と比較
+                            if (list_SRT[list_SRT.Count - 1].basetime > item.basetime)
+                            {
+                                // またぎ発生で加算
+                                item.basetime = item.basetime.Add(c_day);
+                            }
                         }
+                        list_SRT.Add(item);
+                        //Debug.Print($"t1 {t1.Days} {t1.Hours:00}:{t1.Minutes:00}:{t1.Seconds:00},{t1.Milliseconds:000}");
+                        //Debug.Print($"R {item.basetime.Days} {item.basetime.Hours:00}:{item.basetime.Minutes:00}:{item.basetime.Seconds:00},{item.basetime.Milliseconds:000}");
                     }
-                    list_SRT.Add(item);
-                    //Debug.Print($"t1 {t1.Days} {t1.Hours:00}:{t1.Minutes:00}:{t1.Seconds:00},{t1.Milliseconds:000}");
-                    //Debug.Print($"R {item.basetime.Days} {item.basetime.Hours:00}:{item.basetime.Minutes:00}:{item.basetime.Seconds:00},{item.basetime.Milliseconds:000}");
                 }
+            }
+            catch 
+            { 
+                //Error
+
             }
             //閉じる
             sr.Close();
-            if (listBox1.Items.Count > 0)
+
+            if (list_SRT.Count == 0)
+            {
+                // NoData
+            }
+            else if  (listBox1.Items.Count > 0)
             {
                 listBox1.SelectedIndex = 0;
             }

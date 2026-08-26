@@ -1469,5 +1469,12 @@ namespace MabiChatSpeech
         {
             Close();
         }
+
+        private void Mnu_Export_Click(object sender, EventArgs e)
+        {
+            ExportSRT frm_ExportSrt = new ExportSRT();
+            frm_ExportSrt.ShowDialog();
+
+        }
     }
 }
