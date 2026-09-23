@@ -20,7 +20,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MabiChatSpeech.MabiChat;
-using static MabiChatSpeech.Overlay;
 using static MabiChatSpeech.Program;
 using static MabiChatSpeech.WinApi;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -35,25 +34,6 @@ namespace MabiChatSpeech
             InitializeComponent();
         }
 
-        // オーバレイ
-        delegate void deg_Overlay_Label(string text);
-        public void TxtChatOverlayLabel(string sx)
-        {
-            try
-            {
-                if (this.InvokeRequired)
-                {
-                    Invoke(new deg_Overlay_Label(TxtChatOverlayLabel), sx);
-                }
-                else
-                {
-                    Overlay.addlabel(sx);
-                }
-            }
-            catch
-            {
-            }
-        }
 
         // チャット
         delegate void deg_TxtChat_Text(string text);
@@ -68,8 +48,8 @@ namespace MabiChatSpeech
                 else
                 {
                     Txt_Chat.AppendText(sx);
-                    TPB_Max.Text = $"{Txt_Chat.Lines.Length}";
-                    TPB_Save.Value = Txt_Chat.Lines.Length;
+                    //TPB_Max.Text = $"{Txt_Chat.Lines.Length}";
+                    //TPB_Save.Value = Txt_Chat.Lines.Length;
                 }
             }
             catch
@@ -148,16 +128,6 @@ namespace MabiChatSpeech
             catch
             {
             }
-        }
-
-        /// <summary>
-        /// 終了操作
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MNI_Quit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
 
         /// <summary>
@@ -299,18 +269,6 @@ namespace MabiChatSpeech
 
         }
         /// <summary>
-        /// キャラクターリスト追加
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Btn_Add_Click(object sender, EventArgs e)
-        {
-
-            charlist csw = new charlist();
-            csw.ShowDialog();
-
-        }
-        /// <summary>
         /// ビュークリア
         /// </summary>
         /// <param name="sender"></param>
@@ -385,9 +343,6 @@ namespace MabiChatSpeech
                 SLB_IP_ForeColor(Color.Black);
             }
 
-            //透過form
-            //Overlay Frm_Overlay = new Overlay();
-            //Frm_Overlay.Show();
             SpeechSynthesizer speech_spkp = new SpeechSynthesizer();
             speech_spkp.SetOutputToDefaultAudioDevice();
             if (Program.packets.csts == ClinetStatus.OFF)
@@ -640,7 +595,6 @@ namespace MabiChatSpeech
                 // chat log write
                 li[0] = $"C {chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
                 TxtChatWriteLine(li[0] + Environment.NewLine);
-                //TxtChatOverlayLabel(ChatView);
 
 
                 chat_cnt++;
@@ -884,26 +838,6 @@ namespace MabiChatSpeech
             }
         }
         /// <summary>
-        /// ログモード切替
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Btn_DumpView_Click(object sender, EventArgs e)
-        {
-            if (Program.packets.PacketMode == PacketModes.Chat)
-            {
-                TextViewMode(PacketModes.Dump);
-            }
-            else if (Program.packets.PacketMode == PacketModes.Dump)
-            {
-                TextViewMode(PacketModes.Chat);
-            }
-            else if (Program.packets.PacketMode == PacketModes.Analysys)
-            {
-                TextViewMode(PacketModes.Chat);
-            }
-        }
-        /// <summary>
         /// メインフォームクローズ処理
         /// </summary>
         /// <param name="sender"></param>
@@ -930,54 +864,40 @@ namespace MabiChatSpeech
                  *   A  S  D  F
                  *    Z  X  C  V  B  N 
                  */
+                /// ファイル 
+                case Keys.X: //Export
+                    ExportSRT frm_ExportSrt = new ExportSRT();
+                    frm_ExportSrt.ShowDialog();
+                    break;
                 case Keys.Q: //Quit
                     this.Close();
                     break;
-                case Keys.W:
-                    break;
-                case Keys.E:
-                    break;
-                case Keys.R: //Redirect Switch
-                             //                    BTN_Redirect_Click(sender, (EventArgs)null);
-                    break;
-
-                case Keys.A:
-                    break;
-                case Keys.S: //Setting
-                    Btn_Setup_Click(sender, (EventArgs)null);
-                    break;
-                case Keys.D: //Dump
-                    Btn_DumpView_Click(sender, (EventArgs)null);
-                    break;
-                case Keys.F:
-                    break;
-
-                case Keys.Z: //ID
-                    Btn_Add_Click(sender, (EventArgs)null);
-                    break;
-                case Keys.X: //List
-                    Btn_List_Click(sender, (EventArgs)null);
+                /// 編集
+                case Keys.P:
+                    Mnu_Echa_switch();
                     break;
                 case Keys.C: //Clear
                     Btn_Clear_Click(sender, (EventArgs)null);
                     break;
-                case Keys.V: //Choice
+                case Keys.S: //Setting
+                    Btn_Setup_Click(sender, (EventArgs)null);
                     break;
-                case Keys.B: //User
+
+                /// 表示 
+                case Keys.T: //TextView
+                    Mnu_ViewText_Click(sender, (EventArgs)null);
                     break;
-                case Keys.N: //NPC
+                case Keys.D: //DumpView
+                    Mnu_ViewDump_Click(sender, (EventArgs)null);
                     break;
-                case Keys.P: //Export
-                    ExportSRT frm_ExportSrt = new ExportSRT();
-                    frm_ExportSrt.ShowDialog();
+                case Keys.L: //ListView
+                    Mnu_ViewList_Click(sender, (EventArgs)null);
+                    break;
+                case Keys.Y: //YoutubeLive
+                    Mnu_YoutubeLive_Click(sender, (EventArgs)null);
                     break;
                 case Keys.F1: //Help
-                    if (this.sf == null || this.sf.IsDisposed)
-                    { /* ヌル、または破棄されていたら */
-                        this.sf = new Help();
-                        this.sf.Show();
-                    }
-                    this.sf.Activate();
+                    Mnu_Help_Click(sender, (EventArgs)null);
                     break;
                 default:
                     break;
@@ -1298,11 +1218,6 @@ namespace MabiChatSpeech
         }
 
 
-        private void Mnu_Clear_Click(object sender, EventArgs e)
-        {
-            Btn_Clear_Click(sender, e);
-        }
-
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
 
@@ -1413,6 +1328,17 @@ namespace MabiChatSpeech
             }
 
         }
+        private void Mnu_Echa_switch()
+        {
+            if (Mnu_Echa.Checked)
+            {
+                Mnu_Echa.Checked = false;
+            }
+            else
+            {
+                Mnu_Echa.Checked = true;
+            }
+        }
 
         private void Mnu_Echa_CheckedChanged(object sender, EventArgs e)
         {
@@ -1474,6 +1400,17 @@ namespace MabiChatSpeech
         {
             ExportSRT frm_ExportSrt = new ExportSRT();
             frm_ExportSrt.ShowDialog();
+
+        }
+
+        private void Mnu_Help_Click(object sender, EventArgs e)
+        {
+            if (this.sf == null || this.sf.IsDisposed)
+            { /* ヌル、または破棄されていたら */
+                this.sf = new Help();
+                this.sf.Show();
+            }
+            this.sf.Activate();
 
         }
     }

@@ -107,6 +107,7 @@
             Mnu_NPC_Voice2 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             Mnu_Echa = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_Clear = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_Setup = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_View = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_ViewText = new System.Windows.Forms.ToolStripMenuItem();
@@ -119,7 +120,8 @@
             Mnu_ViewList_Name = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             Mnu_YoutubeLive = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_Clear = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            Mnu_Help = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -610,15 +612,15 @@
             // Mnu_Export
             // 
             Mnu_Export.Name = "Mnu_Export";
-            Mnu_Export.Size = new System.Drawing.Size(224, 26);
-            Mnu_Export.Text = "エクスポート";
+            Mnu_Export.Size = new System.Drawing.Size(177, 26);
+            Mnu_Export.Text = "エクスポート(&X)";
             Mnu_Export.Click += Mnu_Export_Click;
             // 
             // Mnu_Quit
             // 
             Mnu_Quit.Name = "Mnu_Quit";
-            Mnu_Quit.Size = new System.Drawing.Size(224, 26);
-            Mnu_Quit.Text = "終了";
+            Mnu_Quit.Size = new System.Drawing.Size(177, 26);
+            Mnu_Quit.Text = "終了(&Q)";
             Mnu_Quit.Click += Mnu_Quit_Click;
             // 
             // Mnu_Edit
@@ -771,8 +773,16 @@
             Mnu_Echa.Image = Properties.Resources.Icn_echa_off;
             Mnu_Echa.Name = "Mnu_Echa";
             Mnu_Echa.Size = new System.Drawing.Size(178, 26);
-            Mnu_Echa.Text = "絵チャ保存";
+            Mnu_Echa.Text = "絵チャ保存(&P)";
             Mnu_Echa.CheckedChanged += Mnu_Echa_CheckedChanged;
+            // 
+            // Mnu_Clear
+            // 
+            Mnu_Clear.Image = Properties.Resources.Icn_pageclear;
+            Mnu_Clear.Name = "Mnu_Clear";
+            Mnu_Clear.Size = new System.Drawing.Size(178, 26);
+            Mnu_Clear.Text = "クリア(&C)";
+            Mnu_Clear.Click += Btn_Clear_Click;
             // 
             // Mnu_Setup
             // 
@@ -784,7 +794,7 @@
             // 
             // Mnu_View
             // 
-            Mnu_View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_ViewText, Mnu_ViewDump, Mnu_ViewList, toolStripSeparator5, Mnu_ViewList_No, Mnu_ViewList_Time, Mnu_ViewList_Type, Mnu_ViewList_Name, toolStripSeparator6, Mnu_YoutubeLive });
+            Mnu_View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_ViewText, Mnu_ViewDump, Mnu_ViewList, toolStripSeparator5, Mnu_ViewList_No, Mnu_ViewList_Time, Mnu_ViewList_Type, Mnu_ViewList_Name, toolStripSeparator6, Mnu_YoutubeLive, toolStripSeparator9, Mnu_Help });
             Mnu_View.Name = "Mnu_View";
             Mnu_View.Size = new System.Drawing.Size(72, 24);
             Mnu_View.Text = "表示(V)";
@@ -792,77 +802,81 @@
             // Mnu_ViewText
             // 
             Mnu_ViewText.Name = "Mnu_ViewText";
-            Mnu_ViewText.Size = new System.Drawing.Size(172, 26);
-            Mnu_ViewText.Text = "テキスト表示";
+            Mnu_ViewText.Size = new System.Drawing.Size(224, 26);
+            Mnu_ViewText.Text = "テキスト表示(&T)";
             Mnu_ViewText.Click += Mnu_ViewText_Click;
             // 
             // Mnu_ViewDump
             // 
             Mnu_ViewDump.Name = "Mnu_ViewDump";
-            Mnu_ViewDump.Size = new System.Drawing.Size(172, 26);
-            Mnu_ViewDump.Text = "Dump表示";
+            Mnu_ViewDump.Size = new System.Drawing.Size(224, 26);
+            Mnu_ViewDump.Text = "Dump表示(&D)";
             Mnu_ViewDump.Click += Mnu_ViewDump_Click;
             // 
             // Mnu_ViewList
             // 
             Mnu_ViewList.Name = "Mnu_ViewList";
-            Mnu_ViewList.Size = new System.Drawing.Size(172, 26);
-            Mnu_ViewList.Text = "リスト表示";
+            Mnu_ViewList.Size = new System.Drawing.Size(224, 26);
+            Mnu_ViewList.Text = "リスト表示(&L)";
             Mnu_ViewList.Click += Mnu_ViewList_Click;
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new System.Drawing.Size(169, 6);
+            toolStripSeparator5.Size = new System.Drawing.Size(221, 6);
             // 
             // Mnu_ViewList_No
             // 
             Mnu_ViewList_No.Name = "Mnu_ViewList_No";
-            Mnu_ViewList_No.Size = new System.Drawing.Size(172, 26);
+            Mnu_ViewList_No.Size = new System.Drawing.Size(224, 26);
             Mnu_ViewList_No.Text = "番号";
             Mnu_ViewList_No.Click += BTN_No_Click;
             // 
             // Mnu_ViewList_Time
             // 
             Mnu_ViewList_Time.Name = "Mnu_ViewList_Time";
-            Mnu_ViewList_Time.Size = new System.Drawing.Size(172, 26);
+            Mnu_ViewList_Time.Size = new System.Drawing.Size(224, 26);
             Mnu_ViewList_Time.Text = "タイムスタンプ";
             Mnu_ViewList_Time.Click += BTN_Time_Click;
             // 
             // Mnu_ViewList_Type
             // 
             Mnu_ViewList_Type.Name = "Mnu_ViewList_Type";
-            Mnu_ViewList_Type.Size = new System.Drawing.Size(172, 26);
+            Mnu_ViewList_Type.Size = new System.Drawing.Size(224, 26);
             Mnu_ViewList_Type.Text = "タイプ";
             Mnu_ViewList_Type.Click += BTN_Type_Click;
             // 
             // Mnu_ViewList_Name
             // 
             Mnu_ViewList_Name.Name = "Mnu_ViewList_Name";
-            Mnu_ViewList_Name.Size = new System.Drawing.Size(172, 26);
+            Mnu_ViewList_Name.Size = new System.Drawing.Size(224, 26);
             Mnu_ViewList_Name.Text = "キャラ名";
             Mnu_ViewList_Name.Click += BTN_Name_Click;
             // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new System.Drawing.Size(169, 6);
+            toolStripSeparator6.Size = new System.Drawing.Size(221, 6);
             // 
             // Mnu_YoutubeLive
             // 
             Mnu_YoutubeLive.Image = Properties.Resources.Youtube_js;
             Mnu_YoutubeLive.Name = "Mnu_YoutubeLive";
-            Mnu_YoutubeLive.Size = new System.Drawing.Size(172, 26);
-            Mnu_YoutubeLive.Text = "YoutubeLive";
+            Mnu_YoutubeLive.Size = new System.Drawing.Size(224, 26);
+            Mnu_YoutubeLive.Text = "YoutubeLive(&Y)";
             Mnu_YoutubeLive.Click += Mnu_YoutubeLive_Click;
             // 
-            // Mnu_Clear
+            // toolStripSeparator9
             // 
-            Mnu_Clear.Image = Properties.Resources.Icn_pageclear;
-            Mnu_Clear.Name = "Mnu_Clear";
-            Mnu_Clear.Size = new System.Drawing.Size(224, 26);
-            Mnu_Clear.Text = "クリア";
-            Mnu_Clear.Click += Btn_Clear_Click;
+            toolStripSeparator9.Name = "toolStripSeparator9";
+            toolStripSeparator9.Size = new System.Drawing.Size(221, 6);
+            // 
+            // Mnu_Help
+            // 
+            Mnu_Help.Name = "Mnu_Help";
+            Mnu_Help.Size = new System.Drawing.Size(224, 26);
+            Mnu_Help.Text = "ヘルプ(&F1)";
+            Mnu_Help.Click += Mnu_Help_Click;
             // 
             // Main
             // 
@@ -878,7 +892,7 @@
             KeyPreview = true;
             MainMenuStrip = menuStrip1;
             Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            MinimumSize = new System.Drawing.Size(851, 274);
+            MinimumSize = new System.Drawing.Size(851, 271);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "MabiChatSpeech (Ver.1.100)";
@@ -990,6 +1004,8 @@
         private System.Windows.Forms.ToolStripStatusLabel SSL_Youtube;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Export;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Clear;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_Help;
     }
 }
 

@@ -44,6 +44,21 @@ namespace MabiChatSpeech
             }
             return (ret);
         }
+        private string strip_last( string s )
+        {
+            string ret = "";
+
+            string[]ss = s.Split('?');
+            if (ss.Length == 0)
+            {
+                ret = s;
+            }
+            else
+            {
+                ret = ss[0];
+            }
+            return (ret);
+        }
 
         /// <summary>
         /// URL文字列からliveIDを取り出す
@@ -57,7 +72,7 @@ namespace MabiChatSpeech
             if (url.Contains("/video/"))
             {
                 string[] sub = url.Split('/');
-                if (sub[sub.Length - 1] == "livestreaming")
+                if (strip_last(sub[sub.Length - 1]) == "livestreaming")
                 {
                     ret = sub[sub.Length - 2];
                 }
@@ -397,7 +412,7 @@ namespace MabiChatSpeech
             {
                 return;
             }
-            if (subs[subs.Length - 1] == "livestreaming")
+            if (strip_last(subs[subs.Length - 1]) == "livestreaming")
             {
                 LiveChatID = subs[subs.Length - 2];
                 TST_LiveID.Text = LiveChatID;

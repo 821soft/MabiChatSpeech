@@ -70,7 +70,7 @@ namespace MabiChatSpeech
                 while (sr.Peek() > -1)
                 {
                     var rec = sr.ReadLine();
-                    if (rec.StartsWith("C") == true)
+                    if (rec.StartsWith("C ") == true)
                     {
                         // ２４時またぎのチェック
                         string[] c_rec = rec.Split(',');
@@ -98,7 +98,7 @@ namespace MabiChatSpeech
             catch 
             { 
                 //Error
-
+                
             }
             //閉じる
             sr.Close();

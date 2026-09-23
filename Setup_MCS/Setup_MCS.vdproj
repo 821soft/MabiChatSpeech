@@ -21,19 +21,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4C20D7FA2C7F492EA67767C7DB337600"
+        "MsmKey" = "8:_44A086C3D620466E8A63668695019F64"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_92D40BB261FF42CB93D65C2A3ED8CEB3"
+        "MsmKey" = "8:_6FAF82F82F0E4EF8937DE8773536857E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9FB325D949974A62943163024279E549"
+        "MsmKey" = "8:_8AD931036CB547AC9441BCFAFC517131"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -45,7 +45,25 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C464E3121D534D12B020A66F6514184E"
+        "MsmKey" = "8:_A408EE220F55404681E71A855453FCDF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A8518D3793254A32BF2B25DE55E88C74"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B6459C99B7BA48768205B10797D62AD1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BBB4445B926D46FCA5C32618BD69CC93"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -63,7 +81,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E844823258CA494FA4205E4DBDFFBAD9"
+        "MsmKey" = "8:_E8D5828001C54FC39E186506EF6DE1C3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_ECC709A919074C749A8B1117607AC939"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -172,12 +196,12 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4C20D7FA2C7F492EA67767C7DB337600"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_44A086C3D620466E8A63668695019F64"
             {
-            "SourcePath" = "8:..\\MabiChatSpeech_Text.png"
-            "TargetName" = "8:MabiChatSpeech_Text.png"
+            "SourcePath" = "8:..\\help.files\\help1793.png"
+            "TargetName" = "8:help1793.png"
             "Tag" = "8:"
-            "Folder" = "8:_C2E82964DC234B30B868E191FB1ABBF1"
+            "Folder" = "8:_FE4E38877BE04CB587DD828AE51D434E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -192,12 +216,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_92D40BB261FF42CB93D65C2A3ED8CEB3"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6FAF82F82F0E4EF8937DE8773536857E"
             {
-            "SourcePath" = "8:..\\MabiChatSpeech_Userlist.png"
-            "TargetName" = "8:MabiChatSpeech_Userlist.png"
+            "SourcePath" = "8:..\\help.files\\help1700.png"
+            "TargetName" = "8:help1700.png"
             "Tag" = "8:"
-            "Folder" = "8:_C2E82964DC234B30B868E191FB1ABBF1"
+            "Folder" = "8:_FE4E38877BE04CB587DD828AE51D434E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -212,12 +236,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9FB325D949974A62943163024279E549"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8AD931036CB547AC9441BCFAFC517131"
             {
-            "SourcePath" = "8:..\\MabiChatSpeech_Key.png"
-            "TargetName" = "8:MabiChatSpeech_Key.png"
+            "SourcePath" = "8:..\\help.files\\help1734.png"
+            "TargetName" = "8:help1734.png"
             "Tag" = "8:"
-            "Folder" = "8:_C2E82964DC234B30B868E191FB1ABBF1"
+            "Folder" = "8:_FE4E38877BE04CB587DD828AE51D434E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -252,12 +276,72 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C464E3121D534D12B020A66F6514184E"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A408EE220F55404681E71A855453FCDF"
             {
-            "SourcePath" = "8:..\\MabiChatSpeech_Setup.png"
-            "TargetName" = "8:MabiChatSpeech_Setup.png"
+            "SourcePath" = "8:..\\help.files\\help1099.png"
+            "TargetName" = "8:help1099.png"
             "Tag" = "8:"
-            "Folder" = "8:_C2E82964DC234B30B868E191FB1ABBF1"
+            "Folder" = "8:_FE4E38877BE04CB587DD828AE51D434E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A8518D3793254A32BF2B25DE55E88C74"
+            {
+            "SourcePath" = "8:..\\help.files\\help442.png"
+            "TargetName" = "8:help442.png"
+            "Tag" = "8:"
+            "Folder" = "8:_FE4E38877BE04CB587DD828AE51D434E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B6459C99B7BA48768205B10797D62AD1"
+            {
+            "SourcePath" = "8:..\\help.files\\help1553.png"
+            "TargetName" = "8:help1553.png"
+            "Tag" = "8:"
+            "Folder" = "8:_FE4E38877BE04CB587DD828AE51D434E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BBB4445B926D46FCA5C32618BD69CC93"
+            {
+            "SourcePath" = "8:..\\help.files\\help1646.png"
+            "TargetName" = "8:help1646.png"
+            "Tag" = "8:"
+            "Folder" = "8:_FE4E38877BE04CB587DD828AE51D434E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -312,12 +396,32 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E844823258CA494FA4205E4DBDFFBAD9"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E8D5828001C54FC39E186506EF6DE1C3"
             {
-            "SourcePath" = "8:..\\MabiChatSpeech_Main.png"
-            "TargetName" = "8:MabiChatSpeech_Main.png"
+            "SourcePath" = "8:..\\help.files\\help1289.png"
+            "TargetName" = "8:help1289.png"
             "Tag" = "8:"
-            "Folder" = "8:_C2E82964DC234B30B868E191FB1ABBF1"
+            "Folder" = "8:_FE4E38877BE04CB587DD828AE51D434E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_ECC709A919074C749A8B1117607AC939"
+            {
+            "SourcePath" = "8:..\\help.files\\help1011.png"
+            "TargetName" = "8:help1011.png"
+            "Tag" = "8:"
+            "Folder" = "8:_FE4E38877BE04CB587DD828AE51D434E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -370,6 +474,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_FE4E38877BE04CB587DD828AE51D434E"
+                    {
+                    "Name" = "8:help.files"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_516E3BBE45F04AF28580918C83840014"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_D3EE95689FBC4BA48506D19F7FA1D06D"

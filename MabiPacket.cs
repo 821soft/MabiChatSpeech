@@ -90,22 +90,6 @@ namespace MabiChatSpeech
         public string ChatWord;
     }
 
-    //Nic
-    public struct st_adapter
-    {
-        public string Description;
-        public string Name;
-        public string ipv4Addr;
-        public NetworkInterfaceType ifacetype;
-    }
-
-    // Event Interface
-    public interface IMabiPacketObject
-    {
-        event EventHandler ConnectEvent;
-        event EventHandler ChatEvent;
-        event EventHandler PacketEvent;
-    }
     public class MabiPacketEventArgs : EventArgs
     {
         public string CharacterName;
@@ -435,16 +419,6 @@ namespace MabiChatSpeech
         }
 
 
-        private static string packet_string(byte[] buff , int pos )
-        {
-            string ret_val = "";
-            Int16 len = System.BitConverter.ToInt16(buff, pos);
-            byte[] ret_byte = new byte[len];
-            Array.Copy(buff, pos + 2, ret_byte, 0, len);
-            var encoding = Encoding.GetEncoding("UTF-8");
-            ret_val = encoding.GetString(ret_byte);
-            return (ret_val);
-        }
         struct PacketChatData
         {
             public byte CNameType;
@@ -603,7 +577,7 @@ namespace MabiChatSpeech
                     int bf = b + 5;
                     int bd = 0;
 
-                    Debug.Print($"Echa {Program.__Echa} {btype}");
+                    // Debug.Print($"Echa {Program.__Echa} {btype}");
                     // Block判別 オープンチャット判別
                     if (btype==PacketType.Chat)
                     {
@@ -961,91 +935,6 @@ namespace MabiChatSpeech
             return (lstr);
 
         }
-        private static void pop_packet()
-        {
-            if (pushcnt == 0)
-            {
-                return;
-            }
-
-            var tm = DateTime.Now;
-            var fn = __SavePath + "\\" + dumppath ;
-            int AD = 0;
-            if (!System.IO.Directory.Exists(fn))
-            {
-                Directory.CreateDirectory(fn);
-            }
-            fn += "\\dump_" + $"{tm:HHmmssff}";
-
-            List<string> block = new List<string>();
-            bool wf = false;
-
-            try
-            {
-
-                for (Int32 idx = 0; idx < tcpblen;)
-                {
-                    Int32 blocksize = System.BitConverter.ToInt32(tcpbuff, idx + 1);
-                    Int32 NextAddr = idx + blocksize;
-                    string bs = "";
-                    for ( int i = 0 ; i < 8; i++ )
-                    {
-                        bs += $"{tcpbuff[idx + 5 + i]:x2} ";
-                    }
-                    block.Add($"ID 0x{tcpbuff[idx]:x2},BlockSize 0x{blocksize:x8},NextBlock {NextAddr:x8},Data "+bs);
-                    if ( ( idx + blocksize) >= tcpblen )
-                    {
-                        if ( idx == 0)
-                        {
-                            wf = false;
-                        }
-                        else
-                        {
-                            wf = true;
-                        }
-                    }
-                    if (blocksize <= 0)
-                    {
-                        break;
-                    }
-                    idx += blocksize;
-                    AD = idx;
-                }
-            }
-            catch
-            {
-                wf = true;
-                fn += "_Error";
-            }
-
-            if (AD != tcpblen )
-            {
-                wf = true;
-                fn += "_ErrorBlock";
-            }
-
-            if ( wf == true )
-            {
-                using (FileStream fs = new FileStream(fn + ".bin", FileMode.Create, FileAccess.ReadWrite))
-                {
-                    fs.Write(tcpbuff, 0, tcpblen);
-                }
-
-                using (StreamWriter sw = new StreamWriter(fn + ".txt", false, Encoding.UTF8))
-                {
-                    sw.WriteLine($"{fn} Length:{tcpblen} 0x{tcpblen:x} Count:{pushcnt}");
-                    foreach (var he in tcp_blist)
-                    {
-                        sw.WriteLine(he);
-                    }
-
-                    foreach (string s in block)
-                    { 
-                        sw.WriteLine(s);
-                    }
-                }
-            }
-        }
 
         private static string Analysys_packet()
         {
@@ -1137,16 +1026,5 @@ namespace MabiChatSpeech
             return (lstr);
 
         }
-        private void PacketDumpWrite(string s)
-        {
-            var fn = __SavePath + "\\" + dumppath;
-            if (!System.IO.Directory.Exists(fn))
-            {
-                Directory.CreateDirectory(fn);
-            }
-            fn += "\\Dump.txt";
-            File.AppendAllText(fn, s);
-        }
-
     }
 }
