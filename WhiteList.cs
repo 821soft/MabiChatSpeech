@@ -1,23 +1,24 @@
-﻿using System;
+﻿using SharpPcap;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
-using System.Linq;
 using System.IO;
+using System.Linq;
+using System.Numerics;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics.Eventing.Reader;
-using static System.Windows.Forms.LinkLabel;
-using SharpPcap;
-using System.Numerics;
-using System.Diagnostics;
-using static MabiChatSpeech.Program;
-using System.Reflection;
-using System.Collections;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Xml.Linq;
+using static MabiChatSpeech.MabiChat;
+using static MabiChatSpeech.Program;
+using static System.Windows.Forms.LinkLabel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MabiChatSpeech
 {
@@ -26,6 +27,11 @@ namespace MabiChatSpeech
         public WhiteList()
         {
             InitializeComponent();
+
+            foreach (var sp in Main.VoiceLists)
+            {
+                Cmb_VoiceName.Items.Add(sp.StyleName);
+            }
 
         }
 
@@ -43,7 +49,7 @@ namespace MabiChatSpeech
         private void Btn_Ins_Click(object sender, EventArgs e)
         {
             // logIns
-            charlist  clf = new charlist();
+            charlist clf = new charlist();
             clf.ShowDialog();
             CharaList2Lsv();
 
@@ -59,7 +65,7 @@ namespace MabiChatSpeech
 
         private void Lsv_Whitelist_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ( Lsv_Whitelist.SelectedItems.Count == 0 )
+            if (Lsv_Whitelist.SelectedItems.Count == 0)
             {
                 Txt_Cn.Text = "";
                 Cmb_Ct.Text = "User";
@@ -75,10 +81,15 @@ namespace MabiChatSpeech
             {
                 Txt_Cn.Text = item.SubItems[0].Text;
                 Cmb_Ct.Text = item.SubItems[1].Text;
-                Cmb_TTSName.Text =(string)item.SubItems[2].Text;
+                Cmb_TTSName.Text = (string)item.SubItems[2].Text;
                 NUD_Volume.Value = int.Parse(item.SubItems[3].Text);
                 NUD_Speed.Value = int.Parse(item.SubItems[4].Text);
                 CHK_Enabled.Checked = item.Checked;
+                Cmb_VoiceName.Text = item.SubItems[5].Text;
+                Txt_StyleID.Text = item.SubItems[6].Text;
+                Txt_VolumeScal.Text = item.SubItems[7].Text;
+                Txt_SpeedScal.Text = item.SubItems[8].Text;
+                Txt_PitchScal.Text = item.SubItems[9].Text;
 
                 GPB_Item.Enabled = true;
             }
@@ -117,17 +128,17 @@ namespace MabiChatSpeech
             var m_checkrevers = CMN_Menu.Items.Add("AllCheckRevers");
             m_checkrevers.Click += allcheckrevers_MNU_Item_Click;
 
-            if ( Lsv_Whitelist.SelectedItems.Count > 0 )
+            if (Lsv_Whitelist.SelectedItems.Count > 0)
             {
                 CMN_Menu.Items.Add(new ToolStripSeparator());
 
                 // TTS Item
                 var sname = Lsv_Whitelist.SelectedItems[0].SubItems[2].Text;
                 // Selected Menu TTSName , Volume , Speed 
-                foreach ( var vname in TTS_NameList)
+                foreach (var vname in TTS_NameList)
                 {
-                    var mitem = (ToolStripMenuItem)CMN_Menu.Items.Add( vname );
-                    if ( mitem.Text == sname )
+                    var mitem = (ToolStripMenuItem)CMN_Menu.Items.Add(vname);
+                    if (mitem.Text == sname)
                     {
                         mitem.CheckState = CheckState.Checked;
                     }
@@ -198,8 +209,8 @@ namespace MabiChatSpeech
             Txt_Cn.Text = "";
             Cmb_Ct.Text = "User";
             CHK_Enabled.Checked = true;
-            Cmb_TTSName.Text =  Program.__TTS1Name;
-            NUD_Volume.Value = Program.__TTS1Volume ;
+            Cmb_TTSName.Text = Program.__TTS1Name;
+            NUD_Volume.Value = Program.__TTS1Volume;
             NUD_Speed.Value = Program.__TTS1Speed;
             GPB_Item.Enabled = true;
             Txt_Cn.Focus();
@@ -228,7 +239,7 @@ namespace MabiChatSpeech
         {
             foreach (ListViewItem item in Lsv_Whitelist.Items)
             {
-                if ( item.Checked )
+                if (item.Checked)
                 {
                     item.Checked = false;
                 }
@@ -243,17 +254,17 @@ namespace MabiChatSpeech
         {
             if (Txt_Cn.Text.Trim() == "")
             {
-                MessageBox.Show("キャラクター名を入力","Error",
-                MessageBoxButtons.OK,MessageBoxIcon.Error);
-                
+                MessageBox.Show("キャラクター名を入力", "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 Txt_Cn.Focus();
             }
             else
             {
                 /*既存*/
-                foreach( ListViewItem aitem in Lsv_Whitelist.Items)
+                foreach (ListViewItem aitem in Lsv_Whitelist.Items)
                 {
-                    if( aitem.SubItems[0].Text== Txt_Cn.Text)
+                    if (aitem.SubItems[0].Text == Txt_Cn.Text)
                     {
                         aitem.Checked = CHK_Enabled.Checked;
                         aitem.SubItems[0].Text = Txt_Cn.Text;
@@ -262,6 +273,11 @@ namespace MabiChatSpeech
                         aitem.SubItems[3].Text = $"{NUD_Volume.Value}";
                         aitem.SubItems[4].Text = $"{NUD_Speed.Value}";
                         GPB_Item.Enabled = false;
+                        aitem.SubItems[5].Text = Cmb_VoiceName.Text;
+                        aitem.SubItems[6].Text = Txt_StyleID.Text;
+                        aitem.SubItems[7].Text = Txt_VolumeScal.Text;
+                        aitem.SubItems[8].Text = Txt_SpeedScal.Text;
+                        aitem.SubItems[9].Text = Txt_PitchScal.Text;
                         return;
                     }
                 }
@@ -272,10 +288,19 @@ namespace MabiChatSpeech
                 item.SubItems.Add($"{NUD_Volume.Value}");
                 item.SubItems.Add($"{NUD_Speed.Value}");
                 GPB_Item.Enabled = false;
+                item.SubItems.Add(Cmb_VoiceName.Text);
+                item.SubItems.Add( Txt_StyleID.Text );
+                item.SubItems.Add(Txt_VolumeScal.Text);
+                item.SubItems.Add(Txt_SpeedScal.Text);
+                item.SubItems.Add(Txt_PitchScal.Text);
+
             }
         }
         private void CharaList2Lsv()
         {
+            // Program.CharaList.Clear();
+
+
             Lsv_Whitelist.Items.Clear();
             Lsv_Whitelist.Columns.Clear();
             Lsv_Whitelist.Columns.Add("CharacterName");
@@ -283,38 +308,48 @@ namespace MabiChatSpeech
             Lsv_Whitelist.Columns.Add("TTSName");
             Lsv_Whitelist.Columns.Add("Volume");
             Lsv_Whitelist.Columns.Add("Speed");
-            Lsv_Whitelist.Columns[0].Width = 180;
-            Lsv_Whitelist.Columns[1].Width = 50;
-            Lsv_Whitelist.Columns[2].Width = 150;
-            Lsv_Whitelist.Columns[3].Width = 50;
-            Lsv_Whitelist.Columns[4].Width = 50;
+            Lsv_Whitelist.Columns.Add("StyleName");
+            Lsv_Whitelist.Columns.Add("StyleID");
+            Lsv_Whitelist.Columns.Add("VolumeScal");
+            Lsv_Whitelist.Columns.Add("SpeedScal");
+            Lsv_Whitelist.Columns.Add("PitchScal");
 
-            GPB_Item.Enabled = false;
-            Debug.Print($"Read item count:{Program.CharaList.CNlist.Count}");
-            for (int i = 0; i < Program.CharaList.CNlist.Count; i++)
+            foreach (CharacterNameData character in Program.CharaList)
             {
-                var item = Program.CharaList.DataToItem(i); 
-                Debug.Print($"{i}-{item.Text}");
-                Lsv_Whitelist.Items.Add(item);
+                Debug.Print(character.ToString());
+                Lsv_Whitelist.Items.Add(character.ToItem());
             }
+            Lsv_Whitelist.Columns[0].Width = -1;
+            Lsv_Whitelist.Columns[1].Width = -1;
+            Lsv_Whitelist.Columns[2].Width = -1;
+            Lsv_Whitelist.Columns[3].Width = -1;
+            Lsv_Whitelist.Columns[4].Width = -1;
+            Lsv_Whitelist.Columns[5].Width = -1;
+            Lsv_Whitelist.Columns[6].Width = -1;
+            Lsv_Whitelist.Columns[7].Width = -1;
+            Lsv_Whitelist.Columns[8].Width = -1;
+            Lsv_Whitelist.Columns[9].Width = -1;
+
+
         }
         private void Lsv2CharaList()
         {
-            Program.CharaList.CNlist.Clear();
-            for ( int index=0;index< Lsv_Whitelist.Items.Count;index++)
+            Program.CharaList.Clear();
+
+            foreach (ListViewItem item in Lsv_Whitelist.Items)
             {
-                var item = new MabiChat.CharacterNameData(Lsv_Whitelist.Items[index]);
-                Program.CharaList.CNlist.Add(item);
+                Program.CharaList.Add(new CharacterNameData(item));
             }
-            Program.CharaList.CNlist.Sort((a, b) => a.CharName.CompareTo(b.CharName));
-            Program.CharaList.FileTextWrite();
+
+            Main.SaveCharaList(__SavePath + "\\CharacterNameList.txt");
         }
+
         ListViewItemComparer listViewItemSorter;
 
         private void WhiteList_Load(object sender, EventArgs e)
         {
             Cmb_TTSName.Items.Clear();
-            foreach ( var ttsname in TTS_NameList )
+            foreach (var ttsname in TTS_NameList)
             {
                 Cmb_TTSName.Items.Add(ttsname);
             }
@@ -324,7 +359,7 @@ namespace MabiChatSpeech
             }
             else
             {
-                Cmb_TTSName.Enabled = true ;
+                Cmb_TTSName.Enabled = true;
             }
             //ListViewItemComparerの作成と設定
             listViewItemSorter = new ListViewItemComparer();
@@ -344,7 +379,7 @@ namespace MabiChatSpeech
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Lsv_Whitelist.Items.Clear ();
+            Lsv_Whitelist.Items.Clear();
         }
 
         private void Lsv_Whitelist_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -525,8 +560,12 @@ namespace MabiChatSpeech
 
         private void Lsv_Whitelist_DoubleClick(object sender, EventArgs e)
         {
-            
+
         }
 
+        private void Cmb_VoiceName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Txt_StyleID.Text = $"{Main.VoiceLists[Cmb_VoiceName.SelectedIndex].StyleID}" ;
+        }
     }
 }

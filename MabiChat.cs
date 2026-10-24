@@ -1,12 +1,21 @@
-﻿using System;
+﻿using MabiChatSpeech;
+using NAudio.CoreAudioApi;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Media;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MabiChatSpeech;
+using VoicevoxClientSharp.ApiClient;
+using VoicevoxClientSharp.ApiClient.Models;
+using static MabiChatSpeech.MabiChat;
+using static System.Windows.Forms.DataFormats;
 
 namespace MabiChatSpeech
 {
@@ -14,171 +23,247 @@ namespace MabiChatSpeech
     internal class MabiChat
     {
 
-        // CharacterNameData Class 
-        public class CharacterNameData
-        {
-            public string CharName;
-            public bool Enabled;
-            public CharacterTypes CharacterType;
-            public string TtsName;
-            public int TtsVolume;
-            public int TtsSpeed;
+    public class ChatLogEntry
+    {
+        public string Type { get; set; } = "";
+        public int Number { get; set; }
+        public TimeSpan Time { get; set; }
+        public CharacterTypes CharaType { get; set; }
+        public string CharaName { get; set; } = "";
+        public string Chat { get; set; } = "";
 
-            public CharacterNameData(string CharName, bool Enabled, CharacterTypes CharacterType, string TtsName, int TtsVolume, int TtsSpeed)
+        // 前のレコードからの経過秒数。先頭レコードは0秒。
+        public double IntervalSeconds { get; set; }
+    }
+
+    public class ChatLogManager
+    {
+        public List<ChatLogEntry> Logs { get; } = new List<ChatLogEntry>();
+
+        public void Load(string fileName)
+        {
+            Logs.Clear();
+
+            TimeSpan? previousTime = null;
+
+            foreach (string line in File.ReadLines(fileName))
             {
-                this.CharName = CharName;
-                this.Enabled = Enabled;
-                this.CharacterType = CharacterType;
-                this.TtsName = TtsName;
-                this.TtsVolume = TtsVolume;
-                this.TtsSpeed = TtsSpeed;
+                // 例: C 1,21:43:25.643,PC ,ドミヌーラ,こんばんはー
+                // 分割数を5に制限し、Chat内のカンマは残す。
+                string[] parts = line.Split(new[] { ',' }, 5);
+
+                if (parts.Length < 5)
+                    continue;
+
+                string[] typeAndNumber = parts[0].Trim().Split(
+                    new[] { ' ' },
+                    StringSplitOptions.RemoveEmptyEntries);
+
+                if (typeAndNumber.Length != 2 ||
+                    !int.TryParse(typeAndNumber[1], out int number) ||
+                    !TimeSpan.TryParseExact(
+                        parts[1].Trim(),
+                        @"hh\:mm\:ss\.fff",
+                        CultureInfo.InvariantCulture,
+                        out TimeSpan time))
+                {
+                    continue;
+                }
+
+                if (!Enum.TryParse(
+                        parts[2].Trim(),
+                        out CharacterTypes CharaType))
+                {
+                    CharaType = CharacterTypes.User;
+                }
+
+                double intervalSeconds = 0;
+
+                if (previousTime.HasValue)
+                {
+                    TimeSpan interval = time - previousTime.Value;
+
+                    // 時刻が前のレコードより早ければ、日付をまたいだとみなす。
+                    if (interval < TimeSpan.Zero)
+                        interval += TimeSpan.FromDays(1);
+
+                    intervalSeconds = interval.TotalSeconds;
+                }
+
+                Logs.Add(new ChatLogEntry
+                {
+                    Type = typeAndNumber[0],
+                    Number = number,
+                    Time = time,
+                    CharaType = CharaType,
+                    CharaName = parts[3].Trim(),
+                    Chat = parts[4],
+                    IntervalSeconds = intervalSeconds
+                });
+
+                previousTime = time;
             }
+        }
+    }
+
+
+    // CharacterNameData Class 
+    public record CharacterNameData
+        {
+            public string CharName { get; set; } = string.Empty;
+            public bool Enabled { get; set; }
+            public CharacterTypes CharacterType { get; set; }
+            public string TtsName { get; set; } = string.Empty;
+            public int TtsVolume { get; set; }
+            public int TtsSpeed { get; set; }
+
+            public string StyleName { get; set; } = string.Empty;
+            public int StyleID { get; set; }
+            public float VolumeScale { get; set; } = 1.0f;
+            public float SpeedScale { get; set; } = 1.0f;
+            public float PitchScale { get; set; }
+
+            public CharacterNameData(
+                string charName,
+                bool enabled,
+                CharacterTypes characterType,
+                string ttsName,
+                int ttsVolume,
+                int ttsSpeed,
+                string styleName = "",
+                int styleID = 0,
+                float volumeScale = 1.0f,
+                float speedScale = 1.0f,
+                float pitchScale = 0.0f)
+            {
+                CharName = charName;
+                Enabled = enabled;
+                CharacterType = characterType;
+                TtsName = ttsName;
+                TtsVolume = ttsVolume;
+                TtsSpeed = ttsSpeed;
+                StyleName = styleName;
+                StyleID = styleID;
+                VolumeScale = volumeScale;
+                SpeedScale = speedScale;
+                PitchScale = pitchScale;
+            }
+
             public CharacterNameData(string line)
             {
                 ForText(line);
             }
+
             public CharacterNameData(ListViewItem item)
             {
                 ForItem(item);
             }
+
+            public CharacterNameData()
+            {
+            }
+
             public void ForText(string textline)
             {
-                string[] f = textline.Split(',');
-                this.CharName = f[0];
-                this.Enabled = bool.Parse(f[1]);
-                switch (f[2])
+                string[] fields = textline.Split(',');
+
+                if (fields.Length < 6)
                 {
-                    case "User":
-                        this.CharacterType = CharacterTypes.User;
-                        break;
-                    case "Npc":
-                        this.CharacterType = CharacterTypes.Npc;
-                        break;
-                    default:
-                        this.CharacterType = (CharacterTypes)Byte.Parse(f[2]);
-                        break;
+                    throw new FormatException("CharacterNameDataの行には、最低6項目が必要です。");
                 }
-                this.TtsName = f[3];
-                this.TtsVolume = int.Parse(f[4]);
-                this.TtsSpeed = int.Parse(f[5]);
+
+                CharName = fields[0];
+                Enabled = bool.Parse(fields[1]);
+
+                CharacterType = fields[2] switch
+                {
+                    "User" => CharacterTypes.User,
+                    "Npc" => CharacterTypes.Npc,
+                    "Pet" => CharacterTypes.Pet,
+                    _ => (CharacterTypes)byte.Parse(fields[2])
+                };
+
+                TtsName = fields[3];
+                TtsVolume = int.Parse(fields[4]);
+                TtsSpeed = int.Parse(fields[5]);
+
+                // 旧形式（6項目）では追加メンバーに既定値を設定
+                StyleName = fields.Length > 6 ? fields[6] : string.Empty;
+                StyleID = fields.Length > 7 ? int.Parse(fields[7]) : 0;
+                VolumeScale = fields.Length > 9 ? float.Parse(fields[8], CultureInfo.InvariantCulture) : 1.0f;
+                SpeedScale = fields.Length > 8 ? float.Parse(fields[9], CultureInfo.InvariantCulture) : 1.0f;
+                PitchScale = fields.Length > 10 ? float.Parse(fields[10], CultureInfo.InvariantCulture) : 0.0f;
             }
+
             public string ToText()
             {
-                string retvalue = $"{this.CharName},{this.Enabled},{this.CharacterType},{this.TtsName},{this.TtsVolume},{this.TtsSpeed}";
-                return (retvalue);
+                return string.Join(",",
+                    CharName,
+                    Enabled,
+                    CharacterType,
+                    TtsName,
+                    TtsVolume,
+                    TtsSpeed,
+                    StyleName,
+                    StyleID,
+                    VolumeScale.ToString(CultureInfo.InvariantCulture),
+                    SpeedScale.ToString(CultureInfo.InvariantCulture),
+                    PitchScale.ToString(CultureInfo.InvariantCulture));
             }
+
             public void ForItem(ListViewItem item)
             {
-                this.CharName = item.SubItems[0].Text;
-                this.Enabled = item.Checked;
-                switch (item.SubItems[1].Text)
+                CharName = item.SubItems[0].Text;
+                Enabled = item.Checked;
+
+                string characterType = item.SubItems[1].Text;
+                CharacterType = characterType switch
                 {
-                    case "User":
-                        this.CharacterType = CharacterTypes.User;
-                        break;
-                    case "Npc":
-                        this.CharacterType = CharacterTypes.Npc;
-                        break;
-                    default:
-                        this.CharacterType = (CharacterTypes)Byte.Parse(item.SubItems[1].Text);
-                        break;
-                }
-                this.TtsName = item.SubItems[2].Text;
-                this.TtsVolume = int.Parse(item.SubItems[3].Text);
-                this.TtsSpeed = int.Parse(item.SubItems[4].Text);
+                    "User" => CharacterTypes.User,
+                    "Npc" => CharacterTypes.Npc,
+                    "Pet" => CharacterTypes.Pet,
+                    _ => (CharacterTypes)byte.Parse(characterType)
+                };
+
+                TtsName = item.SubItems[2].Text;
+                TtsVolume = int.Parse(item.SubItems[3].Text);
+                TtsSpeed = int.Parse(item.SubItems[4].Text);
+
+                StyleName = item.SubItems.Count > 5 ? item.SubItems[5].Text : string.Empty;
+                StyleID = item.SubItems.Count > 6 ? int.Parse(item.SubItems[6].Text) : 0;
+                VolumeScale = item.SubItems.Count > 7
+                    ? float.Parse(item.SubItems[7].Text, CultureInfo.InvariantCulture)
+                    : 1.0f;
+                SpeedScale = item.SubItems.Count > 8
+                    ? float.Parse(item.SubItems[8].Text, CultureInfo.InvariantCulture)
+                    : 1.0f;
+                PitchScale = item.SubItems.Count > 9
+                    ? float.Parse(item.SubItems[9].Text, CultureInfo.InvariantCulture)
+                    : 0.0f;
             }
+
             public ListViewItem ToItem()
             {
-                var retvalue = new ListViewItem();
-                retvalue.Text = this.CharName;
-                retvalue.Checked = this.Enabled;
-                retvalue.SubItems.Add($"{this.CharacterType}");
-                retvalue.SubItems.Add(this.TtsName);
-                retvalue.SubItems.Add($"{this.TtsVolume}");
-                retvalue.SubItems.Add($"{this.TtsSpeed}");
-                return (retvalue);
-            }
-        } // CharacterNameData Class - End
-
-        // Character Name List Class
-        public class CharacterNameList
-        {
-            readonly public string filename = "\\CharacterNameList.txt";
-            public List<CharacterNameData> CNlist = new List<CharacterNameData>();
-
-            public CharacterNameList()
-            {
-                FileTextRead();
-            }
-
-            public void FileTextRead()
-            {
-
-                string fname = Program.__SavePath + filename;
-
-                CNlist.Clear();
-
-                if (File.Exists(@fname) == false)
+                var item = new ListViewItem
                 {
-                    return;
-                }
-                Debug.Print($"Load Characterlist: {@fname}");
+                    Text = CharName,
+                    Checked = Enabled
+                };
 
-                var lines = File.ReadAllLines(@fname, Encoding.GetEncoding("utf-8"));
-                foreach (var line in lines)
-                {
-                    var data = new CharacterNameData(line);
-                    if (data.CharName != null)
-                    {
-                        CNlist.Add(data);
-                    }
-                }
-                CNlist.Sort((a, b) => a.CharName.CompareTo(b.CharName));
+                item.SubItems.Add(CharacterType.ToString());
+                item.SubItems.Add(TtsName);
+                item.SubItems.Add(TtsVolume.ToString());
+                item.SubItems.Add(TtsSpeed.ToString());
+                item.SubItems.Add(StyleName);
+                item.SubItems.Add(StyleID.ToString());
+                item.SubItems.Add(VolumeScale.ToString(CultureInfo.InvariantCulture));
+                item.SubItems.Add(SpeedScale.ToString(CultureInfo.InvariantCulture));
+                item.SubItems.Add(PitchScale.ToString(CultureInfo.InvariantCulture));
 
+                return item;
             }
-            public void FileTextWrite()
-            {
-                string fname = Program.__SavePath + filename;
-                Debug.Print($"Save Characterlist : {@fname}");
+        }
+    } //End of class CharacterNameList
 
-                Encoding enc = Encoding.GetEncoding("utf-8");
-                using (StreamWriter writer = new StreamWriter(@fname, false, enc))
-                {
-                    foreach (var data in CNlist)
-                    {
-                        writer.WriteLine(data.ToText());
-                    }
-                    writer.Close();
-                }
-            }
-            public CharacterNameData FindCharacterName(string CName)
-            {
-                return (CNlist.Find(x => x.CharName == CName));
-
-            }
-            public int FindIndexCharacterName(string CName)
-            {
-                return (CNlist.FindIndex(x => x.CharName == CName));
-            }
-            public ListViewItem DataToItem(int idx)
-            {
-                var itemdata = CNlist[idx];
-
-                if (itemdata.CharName != null)
-                {
-                    return (CNlist[idx].ToItem());
-                }
-
-                return (null);
-            }
-            public CharacterNameData ItemToData(ListViewItem item)
-            {
-
-                CharacterNameData itemdata = new CharacterNameData(item);
-
-                return (itemdata);
-            }
-        } //End of class CharacterNameList
-
-    }
 }
+

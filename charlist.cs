@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MabiChatSpeech.MabiChat;
 using static MabiChatSpeech.Program;
 
 namespace MabiChatSpeech
@@ -62,8 +63,8 @@ namespace MabiChatSpeech
                 var a_item = Lsv_cs.Items[idx];
                 if (a_item.Checked == true)
                 {
-                    var f = CharaList.FindCharacterName(a_item.Text);
-                    if (f == null)
+                    CharacterNameData? character = Program.CharaList.FirstOrDefault(x => x.CharName == a_item.Text);
+                    if ( character == null )
                     {
                         CharacterTypes ty;
                         switch (a_item.SubItems[1].Text)
@@ -82,7 +83,7 @@ namespace MabiChatSpeech
                                 break;
                         }
                         MabiChat.CharacterNameData item = new MabiChat.CharacterNameData(a_item.Text, true, ty, __TTS1Name, __TTS1Volume, __TTS1Speed);
-                        CharaList.CNlist.Add(item);
+                        CharaList.Add(item);
                     }
                 }
             }

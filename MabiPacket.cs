@@ -28,7 +28,7 @@ using static MabiChatSpeech.Program;
 namespace MabiChatSpeech
 {
     public enum ClinetStatus { OFF, ON, CHARASEL, ONLINE }
-    public enum CharacterTypes : byte { User = 0x00, Pet = 0x01, Doll = 0x03 ,Npc = 0xf0 }
+    public enum CharacterTypes : byte { User = 0x00, Pet = 0x01, Doll = 0x03 ,Npc = 0xf0 ,Other = 0xff }
     public enum PacketModes { Chat, Dump,Analysys }
     [StructLayout(LayoutKind.Sequential)]
     public struct MIB_TCPROW_OWNER_PID

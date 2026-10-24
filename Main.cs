@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
@@ -19,7 +20,12 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VoicevoxClientSharp;
+using VoicevoxClientSharp.ApiClient;
+using static MabiChatSpeech.ChatVoice;
+
 using static MabiChatSpeech.MabiChat;
+using static MabiChatSpeech.Main;
 using static MabiChatSpeech.Program;
 using static MabiChatSpeech.WinApi;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -28,10 +34,50 @@ namespace MabiChatSpeech
 {
     public partial class Main : Form
     {
+
+        public ChatVoice _chatVoice;
         static public int chat_cnt = 1; //チャットのナンバリング
+        int VoiceDefid;
+        public record VoiceNameList
+        {
+            public string StyleName { get; set; } = string.Empty;
+            public int StyleID { get; set; }
+
+            public VoiceNameList(  string styleName , int styleID )
+            {
+                StyleName = styleName;
+                StyleID = styleID;
+            }
+    }
+
+        static public List<VoiceNameList> VoiceLists = new List<VoiceNameList>();
+
         public Main()
         {
             InitializeComponent();
+            init_voice();
+            LoadCharaList(__SavePath + "\\CharacterNameList.txt");
+
+
+        }
+        public async void init_voice()
+        {
+            _chatVoice = await ChatVoice.CreateAsync();
+            var sps = _chatVoice.Speakers;
+            foreach (var sp in sps)
+            {
+                VoiceDefid = sp.StyleId;
+                VoiceNameList vs = new VoiceNameList($"{sp.SpeakerName}-{sp.StyleName}",sp.StyleId);
+                VoiceLists.Add(vs);
+            }
+
+        }
+
+        public async void Voice_chat_say(string words, int vs,float cv , float cs, float cp)
+        {
+            if ( vs == 0 ) { return; }
+            ChatVoiceSettings p = new ChatVoiceSettings(cs,cv,cp);
+            _chatVoice.Enqueue(words, vs, p  );
         }
 
 
@@ -122,6 +168,34 @@ namespace MabiChatSpeech
                     speech_spkp.Volume = cv;
                     speech_spkp.Rate = cs;
                     speech_spkp.SpeakAsync(sayword);
+
+                }
+            }
+            catch
+            {
+            }
+        }
+        // 読上げ
+        delegate void deg_voiceChat(int cn, float cs, float cv, float cp , string c1, string c2);
+        private void voice_chat(int cn, float cs, float cv,float cp, string c1, string c2)
+        {
+            try
+            {
+                if (this.InvokeRequired)
+                {
+                    Invoke(new deg_voiceChat(voice_chat), cn, cs, cv,cp , c1, c2);
+                }
+                else
+                {
+
+                    string sayword = "";
+                    if (Program.__TTS_NameCall == true)
+                    {
+                        sayword = c1 + "  ";
+                    }
+                    sayword += c2;
+
+                    Voice_chat_say(sayword, cn,cs,cv,cp);
 
                 }
             }
@@ -477,17 +551,20 @@ namespace MabiChatSpeech
             string tts_name = "";
             int tts_speed = 0;
             int tts_volume = 0;
+            int cn = 0;
+            float cs = 1.0f;
+            float cv = 1.0f;
+            float cp = 0.0f;
 
             // キャラリスト自動追加
             if ((Program.__WhiteList_AutoAdd == true) && (c.CharacterType == CharacterTypes.User))
             {
-                var fc = Program.CharaList.FindCharacterName(c.CharacterName);
 
-                if (fc == null)
+                CharacterNameData? character =  Program.CharaList.FirstOrDefault(x => x.CharName == c.CharacterName);
+
+                if (character == null)
                 {
-                    var item = new CharacterNameData(c.CharacterName, true, c.CharacterType,
-                                                        __TTS1Name, __TTS1Volume, __TTS1Speed);
-                    Program.CharaList.CNlist.Add(item);
+                    Program.CharaList.Add(character);
                 }
             }
 
@@ -554,15 +631,15 @@ namespace MabiChatSpeech
             else
             // チャットまたは読上げ時、キャラリストに発言者が含まれるかチェック
             {
-                var fc = Program.CharaList.FindCharacterName(c.CharacterName);
+                CharacterNameData? character = Program.CharaList.FirstOrDefault(x => x.CharName == c.CharacterName);
 
-                if (fc != null)
+                if (character != null)
                 { // リストに該当有
-                    if (fc.CharacterType == c.CharacterType)
+                    if (character.CharacterType == c.CharacterType)
                     {
-                        if (fc.Enabled)
+                        if (character.Enabled)
                         {
-                            if (fc.CharacterType == CharacterTypes.User)
+                            if (character.CharacterType == CharacterTypes.User)
                             {
                                 cc = "PC ";
                             }
@@ -574,9 +651,13 @@ namespace MabiChatSpeech
                             // 読上げONの場合
                             if (__ChatSelWhitelist == 2)
                             {
-                                tts_name = fc.TtsName;
-                                tts_speed = fc.TtsSpeed;
-                                tts_volume = fc.TtsVolume;
+                                tts_name = character.TtsName;
+                                tts_speed = character.TtsSpeed;
+                                tts_volume = character.TtsVolume;
+                                cn = character.StyleID;
+                                cv = character.VolumeScale;
+                                cs = character.SpeedScale;
+                                cp = character.PitchScale;
                             }
                         }
                     }
@@ -611,7 +692,15 @@ namespace MabiChatSpeech
             // 読上げ処理
             if (tts_name != "")
             {
-                speech_chat(tts_name, tts_volume, tts_speed, c.CharacterName, c.ChatWord);
+                if (__ChatSelWhitelist == 2)
+                {
+                    voice_chat(cn, cv, cs, cp ,　c.CharacterName, c.ChatWord);
+                }
+                else
+                {
+                    speech_chat(tts_name, tts_volume, tts_speed, c.CharacterName, c.ChatWord);
+                }
+
             }
 
         }
@@ -741,6 +830,27 @@ namespace MabiChatSpeech
             // TPB_Save.Visible = false;
 
         }
+        public static void LoadCharaList(string filePath)
+        {
+            CharaList.Clear();
+
+            foreach (string line in File.ReadLines(filePath, Encoding.UTF8))
+            {
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    CharaList.Add(new CharacterNameData(line));
+                }
+            }
+        }
+        public static void SaveCharaList(string filePath)
+        {
+            using var writer = new StreamWriter(filePath, false, new UTF8Encoding(true));
+
+            foreach (CharacterNameData character in CharaList)
+            {
+                writer.WriteLine(character.ToText());
+            }
+        }
 
         /// <summary>
         /// メインクローズ後の処理
@@ -749,7 +859,7 @@ namespace MabiChatSpeech
         /// <param name="e"></param>
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Program.CharaList.FileTextWrite();
+            SaveCharaList(__SavePath+ "\\CharacterNameList.txt");
             Properties.Settings.Default.Save();
             ChatLogSave(Txt_Chat);
             if (File.Exists(_tmpfname))
@@ -1412,6 +1522,42 @@ namespace MabiChatSpeech
             }
             this.sf.Activate();
 
+        }
+
+        private void Mnu_Replay_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            //はじめのファイル名を指定する
+            //はじめに「ファイル名」で表示される文字列を指定する
+            ofd.FileName = "MabiChatLog.txt";
+            //はじめに表示されるフォルダを指定する
+            //指定しない（空の文字列）の時は、現在のディレクトリが表示される
+            ofd.InitialDirectory = Program.__SavePath;
+            //[ファイルの種類]に表示される選択肢を指定する
+            //指定しないとすべてのファイルが表示される
+            ofd.Filter = "TXTファイル(MabiChatLog*.txt)|MabiChatLog*.txt|すべてのファイル(*.*)|*.*";
+            //[ファイルの種類]ではじめに選択されるものを指定する
+            //2番目の「すべてのファイル」が選択されているようにする
+            ofd.FilterIndex = 1;
+            //タイトルを設定する
+            ofd.Title = "開くファイルを選択してください";
+            //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
+            ofd.RestoreDirectory = true;
+            //存在しないファイルの名前が指定されたとき警告を表示する
+            //デフォルトでTrueなので指定する必要はない
+            ofd.CheckFileExists = true;
+            //存在しないパスが指定されたとき警告を表示する
+            //デフォルトでTrueなので指定する必要はない
+            ofd.CheckPathExists = true;
+
+            //ダイアログを表示する
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+
+                Replay_log frm_Replay_log = new Replay_log(ofd.FileName);
+                frm_Replay_log.ShowDialog();
+
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
+using VoicevoxClientSharp.ApiClient;
 using static MabiChatSpeech.MabiChat;
 
 namespace MabiChatSpeech
@@ -26,7 +27,8 @@ namespace MabiChatSpeech
     internal static class Program
     {
 
-        public static CharacterNameList CharaList = new CharacterNameList();
+
+        public static List<CharacterNameData> CharaList { get; set; } = new();
         public static Main Frm_Main;
         public static string _tmpfname =""; 
         static public MabiPacket packets = new MabiPacket();
@@ -38,6 +40,7 @@ namespace MabiChatSpeech
                 Color.Navy,Color.Blue,Color.Teal,Color.Aqua
             };
         public static List<Font> FontItemList = new List<Font>();
+
 
         /*
          * 設定データ
@@ -252,7 +255,6 @@ namespace MabiChatSpeech
             File.AppendAllLines(_tmpfname, li);
         }
 
-
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
@@ -303,6 +305,8 @@ namespace MabiChatSpeech
             {
                 __TTS2Name = TTS_NameList[0];
             }
+
+
 
             //FontItemList = new Collection();
             FontFamily[] ffs = FontFamily.Families;
