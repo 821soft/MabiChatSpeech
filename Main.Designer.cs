@@ -35,6 +35,9 @@
             SLB_SaveMode = new System.Windows.Forms.ToolStripStatusLabel();
             SLB_Client = new System.Windows.Forms.ToolStripStatusLabel();
             SLB_Ip = new System.Windows.Forms.ToolStripStatusLabel();
+            SSL_VoiceVox = new System.Windows.Forms.ToolStripStatusLabel();
+            SSL_AivisSpeech = new System.Windows.Forms.ToolStripStatusLabel();
+            SSL_VoiceAPI = new System.Windows.Forms.ToolStripStatusLabel();
             SSL_UserList = new System.Windows.Forms.ToolStripStatusLabel();
             SSL_Player = new System.Windows.Forms.ToolStripStatusLabel();
             SSL_NPC = new System.Windows.Forms.ToolStripStatusLabel();
@@ -82,11 +85,14 @@
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
             columnHeader3 = new System.Windows.Forms.ColumnHeader();
             columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            columnHeader6 = new System.Windows.Forms.ColumnHeader();
             columnHeader5 = new System.Windows.Forms.ColumnHeader();
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             Mnu_File = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_Export = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_Replay = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_Quit = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             Mnu_Edit = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_PlayerList = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_PlayerListEdit = new System.Windows.Forms.ToolStripMenuItem();
@@ -122,8 +128,6 @@
             Mnu_YoutubeLive = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             Mnu_Help = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
-            Mnu_Replay = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -133,12 +137,12 @@
             // 
             statusStrip1.AutoSize = false;
             statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip, SSL_UserList, SSL_Player, SSL_NPC, SSL_Echa, SSL_Youtube, TPB_Save, TPB_Max, TPB_Event });
-            statusStrip1.Location = new System.Drawing.Point(0, 379);
+            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip, SSL_VoiceVox, SSL_AivisSpeech, SSL_VoiceAPI, SSL_UserList, SSL_Player, SSL_NPC, SSL_Echa, SSL_Youtube, TPB_Save, TPB_Max, TPB_Event });
+            statusStrip1.Location = new System.Drawing.Point(0, 474);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
+            statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 22, 0);
             statusStrip1.ShowItemToolTips = true;
-            statusStrip1.Size = new System.Drawing.Size(1189, 48);
+            statusStrip1.Size = new System.Drawing.Size(1486, 60);
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -147,7 +151,7 @@
             SLB_Mode.AutoSize = false;
             SLB_Mode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_Mode.Name = "SLB_Mode";
-            SLB_Mode.Size = new System.Drawing.Size(64, 42);
+            SLB_Mode.Size = new System.Drawing.Size(64, 54);
             SLB_Mode.ToolTipText = "Mode";
             // 
             // SLB_SaveMode
@@ -155,7 +159,7 @@
             SLB_SaveMode.AutoSize = false;
             SLB_SaveMode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_SaveMode.Name = "SLB_SaveMode";
-            SLB_SaveMode.Size = new System.Drawing.Size(64, 42);
+            SLB_SaveMode.Size = new System.Drawing.Size(64, 54);
             SLB_SaveMode.ToolTipText = "チャットログの保存方法";
             // 
             // SLB_Client
@@ -163,66 +167,92 @@
             SLB_Client.AutoSize = false;
             SLB_Client.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_Client.Name = "SLB_Client";
-            SLB_Client.Size = new System.Drawing.Size(60, 42);
+            SLB_Client.Size = new System.Drawing.Size(60, 54);
             SLB_Client.ToolTipText = "接続状態";
             // 
             // SLB_Ip
             // 
             SLB_Ip.AutoSize = false;
-            SLB_Ip.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 128);
+            SLB_Ip.Font = new System.Drawing.Font("Meiryo UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 128);
             SLB_Ip.Image = Properties.Resources.icn_tarlach;
             SLB_Ip.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             SLB_Ip.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_Ip.Name = "SLB_Ip";
-            SLB_Ip.Size = new System.Drawing.Size(120, 42);
+            SLB_Ip.Size = new System.Drawing.Size(120, 54);
             SLB_Ip.Text = "商店街";
             SLB_Ip.ToolTipText = "接続先";
             // 
+            // SSL_VoiceVox
+            // 
+            SSL_VoiceVox.Image = Properties.Resources.vvpp_0_1_disable;
+            SSL_VoiceVox.Name = "SSL_VoiceVox";
+            SSL_VoiceVox.Size = new System.Drawing.Size(20, 54);
+            SSL_VoiceVox.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            // 
+            // SSL_AivisSpeech
+            // 
+            SSL_AivisSpeech.Image = Properties.Resources.aisp_0_1_disable;
+            SSL_AivisSpeech.LinkVisited = true;
+            SSL_AivisSpeech.Name = "SSL_AivisSpeech";
+            SSL_AivisSpeech.Size = new System.Drawing.Size(20, 54);
+            // 
+            // SSL_VoiceAPI
+            // 
+            SSL_VoiceAPI.AutoSize = false;
+            SSL_VoiceAPI.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
+            SSL_VoiceAPI.Name = "SSL_VoiceAPI";
+            SSL_VoiceAPI.Size = new System.Drawing.Size(120, 54);
+            SSL_VoiceAPI.Text = "Stay";
+            SSL_VoiceAPI.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // SSL_UserList
             // 
+            SSL_UserList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            SSL_UserList.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             SSL_UserList.Image = Properties.Resources.Icn_SelectUser_off;
+            SSL_UserList.LinkVisited = true;
             SSL_UserList.Name = "SSL_UserList";
-            SSL_UserList.Size = new System.Drawing.Size(20, 42);
+            SSL_UserList.Size = new System.Drawing.Size(20, 54);
             // 
             // SSL_Player
             // 
             SSL_Player.Image = Properties.Resources.Icn_User_off;
             SSL_Player.Name = "SSL_Player";
-            SSL_Player.Size = new System.Drawing.Size(20, 42);
+            SSL_Player.Size = new System.Drawing.Size(20, 54);
             // 
             // SSL_NPC
             // 
             SSL_NPC.Image = Properties.Resources.Icn_Npc_off;
             SSL_NPC.Name = "SSL_NPC";
-            SSL_NPC.Size = new System.Drawing.Size(20, 42);
+            SSL_NPC.Size = new System.Drawing.Size(20, 54);
             // 
             // SSL_Echa
             // 
             SSL_Echa.Image = Properties.Resources.Icn_echa_off;
             SSL_Echa.Name = "SSL_Echa";
-            SSL_Echa.Size = new System.Drawing.Size(20, 42);
+            SSL_Echa.Size = new System.Drawing.Size(20, 54);
             // 
             // SSL_Youtube
             // 
             SSL_Youtube.Name = "SSL_Youtube";
-            SSL_Youtube.Size = new System.Drawing.Size(0, 42);
+            SSL_Youtube.Size = new System.Drawing.Size(0, 54);
             // 
             // TPB_Save
             // 
             TPB_Save.Maximum = int.MaxValue;
             TPB_Save.Name = "TPB_Save";
-            TPB_Save.Size = new System.Drawing.Size(101, 40);
+            TPB_Save.Size = new System.Drawing.Size(101, 52);
             // 
             // TPB_Max
             // 
             TPB_Max.AutoSize = false;
             TPB_Max.Name = "TPB_Max";
-            TPB_Max.Size = new System.Drawing.Size(169, 42);
+            TPB_Max.Size = new System.Drawing.Size(169, 54);
             // 
             // TPB_Event
             // 
             TPB_Event.Name = "TPB_Event";
-            TPB_Event.Size = new System.Drawing.Size(510, 42);
+            TPB_Event.Size = new System.Drawing.Size(643, 54);
             TPB_Event.Spring = true;
             // 
             // Txt_Chat
@@ -231,27 +261,29 @@
             Txt_Chat.Dock = System.Windows.Forms.DockStyle.Fill;
             Txt_Chat.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             Txt_Chat.ForeColor = System.Drawing.Color.Lime;
-            Txt_Chat.Location = new System.Drawing.Point(0, 30);
-            Txt_Chat.Margin = new System.Windows.Forms.Padding(5);
+            Txt_Chat.Location = new System.Drawing.Point(0, 37);
+            Txt_Chat.Margin = new System.Windows.Forms.Padding(6);
             Txt_Chat.Multiline = true;
             Txt_Chat.Name = "Txt_Chat";
             Txt_Chat.ReadOnly = true;
             Txt_Chat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            Txt_Chat.Size = new System.Drawing.Size(1189, 349);
+            Txt_Chat.Size = new System.Drawing.Size(1486, 437);
             Txt_Chat.TabIndex = 0;
             Txt_Chat.WordWrap = false;
             // 
             // Tim_Status
             // 
-            Tim_Status.Interval = 1000;
+            Tim_Status.Enabled = true;
+            Tim_Status.Interval = 3000;
+            Tim_Status.Tick += Tim_Status_Tick;
             // 
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Btn_Clear, Btn_Setup, Btn_List, toolStripSeparator1, SDB_SelectList, SDB_User, SDB_Npc, toolStripSeparator2, Btn_echa, BTN_No, BTN_Time, BTN_Type, BTN_Name, toolStripSeparator3, SDB_ViewMode, toolStripButton1 });
-            toolStrip1.Location = new System.Drawing.Point(0, 32);
+            toolStrip1.Location = new System.Drawing.Point(0, 40);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new System.Drawing.Size(1343, 41);
+            toolStrip1.Size = new System.Drawing.Size(1679, 51);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "aa";
             toolStrip1.Visible = false;
@@ -262,7 +294,7 @@
             Btn_Clear.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Btn_Clear.ImageTransparentColor = System.Drawing.Color.Magenta;
             Btn_Clear.Name = "Btn_Clear";
-            Btn_Clear.Size = new System.Drawing.Size(71, 38);
+            Btn_Clear.Size = new System.Drawing.Size(71, 48);
             Btn_Clear.Text = "Clear";
             Btn_Clear.ToolTipText = "表示クリア";
             Btn_Clear.Click += Btn_Clear_Click;
@@ -273,7 +305,7 @@
             Btn_Setup.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Btn_Setup.ImageTransparentColor = System.Drawing.Color.Magenta;
             Btn_Setup.Name = "Btn_Setup";
-            Btn_Setup.Size = new System.Drawing.Size(75, 38);
+            Btn_Setup.Size = new System.Drawing.Size(75, 48);
             Btn_Setup.Text = "Setup";
             Btn_Setup.ToolTipText = "設定";
             Btn_Setup.Click += Btn_Setup_Click;
@@ -284,7 +316,7 @@
             Btn_List.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Btn_List.ImageTransparentColor = System.Drawing.Color.Magenta;
             Btn_List.Name = "Btn_List";
-            Btn_List.Size = new System.Drawing.Size(59, 38);
+            Btn_List.Size = new System.Drawing.Size(59, 48);
             Btn_List.Text = "List";
             Btn_List.ToolTipText = "キャラクターリスト";
             Btn_List.Click += Btn_List_Click;
@@ -292,7 +324,7 @@
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(6, 41);
+            toolStripSeparator1.Size = new System.Drawing.Size(6, 51);
             // 
             // SDB_SelectList
             // 
@@ -301,7 +333,7 @@
             SDB_SelectList.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SDB_SelectList.ImageTransparentColor = System.Drawing.Color.Magenta;
             SDB_SelectList.Name = "SDB_SelectList";
-            SDB_SelectList.Size = new System.Drawing.Size(100, 38);
+            SDB_SelectList.Size = new System.Drawing.Size(100, 48);
             SDB_SelectList.Text = "ListFlow";
             SDB_SelectList.ToolTipText = "キャラクターモード";
             SDB_SelectList.DropDownOpening += SDB_SelectList_DropDownOpening;
@@ -342,7 +374,7 @@
             SDB_User.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SDB_User.ImageTransparentColor = System.Drawing.Color.Magenta;
             SDB_User.Name = "SDB_User";
-            SDB_User.Size = new System.Drawing.Size(87, 38);
+            SDB_User.Size = new System.Drawing.Size(87, 48);
             SDB_User.Text = "Player";
             SDB_User.ToolTipText = "プレイヤー動作";
             SDB_User.DropDownOpening += SDB_User_DropDownOpening;
@@ -394,7 +426,7 @@
             SDB_Npc.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SDB_Npc.ImageTransparentColor = System.Drawing.Color.Magenta;
             SDB_Npc.Name = "SDB_Npc";
-            SDB_Npc.Size = new System.Drawing.Size(75, 38);
+            SDB_Npc.Size = new System.Drawing.Size(75, 48);
             SDB_Npc.Text = "NPC";
             SDB_Npc.DropDownOpening += SDB_Npc_DropDownOpening;
             SDB_Npc.DropDownItemClicked += SDB_Npc_DropDownItemClicked;
@@ -439,7 +471,7 @@
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(6, 41);
+            toolStripSeparator2.Size = new System.Drawing.Size(6, 51);
             // 
             // Btn_echa
             // 
@@ -447,7 +479,7 @@
             Btn_echa.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Btn_echa.ImageTransparentColor = System.Drawing.Color.Magenta;
             Btn_echa.Name = "Btn_echa";
-            Btn_echa.Size = new System.Drawing.Size(99, 38);
+            Btn_echa.Size = new System.Drawing.Size(99, 48);
             Btn_echa.Text = "EchaSave";
             Btn_echa.ToolTipText = "絵チャ保存動作";
             Btn_echa.Click += Btn_echa_Click;
@@ -459,7 +491,7 @@
             BTN_No.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             BTN_No.ImageTransparentColor = System.Drawing.Color.Magenta;
             BTN_No.Name = "BTN_No";
-            BTN_No.Size = new System.Drawing.Size(29, 38);
+            BTN_No.Size = new System.Drawing.Size(29, 48);
             BTN_No.Text = "toolStripButton1";
             BTN_No.ToolTipText = "SeqNo";
             BTN_No.Click += BTN_No_Click;
@@ -471,7 +503,7 @@
             BTN_Time.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             BTN_Time.ImageTransparentColor = System.Drawing.Color.Magenta;
             BTN_Time.Name = "BTN_Time";
-            BTN_Time.Size = new System.Drawing.Size(29, 38);
+            BTN_Time.Size = new System.Drawing.Size(29, 48);
             BTN_Time.Text = "toolStripButton2";
             BTN_Time.ToolTipText = "Time";
             BTN_Time.Click += BTN_Time_Click;
@@ -483,7 +515,7 @@
             BTN_Type.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             BTN_Type.ImageTransparentColor = System.Drawing.Color.Magenta;
             BTN_Type.Name = "BTN_Type";
-            BTN_Type.Size = new System.Drawing.Size(29, 38);
+            BTN_Type.Size = new System.Drawing.Size(29, 48);
             BTN_Type.Text = "toolStripButton3";
             BTN_Type.ToolTipText = "Type";
             BTN_Type.Click += BTN_Type_Click;
@@ -495,7 +527,7 @@
             BTN_Name.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             BTN_Name.ImageTransparentColor = System.Drawing.Color.Magenta;
             BTN_Name.Name = "BTN_Name";
-            BTN_Name.Size = new System.Drawing.Size(29, 38);
+            BTN_Name.Size = new System.Drawing.Size(29, 48);
             BTN_Name.Text = "toolStripButton4";
             BTN_Name.ToolTipText = "キャ名";
             BTN_Name.Click += BTN_Name_Click;
@@ -503,7 +535,7 @@
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(6, 41);
+            toolStripSeparator3.Size = new System.Drawing.Size(6, 51);
             // 
             // SDB_ViewMode
             // 
@@ -511,7 +543,7 @@
             SDB_ViewMode.Image = Properties.Resources.description;
             SDB_ViewMode.ImageTransparentColor = System.Drawing.Color.Magenta;
             SDB_ViewMode.Name = "SDB_ViewMode";
-            SDB_ViewMode.Size = new System.Drawing.Size(75, 38);
+            SDB_ViewMode.Size = new System.Drawing.Size(75, 48);
             SDB_ViewMode.Text = "View";
             SDB_ViewMode.ToolTipText = "表示モード切替";
             // 
@@ -549,24 +581,29 @@
             toolStripButton1.Image = (System.Drawing.Image)resources.GetObject("toolStripButton1.Image");
             toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new System.Drawing.Size(113, 38);
+            toolStripButton1.Size = new System.Drawing.Size(113, 48);
             toolStripButton1.Text = "YoutubeLive";
             toolStripButton1.ToolTipText = "YoutubeLive";
             toolStripButton1.Click += toolStripButton1_Click;
             // 
             // LSV_chat
             // 
-            LSV_chat.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5 });
+            LSV_chat.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader6, columnHeader5 });
             LSV_chat.Dock = System.Windows.Forms.DockStyle.Fill;
+            LSV_chat.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             LSV_chat.FullRowSelect = true;
             LSV_chat.GridLines = true;
-            LSV_chat.Location = new System.Drawing.Point(0, 30);
+            LSV_chat.Location = new System.Drawing.Point(0, 37);
+            LSV_chat.Margin = new System.Windows.Forms.Padding(4);
             LSV_chat.MultiSelect = false;
             LSV_chat.Name = "LSV_chat";
-            LSV_chat.Size = new System.Drawing.Size(1189, 349);
+            LSV_chat.Size = new System.Drawing.Size(1486, 437);
             LSV_chat.TabIndex = 2;
             LSV_chat.UseCompatibleStateImageBehavior = false;
             LSV_chat.View = System.Windows.Forms.View.Details;
+            LSV_chat.SelectedIndexChanged += LSV_chat_SelectedIndexChanged;
+            LSV_chat.Click += LSV_chat_Click;
+            LSV_chat.DoubleClick += LSV_chat_DoubleClick;
             // 
             // columnHeader1
             // 
@@ -576,31 +613,37 @@
             // columnHeader2
             // 
             columnHeader2.Text = "Time";
-            columnHeader2.Width = 90;
+            columnHeader2.Width = 120;
             // 
             // columnHeader3
             // 
-            columnHeader3.Text = "Type";
+            columnHeader3.Text = "種別";
             columnHeader3.Width = 50;
             // 
             // columnHeader4
             // 
-            columnHeader4.Text = "Name";
-            columnHeader4.Width = 120;
+            columnHeader4.Text = "キャラ名";
+            columnHeader4.Width = 150;
+            // 
+            // columnHeader6
+            // 
+            columnHeader6.Text = "音声";
+            columnHeader6.Width = 80;
             // 
             // columnHeader5
             // 
-            columnHeader5.Text = "Chat";
+            columnHeader5.Text = "チャット内容";
             columnHeader5.Width = 710;
             // 
             // menuStrip1
             // 
+            menuStrip1.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_File, Mnu_Edit, Mnu_View });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            menuStrip1.Size = new System.Drawing.Size(1189, 30);
+            menuStrip1.Padding = new System.Windows.Forms.Padding(9, 4, 0, 4);
+            menuStrip1.Size = new System.Drawing.Size(1486, 37);
             menuStrip1.TabIndex = 3;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -608,28 +651,40 @@
             // 
             Mnu_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_Export, Mnu_Replay, Mnu_Quit, toolStripSeparator10 });
             Mnu_File.Name = "Mnu_File";
-            Mnu_File.Size = new System.Drawing.Size(82, 24);
+            Mnu_File.Size = new System.Drawing.Size(96, 29);
             Mnu_File.Text = "ファイル(&F)";
             // 
             // Mnu_Export
             // 
             Mnu_Export.Name = "Mnu_Export";
-            Mnu_Export.Size = new System.Drawing.Size(224, 26);
+            Mnu_Export.Size = new System.Drawing.Size(200, 30);
             Mnu_Export.Text = "エクスポート(&X)";
             Mnu_Export.Click += Mnu_Export_Click;
+            // 
+            // Mnu_Replay
+            // 
+            Mnu_Replay.Name = "Mnu_Replay";
+            Mnu_Replay.Size = new System.Drawing.Size(200, 30);
+            Mnu_Replay.Text = "リプレイ(&R)";
+            Mnu_Replay.Click += Mnu_Replay_Click;
             // 
             // Mnu_Quit
             // 
             Mnu_Quit.Name = "Mnu_Quit";
-            Mnu_Quit.Size = new System.Drawing.Size(224, 26);
+            Mnu_Quit.Size = new System.Drawing.Size(200, 30);
             Mnu_Quit.Text = "終了(&Q)";
             Mnu_Quit.Click += Mnu_Quit_Click;
+            // 
+            // toolStripSeparator10
+            // 
+            toolStripSeparator10.Name = "toolStripSeparator10";
+            toolStripSeparator10.Size = new System.Drawing.Size(197, 6);
             // 
             // Mnu_Edit
             // 
             Mnu_Edit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_PlayerList, toolStripSeparator7, Mnu_Player, Mnu_NPC, toolStripSeparator4, Mnu_Echa, Mnu_Clear, Mnu_Setup });
             Mnu_Edit.Name = "Mnu_Edit";
-            Mnu_Edit.Size = new System.Drawing.Size(71, 24);
+            Mnu_Edit.Size = new System.Drawing.Size(81, 29);
             Mnu_Edit.Text = "編集(&E)";
             // 
             // Mnu_PlayerList
@@ -637,27 +692,27 @@
             Mnu_PlayerList.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_PlayerListEdit, toolStripSeparator8, Mnu_PlayerList_Off, Mnu_PlayerList_Text, Mnu_PlayerList_Voice });
             Mnu_PlayerList.Image = Properties.Resources.Icn_SelectUser_off;
             Mnu_PlayerList.Name = "Mnu_PlayerList";
-            Mnu_PlayerList.Size = new System.Drawing.Size(178, 26);
+            Mnu_PlayerList.Size = new System.Drawing.Size(203, 30);
             Mnu_PlayerList.Text = "プレイヤーリスト";
             // 
             // Mnu_PlayerListEdit
             // 
             Mnu_PlayerListEdit.Image = Properties.Resources.Icn_UserList_;
             Mnu_PlayerListEdit.Name = "Mnu_PlayerListEdit";
-            Mnu_PlayerListEdit.Size = new System.Drawing.Size(128, 26);
+            Mnu_PlayerListEdit.Size = new System.Drawing.Size(140, 30);
             Mnu_PlayerListEdit.Text = "List";
             Mnu_PlayerListEdit.Click += Mnu_PlayerListEdit_Click;
             // 
             // toolStripSeparator8
             // 
             toolStripSeparator8.Name = "toolStripSeparator8";
-            toolStripSeparator8.Size = new System.Drawing.Size(125, 6);
+            toolStripSeparator8.Size = new System.Drawing.Size(137, 6);
             // 
             // Mnu_PlayerList_Off
             // 
             Mnu_PlayerList_Off.Image = Properties.Resources.Icn_SelectUser_off;
             Mnu_PlayerList_Off.Name = "Mnu_PlayerList_Off";
-            Mnu_PlayerList_Off.Size = new System.Drawing.Size(128, 26);
+            Mnu_PlayerList_Off.Size = new System.Drawing.Size(140, 30);
             Mnu_PlayerList_Off.Text = "Off";
             Mnu_PlayerList_Off.Click += Mnu_PlayerList_Off_Click;
             // 
@@ -665,7 +720,7 @@
             // 
             Mnu_PlayerList_Text.Image = Properties.Resources.Icn_SelectUser_chat;
             Mnu_PlayerList_Text.Name = "Mnu_PlayerList_Text";
-            Mnu_PlayerList_Text.Size = new System.Drawing.Size(128, 26);
+            Mnu_PlayerList_Text.Size = new System.Drawing.Size(140, 30);
             Mnu_PlayerList_Text.Text = "Chat";
             Mnu_PlayerList_Text.Click += Mnu_PlayerList_Text_Click;
             // 
@@ -673,28 +728,28 @@
             // 
             Mnu_PlayerList_Voice.Image = Properties.Resources.Icn_SelectUser_voice;
             Mnu_PlayerList_Voice.Name = "Mnu_PlayerList_Voice";
-            Mnu_PlayerList_Voice.Size = new System.Drawing.Size(128, 26);
+            Mnu_PlayerList_Voice.Size = new System.Drawing.Size(140, 30);
             Mnu_PlayerList_Voice.Text = "Voice";
             Mnu_PlayerList_Voice.Click += Mnu_PlayerList_Voice_Click;
             // 
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new System.Drawing.Size(175, 6);
+            toolStripSeparator7.Size = new System.Drawing.Size(200, 6);
             // 
             // Mnu_Player
             // 
             Mnu_Player.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_Player_Off, Mnu_Player_Text, Mnu_Player_Voice1, Mnu_Player_Voice2 });
             Mnu_Player.Image = Properties.Resources.Icn_User_off;
             Mnu_Player.Name = "Mnu_Player";
-            Mnu_Player.Size = new System.Drawing.Size(178, 26);
+            Mnu_Player.Size = new System.Drawing.Size(203, 30);
             Mnu_Player.Text = "プレイヤー";
             // 
             // Mnu_Player_Off
             // 
             Mnu_Player_Off.Image = Properties.Resources.Icn_User_off;
             Mnu_Player_Off.Name = "Mnu_Player_Off";
-            Mnu_Player_Off.Size = new System.Drawing.Size(136, 26);
+            Mnu_Player_Off.Size = new System.Drawing.Size(150, 30);
             Mnu_Player_Off.Text = "Off";
             Mnu_Player_Off.Click += Mnu_Player_Off_Click;
             // 
@@ -702,7 +757,7 @@
             // 
             Mnu_Player_Text.Image = Properties.Resources.Icn_User_chat;
             Mnu_Player_Text.Name = "Mnu_Player_Text";
-            Mnu_Player_Text.Size = new System.Drawing.Size(136, 26);
+            Mnu_Player_Text.Size = new System.Drawing.Size(150, 30);
             Mnu_Player_Text.Text = "Chat";
             Mnu_Player_Text.Click += Mnu_Player_Text_Click;
             // 
@@ -710,7 +765,7 @@
             // 
             Mnu_Player_Voice1.Image = Properties.Resources.Icn_User_v1;
             Mnu_Player_Voice1.Name = "Mnu_Player_Voice1";
-            Mnu_Player_Voice1.Size = new System.Drawing.Size(136, 26);
+            Mnu_Player_Voice1.Size = new System.Drawing.Size(150, 30);
             Mnu_Player_Voice1.Text = "Voice1";
             Mnu_Player_Voice1.Click += Mnu_Player_Voice1_Click;
             // 
@@ -718,7 +773,7 @@
             // 
             Mnu_Player_Voice2.Image = Properties.Resources.Icn_User_v2;
             Mnu_Player_Voice2.Name = "Mnu_Player_Voice2";
-            Mnu_Player_Voice2.Size = new System.Drawing.Size(136, 26);
+            Mnu_Player_Voice2.Size = new System.Drawing.Size(150, 30);
             Mnu_Player_Voice2.Text = "Voice2";
             Mnu_Player_Voice2.Click += Mnu_Player_Voice2_Click;
             // 
@@ -727,14 +782,14 @@
             Mnu_NPC.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_NPC_Off, Mnu_NPC_Text, Mnu_NPC_Voice1, Mnu_NPC_Voice2 });
             Mnu_NPC.Image = Properties.Resources.Icn_Npc_off;
             Mnu_NPC.Name = "Mnu_NPC";
-            Mnu_NPC.Size = new System.Drawing.Size(178, 26);
+            Mnu_NPC.Size = new System.Drawing.Size(203, 30);
             Mnu_NPC.Text = "NPC";
             // 
             // Mnu_NPC_Off
             // 
             Mnu_NPC_Off.Image = Properties.Resources.Icn_Npc_off;
             Mnu_NPC_Off.Name = "Mnu_NPC_Off";
-            Mnu_NPC_Off.Size = new System.Drawing.Size(136, 26);
+            Mnu_NPC_Off.Size = new System.Drawing.Size(150, 30);
             Mnu_NPC_Off.Text = "Off";
             Mnu_NPC_Off.Click += Mnu_NPC_Off_Click;
             // 
@@ -742,7 +797,7 @@
             // 
             Mnu_NPC_Text.Image = Properties.Resources.Icn_Npc_chat;
             Mnu_NPC_Text.Name = "Mnu_NPC_Text";
-            Mnu_NPC_Text.Size = new System.Drawing.Size(136, 26);
+            Mnu_NPC_Text.Size = new System.Drawing.Size(150, 30);
             Mnu_NPC_Text.Text = "Chat";
             Mnu_NPC_Text.Click += Mnu_NPC_Text_Click;
             // 
@@ -750,7 +805,7 @@
             // 
             Mnu_NPC_Voice1.Image = Properties.Resources.Icn_Npc_v1;
             Mnu_NPC_Voice1.Name = "Mnu_NPC_Voice1";
-            Mnu_NPC_Voice1.Size = new System.Drawing.Size(136, 26);
+            Mnu_NPC_Voice1.Size = new System.Drawing.Size(150, 30);
             Mnu_NPC_Voice1.Text = "Voice1";
             Mnu_NPC_Voice1.Click += Mnu_NPC_Voice1_Click;
             // 
@@ -758,14 +813,14 @@
             // 
             Mnu_NPC_Voice2.Image = Properties.Resources.Icn_Npc_v2;
             Mnu_NPC_Voice2.Name = "Mnu_NPC_Voice2";
-            Mnu_NPC_Voice2.Size = new System.Drawing.Size(136, 26);
+            Mnu_NPC_Voice2.Size = new System.Drawing.Size(150, 30);
             Mnu_NPC_Voice2.Text = "Voice2";
             Mnu_NPC_Voice2.Click += Mnu_NPC_Voice2_Click;
             // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new System.Drawing.Size(175, 6);
+            toolStripSeparator4.Size = new System.Drawing.Size(200, 6);
             // 
             // Mnu_Echa
             // 
@@ -774,7 +829,7 @@
             Mnu_Echa.CheckState = System.Windows.Forms.CheckState.Checked;
             Mnu_Echa.Image = Properties.Resources.Icn_echa_off;
             Mnu_Echa.Name = "Mnu_Echa";
-            Mnu_Echa.Size = new System.Drawing.Size(178, 26);
+            Mnu_Echa.Size = new System.Drawing.Size(203, 30);
             Mnu_Echa.Text = "絵チャ保存(&P)";
             Mnu_Echa.CheckedChanged += Mnu_Echa_CheckedChanged;
             // 
@@ -782,7 +837,7 @@
             // 
             Mnu_Clear.Image = Properties.Resources.Icn_pageclear;
             Mnu_Clear.Name = "Mnu_Clear";
-            Mnu_Clear.Size = new System.Drawing.Size(178, 26);
+            Mnu_Clear.Size = new System.Drawing.Size(203, 30);
             Mnu_Clear.Text = "クリア(&C)";
             Mnu_Clear.Click += Btn_Clear_Click;
             // 
@@ -790,7 +845,7 @@
             // 
             Mnu_Setup.Image = Properties.Resources.Icn_Settings;
             Mnu_Setup.Name = "Mnu_Setup";
-            Mnu_Setup.Size = new System.Drawing.Size(178, 26);
+            Mnu_Setup.Size = new System.Drawing.Size(203, 30);
             Mnu_Setup.Text = "設定(&S)";
             Mnu_Setup.Click += Mnu_Setup_Click;
             // 
@@ -798,118 +853,107 @@
             // 
             Mnu_View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_ViewText, Mnu_ViewDump, Mnu_ViewList, toolStripSeparator5, Mnu_ViewList_No, Mnu_ViewList_Time, Mnu_ViewList_Type, Mnu_ViewList_Name, toolStripSeparator6, Mnu_YoutubeLive, toolStripSeparator9, Mnu_Help });
             Mnu_View.Name = "Mnu_View";
-            Mnu_View.Size = new System.Drawing.Size(72, 24);
+            Mnu_View.Size = new System.Drawing.Size(83, 29);
             Mnu_View.Text = "表示(V)";
             // 
             // Mnu_ViewText
             // 
             Mnu_ViewText.Name = "Mnu_ViewText";
-            Mnu_ViewText.Size = new System.Drawing.Size(190, 26);
+            Mnu_ViewText.Size = new System.Drawing.Size(214, 30);
             Mnu_ViewText.Text = "テキスト表示(&T)";
             Mnu_ViewText.Click += Mnu_ViewText_Click;
             // 
             // Mnu_ViewDump
             // 
             Mnu_ViewDump.Name = "Mnu_ViewDump";
-            Mnu_ViewDump.Size = new System.Drawing.Size(190, 26);
+            Mnu_ViewDump.Size = new System.Drawing.Size(214, 30);
             Mnu_ViewDump.Text = "Dump表示(&D)";
             Mnu_ViewDump.Click += Mnu_ViewDump_Click;
             // 
             // Mnu_ViewList
             // 
             Mnu_ViewList.Name = "Mnu_ViewList";
-            Mnu_ViewList.Size = new System.Drawing.Size(190, 26);
+            Mnu_ViewList.Size = new System.Drawing.Size(214, 30);
             Mnu_ViewList.Text = "リスト表示(&L)";
             Mnu_ViewList.Click += Mnu_ViewList_Click;
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new System.Drawing.Size(187, 6);
+            toolStripSeparator5.Size = new System.Drawing.Size(211, 6);
             // 
             // Mnu_ViewList_No
             // 
             Mnu_ViewList_No.Name = "Mnu_ViewList_No";
-            Mnu_ViewList_No.Size = new System.Drawing.Size(190, 26);
+            Mnu_ViewList_No.Size = new System.Drawing.Size(214, 30);
             Mnu_ViewList_No.Text = "番号";
             Mnu_ViewList_No.Click += BTN_No_Click;
             // 
             // Mnu_ViewList_Time
             // 
             Mnu_ViewList_Time.Name = "Mnu_ViewList_Time";
-            Mnu_ViewList_Time.Size = new System.Drawing.Size(190, 26);
+            Mnu_ViewList_Time.Size = new System.Drawing.Size(214, 30);
             Mnu_ViewList_Time.Text = "タイムスタンプ";
             Mnu_ViewList_Time.Click += BTN_Time_Click;
             // 
             // Mnu_ViewList_Type
             // 
             Mnu_ViewList_Type.Name = "Mnu_ViewList_Type";
-            Mnu_ViewList_Type.Size = new System.Drawing.Size(190, 26);
+            Mnu_ViewList_Type.Size = new System.Drawing.Size(214, 30);
             Mnu_ViewList_Type.Text = "タイプ";
             Mnu_ViewList_Type.Click += BTN_Type_Click;
             // 
             // Mnu_ViewList_Name
             // 
             Mnu_ViewList_Name.Name = "Mnu_ViewList_Name";
-            Mnu_ViewList_Name.Size = new System.Drawing.Size(190, 26);
+            Mnu_ViewList_Name.Size = new System.Drawing.Size(214, 30);
             Mnu_ViewList_Name.Text = "キャラ名";
             Mnu_ViewList_Name.Click += BTN_Name_Click;
             // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new System.Drawing.Size(187, 6);
+            toolStripSeparator6.Size = new System.Drawing.Size(211, 6);
             // 
             // Mnu_YoutubeLive
             // 
             Mnu_YoutubeLive.Image = Properties.Resources.Youtube_js;
             Mnu_YoutubeLive.Name = "Mnu_YoutubeLive";
-            Mnu_YoutubeLive.Size = new System.Drawing.Size(190, 26);
+            Mnu_YoutubeLive.Size = new System.Drawing.Size(214, 30);
             Mnu_YoutubeLive.Text = "YoutubeLive(&Y)";
             Mnu_YoutubeLive.Click += Mnu_YoutubeLive_Click;
             // 
             // toolStripSeparator9
             // 
             toolStripSeparator9.Name = "toolStripSeparator9";
-            toolStripSeparator9.Size = new System.Drawing.Size(187, 6);
+            toolStripSeparator9.Size = new System.Drawing.Size(211, 6);
             // 
             // Mnu_Help
             // 
             Mnu_Help.Name = "Mnu_Help";
-            Mnu_Help.Size = new System.Drawing.Size(190, 26);
+            Mnu_Help.Size = new System.Drawing.Size(214, 30);
             Mnu_Help.Text = "ヘルプ(&F1)";
             Mnu_Help.Click += Mnu_Help_Click;
             // 
-            // toolStripSeparator10
-            // 
-            toolStripSeparator10.Name = "toolStripSeparator10";
-            toolStripSeparator10.Size = new System.Drawing.Size(221, 6);
-            // 
-            // Mnu_Replay
-            // 
-            Mnu_Replay.Name = "Mnu_Replay";
-            Mnu_Replay.Size = new System.Drawing.Size(224, 26);
-            Mnu_Replay.Text = "リプレイ(&R)";
-            Mnu_Replay.Click += Mnu_Replay_Click;
-            // 
             // Main
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1189, 427);
+            ClientSize = new System.Drawing.Size(1486, 534);
             Controls.Add(LSV_chat);
             Controls.Add(Txt_Chat);
             Controls.Add(statusStrip1);
             Controls.Add(toolStrip1);
             Controls.Add(menuStrip1);
+            Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
             MainMenuStrip = menuStrip1;
-            Margin = new System.Windows.Forms.Padding(5);
-            MinimumSize = new System.Drawing.Size(851, 271);
+            Margin = new System.Windows.Forms.Padding(6);
+            MinimumSize = new System.Drawing.Size(1059, 327);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Text = "MabiChatSpeech (Ver.1.100)";
+            Text = "Pre261031-1-MabiChatSpeech (Ver.1.200)";
             FormClosing += Main_FormClosing;
             FormClosed += Main_FormClosed;
             Load += Main_Load;
@@ -1022,6 +1066,10 @@
         private System.Windows.Forms.ToolStripMenuItem Mnu_Help;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Replay;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripStatusLabel SSL_VoiceVox;
+        private System.Windows.Forms.ToolStripStatusLabel SSL_AivisSpeech;
+        private System.Windows.Forms.ToolStripStatusLabel SSL_VoiceAPI;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
     }
 }
 

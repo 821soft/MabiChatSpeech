@@ -454,5 +454,29 @@ namespace MabiChatSpeech.Properties {
                 this["__Echa"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\VOICEVOX\\VOICEVOX.exe")]
+        public string @__VoiceVox {
+            get {
+                return ((string)(this["__VoiceVox"]));
+            }
+            set {
+                this["__VoiceVox"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\AivisSpeech\\AivisSpeech.exe")]
+        public string @__AivisSpeech {
+            get {
+                return ((string)(this["__AivisSpeech"]));
+            }
+            set {
+                this["__AivisSpeech"] = value;
+            }
+        }
     }
 }

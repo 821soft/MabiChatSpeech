@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.Web.WebView2.Core;
 using NAudio.Wave;
 using System;
 using System.Collections;
@@ -20,64 +21,237 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using VoicevoxClientSharp;
 using VoicevoxClientSharp.ApiClient;
+using VoicevoxClientSharp.ApiClient.Models;
 using static MabiChatSpeech.ChatVoice;
 
 using static MabiChatSpeech.MabiChat;
-using static MabiChatSpeech.Main;
 using static MabiChatSpeech.Program;
 using static MabiChatSpeech.WinApi;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace MabiChatSpeech
 {
     public partial class Main : Form
     {
 
-        public ChatVoice _chatVoice;
+        static public ChatVoice _chatVoice;
+
         static public int chat_cnt = 1; //チャットのナンバリング
         int VoiceDefid;
         public record VoiceNameList
         {
+            public string VoiceName { get; set; } = string.Empty;
+            public int VoiceId { get; set; }
+            public string CharaName { get; set; } = string.Empty;
             public string StyleName { get; set; } = string.Empty;
-            public int StyleID { get; set; }
-
-            public VoiceNameList(  string styleName , int styleID )
+            public ChatVoiceEngine VoiceEngen { get; set; } = ChatVoiceEngine.None;
+            public VoiceNameList(string voiceName, string charaName, string styleName, int styleID, ChatVoiceEngine voiceEngen)
             {
+                VoiceName = voiceName;
+                CharaName = charaName;
                 StyleName = styleName;
-                StyleID = styleID;
+                VoiceId = styleID;
+                VoiceEngen = voiceEngen;
             }
-    }
+            public VoiceNameList(string voiceName, string charaName, string styleName, int styleID, string BaseUrl)
+            {
+                VoiceName = voiceName;
+                CharaName = charaName;
+                StyleName = styleName;
+                VoiceId = styleID;
+                if (BaseUrl == "http://127.0.0.1:50021") { VoiceEngen = ChatVoiceEngine.VoiceVox; }
+                else if (BaseUrl == "http://127.0.0.1:10101") { VoiceEngen = ChatVoiceEngine.AivisSpeech; }
+                else { VoiceEngen = ChatVoiceEngine.None; }
+
+            }
+        }
 
         static public List<VoiceNameList> VoiceLists = new List<VoiceNameList>();
 
+        static public int find_VoiceId(string voiceName)
+        {
+            int ret = -1;
+            VoiceNameList? voicechara = VoiceLists.FirstOrDefault(x => x.VoiceName == voiceName);
+            if (voicechara != null)
+            {
+                ret = voicechara.VoiceId;
+            }
+
+            return (ret);
+        }
+        static public HashSet<string>? VoiceCharaList(ChatVoiceEngine eng)
+        {
+            var uniqueSet = new HashSet<string>();
+
+            foreach (var vc in VoiceLists)
+            {
+                if (vc.VoiceEngen == eng)
+                {
+                    uniqueSet.Add(vc.CharaName);
+                }
+            }
+
+            return (uniqueSet);
+        }
+
+        static public HashSet<string>? VoiceStyleList(ChatVoiceEngine eng, string charaName)
+        {
+            var uniqueSet = new HashSet<string>();
+
+            foreach (var vs in VoiceLists)
+            {
+                if ((vs.VoiceEngen == eng) && (vs.CharaName == charaName))
+                {
+                    uniqueSet.Add(vs.StyleName);
+                }
+            }
+
+
+            return (uniqueSet);
+        }
+
+
+        private int _statusSubItemIndex;
+        private int? _pendingSpeechRowIndex;
+
+        private readonly Dictionary<Guid, ListViewItem> _speechRowsById = new();
+        private readonly HashSet<ListViewItem> _boundSpeechRows = new();
+        private void RegisterChatVoiceEvents(
+            int statusSubItemIndex)
+        {
+            if (statusSubItemIndex < 0)
+                throw new ArgumentOutOfRangeException();
+            _statusSubItemIndex = statusSubItemIndex;
+
+            _chatVoice!.SpeechQueued += ChatVoice_SpeechQueued;
+            _chatVoice.SpeechStatusChanged += ChatVoice_SpeechStatusChanged;
+        }
+
+        private void ChatVoice_SpeechQueued(ChatVoice.SpeechQueueEventArgs e)
+        {
+            int? rowIndex = _pendingSpeechRowIndex;
+            _pendingSpeechRowIndex = null;
+            ListViewItem? row = rowIndex is int index && index >= 0 && index < LSV_chat.Items.Count
+                ? LSV_chat.Items[index]
+                : null;
+
+            if (row is null)
+                return;
+
+            while (row.SubItems.Count <= _statusSubItemIndex)
+                row.SubItems.Add("");
+
+            row.SubItems[_statusSubItemIndex].Text = "キュー待ち";
+            _boundSpeechRows.Add(row);
+            _speechRowsById[e.RequestId] = row;
+        }
+
+        private void ChatVoice_SpeechStatusChanged(
+            ChatVoice.SpeechStatusChangedEventArgs e)
+        {
+            if (!_speechRowsById.TryGetValue(e.RequestId, out ListViewItem? row))
+                return;
+
+            row.SubItems[_statusSubItemIndex].Text = e.Status switch
+            {
+                ChatVoice.SpeechStatus.Queued => "キュー待ち",
+                ChatVoice.SpeechStatus.Posting => "合成中",
+                ChatVoice.SpeechStatus.Synthesized => "再生待ち",
+                ChatVoice.SpeechStatus.Playing => "再生中",
+                ChatVoice.SpeechStatus.Completed => "完了",
+                ChatVoice.SpeechStatus.Failed => "失敗",
+                ChatVoice.SpeechStatus.Canceled => "キャンセル",
+                _ => e.Status.ToString()
+            };
+        }
         public Main()
         {
             InitializeComponent();
+
             init_voice();
+
+
             LoadCharaList(__SavePath + "\\CharacterNameList.txt");
 
 
         }
-        public async void init_voice()
+        public async void IsEngenRunning()
         {
-            _chatVoice = await ChatVoice.CreateAsync();
+            if (__VoiceVox.Trim() != "")
+            {
+                if (await IsChatVoiceEngenRunning(ChatVoiceEngine.VoiceVox))
+                {
+                }
+                else
+                {
+                    throw new InvalidOperationException("VOICEVOXが起動していません");
+                    this.Close();
+                }
+            }
+            if (__AivisSpeech.Trim() != "")
+            {
+                if (await IsChatVoiceEngenRunning(ChatVoiceEngine.AivisSpeech))
+                {
+                }
+                else
+                {
+                    throw new InvalidOperationException("AivisSpeechが起動していません");
+                    this.Close();
+                }
+            }
+        }
+        public async void init_voice()
+
+        {
+            _chatVoice = await ChatVoice.CreateMultiEngineAsync();
+            RegisterChatVoiceEvents(4);
+
+            await _chatVoice.RefreshSpeakersAsync();
+
             var sps = _chatVoice.Speakers;
             foreach (var sp in sps)
             {
                 VoiceDefid = sp.StyleId;
-                VoiceNameList vs = new VoiceNameList($"{sp.SpeakerName}-{sp.StyleName}",sp.StyleId);
+                VoiceNameList vs = new VoiceNameList($"{sp.SpeakerName}-{sp.StyleName}", sp.SpeakerName, sp.StyleName, sp.StyleId, sp.BaseUrl);
                 VoiceLists.Add(vs);
+                Debug.Print(vs.ToString());
             }
+
 
         }
 
-        public async void Voice_chat_say(string words, int vs,float cv , float cs, float cp)
+        public void Voice_chat_say(string words, ChatVoiceEngine eng, int vs, float cv, float cs, float cp)
         {
-            if ( vs == 0 ) { return; }
-            ChatVoiceSettings p = new ChatVoiceSettings(cs,cv,cp);
-            _chatVoice.Enqueue(words, vs, p  );
+            if (vs < 0) { return; }
+            ChatVoiceSettings p = new ChatVoiceSettings(cs, cv, cp);
+            if (_chatVoice == null)
+            {
+                return;
+            }
+            ChatVoiceSpeaker? speaker = _chatVoice.Speakers.FirstOrDefault(item =>
+                item.Engine == eng && item.StyleId == vs);
+            if (speaker is null)
+            {
+                Debug.Print("speake is Null");
+            }
+            else
+            {
+                // Enqueue は SpeechQueued を同期的に発火するため、発話元の行番号を先に設定する。
+                _pendingSpeechRowIndex = LSV_chat.Items.Count - 1;
+                try
+                {
+                    _chatVoice.Enqueue(words, eng, vs, p);
+                }
+                finally
+                {
+                    _pendingSpeechRowIndex = null;
+                }
+            }
         }
 
 
@@ -110,6 +284,7 @@ namespace MabiChatSpeech
             citem.SubItems.Add(ti);
             citem.SubItems.Add(ty);
             citem.SubItems.Add(cn);
+            citem.SubItems.Add("");
             citem.SubItems.Add(wd);
 
             if (LSV_chat.SelectedItems.Count == 0)
@@ -176,14 +351,14 @@ namespace MabiChatSpeech
             }
         }
         // 読上げ
-        delegate void deg_voiceChat(int cn, float cs, float cv, float cp , string c1, string c2);
-        private void voice_chat(int cn, float cs, float cv,float cp, string c1, string c2)
+        delegate void deg_voiceChat(ChatVoiceEngine eng, int cn, float cs, float cv, float cp, string c1, string c2);
+        private void voice_chat(ChatVoiceEngine eng, int cn, float cs, float cv, float cp, string c1, string c2)
         {
             try
             {
                 if (this.InvokeRequired)
                 {
-                    Invoke(new deg_voiceChat(voice_chat), cn, cs, cv,cp , c1, c2);
+                    Invoke(new deg_voiceChat(voice_chat), eng, cn, cs, cv, cp, c1, c2);
                 }
                 else
                 {
@@ -195,7 +370,7 @@ namespace MabiChatSpeech
                     }
                     sayword += c2;
 
-                    Voice_chat_say(sayword, cn,cs,cv,cp);
+                    Voice_chat_say(sayword, eng, cn, cs, cv, cp);
 
                 }
             }
@@ -386,6 +561,7 @@ namespace MabiChatSpeech
         /// <param name="e"></param>
         private void Main_Shown(object sender, EventArgs e)
         {
+
             // Bug.001
             int h = System.Windows.Forms.Screen.GetWorkingArea(this).Height;
             int w = System.Windows.Forms.Screen.GetWorkingArea(this).Width;
@@ -551,16 +727,18 @@ namespace MabiChatSpeech
             string tts_name = "";
             int tts_speed = 0;
             int tts_volume = 0;
-            int cn = 0;
+            ChatVoiceEngine eng = ChatVoiceEngine.None;
+            int cn = -1;
             float cs = 1.0f;
             float cv = 1.0f;
             float cp = 0.0f;
 
+
             // キャラリスト自動追加
-            if ((Program.__WhiteList_AutoAdd == true) && (c.CharacterType == CharacterTypes.User))
+            if ((Program.__WhiteList_AutoAdd == true) && (c.CharaTypeName == _CharaTypeNames.PC))
             {
 
-                CharacterNameData? character =  Program.CharaList.FirstOrDefault(x => x.CharName == c.CharacterName);
+                CharacterNameData? character = Program.CharaList.FirstOrDefault(x => x.CharName == c.CharacterName);
 
                 if (character == null)
                 {
@@ -573,10 +751,10 @@ namespace MabiChatSpeech
             // キャラモード OFF時
             {
                 //　発言者で分岐
-                if (c.CharacterType == CharacterTypes.User)
+                if (c.CharaTypeName == _CharaTypeNames.PC)
                 {
                     // プレイヤーの場合
-                    cc = "PC ";
+                    cc = c.CharaTypeName.ToString();
                     f_show = true;
                     switch (__ChatSelUser)
                     {
@@ -600,7 +778,7 @@ namespace MabiChatSpeech
                             break;
                     }
                 }
-                else
+                else if (c.CharaTypeName == _CharaTypeNames.NPC)
                 {
                     // NPCの場合
                     cc = "NPC";
@@ -627,6 +805,9 @@ namespace MabiChatSpeech
                             break;
                     }
                 }
+                else
+                {
+                }
             }
             else
             // チャットまたは読上げ時、キャラリストに発言者が含まれるかチェック
@@ -635,11 +816,11 @@ namespace MabiChatSpeech
 
                 if (character != null)
                 { // リストに該当有
-                    if (character.CharacterType == c.CharacterType)
+                    if (character.CharaTypeName == c.CharaTypeName)
                     {
                         if (character.Enabled)
                         {
-                            if (character.CharacterType == CharacterTypes.User)
+                            if (character.CharaTypeName == _CharaTypeNames.PC)
                             {
                                 cc = "PC ";
                             }
@@ -651,10 +832,8 @@ namespace MabiChatSpeech
                             // 読上げONの場合
                             if (__ChatSelWhitelist == 2)
                             {
-                                tts_name = character.TtsName;
-                                tts_speed = character.TtsSpeed;
-                                tts_volume = character.TtsVolume;
-                                cn = character.StyleID;
+                                eng = character.VoiceEngen;
+                                cn = character.VoiceId;
                                 cv = character.VolumeScale;
                                 cs = character.SpeedScale;
                                 cp = character.PitchScale;
@@ -690,17 +869,13 @@ namespace MabiChatSpeech
             }
 
             // 読上げ処理
-            if (tts_name != "")
+            if (__ChatSelWhitelist == 2)
             {
-                if (__ChatSelWhitelist == 2)
-                {
-                    voice_chat(cn, cv, cs, cp ,　c.CharacterName, c.ChatWord);
-                }
-                else
-                {
-                    speech_chat(tts_name, tts_volume, tts_speed, c.CharacterName, c.ChatWord);
-                }
-
+                voice_chat(eng, cn, cv, cs, cp, c.CharacterName, c.ChatWord);
+            }
+            else if ((__ChatSelWhitelist ==0)&&(tts_name != ""))
+            { 
+                speech_chat(tts_name, tts_volume, tts_speed, c.CharacterName, c.ChatWord);
             }
 
         }
@@ -834,12 +1009,19 @@ namespace MabiChatSpeech
         {
             CharaList.Clear();
 
-            foreach (string line in File.ReadLines(filePath, Encoding.UTF8))
+            try
             {
-                if (!string.IsNullOrWhiteSpace(line))
+                foreach (string line in File.ReadLines(filePath, Encoding.UTF8))
                 {
-                    CharaList.Add(new CharacterNameData(line));
+                    if (!string.IsNullOrWhiteSpace(line))
+                    {
+                        CharaList.Add(new CharacterNameData(line));
+                    }
                 }
+
+            }
+            catch
+            {
             }
         }
         public static void SaveCharaList(string filePath)
@@ -859,14 +1041,13 @@ namespace MabiChatSpeech
         /// <param name="e"></param>
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
-            SaveCharaList(__SavePath+ "\\CharacterNameList.txt");
+            SaveCharaList(__SavePath + "\\CharacterNameList.txt");
             Properties.Settings.Default.Save();
             ChatLogSave(Txt_Chat);
             if (File.Exists(_tmpfname))
             {
                 File.Delete(_tmpfname);
             }
-
         }
         /// <summary>
         /// 設定ボタン押下
@@ -1526,6 +1707,7 @@ namespace MabiChatSpeech
 
         private void Mnu_Replay_Click(object sender, EventArgs e)
         {
+
             OpenFileDialog ofd = new OpenFileDialog();
             //はじめのファイル名を指定する
             //はじめに「ファイル名」で表示される文字列を指定する
@@ -1554,10 +1736,69 @@ namespace MabiChatSpeech
             if (ofd.ShowDialog() == DialogResult.OK)
             {
 
+                int storeChatSelUser = __ChatSelUser;
+                Program.__ChatSelUser = 0;
+
                 Replay_log frm_Replay_log = new Replay_log(ofd.FileName);
                 frm_Replay_log.ShowDialog();
+                Program.__ChatSelUser = storeChatSelUser;
 
             }
+        }
+
+        private void LSV_chat_DoubleClick(object sender, EventArgs e)
+        {
+            if (LSV_chat.SelectedItems.Count > 0)
+            {
+                LSV_chat.SelectedItems.Clear();
+
+                if (LSV_chat.Items.Count > 0)
+                {
+                    // 最後のインデックスを取得して表示範囲までスクロール
+                    int lastIndex = LSV_chat.Items.Count - 1;
+                    LSV_chat.Items[lastIndex].EnsureVisible();
+                }
+
+            }
+        }
+
+        private void LSV_chat_Click(object sender, EventArgs e)
+        {
+
+            if (LSV_chat.SelectedItems.Count > 0)
+            {
+                var rec = LSV_chat.SelectedItems[0];
+                _CharaTypeNames ct = (_CharaTypeNames)Enum.Parse(typeof(_CharaTypeNames), rec.SubItems[2].Text);
+                var cn = rec.SubItems[3].Text;
+                var cw = rec.SubItems[5].Text;
+
+
+                CharacterNameData cdata = Program.CharaList_find(cn, ct);
+                if (cdata == null)
+                { 
+                    MessageBox.Show($"登録しますか？:ct={ct} cn={cn} cw={cw}");
+                    return;
+                }
+                CharaListVoice_Edit fm = new CharaListVoice_Edit(cdata);
+                fm.Owner = this;
+                fm.testword = cw;
+                fm.ShowDialog();
+                LSV_chat_DoubleClick(sender, e);
+
+            }
+
+        }
+
+        private void Tim_Status_Tick(object sender, EventArgs e)
+        {
+            // Voiceの起動チェック
+            // 1.設定がある場合のみ
+
+        }
+
+        private void LSV_chat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

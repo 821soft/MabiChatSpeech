@@ -63,6 +63,56 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap aisp_0_1 {
+            get {
+                object obj = ResourceManager.GetObject("aisp_0_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap aisp_0_1_disable {
+            get {
+                object obj = ResourceManager.GetObject("aisp_0_1_disable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap aisp_0_1_error {
+            get {
+                object obj = ResourceManager.GetObject("aisp_0_1_error", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap aisp_0_1_play {
+            get {
+                object obj = ResourceManager.GetObject("aisp_0_1_play", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap aisp_0_1_post {
+            get {
+                object obj = ResourceManager.GetObject("aisp_0_1_post", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap ChatData {
             get {
                 object obj = ResourceManager.GetObject("ChatData", resourceCulture);
@@ -546,6 +596,56 @@ namespace MabiChatSpeech.Properties {
         public static System.Drawing.Bitmap TeamProject {
             get {
                 object obj = ResourceManager.GetObject("TeamProject", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap vvpp_0_1 {
+            get {
+                object obj = ResourceManager.GetObject("vvpp_0_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap vvpp_0_1_disable {
+            get {
+                object obj = ResourceManager.GetObject("vvpp_0_1_disable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap vvpp_0_1_error {
+            get {
+                object obj = ResourceManager.GetObject("vvpp_0_1_error", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap vvpp_0_1_play {
+            get {
+                object obj = ResourceManager.GetObject("vvpp_0_1_play", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap vvpp_0_1_post {
+            get {
+                object obj = ResourceManager.GetObject("vvpp_0_1_post", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

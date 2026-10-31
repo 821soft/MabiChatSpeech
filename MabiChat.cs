@@ -16,6 +16,7 @@ using VoicevoxClientSharp.ApiClient;
 using VoicevoxClientSharp.ApiClient.Models;
 using static MabiChatSpeech.MabiChat;
 using static System.Windows.Forms.DataFormats;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MabiChatSpeech
 {
@@ -28,7 +29,7 @@ namespace MabiChatSpeech
         public string Type { get; set; } = "";
         public int Number { get; set; }
         public TimeSpan Time { get; set; }
-        public CharacterTypes CharaType { get; set; }
+        public _CharaTypeNames  CharaTypeName { get; set; }
         public string CharaName { get; set; } = "";
         public string Chat { get; set; } = "";
 
@@ -72,9 +73,9 @@ namespace MabiChatSpeech
 
                 if (!Enum.TryParse(
                         parts[2].Trim(),
-                        out CharacterTypes CharaType))
+                        out _CharaTypeNames CharaTypeName))
                 {
-                    CharaType = CharacterTypes.User;
+                        CharaTypeName = _CharaTypeNames.UNKNOWN;
                 }
 
                 double intervalSeconds = 0;
@@ -95,7 +96,7 @@ namespace MabiChatSpeech
                     Type = typeAndNumber[0],
                     Number = number,
                     Time = time,
-                    CharaType = CharaType,
+                    CharaTypeName = CharaTypeName,
                     CharaName = parts[3].Trim(),
                     Chat = parts[4],
                     IntervalSeconds = intervalSeconds
@@ -110,40 +111,32 @@ namespace MabiChatSpeech
     // CharacterNameData Class 
     public record CharacterNameData
         {
-            public string CharName { get; set; } = string.Empty;
             public bool Enabled { get; set; }
-            public CharacterTypes CharacterType { get; set; }
-            public string TtsName { get; set; } = string.Empty;
-            public int TtsVolume { get; set; }
-            public int TtsSpeed { get; set; }
-
-            public string StyleName { get; set; } = string.Empty;
-            public int StyleID { get; set; }
+            public string CharName { get; set; } = string.Empty;
+            public _CharaTypeNames CharaTypeName { get; set; } = _CharaTypeNames.UNKNOWN;
+            public ChatVoiceEngine VoiceEngen { get; set; } = ChatVoiceEngine.VoiceVox;
+            public string VoiceName { get; set; } = "ずんだもん-ノーマル";
+            public int VoiceId { get; set; } = 3;
             public float VolumeScale { get; set; } = 1.0f;
             public float SpeedScale { get; set; } = 1.0f;
-            public float PitchScale { get; set; }
+            public float PitchScale { get; set; } = 0.0f;
 
             public CharacterNameData(
+                bool enabled ,
                 string charName,
-                bool enabled,
-                CharacterTypes characterType,
-                string ttsName,
-                int ttsVolume,
-                int ttsSpeed,
-                string styleName = "",
-                int styleID = 0,
+                _CharaTypeNames charaNameType,
+                ChatVoiceEngine VoiceEngen=ChatVoiceEngine.VoiceVox,
+                string voiceName = "ずんだもん-ノーマル",
+                int voiceId= 3,
                 float volumeScale = 1.0f,
                 float speedScale = 1.0f,
                 float pitchScale = 0.0f)
             {
-                CharName = charName;
                 Enabled = enabled;
-                CharacterType = characterType;
-                TtsName = ttsName;
-                TtsVolume = ttsVolume;
-                TtsSpeed = ttsSpeed;
-                StyleName = styleName;
-                StyleID = styleID;
+                CharName = charName;
+                CharaTypeName = charaNameType;
+                VoiceName = voiceName;
+                VoiceId = voiceId;
                 VolumeScale = volumeScale;
                 SpeedScale = speedScale;
                 PitchScale = pitchScale;
@@ -167,45 +160,39 @@ namespace MabiChatSpeech
             {
                 string[] fields = textline.Split(',');
 
-                if (fields.Length < 6)
+                if (fields.Length < 9)
                 {
-                    throw new FormatException("CharacterNameDataの行には、最低6項目が必要です。");
+                    throw new FormatException("CharacterNameDataの行には、最低9項目が必要です。");
                 }
 
-                CharName = fields[0];
-                Enabled = bool.Parse(fields[1]);
+                Enabled = bool.Parse(fields[0]);
+                CharName = fields[1];
+                CharaTypeName = (_CharaTypeNames)Enum.Parse(typeof(_CharaTypeNames), fields[2]);
 
-                CharacterType = fields[2] switch
+                if (fields.Length > 3 && Enum.TryParse(fields[3], out ChatVoiceEngine voice))
                 {
-                    "User" => CharacterTypes.User,
-                    "Npc" => CharacterTypes.Npc,
-                    "Pet" => CharacterTypes.Pet,
-                    _ => (CharacterTypes)byte.Parse(fields[2])
-                };
-
-                TtsName = fields[3];
-                TtsVolume = int.Parse(fields[4]);
-                TtsSpeed = int.Parse(fields[5]);
-
-                // 旧形式（6項目）では追加メンバーに既定値を設定
-                StyleName = fields.Length > 6 ? fields[6] : string.Empty;
-                StyleID = fields.Length > 7 ? int.Parse(fields[7]) : 0;
-                VolumeScale = fields.Length > 9 ? float.Parse(fields[8], CultureInfo.InvariantCulture) : 1.0f;
-                SpeedScale = fields.Length > 8 ? float.Parse(fields[9], CultureInfo.InvariantCulture) : 1.0f;
-                PitchScale = fields.Length > 10 ? float.Parse(fields[10], CultureInfo.InvariantCulture) : 0.0f;
+                    VoiceEngen = voice;
+                }
+                else
+                {
+                    VoiceEngen = ChatVoiceEngine.None;
+                }
+                VoiceName = fields.Length > 4 ? fields[4] : string.Empty;
+                VoiceId = fields.Length > 5 ? int.Parse(fields[5]) : -1;
+                VolumeScale = fields.Length > 6 ? float.Parse(fields[6], CultureInfo.InvariantCulture) : 1.0f;
+                SpeedScale = fields.Length > 7 ? float.Parse(fields[7], CultureInfo.InvariantCulture) : 1.0f;
+                PitchScale = fields.Length > 8 ? float.Parse(fields[8], CultureInfo.InvariantCulture) : 0.0f;
             }
 
             public string ToText()
             {
                 return string.Join(",",
-                    CharName,
                     Enabled,
-                    CharacterType,
-                    TtsName,
-                    TtsVolume,
-                    TtsSpeed,
-                    StyleName,
-                    StyleID,
+                    CharName,
+                    CharaTypeName,
+                    VoiceEngen,
+                    VoiceName,
+                    VoiceId,
                     VolumeScale.ToString(CultureInfo.InvariantCulture),
                     SpeedScale.ToString(CultureInfo.InvariantCulture),
                     PitchScale.ToString(CultureInfo.InvariantCulture));
@@ -213,49 +200,42 @@ namespace MabiChatSpeech
 
             public void ForItem(ListViewItem item)
             {
-                CharName = item.SubItems[0].Text;
-                Enabled = item.Checked;
+                Enabled = bool.Parse(item.Text);
+                CharName = item.SubItems[1].Text;
 
-                string characterType = item.SubItems[1].Text;
-                CharacterType = characterType switch
+                CharaTypeName = (_CharaTypeNames)Enum.Parse(typeof(_CharaTypeNames), item.SubItems[2].Text);
+
+
+                if (item.SubItems.Count > 3  && Enum.TryParse(item.SubItems[3].Text, out ChatVoiceEngine voice))
                 {
-                    "User" => CharacterTypes.User,
-                    "Npc" => CharacterTypes.Npc,
-                    "Pet" => CharacterTypes.Pet,
-                    _ => (CharacterTypes)byte.Parse(characterType)
-                };
+                    VoiceEngen = voice;
+                }
+                else
+                {
+                    VoiceEngen = ChatVoiceEngine.None;
+                }
 
-                TtsName = item.SubItems[2].Text;
-                TtsVolume = int.Parse(item.SubItems[3].Text);
-                TtsSpeed = int.Parse(item.SubItems[4].Text);
-
-                StyleName = item.SubItems.Count > 5 ? item.SubItems[5].Text : string.Empty;
-                StyleID = item.SubItems.Count > 6 ? int.Parse(item.SubItems[6].Text) : 0;
-                VolumeScale = item.SubItems.Count > 7
+                VoiceName = item.SubItems.Count > 4 ? item.SubItems[4].Text : string.Empty;
+                VoiceId = item.SubItems.Count > 5 ? int.Parse(item.SubItems[5].Text) : 0;
+                VolumeScale = item.SubItems.Count > 6
+                    ? float.Parse(item.SubItems[6].Text, CultureInfo.InvariantCulture)
+                    : 1.0f;
+                SpeedScale = item.SubItems.Count > 7
                     ? float.Parse(item.SubItems[7].Text, CultureInfo.InvariantCulture)
                     : 1.0f;
-                SpeedScale = item.SubItems.Count > 8
+                PitchScale = item.SubItems.Count > 8
                     ? float.Parse(item.SubItems[8].Text, CultureInfo.InvariantCulture)
-                    : 1.0f;
-                PitchScale = item.SubItems.Count > 9
-                    ? float.Parse(item.SubItems[9].Text, CultureInfo.InvariantCulture)
                     : 0.0f;
             }
 
             public ListViewItem ToItem()
             {
-                var item = new ListViewItem
-                {
-                    Text = CharName,
-                    Checked = Enabled
-                };
-
-                item.SubItems.Add(CharacterType.ToString());
-                item.SubItems.Add(TtsName);
-                item.SubItems.Add(TtsVolume.ToString());
-                item.SubItems.Add(TtsSpeed.ToString());
-                item.SubItems.Add(StyleName);
-                item.SubItems.Add(StyleID.ToString());
+                var item = new ListViewItem(Enabled.ToString());
+                item.SubItems.Add(CharName.ToString());
+                item.SubItems.Add(CharaTypeName.ToString());
+                item.SubItems.Add(VoiceEngen.ToString());
+                item.SubItems.Add(VoiceName);
+                item.SubItems.Add(VoiceId.ToString());
                 item.SubItems.Add(VolumeScale.ToString(CultureInfo.InvariantCulture));
                 item.SubItems.Add(SpeedScale.ToString(CultureInfo.InvariantCulture));
                 item.SubItems.Add(PitchScale.ToString(CultureInfo.InvariantCulture));

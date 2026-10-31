@@ -110,5 +110,11 @@
     <Setting Name="__Echa" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="__VoiceVox" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\VOICEVOX\VOICEVOX.exe</Value>
+    </Setting>
+    <Setting Name="__AivisSpeech" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\AivisSpeech\AivisSpeech.exe</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

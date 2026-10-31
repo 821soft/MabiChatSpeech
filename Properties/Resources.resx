@@ -118,172 +118,202 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="TeamProject" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TeamProject.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NewTeamProject" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NewTeamProject.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WriteMode_overwrite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WriteMode_overwrite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icn_tarlach" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icn_tarlach.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WriteMode_append" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WriteMode_append.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WhiteList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WhiteList.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="ClientStatus_connect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientStatus_connect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ClientStatus_select" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientStatus_select.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ClearWindowContent" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClearWindowContent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WriteMode_timestamp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WriteMode_timestamp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WriteMode_none" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WriteMode_none.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ClientStatus_offline" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientStatus_offline.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="imageres" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\imageres.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LogMode_chat" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogMode_chat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ChatData" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ChatData.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icn_ruairi" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icn_ruairi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SettingsPanel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SettingsPanel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icn_mari" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icn_mari.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LogMode_dump" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogMode_dump.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ClientStatus_online" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientStatus_online.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_pageclear" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_pageclear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_User" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_User.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_UserList." type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_UserList..png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Icn_NPC" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icn_NPC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_chatoff" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_chatoff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_Settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_Voice" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_Voice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_echa_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_echa_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_echa_Rec" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_echa_Rec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_chatonly" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_chatonly.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_SelectUser" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_SelectUser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Icn_Sendtask" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icn_Sendtask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icn_Sendplay" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_Sendplay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icn_echa_Rec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_echa_Rec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icn_Sendstop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_Sendstop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icn_tarlach" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icn_tarlach.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icn_Npc_v2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_Npc_v2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_SelectUser_voice" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_SelectUser_voice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_User_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_User_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_User_chat" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_User_chat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_User_v1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_User_v1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_User_v2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_User_v2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_SelectUser_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_SelectUser_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_SelectUser_chat" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_SelectUser_chat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_Npc_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_Npc_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_Npc_chat" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_Npc_chat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_Npc_v1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_Npc_v1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icn_ViewSwtch_Name_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_ViewSwtch_Name_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icn_chatonly" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_chatonly.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Icn_ViewSwtch_Name_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icn_ViewSwtch_Name_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icn_ViewSwtch_No_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_ViewSwtch_No_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="WriteMode_append" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WriteMode_append.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icn_ViewSwtch_No_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_ViewSwtch_No_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SettingsPanel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SettingsPanel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icn_ViewSwtch_Time_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_ViewSwtch_Time_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="aisp_0_1_disable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\aisp_0_1_disable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Icn_ViewSwtch_Time_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icn_ViewSwtch_Time_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="NewTeamProject" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewTeamProject.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_SelectUser_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_SelectUser_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ClientStatus_connect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ClientStatus_connect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="aisp_0_1_post" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\aisp_0_1_post.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_SelectUser_chat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_SelectUser_chat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_echa_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_echa_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_chatoff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_chatoff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Icn_ViewSwtch_Type_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icn_ViewSwtch_Type_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icn_ViewSwtch_Type_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icn_ViewSwtch_Type_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="vvpp_0_1_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vvpp_0_1_play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="description" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\description.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ClientStatus_offline" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ClientStatus_offline.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="YouTubeAPI" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\YouTubeAPI.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Youtube_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Youtube_js.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vvpp_0_1_disable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vvpp_0_1_disable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_ViewSwtch_Name_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_Name_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_Voice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_Voice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ClientStatus_online" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ClientStatus_online.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_SelectUser_voice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_SelectUser_voice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LogMode_dump" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogMode_dump.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LogMode_chat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogMode_chat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_User" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_User.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icn_ruairi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icn_ruairi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_Npc_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_Npc_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_Sendstop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_Sendstop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_Npc_chat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_Npc_chat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vvpp_0_1_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vvpp_0_1_error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_User_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_User_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="description" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\description.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WhiteList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WhiteList.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ChatData" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChatData.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_Npc_v2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_Npc_v2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_ViewSwtch_No_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_No_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_ViewSwtch_Type_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_Type_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_Sendplay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_Sendplay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WriteMode_timestamp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WriteMode_timestamp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_Npc_v1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_Npc_v1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_pageclear" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_pageclear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_User_chat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_User_chat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WriteMode_none" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WriteMode_none.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_ViewSwtch_No_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_No_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_SelectUser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_SelectUser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_ViewSwtch_Time_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_ViewSwtch_Time_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="imageres" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\imageres.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vvpp_0_1_post" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vvpp_0_1_post.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="aisp_0_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\aisp_0_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WriteMode_overwrite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WriteMode_overwrite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ClearWindowContent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ClearWindowContent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TeamProject" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TeamProject.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_User_v2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_User_v2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="aisp_0_1_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\aisp_0_1_play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_User_v1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_User_v1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vvpp_0_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vvpp_0_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_UserList." type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_UserList..png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icn_Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icn_Settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ClientStatus_select" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ClientStatus_select.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icn_mari" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icn_mari.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="aisp_0_1_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\aisp_0_1_error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

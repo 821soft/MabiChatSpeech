@@ -1,4 +1,5 @@
 ﻿using MabiChatSpeech;
+using Microsoft.VisualBasic.ApplicationServices;
 using SharpPcap;
 using System;
 using System.Collections;
@@ -24,11 +25,41 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using static MabiChatSpeech.MabiChat;
 using static MabiChatSpeech.Program;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MabiChatSpeech
 {
     public enum ClinetStatus { OFF, ON, CHARASEL, ONLINE }
     public enum CharacterTypes : byte { User = 0x00, Pet = 0x01, Doll = 0x03 ,Npc = 0xf0 ,Other = 0xff }
+    public enum _CharaTypeNames { PC , NPC ,PET,DOLL,UNKNOWN }
+    public class CharaTypeNames
+    {
+        public _CharaTypeNames Type { get; set; } = _CharaTypeNames.UNKNOWN;
+        CharaTypeNames(CharacterTypes type) 
+        {
+            switch (type)
+            {
+                case CharacterTypes.User:
+                    Type = _CharaTypeNames.PC;
+                    break;
+                case CharacterTypes.Pet:
+                    Type = _CharaTypeNames.PET;
+                    break;
+                case CharacterTypes.Doll:
+                    Type = _CharaTypeNames.DOLL;
+                    break;
+                case CharacterTypes.Npc:
+                    Type = _CharaTypeNames.NPC;
+                    break;
+                case CharacterTypes.Other:
+                    Type = _CharaTypeNames.UNKNOWN;
+                    break;
+                default:
+                    Type = _CharaTypeNames.UNKNOWN;
+                    break;
+            }
+        }
+    }
     public enum PacketModes { Chat, Dump,Analysys }
     [StructLayout(LayoutKind.Sequential)]
     public struct MIB_TCPROW_OWNER_PID
@@ -87,6 +118,7 @@ namespace MabiChatSpeech
     {
         public string CharacterName;
         public CharacterTypes CharacterType;
+        public _CharaTypeNames CharaTypeName;
         public string ChatWord;
     }
 
@@ -101,6 +133,7 @@ namespace MabiChatSpeech
         public string svname;
         public string svip;
         public long ElapsedMilliseconds;
+        public _CharaTypeNames CharaTypeName;
     }
 
     // Mabinogi Packet Class
@@ -286,11 +319,37 @@ namespace MabiChatSpeech
         public event EventHandler ChatEvent;
         void _Chat(ChatData d , long ms)
         {
+            /*
+            _CharaTypeNames Type;
+
+            switch (d.CharacterType)
+            {
+                case CharacterTypes.User:
+                    Type = _CharaTypeNames.PC;
+                    break;
+                case CharacterTypes.Pet:
+                    Type = _CharaTypeNames.PET;
+                    break;
+                case CharacterTypes.Doll:
+                    Type = _CharaTypeNames.DOLL;
+                    break;
+                case CharacterTypes.Npc:
+                    Type = _CharaTypeNames.NPC;
+                    break;
+                case CharacterTypes.Other:
+                    Type = _CharaTypeNames.UNKNOWN;
+                    break;
+                default:
+                    Type = _CharaTypeNames.UNKNOWN;
+                    break;
+            }
+            */
             var e = new MabiPacketEventArgs();
             e.CharacterName = d.CharacterName;
             e.ChatWord = d.ChatWord;
             e.CharacterType = d.CharacterType;
             e.ElapsedMilliseconds = ms;
+            e.CharaTypeName = d.CharaTypeName;
             OnChat(e);
         }
         protected virtual void OnChat(MabiPacketEventArgs e)
@@ -584,6 +643,29 @@ namespace MabiChatSpeech
 
                         var val = new ChatData();
                         val.CharacterType = (CharacterTypes)tcpbuff[bf + 7];
+                        // val.CharacterType を val.CharaTypeNameに展開
+                        switch (val.CharacterType)
+                        {
+                            case CharacterTypes.User:
+                                val.CharaTypeName = _CharaTypeNames.PC;
+                                break;
+                            case CharacterTypes.Pet:
+                                val.CharaTypeName = _CharaTypeNames.PET;
+                                break;
+                            case CharacterTypes.Doll:
+                                val.CharaTypeName = _CharaTypeNames.DOLL;
+                                break;
+                            case CharacterTypes.Npc:
+                                val.CharaTypeName = _CharaTypeNames.NPC;
+                                break;
+                            case CharacterTypes.Other:
+                                val.CharaTypeName = _CharaTypeNames.UNKNOWN;
+                                break;
+                            default:
+                                val.CharaTypeName = _CharaTypeNames.UNKNOWN;
+                                break;
+                        }
+
 
 
                         // 吹き出し

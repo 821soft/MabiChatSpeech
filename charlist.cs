@@ -30,19 +30,19 @@ namespace MabiChatSpeech
                 {
 
                     if (
-                        ((item.CharacterType == CharacterTypes.User)
+                        ((item.CharaTypeName == _CharaTypeNames.PC)
                         && (MNI_SelUser.Checked == true))
                         ||
-                        ((item.CharacterType == CharacterTypes.Npc)
+                        ((item.CharaTypeName == _CharaTypeNames.NPC)
                         && (MNI_SelNpc.Checked == true))
                         ||
                         (
-                         (item.CharacterType != CharacterTypes.User) && (item.CharacterType != CharacterTypes.Npc)
+                         (item.CharaTypeName != _CharaTypeNames.PC) && (item.CharaTypeName != _CharaTypeNames.NPC)
                         && (MNI_SelOther.Checked == true))
                     )
                     {
                         var s = Lsv_cs.Items.Add(item.CharacterName);
-                        s.SubItems.Add($"{item.CharacterType}");
+                        s.SubItems.Add(item.CharaTypeName.ToString());
                     }
                 }
             }
@@ -66,24 +66,14 @@ namespace MabiChatSpeech
                     CharacterNameData? character = Program.CharaList.FirstOrDefault(x => x.CharName == a_item.Text);
                     if ( character == null )
                     {
-                        CharacterTypes ty;
-                        switch (a_item.SubItems[1].Text)
-                        {
-                            case "User":
-                                ty = CharacterTypes.User;
-                                break;
-                            case "Npc":
-                                ty = CharacterTypes.Npc;
-                                break;
-                            case "Pet":
-                                ty = CharacterTypes.Pet;
-                                break;
-                            default:
-                                ty = (CharacterTypes)byte.Parse(a_item.SubItems[1].Text);
-                                break;
-                        }
-                        MabiChat.CharacterNameData item = new MabiChat.CharacterNameData(a_item.Text, true, ty, __TTS1Name, __TTS1Volume, __TTS1Speed);
-                        CharaList.Add(item);
+                        character = new CharacterNameData();
+                        character.CharName = a_item.Text;
+                        // 
+                        character.CharaTypeName = (_CharaTypeNames)Enum.Parse(typeof(_CharaTypeNames), a_item.SubItems[1].Text); 
+                        character.Enabled = true;
+
+
+                        CharaList.Add(character);
                     }
                 }
             }

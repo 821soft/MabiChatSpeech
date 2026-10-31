@@ -21,6 +21,7 @@ using System.Web;
 using System.Windows.Forms;
 using VoicevoxClientSharp.ApiClient;
 using static MabiChatSpeech.MabiChat;
+using static MabiChatSpeech.WinApi;
 
 namespace MabiChatSpeech
 {
@@ -40,7 +41,6 @@ namespace MabiChatSpeech
                 Color.Navy,Color.Blue,Color.Teal,Color.Aqua
             };
         public static List<Font> FontItemList = new List<Font>();
-
 
         /*
          * 設定データ
@@ -225,6 +225,18 @@ namespace MabiChatSpeech
             get { return Properties.Settings.Default.__Echa; }
             set { Properties.Settings.Default.__Echa = value; }
         }
+
+        public static string __VoiceVox
+        {
+            get { return Properties.Settings.Default.__VoiceVox; }
+            set { Properties.Settings.Default.__VoiceVox = value; }
+        }
+        public static string __AivisSpeech
+        {
+            get { return Properties.Settings.Default.__AivisSpeech; }
+            set { Properties.Settings.Default.__AivisSpeech = value; }
+        }
+
         public static string TTS_Names()
         {
             string retval_txt ="";
@@ -253,6 +265,83 @@ namespace MabiChatSpeech
         public static void tmpfile_write(string [] li)
         {
             File.AppendAllLines(_tmpfname, li);
+        }
+
+
+
+        static public CharacterNameData? CharaList_find(string name,string ctypeStr)
+        {
+            var ctype = (_CharaTypeNames)Enum.Parse(typeof(_CharaTypeNames), ctypeStr, true);
+
+            CharacterNameData? character = Program.CharaList.FirstOrDefault(x => ((x.CharName == name)) && (x.CharaTypeName == ctype));
+            
+            return (character);
+        }
+        static public CharacterNameData? CharaList_find(string name, _CharaTypeNames charaTypeName)
+        {
+            CharacterNameData? character = Program.CharaList.FirstOrDefault(x => ((x.CharName == name)) && (x.CharaTypeName == charaTypeName));
+
+            return (character);
+        }
+        static public int CharaList_update(CharacterNameData dat)
+        {
+            CharacterNameData? character = Program.CharaList.FirstOrDefault(x => ( (x.CharName == dat.CharName))&&(x.CharaTypeName == dat.CharaTypeName));
+            if (character != null)
+            { 
+            }
+
+            return (0);
+        }
+        static public bool IsProcessRunning(int processId)
+        {
+            try
+            {
+                using (Process process = Process.GetProcessById(processId))
+                {
+                    // HasExited プロパティを確認する前に関連づけを更新
+                    process.Refresh();
+                    return !process.HasExited;
+                }
+            }
+            catch (ArgumentException)
+            {
+                // 指定IDのプロセスが見つからない場合は終了しているとみなす
+                return false;
+            }
+        }
+        public enum RunningStatus { Running ,NotRunning, NotIstalled } ;
+
+        static public class _RunningStatusEngine 
+        {
+            public static RunningStatus VoiceVox;
+            public static RunningStatus AivisSpeech;
+            static _RunningStatusEngine()
+            {
+                VoiceVox = IsRunning(__VoiceVox);
+                AivisSpeech = IsRunning(__AivisSpeech);
+            }
+
+        }
+
+        static public RunningStatus IsRunning(string foo)
+        {
+            if (foo.Trim() == "")
+            { 
+                return RunningStatus.NotIstalled;
+            }
+
+            var foo_procname = Path.GetFileNameWithoutExtension(foo);
+            Process[] foo_processes = Process.GetProcessesByName(foo_procname);
+
+            if (foo_processes.Length == 0)
+            {
+                return RunningStatus.NotRunning;
+            }
+            else
+            {
+                return RunningStatus.Running;
+            }
+
         }
 
         /// <summary>
@@ -306,7 +395,28 @@ namespace MabiChatSpeech
                 __TTS2Name = TTS_NameList[0];
             }
 
-
+            if (_RunningStatusEngine.VoiceVox == RunningStatus.NotRunning)
+            {
+                var mret = MessageBox.Show($"VoiceVoxが起動していません。起動してみる？\n{__VoiceVox}",
+                                    "エラー",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question);
+                if (mret == DialogResult.Yes)
+                {
+                    Process.Start(__VoiceVox);
+                }
+            }
+            if (_RunningStatusEngine.AivisSpeech == RunningStatus.NotRunning)
+            {
+                var mret = MessageBox.Show($"AivisSpeechが起動していません。起動してみる？\n{__AivisSpeech}",
+                                    "エラー",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question);
+                if (mret == DialogResult.Yes)
+                {
+                    Process.Start(__AivisSpeech);
+                }
+            }
 
             //FontItemList = new Collection();
             FontFamily[] ffs = FontFamily.Families;
@@ -323,6 +433,7 @@ namespace MabiChatSpeech
             Size winsize = new Size();
             winsize.Width = int.Parse(_Pos_Main[2]);
             winsize.Height = int.Parse(_Pos_Main[3]);
+
 
             try
             {
@@ -350,6 +461,11 @@ namespace MabiChatSpeech
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             //どこにもキャッチされなかった例外があったときここが実行される
+            MessageBox.Show($"エラー終了.\n {e.ToString()}",
+                "エラー",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            Application.Exit();
         }
 
     }
