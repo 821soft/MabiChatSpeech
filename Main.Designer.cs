@@ -953,7 +953,7 @@
             MinimumSize = new System.Drawing.Size(1059, 327);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Text = "Pre261031-1-MabiChatSpeech (Ver.1.200)";
+            Text = "Pre261101-1-MabiChatSpeech (Ver.1.200)";
             FormClosing += Main_FormClosing;
             FormClosed += Main_FormClosed;
             Load += Main_Load;

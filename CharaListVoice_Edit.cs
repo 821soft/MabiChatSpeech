@@ -27,6 +27,7 @@ namespace MabiChatSpeech
         static int aivisPid = -1;
         static int voiceVoxPid = -1;
         private int datatype = -1;
+        private bool _updateProgramCharaList = true;
 
         public string charaname { get; set; } = "";
         public string testword { get; set; } = "";
@@ -42,11 +43,17 @@ namespace MabiChatSpeech
 
         }
         internal CharaListVoice_Edit(CharacterNameData dat)
+            : this(dat, updateProgramCharaList: true)
+        {
+        }
+
+        internal CharaListVoice_Edit(CharacterNameData dat, bool updateProgramCharaList)
         {
             InitializeComponent();
             init();
             charaname = dat.CharName;
             character = dat;
+            _updateProgramCharaList = updateProgramCharaList;
             datatype = 1;
             this.Text = "キャラの音声設定:CharacterNameData";
         }
@@ -460,6 +467,23 @@ namespace MabiChatSpeech
         {
             _CharaTypeNames ct = (_CharaTypeNames)Enum.Parse(typeof(_CharaTypeNames), Cmb_CharaType.Text.ToString());
 
+            if (!_updateProgramCharaList)
+            {
+                if (character == null)
+                    return false;
+
+                character.Enabled = CHK_Enable.Checked;
+                character.CharName = Txt_CharaName.Text;
+                character.CharaTypeName = ct;
+                character.VoiceEngen = Lst_VoiceEngen_Value();
+                character.VoiceName = Lst_VoiceName_Value();
+                character.VoiceId = Lst_VoiceId_Value();
+                character.VolumeScale = float.Parse(Txt_VolumeScal.Text);
+                character.SpeedScale = float.Parse(Txt_SpeedScale.Text);
+                character.PitchScale = float.Parse(Txt_PitchScal.Text);
+                return true;
+            }
+
             int index = Program.CharaList.FindIndex(x => ((x.CharName == Txt_CharaName.Text) && (x.CharaTypeName == ct)));
             if (index < 0)
             {
@@ -531,6 +555,7 @@ namespace MabiChatSpeech
 
 
             }
+            DialogResult = DialogResult.OK;
             this.Close();
         }
 
