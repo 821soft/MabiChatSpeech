@@ -111,10 +111,19 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="__VoiceVox" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Program Files\VOICEVOX\VOICEVOX.exe</Value>
+      <Value Profile="(Default)">C:\Users\honeb\AppData\Roaming\voicevox\vvpp-engines\VOICEVOX_Engine+074fc39e-678b-4c13-8916-ffca8d505d1d\run.exe</Value>
     </Setting>
     <Setting Name="__AivisSpeech" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Program Files\AivisSpeech\AivisSpeech.exe</Value>
+      <Value Profile="(Default)">C:\Program Files\AivisSpeech\AivisSpeech-Engine\run.exe</Value>
+    </Setting>
+    <Setting Name="__ChatMode_PC" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="__ChatMode_NPC" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="__ChatMode_Voice" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

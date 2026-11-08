@@ -20,10 +20,10 @@ namespace MabiChatSpeech
         }
         public Color ChatFColor = Program.Color16List[Program.__ChatFColor];
         public Color ChatBColor = Program.Color16List[Program.__ChatBColor];
-        private void CMB_FF_DrawItem(object sender,  System.Windows.Forms.DrawItemEventArgs e)
+        private void CMB_FF_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e)
         {
             var cmb = (System.Windows.Forms.ComboBox)sender;
-            if ( e.Index == -1 )
+            if (e.Index == -1)
             {
                 return;
             }
@@ -92,7 +92,7 @@ namespace MabiChatSpeech
 
             // データセット
             Txt_CapProgram.Text = Program.__CapureProgram;
-            Txt_CapPort.Text = $"{ Program.__CapturePort}";
+            Txt_CapPort.Text = $"{Program.__CapturePort}";
 
             Cmb_SaveMode.SelectedIndex = Program.__SaveMode;
             Txt_SavePath.Text = Program.__SavePath;
@@ -104,12 +104,12 @@ namespace MabiChatSpeech
             ChatBColor = Program.Color16List[CMB_BColor.SelectedIndex];
 
 
-            Control[] cs = Program.Frm_Main.Controls.Find("Txt_Chat",true);
+            Control[] cs = Program.Frm_Main.Controls.Find("Txt_Chat", true);
             CMB_FF.Font = cs[0].Font;
             CMB_FF.ForeColor = Program.Color16List[Program.__ChatFColor];
             CMB_FF.BackColor = Program.Color16List[Program.__ChatBColor];
             int idx = 0;
-            foreach(Font f in CMB_FF.Items)
+            foreach (Font f in CMB_FF.Items)
             {
                 if (f.Name == CMB_FF.Font.Name)
                 {
@@ -124,6 +124,15 @@ namespace MabiChatSpeech
 
             Cmb_Whitelist.SelectedIndex = Program.__ChatSelWhitelist;
             Cmb_User.SelectedIndex = Program.__ChatSelUser;
+            if (Program.__ChatSelPet == 0)
+            {
+                Chk_PET.Checked = false;
+            }
+            else
+            {
+                Chk_PET.Checked = true;
+            }
+
             Cmb_NPC.SelectedIndex = Program.__ChatSelNpc;
 
             Cmb_TTS1Name.Text = Program.__TTS1Name;
@@ -135,15 +144,15 @@ namespace MabiChatSpeech
             Chk_TTSMute.Checked = Program.__TTS_Mute;
             Chk_TTSNameCall.Checked = Program.__TTS_NameCall;
 
-            CHK_AutoAdd.Checked = Program.__WhiteList_AutoAdd ;
+            CHK_AutoAdd.Checked = Program.__WhiteList_AutoAdd;
 
-            checkBox1.Checked = Program.__ChatView_No ;
-            checkBox2.Checked = Program.__ChatView_Time ;
-            checkBox3.Checked = Program.__ChatView_Type ;
-            checkBox4.Checked = Program.__ChatView_Name ;
+            checkBox1.Checked = Program.__ChatView_No;
+            checkBox2.Checked = Program.__ChatView_Time;
+            checkBox3.Checked = Program.__ChatView_Type;
+            checkBox4.Checked = Program.__ChatView_Name;
 
             Cmb_Echa.SelectedIndex = Program.__Echa;
-            
+
         }
 
         private void Btn_Ok_Click(object sender, EventArgs e)
@@ -156,6 +165,16 @@ namespace MabiChatSpeech
             Program.__SavePath = Txt_SavePath.Text;
             Program.__ChatSelWhitelist = Cmb_Whitelist.SelectedIndex;
             Program.__ChatSelUser = Cmb_User.SelectedIndex;
+            if (Chk_PET.Checked)
+            {
+                Program.__ChatSelPet = 1;
+            }
+            else
+            {
+                Program.__ChatSelPet = 0;
+            }
+
+
             Program.__ChatSelNpc = Cmb_NPC.SelectedIndex;
 
             Program.__TTS1Name = Cmb_TTS1Name.Text;
@@ -218,18 +237,18 @@ namespace MabiChatSpeech
             fbd.ShowNewFolderButton = true;
             fbd.SelectedPath = Txt_SavePath.Text;
 
-            if ( fbd.ShowDialog() == DialogResult.OK )
+            if (fbd.ShowDialog() == DialogResult.OK)
             {
                 Txt_SavePath.Text = fbd.SelectedPath;
             }
-            
+
         }
 
         private void Btn_WhiteList_Click(object sender, EventArgs e)
         {
             WhiteList Frm_WhiteList = new WhiteList();
             Frm_WhiteList.Owner = this;
-            if ( Frm_WhiteList.ShowDialog() == DialogResult.OK)
+            if (Frm_WhiteList.ShowDialog() == DialogResult.OK)
             {
             }
         }
@@ -281,5 +300,11 @@ namespace MabiChatSpeech
             CMB_FF.ForeColor = Program.Color16List[CMB_FColor.SelectedIndex];
             ChatFColor = Program.Color16List[CMB_FColor.SelectedIndex];
         }
+
+        private void Cmb_User_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

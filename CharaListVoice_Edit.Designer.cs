@@ -75,11 +75,11 @@
             Lst_VoiceEngen.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             Lst_VoiceEngen.FormattingEnabled = true;
             Lst_VoiceEngen.ItemHeight = 28;
-            Lst_VoiceEngen.Items.AddRange(new object[] { "VoiceVox", "AivisSpeech" });
+            Lst_VoiceEngen.Items.AddRange(new object[] { "TTS", "VoiceVox", "AivisSpeech" });
             Lst_VoiceEngen.Location = new System.Drawing.Point(22, 95);
             Lst_VoiceEngen.Margin = new System.Windows.Forms.Padding(4);
             Lst_VoiceEngen.Name = "Lst_VoiceEngen";
-            Lst_VoiceEngen.Size = new System.Drawing.Size(162, 60);
+            Lst_VoiceEngen.Size = new System.Drawing.Size(162, 88);
             Lst_VoiceEngen.TabIndex = 4;
             Lst_VoiceEngen.SelectedIndexChanged += Lst_VoiceEngen_SelectedIndexChanged;
             // 
@@ -211,6 +211,7 @@
             Txt_PitchScal.ReadOnly = true;
             Txt_PitchScal.Size = new System.Drawing.Size(155, 34);
             Txt_PitchScal.TabIndex = 1;
+            Txt_PitchScal.Text = "0.0";
             // 
             // groupBox9
             // 
@@ -300,6 +301,7 @@
             Txt_VolumeScal.ReadOnly = true;
             Txt_VolumeScal.Size = new System.Drawing.Size(155, 34);
             Txt_VolumeScal.TabIndex = 1;
+            Txt_VolumeScal.Text = "1.0";
             // 
             // groupBox4
             // 
@@ -336,6 +338,7 @@
             Txt_SpeedScale.ReadOnly = true;
             Txt_SpeedScale.Size = new System.Drawing.Size(155, 34);
             Txt_SpeedScale.TabIndex = 1;
+            Txt_SpeedScale.Text = "1.0";
             // 
             // Lst_VoiceStyle
             // 

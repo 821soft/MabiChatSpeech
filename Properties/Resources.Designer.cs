@@ -543,6 +543,156 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap Icon_CharaList_Chat {
+            get {
+                object obj = ResourceManager.GetObject("Icon_CharaList_Chat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_CharaList_Chat_Dis {
+            get {
+                object obj = ResourceManager.GetObject("Icon_CharaList_Chat_Dis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_CharaList_TTS {
+            get {
+                object obj = ResourceManager.GetObject("Icon_CharaList_TTS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_CharaList_TTS_Dis_ {
+            get {
+                object obj = ResourceManager.GetObject("Icon_CharaList_TTS_Dis ", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_CharaList_VOICE {
+            get {
+                object obj = ResourceManager.GetObject("Icon_CharaList_VOICE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_CharaList_VOICE_Dis {
+            get {
+                object obj = ResourceManager.GetObject("Icon_CharaList_VOICE_Dis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_CharaListEdit {
+            get {
+                object obj = ResourceManager.GetObject("Icon_CharaListEdit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_NPC_Chat {
+            get {
+                object obj = ResourceManager.GetObject("Icon_NPC_Chat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_NPC_Chat_Dis {
+            get {
+                object obj = ResourceManager.GetObject("Icon_NPC_Chat_Dis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_NPC_TTS {
+            get {
+                object obj = ResourceManager.GetObject("Icon_NPC_TTS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_NPC_TTS_Dis {
+            get {
+                object obj = ResourceManager.GetObject("Icon_NPC_TTS_Dis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_PC_Chat {
+            get {
+                object obj = ResourceManager.GetObject("Icon_PC_Chat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_PC_Chat_Dis {
+            get {
+                object obj = ResourceManager.GetObject("Icon_PC_Chat_Dis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_PC_TTS {
+            get {
+                object obj = ResourceManager.GetObject("Icon_PC_TTS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_PC_TTS_Dis {
+            get {
+                object obj = ResourceManager.GetObject("Icon_PC_TTS_Dis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap imageres {
             get {
                 object obj = ResourceManager.GetObject("imageres", resourceCulture);

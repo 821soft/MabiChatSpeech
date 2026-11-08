@@ -413,8 +413,8 @@ namespace MabiChatSpeech
 
         private void Cmb_VoiceName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Txt_StyleID.Text = $"{Main.VoiceLists[Cmb_VoiceName.SelectedIndex].VoiceId}";
-            Txt_VoiceEngen.Text = Main.VoiceLists[Cmb_VoiceName.SelectedIndex].VoiceEngen.ToString();
+//            Txt_StyleID.Text = $"{Main.VoiceLists[Cmb_VoiceName.SelectedIndex].VoiceId}";
+//            Txt_VoiceEngen.Text = Main.VoiceLists[Cmb_VoiceName.SelectedIndex].VoiceEngen.ToString();
         }
 
         private void CMN_Menu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

@@ -38,9 +38,9 @@
             SSL_VoiceVox = new System.Windows.Forms.ToolStripStatusLabel();
             SSL_AivisSpeech = new System.Windows.Forms.ToolStripStatusLabel();
             SSL_VoiceAPI = new System.Windows.Forms.ToolStripStatusLabel();
-            SSL_UserList = new System.Windows.Forms.ToolStripStatusLabel();
-            SSL_Player = new System.Windows.Forms.ToolStripStatusLabel();
+            SSL_PC = new System.Windows.Forms.ToolStripStatusLabel();
             SSL_NPC = new System.Windows.Forms.ToolStripStatusLabel();
+            SSL_CharaList = new System.Windows.Forms.ToolStripStatusLabel();
             SSL_Echa = new System.Windows.Forms.ToolStripStatusLabel();
             SSL_Youtube = new System.Windows.Forms.ToolStripStatusLabel();
             TPB_Save = new System.Windows.Forms.ToolStripProgressBar();
@@ -48,38 +48,6 @@
             TPB_Event = new System.Windows.Forms.ToolStripStatusLabel();
             Txt_Chat = new System.Windows.Forms.TextBox();
             Tim_Status = new System.Windows.Forms.Timer(components);
-            toolStrip1 = new System.Windows.Forms.ToolStrip();
-            Btn_Clear = new System.Windows.Forms.ToolStripButton();
-            Btn_Setup = new System.Windows.Forms.ToolStripButton();
-            Btn_List = new System.Windows.Forms.ToolStripButton();
-            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            SDB_SelectList = new System.Windows.Forms.ToolStripDropDownButton();
-            toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
-            SDB_User = new System.Windows.Forms.ToolStripDropDownButton();
-            toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            SDB_Npc = new System.Windows.Forms.ToolStripDropDownButton();
-            toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            Btn_echa = new System.Windows.Forms.ToolStripButton();
-            BTN_No = new System.Windows.Forms.ToolStripButton();
-            BTN_Time = new System.Windows.Forms.ToolStripButton();
-            BTN_Type = new System.Windows.Forms.ToolStripButton();
-            BTN_Name = new System.Windows.Forms.ToolStripButton();
-            toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            SDB_ViewMode = new System.Windows.Forms.ToolStripDropDownButton();
-            SDB_View_ItemList = new System.Windows.Forms.ToolStripMenuItem();
-            SDB_View_ItemText = new System.Windows.Forms.ToolStripMenuItem();
-            ItemChatMode = new System.Windows.Forms.ToolStripMenuItem();
-            ItemDumpMode = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             LSV_chat = new System.Windows.Forms.ListView();
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
@@ -89,32 +57,27 @@
             columnHeader5 = new System.Windows.Forms.ColumnHeader();
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             Mnu_File = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_SystemSetiing = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_Export = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_Replay = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_Quit = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             Mnu_Edit = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_PlayerList = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_PlayerListEdit = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            Mnu_PlayerList_Off = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_PlayerList_Text = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_PlayerList_Voice = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            Mnu_Player = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_Player_Off = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_Player_Text = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_Player_Voice1 = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_Player_Voice2 = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_PC = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_PC_Chat = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_PC_TTS = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_NPC = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_NPC_Off = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_NPC_Text = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_NPC_Voice1 = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_NPC_Voice2 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            Mnu_NPC_Chat = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_NPC_TTS = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_CharaList = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_CharaList_Chat = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_CharaList_TTS = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_CharaList_Voice = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            Mnu_CharList_Edit = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_Echa = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             Mnu_Clear = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_Setup = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_View = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_ViewText = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_ViewDump = new System.Windows.Forms.ToolStripMenuItem();
@@ -129,7 +92,6 @@
             toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             Mnu_Help = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip1.SuspendLayout();
-            toolStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -137,7 +99,7 @@
             // 
             statusStrip1.AutoSize = false;
             statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip, SSL_VoiceVox, SSL_AivisSpeech, SSL_VoiceAPI, SSL_UserList, SSL_Player, SSL_NPC, SSL_Echa, SSL_Youtube, TPB_Save, TPB_Max, TPB_Event });
+            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip, SSL_VoiceVox, SSL_AivisSpeech, SSL_VoiceAPI, SSL_PC, SSL_NPC, SSL_CharaList, SSL_Echa, SSL_Youtube, TPB_Save, TPB_Max, TPB_Event });
             statusStrip1.Location = new System.Drawing.Point(0, 474);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 22, 0);
@@ -185,16 +147,18 @@
             // SSL_VoiceVox
             // 
             SSL_VoiceVox.Image = Properties.Resources.vvpp_0_1_disable;
+            SSL_VoiceVox.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_VoiceVox.Name = "SSL_VoiceVox";
-            SSL_VoiceVox.Size = new System.Drawing.Size(20, 54);
+            SSL_VoiceVox.Size = new System.Drawing.Size(24, 54);
             SSL_VoiceVox.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
             // SSL_AivisSpeech
             // 
             SSL_AivisSpeech.Image = Properties.Resources.aisp_0_1_disable;
+            SSL_AivisSpeech.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_AivisSpeech.LinkVisited = true;
             SSL_AivisSpeech.Name = "SSL_AivisSpeech";
-            SSL_AivisSpeech.Size = new System.Drawing.Size(20, 54);
+            SSL_AivisSpeech.Size = new System.Drawing.Size(24, 54);
             // 
             // SSL_VoiceAPI
             // 
@@ -202,29 +166,32 @@
             SSL_VoiceAPI.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             SSL_VoiceAPI.Name = "SSL_VoiceAPI";
             SSL_VoiceAPI.Size = new System.Drawing.Size(120, 54);
-            SSL_VoiceAPI.Text = "Stay";
             SSL_VoiceAPI.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            SSL_VoiceAPI.Click += SSL_VoiceAPI_Click;
             // 
-            // SSL_UserList
+            // SSL_PC
             // 
-            SSL_UserList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            SSL_UserList.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
-            SSL_UserList.Image = Properties.Resources.Icn_SelectUser_off;
-            SSL_UserList.LinkVisited = true;
-            SSL_UserList.Name = "SSL_UserList";
-            SSL_UserList.Size = new System.Drawing.Size(20, 54);
-            // 
-            // SSL_Player
-            // 
-            SSL_Player.Image = Properties.Resources.Icn_User_off;
-            SSL_Player.Name = "SSL_Player";
-            SSL_Player.Size = new System.Drawing.Size(20, 54);
+            SSL_PC.Image = Properties.Resources.Icon_PC_Chat_Dis;
+            SSL_PC.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            SSL_PC.Name = "SSL_PC";
+            SSL_PC.Size = new System.Drawing.Size(32, 54);
             // 
             // SSL_NPC
             // 
-            SSL_NPC.Image = Properties.Resources.Icn_Npc_off;
+            SSL_NPC.Image = Properties.Resources.Icon_NPC_Chat_Dis;
+            SSL_NPC.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_NPC.Name = "SSL_NPC";
-            SSL_NPC.Size = new System.Drawing.Size(20, 54);
+            SSL_NPC.Size = new System.Drawing.Size(32, 54);
+            // 
+            // SSL_CharaList
+            // 
+            SSL_CharaList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            SSL_CharaList.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
+            SSL_CharaList.Image = Properties.Resources.Icon_CharaList_Chat_Dis;
+            SSL_CharaList.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            SSL_CharaList.LinkVisited = true;
+            SSL_CharaList.Name = "SSL_CharaList";
+            SSL_CharaList.Size = new System.Drawing.Size(32, 54);
             // 
             // SSL_Echa
             // 
@@ -252,7 +219,7 @@
             // TPB_Event
             // 
             TPB_Event.Name = "TPB_Event";
-            TPB_Event.Size = new System.Drawing.Size(643, 54);
+            TPB_Event.Size = new System.Drawing.Size(599, 54);
             TPB_Event.Spring = true;
             // 
             // Txt_Chat
@@ -276,315 +243,6 @@
             Tim_Status.Enabled = true;
             Tim_Status.Interval = 3000;
             Tim_Status.Tick += Tim_Status_Tick;
-            // 
-            // toolStrip1
-            // 
-            toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Btn_Clear, Btn_Setup, Btn_List, toolStripSeparator1, SDB_SelectList, SDB_User, SDB_Npc, toolStripSeparator2, Btn_echa, BTN_No, BTN_Time, BTN_Type, BTN_Name, toolStripSeparator3, SDB_ViewMode, toolStripButton1 });
-            toolStrip1.Location = new System.Drawing.Point(0, 40);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new System.Drawing.Size(1679, 51);
-            toolStrip1.TabIndex = 1;
-            toolStrip1.Text = "aa";
-            toolStrip1.Visible = false;
-            // 
-            // Btn_Clear
-            // 
-            Btn_Clear.Image = Properties.Resources.Icn_pageclear;
-            Btn_Clear.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            Btn_Clear.ImageTransparentColor = System.Drawing.Color.Magenta;
-            Btn_Clear.Name = "Btn_Clear";
-            Btn_Clear.Size = new System.Drawing.Size(71, 48);
-            Btn_Clear.Text = "Clear";
-            Btn_Clear.ToolTipText = "表示クリア";
-            Btn_Clear.Click += Btn_Clear_Click;
-            // 
-            // Btn_Setup
-            // 
-            Btn_Setup.Image = Properties.Resources.Icn_Settings;
-            Btn_Setup.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            Btn_Setup.ImageTransparentColor = System.Drawing.Color.Magenta;
-            Btn_Setup.Name = "Btn_Setup";
-            Btn_Setup.Size = new System.Drawing.Size(75, 48);
-            Btn_Setup.Text = "Setup";
-            Btn_Setup.ToolTipText = "設定";
-            Btn_Setup.Click += Btn_Setup_Click;
-            // 
-            // Btn_List
-            // 
-            Btn_List.Image = Properties.Resources.Icn_UserList_;
-            Btn_List.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            Btn_List.ImageTransparentColor = System.Drawing.Color.Magenta;
-            Btn_List.Name = "Btn_List";
-            Btn_List.Size = new System.Drawing.Size(59, 48);
-            Btn_List.Text = "List";
-            Btn_List.ToolTipText = "キャラクターリスト";
-            Btn_List.Click += Btn_List_Click;
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(6, 51);
-            // 
-            // SDB_SelectList
-            // 
-            SDB_SelectList.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem9, toolStripMenuItem10, toolStripMenuItem11 });
-            SDB_SelectList.Image = Properties.Resources.Icn_SelectUser;
-            SDB_SelectList.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            SDB_SelectList.ImageTransparentColor = System.Drawing.Color.Magenta;
-            SDB_SelectList.Name = "SDB_SelectList";
-            SDB_SelectList.Size = new System.Drawing.Size(100, 48);
-            SDB_SelectList.Text = "ListFlow";
-            SDB_SelectList.ToolTipText = "キャラクターモード";
-            SDB_SelectList.DropDownOpening += SDB_SelectList_DropDownOpening;
-            SDB_SelectList.DropDownItemClicked += SDB_SelectList_DropDownItemClicked;
-            SDB_SelectList.DoubleClick += SDB_SelectList_Click;
-            // 
-            // toolStripMenuItem9
-            // 
-            toolStripMenuItem9.Image = Properties.Resources.Icn_SelectUser_off;
-            toolStripMenuItem9.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            toolStripMenuItem9.Name = "toolStripMenuItem9";
-            toolStripMenuItem9.Size = new System.Drawing.Size(162, 30);
-            toolStripMenuItem9.Tag = "0";
-            toolStripMenuItem9.Text = "OFF";
-            // 
-            // toolStripMenuItem10
-            // 
-            toolStripMenuItem10.Image = Properties.Resources.Icn_SelectUser_chat;
-            toolStripMenuItem10.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            toolStripMenuItem10.Name = "toolStripMenuItem10";
-            toolStripMenuItem10.Size = new System.Drawing.Size(162, 30);
-            toolStripMenuItem10.Tag = "1";
-            toolStripMenuItem10.Text = "チャットのみ";
-            // 
-            // toolStripMenuItem11
-            // 
-            toolStripMenuItem11.Image = Properties.Resources.Icn_SelectUser_voice;
-            toolStripMenuItem11.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            toolStripMenuItem11.Name = "toolStripMenuItem11";
-            toolStripMenuItem11.Size = new System.Drawing.Size(162, 30);
-            toolStripMenuItem11.Tag = "2";
-            toolStripMenuItem11.Text = "音声あり";
-            // 
-            // SDB_User
-            // 
-            SDB_User.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem5, toolStripMenuItem6, toolStripMenuItem7, toolStripMenuItem8 });
-            SDB_User.Image = Properties.Resources.Icn_User;
-            SDB_User.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            SDB_User.ImageTransparentColor = System.Drawing.Color.Magenta;
-            SDB_User.Name = "SDB_User";
-            SDB_User.Size = new System.Drawing.Size(87, 48);
-            SDB_User.Text = "Player";
-            SDB_User.ToolTipText = "プレイヤー動作";
-            SDB_User.DropDownOpening += SDB_User_DropDownOpening;
-            SDB_User.DropDownItemClicked += SDB_User_DropDownItemClicked;
-            SDB_User.DoubleClick += SDB_User_Click;
-            // 
-            // toolStripMenuItem5
-            // 
-            toolStripMenuItem5.Image = Properties.Resources.Icn_User_off;
-            toolStripMenuItem5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            toolStripMenuItem5.Name = "toolStripMenuItem5";
-            toolStripMenuItem5.Size = new System.Drawing.Size(162, 30);
-            toolStripMenuItem5.Tag = "0";
-            toolStripMenuItem5.Text = "Off";
-            toolStripMenuItem5.Click += toolStripMenuItem5_Click;
-            // 
-            // toolStripMenuItem6
-            // 
-            toolStripMenuItem6.Image = Properties.Resources.Icn_User_chat;
-            toolStripMenuItem6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            toolStripMenuItem6.Name = "toolStripMenuItem6";
-            toolStripMenuItem6.Size = new System.Drawing.Size(162, 30);
-            toolStripMenuItem6.Tag = "1";
-            toolStripMenuItem6.Text = "チャットのみ";
-            // 
-            // toolStripMenuItem7
-            // 
-            toolStripMenuItem7.Image = Properties.Resources.Icn_User_v1;
-            toolStripMenuItem7.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            toolStripMenuItem7.Name = "toolStripMenuItem7";
-            toolStripMenuItem7.Size = new System.Drawing.Size(162, 30);
-            toolStripMenuItem7.Tag = "2";
-            toolStripMenuItem7.Text = "音声１";
-            // 
-            // toolStripMenuItem8
-            // 
-            toolStripMenuItem8.Image = Properties.Resources.Icn_User_v2;
-            toolStripMenuItem8.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            toolStripMenuItem8.Name = "toolStripMenuItem8";
-            toolStripMenuItem8.Size = new System.Drawing.Size(162, 30);
-            toolStripMenuItem8.Tag = "3";
-            toolStripMenuItem8.Text = "音声２";
-            toolStripMenuItem8.Click += toolStripMenuItem8_Click;
-            // 
-            // SDB_Npc
-            // 
-            SDB_Npc.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3, toolStripMenuItem4 });
-            SDB_Npc.Image = Properties.Resources.Icn_NPC;
-            SDB_Npc.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            SDB_Npc.ImageTransparentColor = System.Drawing.Color.Magenta;
-            SDB_Npc.Name = "SDB_Npc";
-            SDB_Npc.Size = new System.Drawing.Size(75, 48);
-            SDB_Npc.Text = "NPC";
-            SDB_Npc.DropDownOpening += SDB_Npc_DropDownOpening;
-            SDB_Npc.DropDownItemClicked += SDB_Npc_DropDownItemClicked;
-            SDB_Npc.DoubleClick += SDB_Npc_Click;
-            // 
-            // toolStripMenuItem1
-            // 
-            toolStripMenuItem1.Image = Properties.Resources.Icn_Npc_off;
-            toolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(162, 30);
-            toolStripMenuItem1.Tag = "0";
-            toolStripMenuItem1.Text = "Off";
-            // 
-            // toolStripMenuItem2
-            // 
-            toolStripMenuItem2.Image = Properties.Resources.Icn_Npc_chat;
-            toolStripMenuItem2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new System.Drawing.Size(162, 30);
-            toolStripMenuItem2.Tag = "1";
-            toolStripMenuItem2.Text = "チャットのみ";
-            // 
-            // toolStripMenuItem3
-            // 
-            toolStripMenuItem3.Image = Properties.Resources.Icn_Npc_v1;
-            toolStripMenuItem3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new System.Drawing.Size(162, 30);
-            toolStripMenuItem3.Tag = "2";
-            toolStripMenuItem3.Text = "音声１";
-            // 
-            // toolStripMenuItem4
-            // 
-            toolStripMenuItem4.Image = Properties.Resources.Icn_Npc_v2;
-            toolStripMenuItem4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            toolStripMenuItem4.Name = "toolStripMenuItem4";
-            toolStripMenuItem4.Size = new System.Drawing.Size(162, 30);
-            toolStripMenuItem4.Tag = "3";
-            toolStripMenuItem4.Text = "音声２";
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(6, 51);
-            // 
-            // Btn_echa
-            // 
-            Btn_echa.Image = Properties.Resources.Icn_echa_off;
-            Btn_echa.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            Btn_echa.ImageTransparentColor = System.Drawing.Color.Magenta;
-            Btn_echa.Name = "Btn_echa";
-            Btn_echa.Size = new System.Drawing.Size(99, 48);
-            Btn_echa.Text = "EchaSave";
-            Btn_echa.ToolTipText = "絵チャ保存動作";
-            Btn_echa.Click += Btn_echa_Click;
-            // 
-            // BTN_No
-            // 
-            BTN_No.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            BTN_No.Image = Properties.Resources.Icn_ViewSwtch_No_off;
-            BTN_No.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            BTN_No.ImageTransparentColor = System.Drawing.Color.Magenta;
-            BTN_No.Name = "BTN_No";
-            BTN_No.Size = new System.Drawing.Size(29, 48);
-            BTN_No.Text = "toolStripButton1";
-            BTN_No.ToolTipText = "SeqNo";
-            BTN_No.Click += BTN_No_Click;
-            // 
-            // BTN_Time
-            // 
-            BTN_Time.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            BTN_Time.Image = Properties.Resources.Icn_ViewSwtch_Time_off;
-            BTN_Time.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            BTN_Time.ImageTransparentColor = System.Drawing.Color.Magenta;
-            BTN_Time.Name = "BTN_Time";
-            BTN_Time.Size = new System.Drawing.Size(29, 48);
-            BTN_Time.Text = "toolStripButton2";
-            BTN_Time.ToolTipText = "Time";
-            BTN_Time.Click += BTN_Time_Click;
-            // 
-            // BTN_Type
-            // 
-            BTN_Type.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            BTN_Type.Image = Properties.Resources.Icn_ViewSwtch_Type_off;
-            BTN_Type.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            BTN_Type.ImageTransparentColor = System.Drawing.Color.Magenta;
-            BTN_Type.Name = "BTN_Type";
-            BTN_Type.Size = new System.Drawing.Size(29, 48);
-            BTN_Type.Text = "toolStripButton3";
-            BTN_Type.ToolTipText = "Type";
-            BTN_Type.Click += BTN_Type_Click;
-            // 
-            // BTN_Name
-            // 
-            BTN_Name.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            BTN_Name.Image = Properties.Resources.Icn_ViewSwtch_Name_off;
-            BTN_Name.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            BTN_Name.ImageTransparentColor = System.Drawing.Color.Magenta;
-            BTN_Name.Name = "BTN_Name";
-            BTN_Name.Size = new System.Drawing.Size(29, 48);
-            BTN_Name.Text = "toolStripButton4";
-            BTN_Name.ToolTipText = "キャ名";
-            BTN_Name.Click += BTN_Name_Click;
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(6, 51);
-            // 
-            // SDB_ViewMode
-            // 
-            SDB_ViewMode.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { SDB_View_ItemList, SDB_View_ItemText });
-            SDB_ViewMode.Image = Properties.Resources.description;
-            SDB_ViewMode.ImageTransparentColor = System.Drawing.Color.Magenta;
-            SDB_ViewMode.Name = "SDB_ViewMode";
-            SDB_ViewMode.Size = new System.Drawing.Size(75, 48);
-            SDB_ViewMode.Text = "View";
-            SDB_ViewMode.ToolTipText = "表示モード切替";
-            // 
-            // SDB_View_ItemList
-            // 
-            SDB_View_ItemList.Name = "SDB_View_ItemList";
-            SDB_View_ItemList.Size = new System.Drawing.Size(165, 26);
-            SDB_View_ItemList.Text = "リストビュー";
-            SDB_View_ItemList.Click += SDB_View_ItemList_Click;
-            // 
-            // SDB_View_ItemText
-            // 
-            SDB_View_ItemText.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { ItemChatMode, ItemDumpMode });
-            SDB_View_ItemText.Name = "SDB_View_ItemText";
-            SDB_View_ItemText.Size = new System.Drawing.Size(165, 26);
-            SDB_View_ItemText.Text = "テキストビュー";
-            SDB_View_ItemText.Click += SDB_View_ItemText_Click;
-            // 
-            // ItemChatMode
-            // 
-            ItemChatMode.Name = "ItemChatMode";
-            ItemChatMode.Size = new System.Drawing.Size(156, 26);
-            ItemChatMode.Text = "チャット";
-            ItemChatMode.Click += ItemChatMode_Click;
-            // 
-            // ItemDumpMode
-            // 
-            ItemDumpMode.Name = "ItemDumpMode";
-            ItemDumpMode.Size = new System.Drawing.Size(156, 26);
-            ItemDumpMode.Text = "通信ダンプ";
-            ItemDumpMode.Click += ItemDumpMode_Click;
-            // 
-            // toolStripButton1
-            // 
-            toolStripButton1.Image = (System.Drawing.Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new System.Drawing.Size(113, 48);
-            toolStripButton1.Text = "YoutubeLive";
-            toolStripButton1.ToolTipText = "YoutubeLive";
-            toolStripButton1.Click += toolStripButton1_Click;
             // 
             // LSV_chat
             // 
@@ -649,10 +307,18 @@
             // 
             // Mnu_File
             // 
-            Mnu_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_Export, Mnu_Replay, Mnu_Quit, toolStripSeparator10 });
+            Mnu_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_SystemSetiing, Mnu_Export, Mnu_Replay, Mnu_Quit });
             Mnu_File.Name = "Mnu_File";
             Mnu_File.Size = new System.Drawing.Size(96, 29);
             Mnu_File.Text = "ファイル(&F)";
+            // 
+            // Mnu_SystemSetiing
+            // 
+            Mnu_SystemSetiing.Image = Properties.Resources.Icn_Settings;
+            Mnu_SystemSetiing.Name = "Mnu_SystemSetiing";
+            Mnu_SystemSetiing.Size = new System.Drawing.Size(200, 30);
+            Mnu_SystemSetiing.Text = "設定";
+            Mnu_SystemSetiing.Click += Mnu_SystemSetiing_Click;
             // 
             // Mnu_Export
             // 
@@ -675,152 +341,141 @@
             Mnu_Quit.Text = "終了(&Q)";
             Mnu_Quit.Click += Mnu_Quit_Click;
             // 
-            // toolStripSeparator10
-            // 
-            toolStripSeparator10.Name = "toolStripSeparator10";
-            toolStripSeparator10.Size = new System.Drawing.Size(197, 6);
-            // 
             // Mnu_Edit
             // 
-            Mnu_Edit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_PlayerList, toolStripSeparator7, Mnu_Player, Mnu_NPC, toolStripSeparator4, Mnu_Echa, Mnu_Clear, Mnu_Setup });
+            Mnu_Edit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripSeparator7, Mnu_PC, Mnu_NPC, Mnu_CharaList, toolStripSeparator8, Mnu_CharList_Edit, Mnu_Echa, toolStripSeparator4, Mnu_Clear });
             Mnu_Edit.Name = "Mnu_Edit";
             Mnu_Edit.Size = new System.Drawing.Size(81, 29);
             Mnu_Edit.Text = "編集(&E)";
-            // 
-            // Mnu_PlayerList
-            // 
-            Mnu_PlayerList.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_PlayerListEdit, toolStripSeparator8, Mnu_PlayerList_Off, Mnu_PlayerList_Text, Mnu_PlayerList_Voice });
-            Mnu_PlayerList.Image = Properties.Resources.Icn_SelectUser_off;
-            Mnu_PlayerList.Name = "Mnu_PlayerList";
-            Mnu_PlayerList.Size = new System.Drawing.Size(203, 30);
-            Mnu_PlayerList.Text = "プレイヤーリスト";
-            // 
-            // Mnu_PlayerListEdit
-            // 
-            Mnu_PlayerListEdit.Image = Properties.Resources.Icn_UserList_;
-            Mnu_PlayerListEdit.Name = "Mnu_PlayerListEdit";
-            Mnu_PlayerListEdit.Size = new System.Drawing.Size(140, 30);
-            Mnu_PlayerListEdit.Text = "List";
-            Mnu_PlayerListEdit.Click += Mnu_PlayerListEdit_Click;
-            // 
-            // toolStripSeparator8
-            // 
-            toolStripSeparator8.Name = "toolStripSeparator8";
-            toolStripSeparator8.Size = new System.Drawing.Size(137, 6);
-            // 
-            // Mnu_PlayerList_Off
-            // 
-            Mnu_PlayerList_Off.Image = Properties.Resources.Icn_SelectUser_off;
-            Mnu_PlayerList_Off.Name = "Mnu_PlayerList_Off";
-            Mnu_PlayerList_Off.Size = new System.Drawing.Size(140, 30);
-            Mnu_PlayerList_Off.Text = "Off";
-            Mnu_PlayerList_Off.Click += Mnu_PlayerList_Off_Click;
-            // 
-            // Mnu_PlayerList_Text
-            // 
-            Mnu_PlayerList_Text.Image = Properties.Resources.Icn_SelectUser_chat;
-            Mnu_PlayerList_Text.Name = "Mnu_PlayerList_Text";
-            Mnu_PlayerList_Text.Size = new System.Drawing.Size(140, 30);
-            Mnu_PlayerList_Text.Text = "Chat";
-            Mnu_PlayerList_Text.Click += Mnu_PlayerList_Text_Click;
-            // 
-            // Mnu_PlayerList_Voice
-            // 
-            Mnu_PlayerList_Voice.Image = Properties.Resources.Icn_SelectUser_voice;
-            Mnu_PlayerList_Voice.Name = "Mnu_PlayerList_Voice";
-            Mnu_PlayerList_Voice.Size = new System.Drawing.Size(140, 30);
-            Mnu_PlayerList_Voice.Text = "Voice";
-            Mnu_PlayerList_Voice.Click += Mnu_PlayerList_Voice_Click;
+            Mnu_Edit.DropDownClosed += Mnu_Edit_DropDownClosed;
+            Mnu_Edit.DropDownOpening += Mnu_Edit_DropDownOpening;
             // 
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new System.Drawing.Size(200, 6);
+            toolStripSeparator7.Size = new System.Drawing.Size(220, 6);
             // 
-            // Mnu_Player
+            // Mnu_PC
             // 
-            Mnu_Player.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_Player_Off, Mnu_Player_Text, Mnu_Player_Voice1, Mnu_Player_Voice2 });
-            Mnu_Player.Image = Properties.Resources.Icn_User_off;
-            Mnu_Player.Name = "Mnu_Player";
-            Mnu_Player.Size = new System.Drawing.Size(203, 30);
-            Mnu_Player.Text = "プレイヤー";
+            Mnu_PC.Checked = true;
+            Mnu_PC.CheckState = System.Windows.Forms.CheckState.Checked;
+            Mnu_PC.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_PC_Chat, Mnu_PC_TTS });
+            Mnu_PC.Image = Properties.Resources.Icon_PC_Chat;
+            Mnu_PC.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_PC.Name = "Mnu_PC";
+            Mnu_PC.Size = new System.Drawing.Size(223, 38);
+            Mnu_PC.Tag = "0";
+            Mnu_PC.Text = "PC";
+            Mnu_PC.CheckedChanged += Mnu_PC_CheckedChanged;
+            Mnu_PC.Click += Mnu_PC_Click;
             // 
-            // Mnu_Player_Off
+            // Mnu_PC_Chat
             // 
-            Mnu_Player_Off.Image = Properties.Resources.Icn_User_off;
-            Mnu_Player_Off.Name = "Mnu_Player_Off";
-            Mnu_Player_Off.Size = new System.Drawing.Size(150, 30);
-            Mnu_Player_Off.Text = "Off";
-            Mnu_Player_Off.Click += Mnu_Player_Off_Click;
+            Mnu_PC_Chat.Checked = true;
+            Mnu_PC_Chat.CheckState = System.Windows.Forms.CheckState.Checked;
+            Mnu_PC_Chat.Image = Properties.Resources.Icon_PC_Chat;
+            Mnu_PC_Chat.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_PC_Chat.Name = "Mnu_PC_Chat";
+            Mnu_PC_Chat.Size = new System.Drawing.Size(146, 38);
+            Mnu_PC_Chat.Text = "Chat";
+            Mnu_PC_Chat.Click += Mnu_PC_Chat_Click;
             // 
-            // Mnu_Player_Text
+            // Mnu_PC_TTS
             // 
-            Mnu_Player_Text.Image = Properties.Resources.Icn_User_chat;
-            Mnu_Player_Text.Name = "Mnu_Player_Text";
-            Mnu_Player_Text.Size = new System.Drawing.Size(150, 30);
-            Mnu_Player_Text.Text = "Chat";
-            Mnu_Player_Text.Click += Mnu_Player_Text_Click;
-            // 
-            // Mnu_Player_Voice1
-            // 
-            Mnu_Player_Voice1.Image = Properties.Resources.Icn_User_v1;
-            Mnu_Player_Voice1.Name = "Mnu_Player_Voice1";
-            Mnu_Player_Voice1.Size = new System.Drawing.Size(150, 30);
-            Mnu_Player_Voice1.Text = "Voice1";
-            Mnu_Player_Voice1.Click += Mnu_Player_Voice1_Click;
-            // 
-            // Mnu_Player_Voice2
-            // 
-            Mnu_Player_Voice2.Image = Properties.Resources.Icn_User_v2;
-            Mnu_Player_Voice2.Name = "Mnu_Player_Voice2";
-            Mnu_Player_Voice2.Size = new System.Drawing.Size(150, 30);
-            Mnu_Player_Voice2.Text = "Voice2";
-            Mnu_Player_Voice2.Click += Mnu_Player_Voice2_Click;
+            Mnu_PC_TTS.Image = Properties.Resources.Icon_PC_TTS;
+            Mnu_PC_TTS.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_PC_TTS.Name = "Mnu_PC_TTS";
+            Mnu_PC_TTS.Size = new System.Drawing.Size(146, 38);
+            Mnu_PC_TTS.Text = "TTS";
+            Mnu_PC_TTS.Click += Mnu_PC_TTS_Click;
             // 
             // Mnu_NPC
             // 
-            Mnu_NPC.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_NPC_Off, Mnu_NPC_Text, Mnu_NPC_Voice1, Mnu_NPC_Voice2 });
-            Mnu_NPC.Image = Properties.Resources.Icn_Npc_off;
+            Mnu_NPC.Checked = true;
+            Mnu_NPC.CheckState = System.Windows.Forms.CheckState.Checked;
+            Mnu_NPC.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_NPC_Chat, Mnu_NPC_TTS });
+            Mnu_NPC.Image = Properties.Resources.Icon_NPC_Chat;
+            Mnu_NPC.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_NPC.Name = "Mnu_NPC";
-            Mnu_NPC.Size = new System.Drawing.Size(203, 30);
+            Mnu_NPC.Size = new System.Drawing.Size(223, 38);
             Mnu_NPC.Text = "NPC";
+            Mnu_NPC.CheckedChanged += Mnu_NPC_CheckedChanged;
+            Mnu_NPC.Click += Mnu_NPC_Click;
             // 
-            // Mnu_NPC_Off
+            // Mnu_NPC_Chat
             // 
-            Mnu_NPC_Off.Image = Properties.Resources.Icn_Npc_off;
-            Mnu_NPC_Off.Name = "Mnu_NPC_Off";
-            Mnu_NPC_Off.Size = new System.Drawing.Size(150, 30);
-            Mnu_NPC_Off.Text = "Off";
-            Mnu_NPC_Off.Click += Mnu_NPC_Off_Click;
+            Mnu_NPC_Chat.Checked = true;
+            Mnu_NPC_Chat.CheckState = System.Windows.Forms.CheckState.Checked;
+            Mnu_NPC_Chat.Image = Properties.Resources.Icon_NPC_Chat;
+            Mnu_NPC_Chat.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_NPC_Chat.Name = "Mnu_NPC_Chat";
+            Mnu_NPC_Chat.Size = new System.Drawing.Size(146, 38);
+            Mnu_NPC_Chat.Text = "Chat";
+            Mnu_NPC_Chat.Click += Mnu_NPC_Chat_Click;
             // 
-            // Mnu_NPC_Text
+            // Mnu_NPC_TTS
             // 
-            Mnu_NPC_Text.Image = Properties.Resources.Icn_Npc_chat;
-            Mnu_NPC_Text.Name = "Mnu_NPC_Text";
-            Mnu_NPC_Text.Size = new System.Drawing.Size(150, 30);
-            Mnu_NPC_Text.Text = "Chat";
-            Mnu_NPC_Text.Click += Mnu_NPC_Text_Click;
+            Mnu_NPC_TTS.Image = Properties.Resources.Icon_NPC_TTS;
+            Mnu_NPC_TTS.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_NPC_TTS.Name = "Mnu_NPC_TTS";
+            Mnu_NPC_TTS.Size = new System.Drawing.Size(146, 38);
+            Mnu_NPC_TTS.Text = "TTS";
+            Mnu_NPC_TTS.Click += Mnu_NPC_TTS_Click;
             // 
-            // Mnu_NPC_Voice1
+            // Mnu_CharaList
             // 
-            Mnu_NPC_Voice1.Image = Properties.Resources.Icn_Npc_v1;
-            Mnu_NPC_Voice1.Name = "Mnu_NPC_Voice1";
-            Mnu_NPC_Voice1.Size = new System.Drawing.Size(150, 30);
-            Mnu_NPC_Voice1.Text = "Voice1";
-            Mnu_NPC_Voice1.Click += Mnu_NPC_Voice1_Click;
+            Mnu_CharaList.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_CharaList_Chat, Mnu_CharaList_TTS, Mnu_CharaList_Voice });
+            Mnu_CharaList.Image = Properties.Resources.Icon_CharaList_Chat;
+            Mnu_CharaList.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_CharaList.Name = "Mnu_CharaList";
+            Mnu_CharaList.Size = new System.Drawing.Size(223, 38);
+            Mnu_CharaList.Tag = "1";
+            Mnu_CharaList.Text = "キャラリスト";
+            Mnu_CharaList.CheckedChanged += Mnu_CharaList_CheckedChanged;
+            Mnu_CharaList.Click += Mnu_CharaList_Click;
             // 
-            // Mnu_NPC_Voice2
+            // Mnu_CharaList_Chat
             // 
-            Mnu_NPC_Voice2.Image = Properties.Resources.Icn_Npc_v2;
-            Mnu_NPC_Voice2.Name = "Mnu_NPC_Voice2";
-            Mnu_NPC_Voice2.Size = new System.Drawing.Size(150, 30);
-            Mnu_NPC_Voice2.Text = "Voice2";
-            Mnu_NPC_Voice2.Click += Mnu_NPC_Voice2_Click;
+            Mnu_CharaList_Chat.Checked = true;
+            Mnu_CharaList_Chat.CheckState = System.Windows.Forms.CheckState.Checked;
+            Mnu_CharaList_Chat.Image = Properties.Resources.Icon_CharaList_Chat;
+            Mnu_CharaList_Chat.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_CharaList_Chat.Name = "Mnu_CharaList_Chat";
+            Mnu_CharaList_Chat.Size = new System.Drawing.Size(152, 38);
+            Mnu_CharaList_Chat.Text = "Chat";
+            Mnu_CharaList_Chat.Click += Mnu_CharaList_Chat_Click;
             // 
-            // toolStripSeparator4
+            // Mnu_CharaList_TTS
             // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new System.Drawing.Size(200, 6);
+            Mnu_CharaList_TTS.Image = Properties.Resources.Icon_CharaList_TTS;
+            Mnu_CharaList_TTS.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_CharaList_TTS.Name = "Mnu_CharaList_TTS";
+            Mnu_CharaList_TTS.Size = new System.Drawing.Size(152, 38);
+            Mnu_CharaList_TTS.Text = "TTS";
+            Mnu_CharaList_TTS.Click += Mnu_CharaList_TTS_Click;
+            // 
+            // Mnu_CharaList_Voice
+            // 
+            Mnu_CharaList_Voice.Image = Properties.Resources.Icon_CharaList_VOICE;
+            Mnu_CharaList_Voice.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_CharaList_Voice.Name = "Mnu_CharaList_Voice";
+            Mnu_CharaList_Voice.Size = new System.Drawing.Size(152, 38);
+            Mnu_CharaList_Voice.Text = "Voice";
+            Mnu_CharaList_Voice.Click += Mnu_CharaList_Voice_Click;
+            // 
+            // toolStripSeparator8
+            // 
+            toolStripSeparator8.Name = "toolStripSeparator8";
+            toolStripSeparator8.Size = new System.Drawing.Size(220, 6);
+            // 
+            // Mnu_CharList_Edit
+            // 
+            Mnu_CharList_Edit.Image = Properties.Resources.Icon_CharaListEdit;
+            Mnu_CharList_Edit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_CharList_Edit.Name = "Mnu_CharList_Edit";
+            Mnu_CharList_Edit.Size = new System.Drawing.Size(223, 38);
+            Mnu_CharList_Edit.Text = "キャラリスト編集";
+            Mnu_CharList_Edit.Click += Mnu_CharList_Edit_Click;
             // 
             // Mnu_Echa
             // 
@@ -828,26 +483,24 @@
             Mnu_Echa.CheckOnClick = true;
             Mnu_Echa.CheckState = System.Windows.Forms.CheckState.Checked;
             Mnu_Echa.Image = Properties.Resources.Icn_echa_off;
+            Mnu_Echa.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_Echa.Name = "Mnu_Echa";
-            Mnu_Echa.Size = new System.Drawing.Size(203, 30);
+            Mnu_Echa.Size = new System.Drawing.Size(223, 38);
             Mnu_Echa.Text = "絵チャ保存(&P)";
             Mnu_Echa.CheckedChanged += Mnu_Echa_CheckedChanged;
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(220, 6);
             // 
             // Mnu_Clear
             // 
             Mnu_Clear.Image = Properties.Resources.Icn_pageclear;
             Mnu_Clear.Name = "Mnu_Clear";
-            Mnu_Clear.Size = new System.Drawing.Size(203, 30);
+            Mnu_Clear.Size = new System.Drawing.Size(223, 38);
             Mnu_Clear.Text = "クリア(&C)";
             Mnu_Clear.Click += Btn_Clear_Click;
-            // 
-            // Mnu_Setup
-            // 
-            Mnu_Setup.Image = Properties.Resources.Icn_Settings;
-            Mnu_Setup.Name = "Mnu_Setup";
-            Mnu_Setup.Size = new System.Drawing.Size(203, 30);
-            Mnu_Setup.Text = "設定(&S)";
-            Mnu_Setup.Click += Mnu_Setup_Click;
             // 
             // Mnu_View
             // 
@@ -943,7 +596,6 @@
             Controls.Add(LSV_chat);
             Controls.Add(Txt_Chat);
             Controls.Add(statusStrip1);
-            Controls.Add(toolStrip1);
             Controls.Add(menuStrip1);
             Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
@@ -953,7 +605,7 @@
             MinimumSize = new System.Drawing.Size(1059, 327);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Text = "Pre261101-1-MabiChatSpeech (Ver.1.200)";
+            Text = "Pre261108-1-MabiChatSpeech (Ver.1.200)";
             FormClosing += Main_FormClosing;
             FormClosed += Main_FormClosed;
             Load += Main_Load;
@@ -961,8 +613,6 @@
             KeyDown += Main_KeyDown;
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -975,35 +625,9 @@
         private System.Windows.Forms.ToolStripStatusLabel SLB_Client;
         private System.Windows.Forms.ToolStripStatusLabel SLB_Ip;
         private System.Windows.Forms.Timer Tim_Status;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton Btn_Clear;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripStatusLabel SLB_SaveMode;
-        private System.Windows.Forms.ToolStripButton Btn_List;
-        private System.Windows.Forms.ToolStripButton Btn_Setup;
         private System.Windows.Forms.ToolStripStatusLabel SLB_Mode;
-        private System.Windows.Forms.ToolStripButton Btn_echa;
         private System.Windows.Forms.ToolStripStatusLabel SLB_SendTask;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton BTN_No;
-        private System.Windows.Forms.ToolStripButton BTN_Time;
-        private System.Windows.Forms.ToolStripButton BTN_Type;
-        private System.Windows.Forms.ToolStripButton BTN_Name;
-        private System.Windows.Forms.ToolStripDropDownButton SDB_Npc;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripDropDownButton SDB_User;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
-        private System.Windows.Forms.ToolStripDropDownButton SDB_SelectList;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ListView LSV_chat;
         private System.Windows.Forms.ColumnHeader columnHeader1;
@@ -1011,24 +635,17 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ToolStripDropDownButton SDB_ViewMode;
-        private System.Windows.Forms.ToolStripMenuItem SDB_View_ItemList;
-        private System.Windows.Forms.ToolStripMenuItem SDB_View_ItemText;
-        private System.Windows.Forms.ToolStripMenuItem ItemChatMode;
-        private System.Windows.Forms.ToolStripMenuItem ItemDumpMode;
         private System.Windows.Forms.ToolStripProgressBar TPB_Save;
         private System.Windows.Forms.ToolStripStatusLabel TPB_Max;
         private System.Windows.Forms.ToolStripStatusLabel TPB_Event;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem Mnu_File;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Quit;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Edit;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_PlayerList;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_Player;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_CharaList;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_PC;
         private System.Windows.Forms.ToolStripMenuItem Mnu_NPC;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_Setup;
         private System.Windows.Forms.ToolStripMenuItem Mnu_View;
         private System.Windows.Forms.ToolStripMenuItem Mnu_ViewText;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
@@ -1039,24 +656,17 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem Mnu_YoutubeLive;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_Player_Off;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_Player_Text;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_Player_Voice1;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_Player_Voice2;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_NPC_Off;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_NPC_Text;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_NPC_Voice1;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_NPC_Voice2;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_PlayerList_Off;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_PlayerList_Text;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_PlayerListEdit;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_PlayerList_Voice;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_PC_Chat;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_PC_TTS;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_NPC_Chat;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_NPC_TTS;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_CharaList_Chat;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_CharaList_Voice;
         private System.Windows.Forms.ToolStripMenuItem Mnu_ViewDump;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Echa;
         private System.Windows.Forms.ToolStripMenuItem Mnu_ViewList;
-        private System.Windows.Forms.ToolStripStatusLabel SSL_UserList;
-        private System.Windows.Forms.ToolStripStatusLabel SSL_Player;
+        private System.Windows.Forms.ToolStripStatusLabel SSL_CharaList;
+        private System.Windows.Forms.ToolStripStatusLabel SSL_PC;
         private System.Windows.Forms.ToolStripStatusLabel SSL_NPC;
         private System.Windows.Forms.ToolStripStatusLabel SSL_Echa;
         private System.Windows.Forms.ToolStripStatusLabel SSL_Youtube;
@@ -1065,11 +675,14 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Help;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Replay;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripStatusLabel SSL_VoiceVox;
         private System.Windows.Forms.ToolStripStatusLabel SSL_AivisSpeech;
         private System.Windows.Forms.ToolStripStatusLabel SSL_VoiceAPI;
         private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_CharList_Edit;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_SystemSetiing;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_CharaList_TTS;
     }
 }
 

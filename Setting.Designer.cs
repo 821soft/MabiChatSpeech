@@ -43,7 +43,6 @@
             label8 = new System.Windows.Forms.Label();
             label12 = new System.Windows.Forms.Label();
             Cmb_NPC = new System.Windows.Forms.ComboBox();
-            Cmb_User = new System.Windows.Forms.ComboBox();
             label11 = new System.Windows.Forms.Label();
             label13 = new System.Windows.Forms.Label();
             label14 = new System.Windows.Forms.Label();
@@ -55,9 +54,9 @@
             label19 = new System.Windows.Forms.Label();
             label20 = new System.Windows.Forms.Label();
             tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            Cmb_Whitelist = new System.Windows.Forms.ComboBox();
             Btn_WhiteList = new System.Windows.Forms.Button();
             CHK_AutoAdd = new System.Windows.Forms.CheckBox();
+            Cmb_Whitelist = new System.Windows.Forms.ComboBox();
             label26 = new System.Windows.Forms.Label();
             Btn_ServerInfo = new System.Windows.Forms.Button();
             tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
@@ -95,6 +94,9 @@
             tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             Txt_AivisSpeech_exe = new System.Windows.Forms.TextBox();
             Btn_Exec_Aivis = new System.Windows.Forms.Button();
+            tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            Cmb_User = new System.Windows.Forms.ComboBox();
+            Chk_PET = new System.Windows.Forms.CheckBox();
             panel1 = new System.Windows.Forms.Panel();
             Btn_Cancel = new System.Windows.Forms.Button();
             Btn_Ok = new System.Windows.Forms.Button();
@@ -114,6 +116,7 @@
             tableLayoutPanel5.SuspendLayout();
             tableLayoutPanel9.SuspendLayout();
             tableLayoutPanel10.SuspendLayout();
+            tableLayoutPanel11.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -137,7 +140,6 @@
             tableLayoutPanel1.Controls.Add(label8, 0, 13);
             tableLayoutPanel1.Controls.Add(label12, 0, 14);
             tableLayoutPanel1.Controls.Add(Cmb_NPC, 1, 14);
-            tableLayoutPanel1.Controls.Add(Cmb_User, 1, 13);
             tableLayoutPanel1.Controls.Add(label11, 0, 18);
             tableLayoutPanel1.Controls.Add(label13, 0, 19);
             tableLayoutPanel1.Controls.Add(label14, 0, 20);
@@ -162,6 +164,7 @@
             tableLayoutPanel1.Controls.Add(label29, 0, 26);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel9, 1, 25);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel10, 1, 26);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel11, 1, 13);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(6);
@@ -345,7 +348,7 @@
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(196, 41);
             label8.TabIndex = 11;
-            label8.Text = "　　User";
+            label8.Text = "　　PC";
             label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label12
@@ -369,20 +372,8 @@
             Cmb_NPC.Location = new System.Drawing.Point(208, 577);
             Cmb_NPC.Margin = new System.Windows.Forms.Padding(0);
             Cmb_NPC.Name = "Cmb_NPC";
-            Cmb_NPC.Size = new System.Drawing.Size(155, 33);
+            Cmb_NPC.Size = new System.Drawing.Size(158, 33);
             Cmb_NPC.TabIndex = 12;
-            // 
-            // Cmb_User
-            // 
-            Cmb_User.Dock = System.Windows.Forms.DockStyle.Left;
-            Cmb_User.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            Cmb_User.FormattingEnabled = true;
-            Cmb_User.Items.AddRange(new object[] { "OFF", "Chat On", "Voice 1", "Voice 2" });
-            Cmb_User.Location = new System.Drawing.Point(208, 536);
-            Cmb_User.Margin = new System.Windows.Forms.Padding(0);
-            Cmb_User.Name = "Cmb_User";
-            Cmb_User.Size = new System.Drawing.Size(155, 33);
-            Cmb_User.TabIndex = 10;
             // 
             // label11
             // 
@@ -509,12 +500,12 @@
             // tableLayoutPanel2
             // 
             tableLayoutPanel2.ColumnCount = 3;
-            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 168F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 132F));
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel2.Controls.Add(Cmb_Whitelist, 0, 0);
             tableLayoutPanel2.Controls.Add(Btn_WhiteList, 1, 0);
             tableLayoutPanel2.Controls.Add(CHK_AutoAdd, 2, 0);
+            tableLayoutPanel2.Controls.Add(Cmb_Whitelist, 0, 0);
             tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel2.Location = new System.Drawing.Point(208, 495);
             tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
@@ -524,20 +515,9 @@
             tableLayoutPanel2.Size = new System.Drawing.Size(626, 41);
             tableLayoutPanel2.TabIndex = 38;
             // 
-            // Cmb_Whitelist
-            // 
-            Cmb_Whitelist.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            Cmb_Whitelist.FormattingEnabled = true;
-            Cmb_Whitelist.Items.AddRange(new object[] { "OFF", "Chat Only", "Voice" });
-            Cmb_Whitelist.Location = new System.Drawing.Point(0, 0);
-            Cmb_Whitelist.Margin = new System.Windows.Forms.Padding(0);
-            Cmb_Whitelist.Name = "Cmb_Whitelist";
-            Cmb_Whitelist.Size = new System.Drawing.Size(155, 33);
-            Cmb_Whitelist.TabIndex = 7;
-            // 
             // Btn_WhiteList
             // 
-            Btn_WhiteList.Location = new System.Drawing.Point(168, 0);
+            Btn_WhiteList.Location = new System.Drawing.Point(170, 0);
             Btn_WhiteList.Margin = new System.Windows.Forms.Padding(0);
             Btn_WhiteList.Name = "Btn_WhiteList";
             Btn_WhiteList.Size = new System.Drawing.Size(126, 41);
@@ -550,13 +530,24 @@
             // 
             CHK_AutoAdd.AutoSize = true;
             CHK_AutoAdd.Dock = System.Windows.Forms.DockStyle.Fill;
-            CHK_AutoAdd.Location = new System.Drawing.Point(306, 0);
+            CHK_AutoAdd.Location = new System.Drawing.Point(308, 0);
             CHK_AutoAdd.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             CHK_AutoAdd.Name = "CHK_AutoAdd";
-            CHK_AutoAdd.Size = new System.Drawing.Size(314, 41);
+            CHK_AutoAdd.Size = new System.Drawing.Size(312, 41);
             CHK_AutoAdd.TabIndex = 9;
             CHK_AutoAdd.Text = "指定リストに自動追加";
             CHK_AutoAdd.UseVisualStyleBackColor = true;
+            // 
+            // Cmb_Whitelist
+            // 
+            Cmb_Whitelist.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            Cmb_Whitelist.FormattingEnabled = true;
+            Cmb_Whitelist.Items.AddRange(new object[] { "OFF", "Chat Only", "Voice" });
+            Cmb_Whitelist.Location = new System.Drawing.Point(0, 0);
+            Cmb_Whitelist.Margin = new System.Windows.Forms.Padding(0);
+            Cmb_Whitelist.Name = "Cmb_Whitelist";
+            Cmb_Whitelist.Size = new System.Drawing.Size(158, 33);
+            Cmb_Whitelist.TabIndex = 7;
             // 
             // label26
             // 
@@ -1025,6 +1016,45 @@
             Btn_Exec_Aivis.Text = "Aivis起動";
             Btn_Exec_Aivis.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutPanel11
+            // 
+            tableLayoutPanel11.ColumnCount = 3;
+            tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
+            tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            tableLayoutPanel11.Controls.Add(Cmb_User, 0, 0);
+            tableLayoutPanel11.Controls.Add(Chk_PET, 1, 0);
+            tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel11.Location = new System.Drawing.Point(211, 539);
+            tableLayoutPanel11.Name = "tableLayoutPanel11";
+            tableLayoutPanel11.RowCount = 1;
+            tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel11.Size = new System.Drawing.Size(620, 35);
+            tableLayoutPanel11.TabIndex = 63;
+            // 
+            // Cmb_User
+            // 
+            Cmb_User.Dock = System.Windows.Forms.DockStyle.Left;
+            Cmb_User.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            Cmb_User.FormattingEnabled = true;
+            Cmb_User.Items.AddRange(new object[] { "OFF", "Chat On", "Voice 1", "Voice 2" });
+            Cmb_User.Location = new System.Drawing.Point(0, 0);
+            Cmb_User.Margin = new System.Windows.Forms.Padding(0);
+            Cmb_User.Name = "Cmb_User";
+            Cmb_User.Size = new System.Drawing.Size(155, 33);
+            Cmb_User.TabIndex = 10;
+            Cmb_User.SelectedIndexChanged += Cmb_User_SelectedIndexChanged;
+            // 
+            // Chk_PET
+            // 
+            Chk_PET.AutoSize = true;
+            Chk_PET.Location = new System.Drawing.Point(173, 3);
+            Chk_PET.Name = "Chk_PET";
+            Chk_PET.Size = new System.Drawing.Size(251, 29);
+            Chk_PET.TabIndex = 11;
+            Chk_PET.Text = "PCの付属キャラ(PET等)は無視";
+            Chk_PET.UseVisualStyleBackColor = true;
+            // 
             // panel1
             // 
             panel1.Controls.Add(Btn_Cancel);
@@ -1104,6 +1134,8 @@
             tableLayoutPanel9.PerformLayout();
             tableLayoutPanel10.ResumeLayout(false);
             tableLayoutPanel10.PerformLayout();
+            tableLayoutPanel11.ResumeLayout(false);
+            tableLayoutPanel11.PerformLayout();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -1182,5 +1214,7 @@
         private System.Windows.Forms.Button Btn_Exec_VoiceVox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.Button Btn_Exec_Aivis;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.CheckBox Chk_PET;
     }
 }

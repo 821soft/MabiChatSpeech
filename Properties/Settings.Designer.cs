@@ -457,7 +457,8 @@ namespace MabiChatSpeech.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\VOICEVOX\\VOICEVOX.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\honeb\\AppData\\Roaming\\voicevox\\vvpp-engines\\VOICEVOX_Engine+074fc39e-678" +
+            "b-4c13-8916-ffca8d505d1d\\run.exe")]
         public string @__VoiceVox {
             get {
                 return ((string)(this["__VoiceVox"]));
@@ -469,13 +470,49 @@ namespace MabiChatSpeech.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\AivisSpeech\\AivisSpeech.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\AivisSpeech\\AivisSpeech-Engine\\run.exe")]
         public string @__AivisSpeech {
             get {
                 return ((string)(this["__AivisSpeech"]));
             }
             set {
                 this["__AivisSpeech"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int @__ChatMode_PC {
+            get {
+                return ((int)(this["__ChatMode_PC"]));
+            }
+            set {
+                this["__ChatMode_PC"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int @__ChatMode_NPC {
+            get {
+                return ((int)(this["__ChatMode_NPC"]));
+            }
+            set {
+                this["__ChatMode_NPC"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int @__ChatMode_Voice {
+            get {
+                return ((int)(this["__ChatMode_Voice"]));
+            }
+            set {
+                this["__ChatMode_Voice"] = value;
             }
         }
     }

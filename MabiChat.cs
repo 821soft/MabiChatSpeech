@@ -175,7 +175,7 @@ namespace MabiChatSpeech
                 }
                 else
                 {
-                    VoiceEngen = ChatVoiceEngine.None;
+                    VoiceEngen = ChatVoiceEngine.TTS;
                 }
                 VoiceName = fields.Length > 4 ? fields[4] : string.Empty;
                 VoiceId = fields.Length > 5 ? int.Parse(fields[5]) : -1;
@@ -212,7 +212,7 @@ namespace MabiChatSpeech
                 }
                 else
                 {
-                    VoiceEngen = ChatVoiceEngine.None;
+                    VoiceEngen = ChatVoiceEngine.TTS;
                 }
 
                 VoiceName = item.SubItems.Count > 4 ? item.SubItems[4].Text : string.Empty;

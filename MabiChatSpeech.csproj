@@ -99,5 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="help.files\" />
+    <Folder Include="Properties\PNG\" />
   </ItemGroup>
 </Project>

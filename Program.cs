@@ -16,6 +16,7 @@ using System.Runtime.InteropServices;
 using System.Speech.AudioFormat;
 using System.Speech.Synthesis;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
@@ -236,7 +237,24 @@ namespace MabiChatSpeech
             get { return Properties.Settings.Default.__AivisSpeech; }
             set { Properties.Settings.Default.__AivisSpeech = value; }
         }
-
+        public static int __ChatMode_PC
+        {
+            get { return Properties.Settings.Default.__ChatMode_PC; }
+            set { Properties.Settings.Default.__ChatMode_PC = value; }
+        }
+        public static int __ChatMode_NPC
+        {
+            get { return Properties.Settings.Default.__ChatMode_NPC; }
+            set { Properties.Settings.Default.__ChatMode_NPC = value; }
+        }
+        public static int __ChatMode_Voice
+        {
+            get { return Properties.Settings.Default.__ChatMode_Voice; }
+            set { Properties.Settings.Default.__ChatMode_Voice = value; }
+        }
+        public enum ChatMode_PC { DisableChat , DisableTTS , EnableChat , EnableTTS }
+        public enum ChatMode_NPC { DisableChat , DisableTTS , EnableChat , EnableTTS }
+        public enum ChatMode_Voice { DisableChat , DisableTTS , DisableVoice , EnableChat , EnableTTS , EnableVoice }
         public static string TTS_Names()
         {
             string retval_txt ="";
@@ -283,50 +301,82 @@ namespace MabiChatSpeech
 
             return (character);
         }
-        static public int CharaList_update(CharacterNameData dat)
+        static public bool CharaList_usedEngien(ChatVoiceEngine eng)
         {
-            CharacterNameData? character = Program.CharaList.FirstOrDefault(x => ( (x.CharName == dat.CharName))&&(x.CharaTypeName == dat.CharaTypeName));
+            CharacterNameData? character = Program.CharaList.FirstOrDefault(x => x.VoiceEngen == eng);
             if (character != null)
-            { 
+            {
+                return (true);
             }
 
-            return (0);
-        }
-        static public bool IsProcessRunning(int processId)
-        {
-            try
-            {
-                using (Process process = Process.GetProcessById(processId))
-                {
-                    // HasExited プロパティを確認する前に関連づけを更新
-                    process.Refresh();
-                    return !process.HasExited;
-                }
-            }
-            catch (ArgumentException)
-            {
-                // 指定IDのプロセスが見つからない場合は終了しているとみなす
-                return false;
-            }
+            return (false);
         }
         public enum RunningStatus { Running ,NotRunning, NotIstalled } ;
 
-        static public class _RunningStatusEngine 
+        public class _RunningStatusEngine 
         {
-            public static RunningStatus VoiceVox;
-            public static RunningStatus AivisSpeech;
-            static _RunningStatusEngine()
+            public RunningStatus VoiceVox;
+            public RunningStatus AivisSpeech;
+            public _RunningStatusEngine()
             {
                 VoiceVox = IsRunning(__VoiceVox);
                 AivisSpeech = IsRunning(__AivisSpeech);
             }
 
-        }
 
+        }
+        public static Image GetEngeinIconImage(string foo ) 
+        {
+            // Voiceの起動チェック
+            Image iconImage = null;
+            // 1.設定がある場合のみ
+            if (string.Equals(foo, __VoiceVox))
+            {
+                switch (IsRunning(__VoiceVox))
+                {
+                    case RunningStatus.Running:
+                        iconImage = Properties.Resources.vvpp_0_1;
+                        break;
+                    case RunningStatus.NotRunning:
+                        iconImage = Properties.Resources.vvpp_0_1_disable;
+                        break;
+                    case RunningStatus.NotIstalled:
+                        iconImage = Properties.Resources.vvpp_0_1_error;
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+            else if(string.Equals(foo, __AivisSpeech ))
+                {
+
+                var ststusAivisSpeech = IsRunning(__AivisSpeech);
+                switch (IsRunning(__AivisSpeech))
+                {
+                    case RunningStatus.Running:
+                        iconImage = Properties.Resources.aisp_0_1;
+                        break;
+                    case RunningStatus.NotRunning:
+                        iconImage = Properties.Resources.aisp_0_1_disable;
+                        break;
+                    case RunningStatus.NotIstalled:
+                        iconImage = Properties.Resources.aisp_0_1_error;
+                        break;
+                    default:
+                        break;
+                            
+                }
+            }
+            return iconImage;
+        }
         static public RunningStatus IsRunning(string foo)
         {
+
+
             if (foo.Trim() == "")
-            { 
+            {
+//                Debug.Print($"IsRunning{foo}->RunningStatus.NotIstalled");
                 return RunningStatus.NotIstalled;
             }
 
@@ -335,11 +385,33 @@ namespace MabiChatSpeech
 
             if (foo_processes.Length == 0)
             {
+//                Debug.Print($"IsRunning{foo}->RunningStatus.NotRunning");
                 return RunningStatus.NotRunning;
             }
             else
             {
-                return RunningStatus.Running;
+                foreach (var proc in foo_processes)
+                {
+                    string path = proc.MainModule?.FileName;
+                    var comp =  string.Equals(foo, path, StringComparison.OrdinalIgnoreCase);
+//                    Debug.Print($"IsRunning comp f({foo})");
+//                    Debug.Print($"IsRunning comp p({path}");
+//                    Debug.Print($"判定:{comp}");
+
+                    if (comp)
+                    {
+//                        Debug.Print($"IsRunning{foo}->({proc.Id})RunningStatus.Running");
+                        return RunningStatus.Running;
+                    }
+                    else
+                    {
+//                        Debug.Print($"IsRunning{foo}->({proc.Id})RunningStatus.NotRunning");
+
+                        continue;
+                    }
+                }
+//                Debug.Print($"IsRunning{foo}->RunningStatus.NotRunning");
+                return RunningStatus.NotRunning;
             }
 
         }
@@ -394,8 +466,9 @@ namespace MabiChatSpeech
             {
                 __TTS2Name = TTS_NameList[0];
             }
+            _RunningStatusEngine rse = new _RunningStatusEngine();
 
-            if (_RunningStatusEngine.VoiceVox == RunningStatus.NotRunning)
+            if (rse.VoiceVox == RunningStatus.NotRunning)
             {
                 var mret = MessageBox.Show($"VoiceVoxが起動していません。起動してみる？\n{__VoiceVox}",
                                     "エラー",
@@ -403,10 +476,12 @@ namespace MabiChatSpeech
                                     MessageBoxIcon.Question);
                 if (mret == DialogResult.Yes)
                 {
-                    Process.Start(__VoiceVox);
+                    Process.Start(__VoiceVox/*, "--load_all_models"*/);
+                    Thread.Sleep(1000);
+
                 }
             }
-            if (_RunningStatusEngine.AivisSpeech == RunningStatus.NotRunning)
+            if (rse.AivisSpeech == RunningStatus.NotRunning)
             {
                 var mret = MessageBox.Show($"AivisSpeechが起動していません。起動してみる？\n{__AivisSpeech}",
                                     "エラー",
@@ -414,7 +489,9 @@ namespace MabiChatSpeech
                                     MessageBoxIcon.Question);
                 if (mret == DialogResult.Yes)
                 {
-                    Process.Start(__AivisSpeech);
+                    Process.Start(__AivisSpeech/* , "--load_all_models"*/);
+                    Thread.Sleep(1000);
+
                 }
             }
 
@@ -466,6 +543,20 @@ namespace MabiChatSpeech
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
             Application.Exit();
+        }
+
+        public static void EngeinBoot(string execEngeinPath)
+        {
+            string enginePath = execEngeinPath ; // 実際の run.exe のパスを指定
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = enginePath,
+                // 必要に応じて引数を指定（例: --host 127.0.0.1 --port 50021 など）
+                UseShellExecute = true,
+                CreateNoWindow = false // コンソールウィンドウを表示したくない場合は true
+            };
+
+            Process engineProcess = Process.Start(psi);
         }
 
     }

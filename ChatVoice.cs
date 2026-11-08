@@ -16,11 +16,11 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using static MabiChatSpeech.Program;
 using static MabiChatSpeech.WinApi;
 
 namespace MabiChatSpeech
 {
-
 
     public sealed class ChatVoice : IAsyncDisposable
     {
@@ -173,10 +173,19 @@ namespace MabiChatSpeech
             try
             {
                 var speakers = new List<ChatVoiceSpeaker>();
-                await AddSpeakersAsync(httpClient, aivisBaseUrl, ChatVoiceEngine.AivisSpeech, speakers, cancellationToken);
-                await AddSpeakersAsync(httpClient, voiceVoxBaseUrl, ChatVoiceEngine.VoiceVox, speakers, cancellationToken);
-                if (speakers.Count == 0)
-                    throw new InvalidOperationException("利用可能な話者を取得できませんでした。");
+                if( Program.IsRunning(Program.__VoiceVox) == RunningStatus.Running)
+                {
+                    await AddSpeakersAsync(httpClient, voiceVoxBaseUrl, ChatVoiceEngine.VoiceVox, speakers, cancellationToken);
+                }
+                if (Program.IsRunning(Program.__AivisSpeech) == RunningStatus.Running)
+                {
+                    await AddSpeakersAsync(httpClient, aivisBaseUrl, ChatVoiceEngine.AivisSpeech, speakers, cancellationToken);
+                }
+
+
+                if (speakers.Count == 0) 
+                    return null;
+//                    throw new InvalidOperationException("利用可能な話者を取得できませんでした。");
                 return new ChatVoice(httpClient, aivisBaseUrl, speakers.AsReadOnly());
             }
             catch
@@ -1134,7 +1143,7 @@ namespace MabiChatSpeech
 
     public enum ChatVoiceEngine
     {
-        None,
+        TTS,
         AivisSpeech,
         VoiceVox
     }

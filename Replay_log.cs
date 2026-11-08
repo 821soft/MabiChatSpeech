@@ -26,7 +26,6 @@ namespace MabiChatSpeech
     public partial class Replay_log : Form
     {
         private string _LogFileName;
-        static public ChatVoice _chatVoice;
         private ChatLogManager _chatLogManager = new ChatLogManager();
         private List<CharacterNameData> _chatvoice { get; set; } = new();
         private CancellationTokenSource? _playbackCancellation;
@@ -67,9 +66,6 @@ namespace MabiChatSpeech
 
             try
             {
-                if (_chatVoice != null)
-                    await _chatVoice.DisposeAsync();
-
                 if (_selectedPlayTask != null)
                 {
                     try { await _selectedPlayTask; }
@@ -84,7 +80,7 @@ namespace MabiChatSpeech
             {
                 try
                 {
-                    SaveVoiceListCsvFile(GetCastCsvPath());
+                    SaveCastSettingsWithConfirmation();
                 }
                 catch (Exception ex)
                 {
@@ -96,22 +92,23 @@ namespace MabiChatSpeech
 
         private async void init()
         {
-            _chatVoice = await ChatVoice.CreateMultiEngineAsync();
-            RegisterChatVoiceEvents(6);
-
-            ConnectQueueEvents();
+            if( Main._chatVoice != null)
+            {
+                RegisterChatVoiceEvents(6);
+                ConnectQueueEvents();
+            }
 
         }
         private void ConnectQueueEvents()
         {
-            if (_chatVoice == null) { return; }
-            _chatVoice!.SpeechQueued += e =>
+            if (Main._chatVoice == null) { return; }
+            Main._chatVoice!.SpeechQueued += e =>
             {
                 VoiceEvents(() =>
                     lbl_VoiceStatu.Text = $"{e.PendingCount}件 / {e.Engine}");
             };
 
-            _chatVoice.QueueBecameEmpty += () =>
+            Main._chatVoice.QueueBecameEmpty += () =>
             {
                 VoiceEvents(() =>
                     lbl_VoiceStatu.Text = "Stay");
@@ -139,8 +136,11 @@ namespace MabiChatSpeech
                 throw new ArgumentOutOfRangeException();
             _statusSubItemIndex = statusSubItemIndex;
 
-            _chatVoice!.SpeechQueued += ChatVoice_SpeechQueued;
-            _chatVoice.SpeechStatusChanged += ChatVoice_SpeechStatusChanged;
+            if (Main._chatVoice == null)
+                return;
+
+            Main._chatVoice.SpeechQueued += ChatVoice_SpeechQueued;
+            Main._chatVoice.SpeechStatusChanged += ChatVoice_SpeechStatusChanged;
         }
 
         private void ChatVoice_SpeechQueued(ChatVoice.SpeechQueueEventArgs e)
@@ -182,9 +182,18 @@ namespace MabiChatSpeech
             };
         }
 
+        private void EngeinStatus()
+        {
+
+            lbl_VoiceVox.Image = Program.GetEngeinIconImage(Program.__VoiceVox );
+            lbl_AivisSpeech.Image = Program.GetEngeinIconImage(Program.__AivisSpeech );
+        }
+
         private void Replay_log_Shown(object sender, EventArgs e)
         {
             var uniqueSet = new HashSet<string>();
+
+            EngeinStatus();
 
             lbl_FileName.Text = Path.GetFileName(LogFileName);
             lbl_Cast.Text = "なし";
@@ -239,12 +248,12 @@ namespace MabiChatSpeech
 
                     if (character == null)
                     {
-                        var sitem = listView2.Items.Add(bool.FalseString);
+                        var sitem = listView2.Items.Add(bool.TrueString);
                         sitem.SubItems.Add(charatype.ToString());               //0
                         sitem.SubItems.Add(charaname.ToString());               //1
-                        sitem.SubItems.Add($"{ChatVoiceEngine.VoiceVox}");//2
-                        sitem.SubItems.Add("ずんだもん-ノーマル");                                //3
-                        sitem.SubItems.Add("3");                               //4
+                        sitem.SubItems.Add($"{ChatVoiceEngine.TTS}");//2
+                        sitem.SubItems.Add(Program.__TTS1Name);                                //3
+                        sitem.SubItems.Add("-1");                               //4
                         sitem.SubItems.Add("1.0");                              //5
                         sitem.SubItems.Add("1.2");                              //6
                         sitem.SubItems.Add("0.0");                          //7
@@ -363,8 +372,13 @@ namespace MabiChatSpeech
                     enqueueTargetTime += TimeSpan.FromSeconds(Math.Max(0, intervalSeconds));
 
                 var cn = item.SubItems[4].Text;
-                //ListView2をキャラ名で調べ、割当音声を取得
-                ListViewItem foundItem = listView2.FindItemWithText(cn);
+                var charaType = item.SubItems[3].Text;
+                // キャラ名と種別でListView2の音声割当を検索
+                ListViewItem? foundItem = listView2.Items
+                    .Cast<ListViewItem>()
+                    .FirstOrDefault(row => row.SubItems.Count > 2 &&
+                        row.SubItems[1].Text == charaType &&
+                        row.SubItems[2].Text == cn);
                 if (foundItem != null)
                 {
                     if (foundItem.SubItems.Count == 0 ||
@@ -385,6 +399,14 @@ namespace MabiChatSpeech
                         eng = Enum.Parse<ChatVoiceEngine>(listView2.Items[index].SubItems[3].Text, ignoreCase: true);
                         vid = int.Parse(listView2.Items[index].SubItems[5].Text);
 
+                        // ChatVoice未起動時はChatVoice系エンジンの行をスキップする。
+                        // TTS指定の行はMain.speech_chatで引き続き再生する。
+                        if (eng != ChatVoiceEngine.TTS && Main._chatVoice == null)
+                        {
+                            item.Selected = false;
+                            continue;
+                        }
+
                         var cv = double.Parse(listView2.Items[index].SubItems[6].Text);
                         var cs = double.Parse(listView2.Items[index].SubItems[7].Text);
                         var cp = double.Parse(listView2.Items[index].SubItems[8].Text);
@@ -397,14 +419,15 @@ namespace MabiChatSpeech
                             s = match.Success ? match.Value : s;
                         }
 
-                        if ( switchFast == true )
+                        bool useTts = eng == ChatVoiceEngine.TTS;
+                        if (switchFast && !useTts)
                         {
                             _pendingSpeechRowIndex = item.Index;
 
                             try
                             {
                                 Debug.Print($"queueAndWaitAsync {s},{eng.ToString()},{vid}");
-                                await _chatVoice.EnqueueAndWaitAsync(s, eng, vid, p, cancellationToken);
+                                await Main._chatVoice.EnqueueAndWaitAsync(s, eng, vid, p, cancellationToken);
                                 Debug.Print($"queueAndWaitAsync Fin.");
                                 _pendingSpeechRowIndex = null;
                             }
@@ -426,19 +449,25 @@ namespace MabiChatSpeech
                             Debug.Print($"設定:{eng},{voiceName}({vid})," + p.ToString());
                             TimeSpan remaining = enqueueTargetTime - enqueueScheduleClock.Elapsed;
                             Debug.Print("次のキュー投入まで:" + Math.Max(0, remaining.TotalMilliseconds).ToString("F0"));
-                            if (vid >= 0)
+                            if (!useTts)
                             {
                                 _pendingSpeechRowIndex = item.Index;
                                 try
                                 {
                                     if (remaining > TimeSpan.Zero)
                                         await Task.Delay(remaining, cancellationToken);
-                                    _chatVoice.Enqueue(s, eng, vid, p);
+                                    Main._chatVoice!.Enqueue(s, eng, vid, p);
                                 }
                                 finally
                                 {
                                     _pendingSpeechRowIndex = null;
                                 }
+                            }
+                            else
+                            {
+                                if (remaining > TimeSpan.Zero)
+                                    await Task.Delay(remaining, cancellationToken);
+                                Program.Frm_Main.speech_chat(Program.__TTS1Name, Program.__TTS1Volume, Program.__TTS1Speed, cn, s);
                             }
                         }
                     }
@@ -458,7 +487,7 @@ namespace MabiChatSpeech
 
             }
 
-            while (_chatVoice!.PendingCount > 0)
+            while (Main._chatVoice?.PendingCount > 0)
                 await Task.Delay(50, cancellationToken);
 
         }
@@ -475,8 +504,11 @@ namespace MabiChatSpeech
                 Btn_Play.Enabled = false;
                 try
                 {
-                    _voiceDisposedForCancel = true;
-                    await _chatVoice!.DisposeAsync();
+                    if (Main._chatVoice != null)
+                    {
+                        _voiceDisposedForCancel = true;
+                        await Main._chatVoice.DisposeAsync();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -509,7 +541,7 @@ namespace MabiChatSpeech
                 {
                     try
                     {
-                        _chatVoice = await ChatVoice.CreateMultiEngineAsync();
+                        Main._chatVoice = await ChatVoice.CreateMultiEngineAsync();
                         RegisterChatVoiceEvents(6);
                         ConnectQueueEvents();
                         _voiceDisposedForCancel = false;
@@ -537,32 +569,26 @@ namespace MabiChatSpeech
                 {
                     var cname = item.SubItems[4].Text;
                     var ctype = item.SubItems[3].Text;
-                    CharacterNameData? source = Program.CharaList_find(cname, ctype);
-                    CharacterNameData edited = source == null
-                        ? new CharacterNameData
-                        {
-                            Enabled = false,
-                            CharName = cname,
-                            CharaTypeName = Enum.Parse<_CharaTypeNames>(ctype),
-                            VoiceEngen = ChatVoiceEngine.VoiceVox,
-                            VoiceName = "ずんだもん-ノーマル",
-                            VoiceId = 3,
-                            VolumeScale = 1.0f,
-                            SpeedScale = 1.2f,
-                            PitchScale = 0.0f
-                        }
-                        : new CharacterNameData
-                        {
-                            Enabled = source.Enabled,
-                            CharName = source.CharName,
-                            CharaTypeName = source.CharaTypeName,
-                            VoiceEngen = source.VoiceEngen,
-                            VoiceName = source.VoiceName,
-                            VoiceId = source.VoiceId,
-                            VolumeScale = source.VolumeScale,
-                            SpeedScale = source.SpeedScale,
-                            PitchScale = source.PitchScale
-                        };
+                    ListViewItem? castItem = listView2.Items
+                        .Cast<ListViewItem>()
+                        .FirstOrDefault(row => row.SubItems.Count >= 9 &&
+                            row.SubItems[1].Text == ctype &&
+                            row.SubItems[2].Text == cname);
+                    if (castItem == null)
+                        break;
+
+                    CharacterNameData edited = new CharacterNameData
+                    {
+                        Enabled = bool.TryParse(castItem.SubItems[0].Text, out bool enabled) && enabled,
+                        CharaTypeName = Enum.Parse<_CharaTypeNames>(castItem.SubItems[1].Text),
+                        CharName = castItem.SubItems[2].Text,
+                        VoiceEngen = Enum.Parse<ChatVoiceEngine>(castItem.SubItems[3].Text, ignoreCase: true),
+                        VoiceName = castItem.SubItems[4].Text,
+                        VoiceId = int.Parse(castItem.SubItems[5].Text),
+                        VolumeScale = float.Parse(castItem.SubItems[6].Text),
+                        SpeedScale = float.Parse(castItem.SubItems[7].Text),
+                        PitchScale = float.Parse(castItem.SubItems[8].Text)
+                    };
 
                     CharaListVoice_Edit fm = new CharaListVoice_Edit(edited, updateProgramCharaList: false);
                     fm.Owner = this;
@@ -584,50 +610,32 @@ namespace MabiChatSpeech
 
                     var cname = item.SubItems[2].Text;
                     var ctype = item.SubItems[1].Text;
-                    var dat = Program.CharaList_find(cname, ctype);
-                    if (dat == null)
-                    { //該当なし
-                        _CharaTypeNames charatype = Enum.Parse<_CharaTypeNames>(ctype);
-                        ChatVoiceEngine engine = new ChatVoiceEngine();
-                        engine = ChatVoiceEngine.VoiceVox;
+                    if (item.SubItems.Count < 9)
+                        break;
 
-                        CharacterNameData cd = new CharacterNameData();
-
-                        cd.Enabled = false;
-                        cd.CharName = cname;
-                        cd.CharaTypeName = charatype;
-                        cd.VoiceEngen = ChatVoiceEngine.VoiceVox;
-                        cd.VoiceName = "ずんだもん-ノーマル";
-                        cd.VoiceId = 3;
-                        cd.VolumeScale = 1.0f;
-                        cd.SpeedScale = 1.2f;
-                        cd.PitchScale = 0.0f;
-
-                        CharaListVoice_Edit fm = new CharaListVoice_Edit(cd);
-
-                        fm.Owner = this;
-                        fm.testword = item.SubItems[2].Text;
-                        fm.ShowDialog();
-                    }
-                    else
+                    CharacterNameData edited = new CharacterNameData
                     {
-                        CharaListVoice_Edit fm = new CharaListVoice_Edit(dat);
+                        Enabled = bool.TryParse(item.SubItems[0].Text, out bool enabled) && enabled,
+                        CharaTypeName = Enum.Parse<_CharaTypeNames>(ctype),
+                        CharName = cname,
+                        VoiceEngen = Enum.Parse<ChatVoiceEngine>(item.SubItems[3].Text, ignoreCase: true),
+                        VoiceName = item.SubItems[4].Text,
+                        VoiceId = int.Parse(item.SubItems[5].Text),
+                        VolumeScale = float.Parse(item.SubItems[6].Text),
+                        SpeedScale = float.Parse(item.SubItems[7].Text),
+                        PitchScale = float.Parse(item.SubItems[8].Text)
+                    };
 
-                        fm.Owner = this;
-                        fm.testword = item.SubItems[2].Text;
-                        fm.ShowDialog();
-                    }
-                    RefreshVoiceListItem(cname, ctype);
+                    CharaListVoice_Edit fm = new CharaListVoice_Edit(edited, updateProgramCharaList: false);
+                    fm.Owner = this;
+                    if (fm.ShowDialog() == DialogResult.OK)
+                        RefreshVoiceListItem(cname, ctype, edited);
                     break;
                 }
             }
         }
 
-        private void Btn_FastPlay_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void RefreshVoiceListItem(string charaName, string charaType)
         {
             CharacterNameData? data = Program.CharaList_find(charaName, charaType);
@@ -679,17 +687,22 @@ namespace MabiChatSpeech
 
         private void UpdateLogCharacterColors()
         {
-            var characterNames = new HashSet<string>(
-                listView2.Items.Cast<ListViewItem>()
-                    .Where(row => row.SubItems.Count > 2)
-                    .Select(row => row.SubItems[2].Text),
-                StringComparer.Ordinal);
+            var voiceAssignments = listView2.Items
+                .Cast<ListViewItem>()
+                .Where(row => row.SubItems.Count > 2)
+                .GroupBy(row => (Type: row.SubItems[1].Text, Name: row.SubItems[2].Text))
+                .ToDictionary(group => group.Key, group =>
+                    group.Last().SubItems.Count > 3 &&
+                    Enum.TryParse(group.Last().SubItems[3].Text, ignoreCase: true, out ChatVoiceEngine engine) &&
+                    engine == ChatVoiceEngine.TTS);
 
             foreach (ListViewItem logRow in listView1.Items)
             {
-                bool hasVoiceAssignment = logRow.SubItems.Count > 4 &&
-                    characterNames.Contains(logRow.SubItems[4].Text);
-                logRow.ForeColor = hasVoiceAssignment ? Color.Blue : SystemColors.WindowText;
+                bool isTts = logRow.SubItems.Count > 4 &&
+                    voiceAssignments.TryGetValue(
+                        (Type: logRow.SubItems[3].Text, Name: logRow.SubItems[4].Text),
+                        out bool assignedToTts) && assignedToTts;
+                logRow.ForeColor = isTts ? Color.Blue : Color.Red;
             }
         }
 
@@ -775,25 +788,6 @@ namespace MabiChatSpeech
             {
                 List<CharacterNameData> imported = ParseVoiceListCsv(File.ReadAllText(path, Encoding.UTF8));
 
-                foreach (CharacterNameData data in imported)
-                {
-                    CharacterNameData? existing = Program.CharaList_find(data.CharName, data.CharaTypeName);
-                    if (existing == null)
-                    {
-                        Program.CharaList.Add(data);
-                    }
-                    else
-                    {
-                        existing.Enabled = data.Enabled;
-                        existing.VoiceEngen = data.VoiceEngen;
-                        existing.VoiceName = data.VoiceName;
-                        existing.VoiceId = data.VoiceId;
-                        existing.VolumeScale = data.VolumeScale;
-                        existing.SpeedScale = data.SpeedScale;
-                        existing.PitchScale = data.PitchScale;
-                    }
-                }
-
                 listView2.BeginUpdate();
                 try
                 {
@@ -834,7 +828,8 @@ namespace MabiChatSpeech
             try
             {
                 string outputPath = GetCastCsvPath();
-                SaveVoiceListCsvFile(outputPath);
+                if (!SaveCastSettingsWithConfirmation())
+                    return;
                 MessageBox.Show(this, $"CSVを保存しました。\n{outputPath}", "CSV保存", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -881,10 +876,121 @@ namespace MabiChatSpeech
                 writer.WriteLine(string.Join(",", row.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(sub => EscapeCsv(sub.Text))));
         }
 
+        private bool SaveCastSettingsWithConfirmation()
+        {
+            List<CharacterNameData> castSettings = ParseVoiceListCsv(BuildVoiceListCsv());
+            DialogResult confirmation = ShowLargeCastSaveConfirmation(castSettings.Count);
+            if (confirmation == DialogResult.Cancel)
+                return false;
+
+            SaveVoiceListCsvFile(GetCastCsvPath());
+
+            if (confirmation == DialogResult.No)
+                return true;
+
+            foreach (CharacterNameData data in castSettings)
+            {
+                CharacterNameData? existing = Program.CharaList_find(data.CharName, data.CharaTypeName);
+                if (existing == null)
+                    Program.CharaList.Add(data);
+                else
+                {
+                    existing.Enabled = data.Enabled;
+                    existing.VoiceEngen = data.VoiceEngen;
+                    existing.VoiceName = data.VoiceName;
+                    existing.VoiceId = data.VoiceId;
+                    existing.VolumeScale = data.VolumeScale;
+                    existing.SpeedScale = data.SpeedScale;
+                    existing.PitchScale = data.PitchScale;
+                }
+            }
+
+            return true;
+        }
+
+        private DialogResult ShowLargeCastSaveConfirmation(int itemCount)
+        {
+            using var dialog = new Form
+            {
+                Text = "キャスト設定ファイルの保存確認",
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                StartPosition = FormStartPosition.CenterParent,
+                MinimizeBox = false,
+                MaximizeBox = false,
+                ShowInTaskbar = false,
+                ClientSize = new Size(620, 270),
+                Font = new Font("Yu Gothic UI", 14F, FontStyle.Regular)
+            };
+
+            var message = new Label
+            {
+                AutoSize = false,
+                Location = new Point(24, 22),
+                Size = new Size(572, 158),
+                Text = $"キャスト設定ファイル({Path.GetFileName(GetCastCsvPath())})の保存方法を選択してください。\n\nはい: キャスト設定ファイルと音声割当ファイル（CharacterNameList.txt）を保存\nいいえ: キャスト設定ファイルのみ保存\nキャンセル: 保存しない\n\n対象: {itemCount}件",
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+            dialog.Controls.Add(message);
+
+            var yesButton = new System.Windows.Forms.Button
+            {
+                Text = "はい",
+                DialogResult = DialogResult.Yes,
+                Size = new Size(150, 44),
+                Location = new Point(105, 205),
+                Font = dialog.Font
+            };
+            var noButton = new System.Windows.Forms.Button
+            {
+                Text = "いいえ",
+                DialogResult = DialogResult.No,
+                Size = new Size(150, 44),
+                Location = new Point(265, 205),
+                Font = dialog.Font
+            };
+            var cancelButton = new System.Windows.Forms.Button
+            {
+                Text = "キャンセル",
+                DialogResult = DialogResult.Cancel,
+                Size = new Size(150, 44),
+                Location = new Point(425, 205),
+                Font = dialog.Font
+            };
+            dialog.Controls.AddRange(new Control[] { yesButton, noButton, cancelButton });
+            dialog.AcceptButton = yesButton;
+            dialog.CancelButton = cancelButton;
+
+            return dialog.ShowDialog(this);
+        }
+
+        private string BuildVoiceListCsv()
+        {
+            var lines = new List<string>
+            {
+                "Enabled,Type,CharaName,VoiceEngine,VoiceName,VoiceID,VolScal,SpdScal,PitScal"
+            };
+            foreach (ListViewItem row in listView2.Items)
+                lines.Add(string.Join(",", row.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(sub => EscapeCsv(sub.Text))));
+            return string.Join(Environment.NewLine, lines);
+        }
+
+        private static CharacterNameData CopyCharacterData(CharacterNameData source) => new()
+        {
+            Enabled = source.Enabled,
+            CharName = source.CharName,
+            CharaTypeName = source.CharaTypeName,
+            VoiceEngen = source.VoiceEngen,
+            VoiceName = source.VoiceName,
+            VoiceId = source.VoiceId,
+            VolumeScale = source.VolumeScale,
+            SpeedScale = source.SpeedScale,
+            PitchScale = source.PitchScale
+        };
+
         private string GetCastCsvPath()
         {
             string directory = Path.GetDirectoryName(LogFileName) ?? Environment.CurrentDirectory;
-            string fileName = Path.GetFileNameWithoutExtension(LogFileName) + "_cast.txt";
+            string fileName = Path.GetFileNameWithoutExtension(LogFileName) + "_Cast.txt";
             return Path.Combine(directory, fileName);
         }
 
@@ -1003,5 +1109,10 @@ namespace MabiChatSpeech
             value.IndexOfAny(new[] { ',', '"', '\r', '\n' }) >= 0
                 ? $"\"{value.Replace("\"", "\"\"")}\""
                 : value;
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            EngeinStatus();
+        }
     }
 }

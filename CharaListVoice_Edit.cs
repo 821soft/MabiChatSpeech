@@ -1,4 +1,5 @@
-﻿using System;
+using Microsoft.VisualBasic;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +24,6 @@ namespace MabiChatSpeech
 {
     public partial class CharaListVoice_Edit : Form
     {
-        static private ChatVoice _chatVoice;
         static int aivisPid = -1;
         static int voiceVoxPid = -1;
         private int datatype = -1;
@@ -66,32 +66,23 @@ namespace MabiChatSpeech
             datatype = 2;
             this.Text = "キャラの音声設定:ListViewItem";
         }
-        private async void init()
+        private void init()
         {
-
-            _chatVoice = await ChatVoice.CreateMultiEngineAsync();
-            await _chatVoice.RefreshSpeakersAsync();
-
+            // TTSはChatVoiceや外部話者リストがなくても設定できる。
             ConnectQueueEvents();
-
-
         }
         private void ConnectQueueEvents()
         {
-            if (_chatVoice == null) { return; }
+            if (Main._chatVoice == null) { return; }
 
-            _chatVoice!.SpeechQueued += e =>
-            {
-                VoiceEvents(() =>
-                    Txt_status.Text = $"{e.PendingCount}件 / {e.Engine}");
-            };
-
-            _chatVoice.QueueBecameEmpty += () =>
-            {
-                VoiceEvents(() =>
-                    Txt_status.Text = "Stay");
-            };
+            Main._chatVoice.SpeechQueued += EditChatVoice_SpeechQueued;
+            Main._chatVoice.QueueBecameEmpty += EditChatVoice_QueueBecameEmpty;
         }
+        private void EditChatVoice_SpeechQueued(ChatVoice.SpeechQueueEventArgs e) =>
+            VoiceEvents(() => Txt_status.Text = $"{e.PendingCount}件 / {e.Engine}");
+
+        private void EditChatVoice_QueueBecameEmpty() =>
+            VoiceEvents(() => Txt_status.Text = "Stay");
         private void VoiceEvents(Action update)
         {
             if (IsDisposed || Disposing || !IsHandleCreated)
@@ -103,58 +94,7 @@ namespace MabiChatSpeech
                 update();
         }
 
-        private async Task<bool> VoiceListPreload()
-        {
-
-            // 前提 エンジンが起動していること
-            var engsts_VoiceVox = await ChatVoice.IsChatVoiceEngenRunning(ChatVoiceEngine.VoiceVox);
-            var engsts_AivisSpeech = await ChatVoice.IsChatVoiceEngenRunning(ChatVoiceEngine.AivisSpeech);
-
-            if ((engsts_VoiceVox) && (engsts_AivisSpeech))
-            {
-                if (_chatVoice == null)
-                {
-                    MessageBox.Show("音声リスト生成中.",
-                        "エラー",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                    return (false);
-                }
-                await _chatVoice.RefreshSpeakersAsync();
-                // 話者の数を確認
-                if (_chatVoice.Speakers.Count == 0)
-                {
-                    MessageBox.Show("話者が０です.",
-                        "エラー",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                    return (false);
-                }
-            }
-            else
-            {
-                string msg = "合成音声エンジンが起動されてません";
-                if ((!engsts_VoiceVox) && (!engsts_AivisSpeech))
-                {
-                }
-                else if ((!engsts_VoiceVox))
-                {
-                    msg += "\nVoiceVox";
-                }
-                else if ((!engsts_AivisSpeech))
-                {
-                    msg += "\nAivisSpeech";
-                }
-
-                MessageBox.Show(msg,
-                    "合成音声エンジンエラー",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return (false);
-
-            }
-            return (true);
-        }
+        private Task<bool> VoiceListPreload() => Task.FromResult(true);
         private bool ListMakeing = false;
         private void charadata2form()
         {
@@ -173,7 +113,7 @@ namespace MabiChatSpeech
                 CHK_Enable.Checked = character.Enabled;
                 Cmb_CharaType.Text = character.CharaTypeName.ToString();
                 Txt_CharaName.Text = character.CharName;
-                var eng_idx = Lst_VoiceEngen.FindStringExact(character.VoiceEngen.ToString());
+                var eng_idx = Lst_VoiceEngen.FindStringExact(EngineDisplayName(character.VoiceEngen));
                 Lst_VoiceEngen.SelectedIndex = eng_idx;
                 ListBox_VoiceSet(character.VoiceEngen, character.VoiceName);
             }
@@ -183,8 +123,8 @@ namespace MabiChatSpeech
                 Txt_CharaName.Text = DataItem.SubItems[1].Text;
                 Cmb_CharaType.Text = DataItem.SubItems[2].Text;
 
-                var eng = (ChatVoiceEngine)Enum.Parse(typeof(ChatVoiceEngine), DataItem.SubItems[3].Text);
-                var eng_idx = Lst_VoiceEngen.FindStringExact(eng.ToString());
+                var eng = ParseEngineName(DataItem.SubItems[3].Text);
+                var eng_idx = Lst_VoiceEngen.FindStringExact(EngineDisplayName(eng));
                 Lst_VoiceEngen.SelectedIndex = eng_idx;
 
                 ListBox_VoiceSet(eng, DataItem.SubItems[4].Text);
@@ -197,36 +137,29 @@ namespace MabiChatSpeech
             }
             else
             { }
-            if(Lst_VoiceEngen.SelectedIndex == 0)
-            {
-                store[0].eng = 0;
-                store[0].chara = Lst_VoiceChara.SelectedIndex;
-                store[0].style = Lst_VoiceStyle.SelectedIndex;
-            }
-            else if (Lst_VoiceEngen.SelectedIndex == 1)
-            {
-                store[1].eng = 1;
-                store[1].chara = Lst_VoiceChara.SelectedIndex;
-                store[1].style = Lst_VoiceStyle.SelectedIndex;
-            }
-            else
-            {
-                store[0].eng = 0;
-                store[0].chara = 0;
-                store[0].style = 0;
-                store[1].eng = 1;
-                store[1].chara = 0;
-                store[1].style = 0;
-            }
-
-
             ListMakeing = false;
 
         }
 
         private void CharaListVoice_Edit_Shown(object sender, EventArgs e)
         {
-            Lbl_VoiceEngen.Text = $"エンジン({Main.VoiceLists.Count})";
+            var uniqueSet = new HashSet<string>();
+
+            Lbl_VoiceEngen.Text = $"音声種別({Main._chatVoice?.Speakers.Count ?? 0})";
+            Lst_VoiceEngen.Items.Clear();
+            Lst_VoiceEngen.Items.Add("TTS");
+            uniqueSet.Add("VoiceVoxAPI");
+            uniqueSet.Add("AivisSpeech");
+            if (Main._chatVoice != null)
+            {
+                foreach (var vo in Main._chatVoice.Speakers)
+                    uniqueSet.Add(EngineDisplayName(vo.Engine));
+            }
+            foreach (var engeinName in uniqueSet)
+            {
+                Lst_VoiceEngen.Items.Add(engeinName);
+            }
+            Lst_VoiceEngen.SelectedIndex= 0;
             charadata2form();
 
         }
@@ -235,7 +168,19 @@ namespace MabiChatSpeech
         {
             int voiceid = -1;
 
-            if (voiceName != null)
+            Lst_VoiceStyle.Items.Clear();
+            Lst_VoiceChara.Items.Clear();
+            if (eng == ChatVoiceEngine.TTS)
+            {
+                Lbl_VoiceChara.Text = "音声キャラ(不要)";
+                Lbl_VoiceStyle.Text = "スタイル(不要)";
+                return voiceid;
+            }
+
+            if (Main._chatVoice == null)
+                return -1;
+
+            if (voiceName.Length != 0)
             {
                 string[] voicenamesp = voiceName.Split('-');
 
@@ -244,7 +189,15 @@ namespace MabiChatSpeech
                 Lbl_VoiceChara.Text = $"音声キャラ(0)";
                 Lbl_VoiceStyle.Text = $"スタイル(0)";
 
-                var vclist = Main.VoiceCharaList(eng);
+                var vclist = new HashSet<string>();
+                foreach (var l in Main._chatVoice.Speakers)
+                {
+                    if (l.Engine == eng)
+                    {
+                        vclist.Add(l.SpeakerName);
+                    }
+
+                }
 
                 foreach (var cv in vclist)
                 {
@@ -253,10 +206,13 @@ namespace MabiChatSpeech
                 var cv_idx = Lst_VoiceChara.FindStringExact(voicenamesp[0]);
                 Lst_VoiceChara.SelectedIndex = cv_idx;
 
-                var vslist = Main.VoiceStyleList(eng, voicenamesp[0]);
-                foreach (var cs in vslist)
+
+                foreach (var cs in Main._chatVoice.Speakers)
                 {
-                    Lst_VoiceStyle.Items.Add(cs);
+                    if ((cs.Engine==eng)&&(cs.SpeakerName== voicenamesp[0]))
+                    {
+                        Lst_VoiceStyle.Items.Add(cs.StyleName);
+                    }
                 }
                 var cs_idx = Lst_VoiceStyle.FindStringExact(voicenamesp[1]);
                 Lst_VoiceStyle.SelectedIndex = cs_idx;
@@ -321,19 +277,38 @@ namespace MabiChatSpeech
 
         private ChatVoiceEngine Lst_VoiceEngen_Value()
         {
-            ChatVoiceEngine eng = ChatVoiceEngine.None;
+            ChatVoiceEngine eng = ChatVoiceEngine.TTS;
             if (Lst_VoiceEngen.Items.Count <= 0)
             {
                 return (eng);
             }
             var sel_rec = Lst_VoiceEngen.SelectedItem;
-            eng = (ChatVoiceEngine)Enum.Parse(typeof(ChatVoiceEngine), sel_rec.ToString());
+            eng = ParseEngineName(sel_rec.ToString());
 
             return (eng);
         }
+
+        private static ChatVoiceEngine ParseEngineName(string engineName) =>
+            string.Equals(engineName, "VoiceVoxAPI", StringComparison.OrdinalIgnoreCase)
+                ? ChatVoiceEngine.VoiceVox
+                : Enum.Parse<ChatVoiceEngine>(engineName, ignoreCase: true);
+
+        private static string EngineDisplayName(ChatVoiceEngine engine) =>
+            engine == ChatVoiceEngine.VoiceVox ? "VoiceVoxAPI" : engine.ToString();
+
+        private static int StoreIndexForEngine(ChatVoiceEngine engine) => engine switch
+        {
+            ChatVoiceEngine.VoiceVox => 0,
+            ChatVoiceEngine.AivisSpeech => 1,
+            _ => throw new ArgumentOutOfRangeException(nameof(engine))
+        };
+
         private string Lst_VoiceName_Value()
         {
             string ret = string.Empty;
+
+            if (Lst_VoiceEngen_Value() == ChatVoiceEngine.TTS)
+                return Program.__TTS1Name;
 
             if ((Lst_VoiceChara.Items.Count <= 0) || (Lst_VoiceStyle.Items.Count <= 0))
             {
@@ -349,14 +324,29 @@ namespace MabiChatSpeech
         {
             int ret = -1;
 
+            if (Lst_VoiceEngen_Value() == ChatVoiceEngine.TTS || Main._chatVoice == null)
+                return ret;
+
             if ((Lst_VoiceChara.Items.Count <= 0) || (Lst_VoiceStyle.Items.Count <= 0))
             {
                 return (-2);
             }
-            var rec_charaname = Lst_VoiceChara.SelectedItem;
-            var rec_stylename = Lst_VoiceStyle.SelectedItem;
+            var rec_charaname = Lst_VoiceChara.SelectedItem.ToString();
+            var rec_stylename = Lst_VoiceStyle.SelectedItem.ToString();
             var voicename = rec_charaname.ToString() + "-" + rec_stylename.ToString();
-            ret = find_VoiceId(voicename);
+
+            foreach (var spk in Main._chatVoice.Speakers)
+            {
+                if (spk.Engine == Lst_VoiceEngen_Value())
+                { 
+                    if(( spk.SpeakerName == rec_charaname)&&(spk.StyleName==rec_stylename))
+                    {
+                        ret = spk.StyleId;
+
+                        break;
+                    }
+                }
+            }
             return (ret);
         }
 
@@ -388,13 +378,29 @@ namespace MabiChatSpeech
             {
             }
 
-            ChatVoiceEngine eng = (ChatVoiceEngine)Enum.Parse(typeof(ChatVoiceEngine), rec.ToString());
-            var vclist = Main.VoiceCharaList(eng);
+            ChatVoiceEngine eng = ParseEngineName(rec.ToString());
+            if (eng == ChatVoiceEngine.TTS || Main._chatVoice == null)
+            {
+                Lbl_VoiceChara.Text = "音声キャラ(不要)";
+                Lbl_VoiceStyle.Text = "スタイル(不要)";
+                return;
+            }
+            int storeIndex = StoreIndexForEngine(eng);
+            var vclist = new HashSet<string>();
+            foreach (var l in Main._chatVoice.Speakers)
+            {
+                if (l.Engine == eng)
+                {
+                    vclist.Add(l.SpeakerName);
+                }
+
+            }
             foreach (var cv in vclist)
             {
                 Lst_VoiceChara.Items.Add(cv);
             }
-            Lst_VoiceChara.SelectedIndex = store[Lst_VoiceEngen.SelectedIndex].chara;
+            if (Lst_VoiceChara.Items.Count > 0)
+                Lst_VoiceChara.SelectedIndex = Math.Clamp(store[storeIndex].chara, 0, Lst_VoiceChara.Items.Count - 1);
             Lbl_VoiceChara.Text = $"音声キャラ({Lst_VoiceChara.Items.Count})";
             Lbl_VoiceStyle.Text = $"スタイル({Lst_VoiceStyle.Items.Count})";
 
@@ -414,39 +420,53 @@ namespace MabiChatSpeech
                 return;
             }
             var rec_eng = Lst_VoiceEngen.SelectedItem;
-            ChatVoiceEngine eng = (ChatVoiceEngine)Enum.Parse(typeof(ChatVoiceEngine), rec_eng.ToString());
+            ChatVoiceEngine eng = ParseEngineName(rec_eng.ToString());
+            if (eng == ChatVoiceEngine.TTS || Main._chatVoice == null || Lst_VoiceChara.SelectedItem == null)
+                return;
+            int storeIndex = StoreIndexForEngine(eng);
 
-            var rec_chara = Lst_VoiceChara.SelectedItem;
-            var vslist = Main.VoiceStyleList(eng, rec_chara.ToString());
-            foreach (var cs in vslist)
+            var rec_chara = Lst_VoiceChara.SelectedItem.ToString();
+            foreach (var cs in Main._chatVoice.Speakers)
             {
-                Lst_VoiceStyle.Items.Add(cs);
+                if ((cs.Engine == eng) && (cs.SpeakerName == rec_chara))
+                {
+                    Lst_VoiceStyle.Items.Add(cs.StyleName);
+                }
+
             }
-            if (store[Lst_VoiceEngen.SelectedIndex].chara != Lst_VoiceChara.SelectedIndex)
+            if (store[storeIndex].chara != Lst_VoiceChara.SelectedIndex)
             {
-                Lst_VoiceStyle.SelectedIndex = 0;
+                if (Lst_VoiceStyle.Items.Count > 0)
+                    Lst_VoiceStyle.SelectedIndex = 0;
             }
             else
             {
-                Lst_VoiceStyle.SelectedIndex = store[Lst_VoiceEngen.SelectedIndex].style;
+                if (Lst_VoiceStyle.Items.Count > 0)
+                    Lst_VoiceStyle.SelectedIndex = Math.Clamp(store[storeIndex].style, 0, Lst_VoiceStyle.Items.Count - 1);
             }
 
             Lbl_VoiceStyle.Text = $"スタイル({Lst_VoiceStyle.Items.Count})";
 
-            store[Lst_VoiceEngen.SelectedIndex].chara = Lst_VoiceChara.SelectedIndex;
-            store[Lst_VoiceEngen.SelectedIndex].style = Lst_VoiceStyle.SelectedIndex;
+            store[storeIndex].chara = Lst_VoiceChara.SelectedIndex;
+            store[storeIndex].style = Lst_VoiceStyle.SelectedIndex;
 
         }
 
         private void Btn_PlayTest_Click(object sender, EventArgs e)
         {
             ChatVoiceEngine eng = Lst_VoiceEngen_Value();
+            if (eng == ChatVoiceEngine.TTS)
+            {
+                if (!string.IsNullOrWhiteSpace(Txt_TestWord.Text))
+                    Program.Frm_Main.speech_chat(Program.__TTS1Name, Program.__TTS1Volume, Program.__TTS1Speed, Txt_CharaName.Text, Txt_TestWord.Text);
+                return;
+            }
             var voiceId = Lst_VoiceId_Value();
             float cv = float.Parse(Txt_VolumeScal.Text);
             float cs = float.Parse(Txt_SpeedScale.Text);
             float cp = float.Parse(Txt_PitchScal.Text);
 
-            if (voiceId < 0)
+            if (Main._chatVoice == null || voiceId < 0)
             {
             }
             else if (Txt_TestWord.Text.Length <= 0)
@@ -455,7 +475,7 @@ namespace MabiChatSpeech
             else
             {
                 ChatVoiceSettings p = new ChatVoiceSettings(cs, cv, cp);
-                _chatVoice.Enqueue(Txt_TestWord.Text, eng, voiceId, p);
+                Main._chatVoice.Enqueue(Txt_TestWord.Text, eng, voiceId, p);
             }
         }
 
@@ -488,8 +508,8 @@ namespace MabiChatSpeech
             if (index < 0)
             {
                 DialogResult result = MessageBox.Show(
-                    "CharaListに該当するデータがありません。追加しますか？",
-                    "CharaListへの追加",
+                    "音声割当ファイル（CharacterNameList.txt）に該当するデータがありません。追加しますか？",
+                    "音声割当ファイルへの追加",
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
 
@@ -562,27 +582,6 @@ namespace MabiChatSpeech
         private void Btn_Undo_Click(object sender, EventArgs e)
         {
             charadata2form();
-            if (Lst_VoiceEngen.SelectedIndex == 0)
-            {
-                store[1].eng = 1;
-                store[1].chara = 0;
-                store[1].style = 0;
-            }
-            else if (Lst_VoiceEngen.SelectedIndex == 1)
-            {
-                store[0].eng = 0;
-                store[0].chara = 0;
-                store[0].style = 0;
-            }
-            else
-            {
-                store[0].eng = 0;
-                store[0].chara = 0;
-                store[0].style = 0;
-                store[1].eng = 1;
-                store[1].chara = 0;
-                store[1].style = 0;
-            }
         }
 
         private void CHK_Enable_CheckedChanged(object sender, EventArgs e)
@@ -602,23 +601,26 @@ namespace MabiChatSpeech
             }
         }
 
-        private async void Dispose_Voice()
-        {
-            await _chatVoice.DisposeAsync();
-        }
         private void CharaListVoice_Edit_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (_chatVoice != null)
+            if (Main._chatVoice != null)
             {
-                Dispose_Voice();
+                Main._chatVoice.SpeechQueued -= EditChatVoice_SpeechQueued;
+                Main._chatVoice.QueueBecameEmpty -= EditChatVoice_QueueBecameEmpty;
             }
 
         }
 
         private void Lst_VoiceStyle_SelectedIndexChanged(object sender, EventArgs e)
         {
-                store[Lst_VoiceEngen.SelectedIndex].chara = Lst_VoiceChara.SelectedIndex;
-                store[Lst_VoiceEngen.SelectedIndex].style = Lst_VoiceStyle.SelectedIndex;
+            if (ListMakeing || Lst_VoiceEngen.SelectedItem == null)
+                return;
+            ChatVoiceEngine engine = ParseEngineName(Lst_VoiceEngen.SelectedItem.ToString());
+            if (engine == ChatVoiceEngine.TTS)
+                return;
+            int storeIndex = StoreIndexForEngine(engine);
+            store[storeIndex].chara = Lst_VoiceChara.SelectedIndex;
+            store[storeIndex].style = Lst_VoiceStyle.SelectedIndex;
         }
     }
 }

@@ -62,12 +62,15 @@
             columnHeader17 = new System.Windows.Forms.ColumnHeader();
             CMN_VoiceList = new System.Windows.Forms.ContextMenuStrip(components);
             panel1 = new System.Windows.Forms.Panel();
+            lbl_AivisSpeech = new System.Windows.Forms.Label();
+            lbl_VoiceVox = new System.Windows.Forms.Label();
             Txt_Regex = new System.Windows.Forms.ComboBox();
             lbl_Regex = new System.Windows.Forms.Label();
             CHK_FastPlay = new System.Windows.Forms.CheckBox();
             lbl_VoiceStatu = new System.Windows.Forms.Label();
             Btn_Play = new System.Windows.Forms.Button();
             panel2 = new System.Windows.Forms.Panel();
+            timer1 = new System.Windows.Forms.Timer(components);
             groupBox1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -289,6 +292,8 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(lbl_AivisSpeech);
+            panel1.Controls.Add(lbl_VoiceVox);
             panel1.Controls.Add(Txt_Regex);
             panel1.Controls.Add(lbl_Regex);
             panel1.Controls.Add(CHK_FastPlay);
@@ -300,6 +305,29 @@
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(1275, 51);
             panel1.TabIndex = 2;
+            // 
+            // lbl_AivisSpeech
+            // 
+            lbl_AivisSpeech.AutoSize = true;
+            lbl_AivisSpeech.Image = Properties.Resources.aisp_0_1;
+            lbl_AivisSpeech.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lbl_AivisSpeech.Location = new System.Drawing.Point(891, 12);
+            lbl_AivisSpeech.Name = "lbl_AivisSpeech";
+            lbl_AivisSpeech.Size = new System.Drawing.Size(84, 25);
+            lbl_AivisSpeech.TabIndex = 6;
+            lbl_AivisSpeech.Text = "     label5";
+            // 
+            // lbl_VoiceVox
+            // 
+            lbl_VoiceVox.AutoSize = true;
+            lbl_VoiceVox.Image = Properties.Resources.vvpp_0_1;
+            lbl_VoiceVox.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lbl_VoiceVox.Location = new System.Drawing.Point(789, 12);
+            lbl_VoiceVox.Name = "lbl_VoiceVox";
+            lbl_VoiceVox.Size = new System.Drawing.Size(84, 25);
+            lbl_VoiceVox.TabIndex = 5;
+            lbl_VoiceVox.Text = "     label4";
+            lbl_VoiceVox.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Txt_Regex
             // 
@@ -334,7 +362,7 @@
             // lbl_VoiceStatu
             // 
             lbl_VoiceStatu.AutoSize = true;
-            lbl_VoiceStatu.Location = new System.Drawing.Point(778, 12);
+            lbl_VoiceStatu.Location = new System.Drawing.Point(1073, 12);
             lbl_VoiceStatu.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbl_VoiceStatu.Name = "lbl_VoiceStatu";
             lbl_VoiceStatu.Size = new System.Drawing.Size(59, 25);
@@ -361,6 +389,12 @@
             panel2.Name = "panel2";
             panel2.Size = new System.Drawing.Size(1275, 320);
             panel2.TabIndex = 3;
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1000;
+            timer1.Tick += timer1_Tick;
             // 
             // Replay_log
             // 
@@ -429,5 +463,8 @@
         private System.Windows.Forms.Label lbl_Regex;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbl_Cast;
+        private System.Windows.Forms.Label lbl_AivisSpeech;
+        private System.Windows.Forms.Label lbl_VoiceVox;
+        private System.Windows.Forms.Timer timer1;
     }
 }
