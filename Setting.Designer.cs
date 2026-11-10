@@ -41,8 +41,6 @@
             Txt_SavePath = new System.Windows.Forms.TextBox();
             label7 = new System.Windows.Forms.Label();
             label8 = new System.Windows.Forms.Label();
-            label12 = new System.Windows.Forms.Label();
-            Cmb_NPC = new System.Windows.Forms.ComboBox();
             label11 = new System.Windows.Forms.Label();
             label13 = new System.Windows.Forms.Label();
             label14 = new System.Windows.Forms.Label();
@@ -53,10 +51,6 @@
             Cmb_SaveMode = new System.Windows.Forms.ComboBox();
             label19 = new System.Windows.Forms.Label();
             label20 = new System.Windows.Forms.Label();
-            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            Btn_WhiteList = new System.Windows.Forms.Button();
-            CHK_AutoAdd = new System.Windows.Forms.CheckBox();
-            Cmb_Whitelist = new System.Windows.Forms.ComboBox();
             label26 = new System.Windows.Forms.Label();
             Btn_ServerInfo = new System.Windows.Forms.Button();
             tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
@@ -84,26 +78,34 @@
             checkBox2 = new System.Windows.Forms.CheckBox();
             checkBox3 = new System.Windows.Forms.CheckBox();
             checkBox4 = new System.Windows.Forms.CheckBox();
-            Cmb_Echa = new System.Windows.Forms.ComboBox();
             label27 = new System.Windows.Forms.Label();
             label28 = new System.Windows.Forms.Label();
             label29 = new System.Windows.Forms.Label();
-            tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            Txt_VoiceVox_exe = new System.Windows.Forms.TextBox();
-            Btn_Exec_VoiceVox = new System.Windows.Forms.Button();
-            tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
-            Txt_AivisSpeech_exe = new System.Windows.Forms.TextBox();
-            Btn_Exec_Aivis = new System.Windows.Forms.Button();
-            tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
-            Cmb_User = new System.Windows.Forms.ComboBox();
+            CHK_AutoAdd = new System.Windows.Forms.CheckBox();
             Chk_PET = new System.Windows.Forms.CheckBox();
-            panel1 = new System.Windows.Forms.Panel();
-            Btn_Cancel = new System.Windows.Forms.Button();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             Btn_Ok = new System.Windows.Forms.Button();
+            Btn_Cancel = new System.Windows.Forms.Button();
+            Chk_Echa = new System.Windows.Forms.CheckBox();
+            panel1 = new System.Windows.Forms.Panel();
+            Txt_VoiceVox_Host = new System.Windows.Forms.TextBox();
+            label30 = new System.Windows.Forms.Label();
+            Cmb_VoiceVox_Opt = new System.Windows.Forms.ComboBox();
+            label23 = new System.Windows.Forms.Label();
+            label12 = new System.Windows.Forms.Label();
+            Txt_VoiceVox_exe = new System.Windows.Forms.TextBox();
+            Chk_VoiceVox_Auto = new System.Windows.Forms.CheckBox();
+            panel2 = new System.Windows.Forms.Panel();
+            Txt_AivisSpeech_Host = new System.Windows.Forms.TextBox();
+            label31 = new System.Windows.Forms.Label();
+            Cmb_AivisSpeech_Opt = new System.Windows.Forms.ComboBox();
+            label25 = new System.Windows.Forms.Label();
+            label24 = new System.Windows.Forms.Label();
+            Chk_Aivis_Auto = new System.Windows.Forms.CheckBox();
+            Txt_AivisSpeech_exe = new System.Windows.Forms.TextBox();
             openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             tableLayoutPanel1.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Nud_TTS1Volume).BeginInit();
@@ -114,10 +116,9 @@
             ((System.ComponentModel.ISupportInitialize)Nud_TTS2Speed).BeginInit();
             tableLayoutPanel8.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
-            tableLayoutPanel9.SuspendLayout();
-            tableLayoutPanel10.SuspendLayout();
-            tableLayoutPanel11.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             panel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -126,7 +127,7 @@
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            tableLayoutPanel1.Controls.Add(label10, 0, 16);
+            tableLayoutPanel1.Controls.Add(label10, 0, 15);
             tableLayoutPanel1.Controls.Add(label1, 0, 2);
             tableLayoutPanel1.Controls.Add(Txt_CapProgram, 1, 2);
             tableLayoutPanel1.Controls.Add(label2, 0, 3);
@@ -138,77 +139,77 @@
             tableLayoutPanel1.Controls.Add(Txt_SavePath, 1, 8);
             tableLayoutPanel1.Controls.Add(label7, 0, 10);
             tableLayoutPanel1.Controls.Add(label8, 0, 13);
-            tableLayoutPanel1.Controls.Add(label12, 0, 14);
-            tableLayoutPanel1.Controls.Add(Cmb_NPC, 1, 14);
-            tableLayoutPanel1.Controls.Add(label11, 0, 18);
-            tableLayoutPanel1.Controls.Add(label13, 0, 19);
-            tableLayoutPanel1.Controls.Add(label14, 0, 20);
-            tableLayoutPanel1.Controls.Add(label15, 0, 21);
-            tableLayoutPanel1.Controls.Add(Chk_TTSMute, 1, 21);
-            tableLayoutPanel1.Controls.Add(label16, 0, 22);
-            tableLayoutPanel1.Controls.Add(Chk_TTSNameCall, 1, 22);
+            tableLayoutPanel1.Controls.Add(label11, 0, 17);
+            tableLayoutPanel1.Controls.Add(label13, 0, 18);
+            tableLayoutPanel1.Controls.Add(label14, 0, 19);
+            tableLayoutPanel1.Controls.Add(label15, 0, 20);
+            tableLayoutPanel1.Controls.Add(Chk_TTSMute, 1, 20);
+            tableLayoutPanel1.Controls.Add(label16, 0, 21);
+            tableLayoutPanel1.Controls.Add(Chk_TTSNameCall, 1, 21);
             tableLayoutPanel1.Controls.Add(Cmb_SaveMode, 1, 7);
             tableLayoutPanel1.Controls.Add(label19, 0, 11);
             tableLayoutPanel1.Controls.Add(label20, 0, 12);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 12);
             tableLayoutPanel1.Controls.Add(label26, 0, 4);
             tableLayoutPanel1.Controls.Add(Btn_ServerInfo, 1, 4);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel6, 1, 19);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel7, 1, 20);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel6, 1, 18);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel7, 1, 19);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel8, 1, 11);
-            tableLayoutPanel1.Controls.Add(label9, 0, 15);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel5, 1, 15);
-            tableLayoutPanel1.Controls.Add(Cmb_Echa, 1, 16);
-            tableLayoutPanel1.Controls.Add(label27, 0, 24);
-            tableLayoutPanel1.Controls.Add(label28, 0, 25);
-            tableLayoutPanel1.Controls.Add(label29, 0, 26);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel9, 1, 25);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel10, 1, 26);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel11, 1, 13);
+            tableLayoutPanel1.Controls.Add(label9, 0, 14);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel5, 1, 14);
+            tableLayoutPanel1.Controls.Add(label27, 0, 23);
+            tableLayoutPanel1.Controls.Add(label28, 0, 24);
+            tableLayoutPanel1.Controls.Add(label29, 0, 25);
+            tableLayoutPanel1.Controls.Add(CHK_AutoAdd, 1, 12);
+            tableLayoutPanel1.Controls.Add(Chk_PET, 1, 13);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 27);
+            tableLayoutPanel1.Controls.Add(Chk_Echa, 1, 15);
+            tableLayoutPanel1.Controls.Add(panel1, 1, 24);
+            tableLayoutPanel1.Controls.Add(panel2, 1, 25);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(6);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 28;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 84F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 84F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(834, 1311);
+            tableLayoutPanel1.RowCount = 29;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 76F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 76F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.Size = new System.Drawing.Size(834, 1174);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            label10.Location = new System.Drawing.Point(4, 668);
+            label10.Location = new System.Drawing.Point(4, 486);
             label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(200, 50);
+            label10.Size = new System.Drawing.Size(200, 38);
             label10.TabIndex = 50;
             label10.Text = "　　絵チャット";
             label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -217,20 +218,19 @@
             // 
             label1.AutoSize = true;
             label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            label1.Location = new System.Drawing.Point(6, 82);
+            label1.Location = new System.Drawing.Point(6, 48);
             label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(196, 41);
+            label1.Size = new System.Drawing.Size(196, 38);
             label1.TabIndex = 0;
             label1.Text = "　　Program";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            label1.Click += label1_Click;
             // 
             // Txt_CapProgram
             // 
             Txt_CapProgram.Dock = System.Windows.Forms.DockStyle.Left;
             Txt_CapProgram.Enabled = false;
-            Txt_CapProgram.Location = new System.Drawing.Point(208, 82);
+            Txt_CapProgram.Location = new System.Drawing.Point(208, 48);
             Txt_CapProgram.Margin = new System.Windows.Forms.Padding(0);
             Txt_CapProgram.Name = "Txt_CapProgram";
             Txt_CapProgram.Size = new System.Drawing.Size(155, 31);
@@ -243,10 +243,10 @@
             // 
             label2.AutoSize = true;
             label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            label2.Location = new System.Drawing.Point(6, 123);
+            label2.Location = new System.Drawing.Point(6, 86);
             label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(196, 41);
+            label2.Size = new System.Drawing.Size(196, 38);
             label2.TabIndex = 2;
             label2.Text = "　　Port";
             label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -255,7 +255,7 @@
             // 
             Txt_CapPort.Dock = System.Windows.Forms.DockStyle.Left;
             Txt_CapPort.Enabled = false;
-            Txt_CapPort.Location = new System.Drawing.Point(208, 123);
+            Txt_CapPort.Location = new System.Drawing.Point(208, 86);
             Txt_CapPort.Margin = new System.Windows.Forms.Padding(0);
             Txt_CapPort.Name = "Txt_CapPort";
             Txt_CapPort.Size = new System.Drawing.Size(92, 31);
@@ -269,10 +269,10 @@
             label3.AutoSize = true;
             label3.Dock = System.Windows.Forms.DockStyle.Fill;
             label3.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 128);
-            label3.Location = new System.Drawing.Point(6, 41);
+            label3.Location = new System.Drawing.Point(6, 10);
             label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(196, 41);
+            label3.Size = new System.Drawing.Size(196, 38);
             label3.TabIndex = 4;
             label3.Text = "Capture";
             label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -282,10 +282,10 @@
             label4.AutoSize = true;
             label4.Dock = System.Windows.Forms.DockStyle.Fill;
             label4.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 128);
-            label4.Location = new System.Drawing.Point(6, 246);
+            label4.Location = new System.Drawing.Point(6, 172);
             label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(196, 41);
+            label4.Size = new System.Drawing.Size(196, 38);
             label4.TabIndex = 5;
             label4.Text = "ログ";
             label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -294,10 +294,10 @@
             // 
             label5.AutoSize = true;
             label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            label5.Location = new System.Drawing.Point(6, 287);
+            label5.Location = new System.Drawing.Point(6, 210);
             label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(196, 41);
+            label5.Size = new System.Drawing.Size(196, 38);
             label5.TabIndex = 6;
             label5.Text = "　　保存動作";
             label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -306,10 +306,10 @@
             // 
             label6.AutoSize = true;
             label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            label6.Location = new System.Drawing.Point(6, 328);
+            label6.Location = new System.Drawing.Point(6, 248);
             label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(196, 41);
+            label6.Size = new System.Drawing.Size(196, 38);
             label6.TabIndex = 8;
             label6.Text = "　　保存先パス";
             label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -317,7 +317,7 @@
             // Txt_SavePath
             // 
             Txt_SavePath.Dock = System.Windows.Forms.DockStyle.Left;
-            Txt_SavePath.Location = new System.Drawing.Point(208, 328);
+            Txt_SavePath.Location = new System.Drawing.Point(208, 248);
             Txt_SavePath.Margin = new System.Windows.Forms.Padding(0);
             Txt_SavePath.Name = "Txt_SavePath";
             Txt_SavePath.Size = new System.Drawing.Size(504, 31);
@@ -331,10 +331,10 @@
             label7.AutoSize = true;
             label7.Dock = System.Windows.Forms.DockStyle.Fill;
             label7.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 128);
-            label7.Location = new System.Drawing.Point(6, 410);
+            label7.Location = new System.Drawing.Point(6, 296);
             label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(196, 41);
+            label7.Size = new System.Drawing.Size(196, 38);
             label7.TabIndex = 10;
             label7.Text = "チャット";
             label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -343,47 +343,23 @@
             // 
             label8.AutoSize = true;
             label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            label8.Location = new System.Drawing.Point(6, 536);
+            label8.Location = new System.Drawing.Point(6, 410);
             label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(196, 41);
+            label8.Size = new System.Drawing.Size(196, 38);
             label8.TabIndex = 11;
             label8.Text = "　　PC";
             label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            label12.Location = new System.Drawing.Point(6, 577);
-            label12.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            label12.Name = "label12";
-            label12.Size = new System.Drawing.Size(196, 41);
-            label12.TabIndex = 15;
-            label12.Text = "　　NPC";
-            label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Cmb_NPC
-            // 
-            Cmb_NPC.Dock = System.Windows.Forms.DockStyle.Left;
-            Cmb_NPC.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            Cmb_NPC.FormattingEnabled = true;
-            Cmb_NPC.Items.AddRange(new object[] { "OFF", "Chat On", "Voice 1", "Voice 2" });
-            Cmb_NPC.Location = new System.Drawing.Point(208, 577);
-            Cmb_NPC.Margin = new System.Windows.Forms.Padding(0);
-            Cmb_NPC.Name = "Cmb_NPC";
-            Cmb_NPC.Size = new System.Drawing.Size(158, 33);
-            Cmb_NPC.TabIndex = 12;
             // 
             // label11
             // 
             label11.AutoSize = true;
             label11.Dock = System.Windows.Forms.DockStyle.Fill;
             label11.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 128);
-            label11.Location = new System.Drawing.Point(6, 759);
+            label11.Location = new System.Drawing.Point(6, 534);
             label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label11.Name = "label11";
-            label11.Size = new System.Drawing.Size(196, 41);
+            label11.Size = new System.Drawing.Size(196, 38);
             label11.TabIndex = 22;
             label11.Text = "音声";
             label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -392,34 +368,34 @@
             // 
             label13.AutoSize = true;
             label13.Dock = System.Windows.Forms.DockStyle.Fill;
-            label13.Location = new System.Drawing.Point(6, 800);
+            label13.Location = new System.Drawing.Point(6, 572);
             label13.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label13.Name = "label13";
-            label13.Size = new System.Drawing.Size(196, 84);
+            label13.Size = new System.Drawing.Size(196, 76);
             label13.TabIndex = 23;
-            label13.Text = "　　音声１";
+            label13.Text = "　　TTS1";
             label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label14
             // 
             label14.AutoSize = true;
             label14.Dock = System.Windows.Forms.DockStyle.Fill;
-            label14.Location = new System.Drawing.Point(6, 884);
+            label14.Location = new System.Drawing.Point(6, 648);
             label14.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label14.Name = "label14";
-            label14.Size = new System.Drawing.Size(196, 84);
+            label14.Size = new System.Drawing.Size(196, 76);
             label14.TabIndex = 24;
-            label14.Text = "　　音声２";
+            label14.Text = "　　TTS2";
             label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label15
             // 
             label15.AutoSize = true;
             label15.Dock = System.Windows.Forms.DockStyle.Fill;
-            label15.Location = new System.Drawing.Point(6, 968);
+            label15.Location = new System.Drawing.Point(6, 724);
             label15.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label15.Name = "label15";
-            label15.Size = new System.Drawing.Size(196, 41);
+            label15.Size = new System.Drawing.Size(196, 38);
             label15.TabIndex = 27;
             label15.Text = "　　プレイ中の読上げ";
             label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -429,10 +405,10 @@
             // 
             Chk_TTSMute.AutoSize = true;
             Chk_TTSMute.Dock = System.Windows.Forms.DockStyle.Left;
-            Chk_TTSMute.Location = new System.Drawing.Point(214, 968);
-            Chk_TTSMute.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            Chk_TTSMute.Location = new System.Drawing.Point(208, 724);
+            Chk_TTSMute.Margin = new System.Windows.Forms.Padding(0);
             Chk_TTSMute.Name = "Chk_TTSMute";
-            Chk_TTSMute.Size = new System.Drawing.Size(293, 41);
+            Chk_TTSMute.Size = new System.Drawing.Size(293, 38);
             Chk_TTSMute.TabIndex = 18;
             Chk_TTSMute.Text = "マビノギがアクティブな時、読上げない";
             Chk_TTSMute.UseVisualStyleBackColor = true;
@@ -442,10 +418,10 @@
             // 
             label16.AutoSize = true;
             label16.Dock = System.Windows.Forms.DockStyle.Fill;
-            label16.Location = new System.Drawing.Point(6, 1009);
+            label16.Location = new System.Drawing.Point(6, 762);
             label16.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label16.Name = "label16";
-            label16.Size = new System.Drawing.Size(196, 41);
+            label16.Size = new System.Drawing.Size(196, 38);
             label16.TabIndex = 29;
             label16.Text = "　　キャラ名の読上げ";
             label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -454,11 +430,12 @@
             // 
             Chk_TTSNameCall.AutoSize = true;
             Chk_TTSNameCall.Dock = System.Windows.Forms.DockStyle.Left;
-            Chk_TTSNameCall.Location = new System.Drawing.Point(214, 1015);
-            Chk_TTSNameCall.Margin = new System.Windows.Forms.Padding(6);
+            Chk_TTSNameCall.Location = new System.Drawing.Point(208, 762);
+            Chk_TTSNameCall.Margin = new System.Windows.Forms.Padding(0);
             Chk_TTSNameCall.Name = "Chk_TTSNameCall";
-            Chk_TTSNameCall.Size = new System.Drawing.Size(18, 29);
+            Chk_TTSNameCall.Size = new System.Drawing.Size(184, 38);
             Chk_TTSNameCall.TabIndex = 19;
+            Chk_TTSNameCall.Text = "キャラ名を読上げない";
             Chk_TTSNameCall.UseVisualStyleBackColor = true;
             // 
             // Cmb_SaveMode
@@ -467,7 +444,7 @@
             Cmb_SaveMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             Cmb_SaveMode.FormattingEnabled = true;
             Cmb_SaveMode.Items.AddRange(new object[] { "しない", "上書き", "追記", "タイムスタンプ" });
-            Cmb_SaveMode.Location = new System.Drawing.Point(208, 287);
+            Cmb_SaveMode.Location = new System.Drawing.Point(208, 210);
             Cmb_SaveMode.Margin = new System.Windows.Forms.Padding(0);
             Cmb_SaveMode.Name = "Cmb_SaveMode";
             Cmb_SaveMode.Size = new System.Drawing.Size(212, 33);
@@ -477,10 +454,10 @@
             // 
             label19.AutoSize = true;
             label19.Dock = System.Windows.Forms.DockStyle.Fill;
-            label19.Location = new System.Drawing.Point(6, 451);
+            label19.Location = new System.Drawing.Point(6, 334);
             label19.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label19.Name = "label19";
-            label19.Size = new System.Drawing.Size(196, 44);
+            label19.Size = new System.Drawing.Size(196, 38);
             label19.TabIndex = 36;
             label19.Text = "　　フォント";
             label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -489,84 +466,32 @@
             // 
             label20.AutoSize = true;
             label20.Dock = System.Windows.Forms.DockStyle.Fill;
-            label20.Location = new System.Drawing.Point(6, 495);
+            label20.Location = new System.Drawing.Point(6, 372);
             label20.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label20.Name = "label20";
-            label20.Size = new System.Drawing.Size(196, 41);
+            label20.Size = new System.Drawing.Size(196, 38);
             label20.TabIndex = 37;
-            label20.Text = "　　キャラ指定";
+            label20.Text = "　　キャラリスト";
             label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // tableLayoutPanel2
-            // 
-            tableLayoutPanel2.ColumnCount = 3;
-            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
-            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 132F));
-            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel2.Controls.Add(Btn_WhiteList, 1, 0);
-            tableLayoutPanel2.Controls.Add(CHK_AutoAdd, 2, 0);
-            tableLayoutPanel2.Controls.Add(Cmb_Whitelist, 0, 0);
-            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel2.Location = new System.Drawing.Point(208, 495);
-            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new System.Drawing.Size(626, 41);
-            tableLayoutPanel2.TabIndex = 38;
-            // 
-            // Btn_WhiteList
-            // 
-            Btn_WhiteList.Location = new System.Drawing.Point(170, 0);
-            Btn_WhiteList.Margin = new System.Windows.Forms.Padding(0);
-            Btn_WhiteList.Name = "Btn_WhiteList";
-            Btn_WhiteList.Size = new System.Drawing.Size(126, 41);
-            Btn_WhiteList.TabIndex = 8;
-            Btn_WhiteList.Text = "指定リスト";
-            Btn_WhiteList.UseVisualStyleBackColor = true;
-            Btn_WhiteList.Click += Btn_WhiteList_Click;
-            // 
-            // CHK_AutoAdd
-            // 
-            CHK_AutoAdd.AutoSize = true;
-            CHK_AutoAdd.Dock = System.Windows.Forms.DockStyle.Fill;
-            CHK_AutoAdd.Location = new System.Drawing.Point(308, 0);
-            CHK_AutoAdd.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            CHK_AutoAdd.Name = "CHK_AutoAdd";
-            CHK_AutoAdd.Size = new System.Drawing.Size(312, 41);
-            CHK_AutoAdd.TabIndex = 9;
-            CHK_AutoAdd.Text = "指定リストに自動追加";
-            CHK_AutoAdd.UseVisualStyleBackColor = true;
-            // 
-            // Cmb_Whitelist
-            // 
-            Cmb_Whitelist.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            Cmb_Whitelist.FormattingEnabled = true;
-            Cmb_Whitelist.Items.AddRange(new object[] { "OFF", "Chat Only", "Voice" });
-            Cmb_Whitelist.Location = new System.Drawing.Point(0, 0);
-            Cmb_Whitelist.Margin = new System.Windows.Forms.Padding(0);
-            Cmb_Whitelist.Name = "Cmb_Whitelist";
-            Cmb_Whitelist.Size = new System.Drawing.Size(158, 33);
-            Cmb_Whitelist.TabIndex = 7;
             // 
             // label26
             // 
             label26.AutoSize = true;
             label26.Dock = System.Windows.Forms.DockStyle.Fill;
-            label26.Location = new System.Drawing.Point(6, 164);
+            label26.Location = new System.Drawing.Point(6, 124);
             label26.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label26.Name = "label26";
-            label26.Size = new System.Drawing.Size(196, 41);
+            label26.Size = new System.Drawing.Size(196, 38);
             label26.TabIndex = 43;
             label26.Text = "　　Server Info";
             label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Btn_ServerInfo
             // 
-            Btn_ServerInfo.Location = new System.Drawing.Point(208, 164);
+            Btn_ServerInfo.Location = new System.Drawing.Point(208, 124);
             Btn_ServerInfo.Margin = new System.Windows.Forms.Padding(0);
             Btn_ServerInfo.Name = "Btn_ServerInfo";
-            Btn_ServerInfo.Size = new System.Drawing.Size(92, 41);
+            Btn_ServerInfo.Size = new System.Drawing.Size(92, 38);
             Btn_ServerInfo.TabIndex = 44;
             Btn_ServerInfo.TabStop = false;
             Btn_ServerInfo.Text = "Open";
@@ -580,13 +505,13 @@
             tableLayoutPanel6.Controls.Add(tableLayoutPanel3, 0, 1);
             tableLayoutPanel6.Controls.Add(Cmb_TTS1Name, 0, 0);
             tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel6.Location = new System.Drawing.Point(208, 800);
+            tableLayoutPanel6.Location = new System.Drawing.Point(208, 572);
             tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel6.Name = "tableLayoutPanel6";
             tableLayoutPanel6.RowCount = 2;
             tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel6.Size = new System.Drawing.Size(626, 84);
+            tableLayoutPanel6.Size = new System.Drawing.Size(626, 76);
             tableLayoutPanel6.TabIndex = 45;
             // 
             // tableLayoutPanel3
@@ -601,13 +526,13 @@
             tableLayoutPanel3.Controls.Add(label17, 0, 0);
             tableLayoutPanel3.Controls.Add(label18, 2, 0);
             tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Left;
-            tableLayoutPanel3.Location = new System.Drawing.Point(0, 42);
+            tableLayoutPanel3.Location = new System.Drawing.Point(0, 38);
             tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
             tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            tableLayoutPanel3.Size = new System.Drawing.Size(508, 42);
+            tableLayoutPanel3.Size = new System.Drawing.Size(508, 38);
             tableLayoutPanel3.TabIndex = 39;
             // 
             // Nud_TTS1Volume
@@ -672,13 +597,13 @@
             tableLayoutPanel7.Controls.Add(tableLayoutPanel4, 0, 1);
             tableLayoutPanel7.Controls.Add(Cmb_TTS2Name, 0, 0);
             tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel7.Location = new System.Drawing.Point(208, 884);
+            tableLayoutPanel7.Location = new System.Drawing.Point(208, 648);
             tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel7.Name = "tableLayoutPanel7";
             tableLayoutPanel7.RowCount = 2;
             tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel7.Size = new System.Drawing.Size(626, 84);
+            tableLayoutPanel7.Size = new System.Drawing.Size(626, 76);
             tableLayoutPanel7.TabIndex = 46;
             // 
             // tableLayoutPanel4
@@ -693,12 +618,12 @@
             tableLayoutPanel4.Controls.Add(label21, 0, 0);
             tableLayoutPanel4.Controls.Add(label22, 2, 0);
             tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Left;
-            tableLayoutPanel4.Location = new System.Drawing.Point(0, 42);
+            tableLayoutPanel4.Location = new System.Drawing.Point(0, 38);
             tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel4.Size = new System.Drawing.Size(508, 42);
+            tableLayoutPanel4.Size = new System.Drawing.Size(508, 38);
             tableLayoutPanel4.TabIndex = 40;
             // 
             // Nud_TTS2Volume
@@ -728,7 +653,7 @@
             label21.Location = new System.Drawing.Point(6, 0);
             label21.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label21.Name = "label21";
-            label21.Size = new System.Drawing.Size(70, 42);
+            label21.Size = new System.Drawing.Size(70, 38);
             label21.TabIndex = 2;
             label21.Text = "Vol";
             label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -740,7 +665,7 @@
             label22.Location = new System.Drawing.Point(256, 0);
             label22.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             label22.Name = "label22";
-            label22.Size = new System.Drawing.Size(70, 42);
+            label22.Size = new System.Drawing.Size(70, 38);
             label22.TabIndex = 3;
             label22.Text = "Speed";
             label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -767,12 +692,12 @@
             tableLayoutPanel8.Controls.Add(CMB_FontSize, 1, 0);
             tableLayoutPanel8.Controls.Add(CMB_FColor, 2, 0);
             tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel8.Location = new System.Drawing.Point(208, 451);
+            tableLayoutPanel8.Location = new System.Drawing.Point(208, 334);
             tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel8.Name = "tableLayoutPanel8";
             tableLayoutPanel8.RowCount = 1;
             tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            tableLayoutPanel8.Size = new System.Drawing.Size(626, 44);
+            tableLayoutPanel8.Size = new System.Drawing.Size(626, 38);
             tableLayoutPanel8.TabIndex = 47;
             // 
             // CMB_BColor
@@ -831,10 +756,10 @@
             // 
             label9.AutoSize = true;
             label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            label9.Location = new System.Drawing.Point(4, 618);
+            label9.Location = new System.Drawing.Point(4, 448);
             label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(200, 50);
+            label9.Size = new System.Drawing.Size(200, 38);
             label9.TabIndex = 48;
             label9.Text = "　　表示スタイル";
             label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -852,22 +777,22 @@
             tableLayoutPanel5.Controls.Add(checkBox3, 2, 0);
             tableLayoutPanel5.Controls.Add(checkBox4, 3, 0);
             tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel5.Location = new System.Drawing.Point(212, 623);
-            tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tableLayoutPanel5.Location = new System.Drawing.Point(208, 448);
+            tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel5.Size = new System.Drawing.Size(618, 40);
+            tableLayoutPanel5.Size = new System.Drawing.Size(626, 38);
             tableLayoutPanel5.TabIndex = 49;
             // 
             // checkBox1
             // 
             checkBox1.AutoSize = true;
             checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            checkBox1.Location = new System.Drawing.Point(4, 5);
-            checkBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            checkBox1.Location = new System.Drawing.Point(0, 0);
+            checkBox1.Margin = new System.Windows.Forms.Padding(0);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new System.Drawing.Size(78, 30);
+            checkBox1.Size = new System.Drawing.Size(86, 38);
             checkBox1.TabIndex = 0;
             checkBox1.Text = "No";
             checkBox1.UseVisualStyleBackColor = true;
@@ -876,10 +801,10 @@
             // 
             checkBox2.AutoSize = true;
             checkBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            checkBox2.Location = new System.Drawing.Point(90, 5);
-            checkBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            checkBox2.Location = new System.Drawing.Point(86, 0);
+            checkBox2.Margin = new System.Windows.Forms.Padding(0);
             checkBox2.Name = "checkBox2";
-            checkBox2.Size = new System.Drawing.Size(78, 30);
+            checkBox2.Size = new System.Drawing.Size(86, 38);
             checkBox2.TabIndex = 1;
             checkBox2.Text = "Time";
             checkBox2.UseVisualStyleBackColor = true;
@@ -888,10 +813,10 @@
             // 
             checkBox3.AutoSize = true;
             checkBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            checkBox3.Location = new System.Drawing.Point(176, 5);
-            checkBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            checkBox3.Location = new System.Drawing.Point(172, 0);
+            checkBox3.Margin = new System.Windows.Forms.Padding(0);
             checkBox3.Name = "checkBox3";
-            checkBox3.Size = new System.Drawing.Size(78, 30);
+            checkBox3.Size = new System.Drawing.Size(86, 38);
             checkBox3.TabIndex = 2;
             checkBox3.Text = "Type";
             checkBox3.UseVisualStyleBackColor = true;
@@ -900,193 +825,272 @@
             // 
             checkBox4.AutoSize = true;
             checkBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            checkBox4.Location = new System.Drawing.Point(262, 5);
-            checkBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            checkBox4.Location = new System.Drawing.Point(258, 0);
+            checkBox4.Margin = new System.Windows.Forms.Padding(0);
             checkBox4.Name = "checkBox4";
-            checkBox4.Size = new System.Drawing.Size(352, 30);
+            checkBox4.Size = new System.Drawing.Size(368, 38);
             checkBox4.TabIndex = 3;
             checkBox4.Text = "Name";
             checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // Cmb_Echa
-            // 
-            Cmb_Echa.Dock = System.Windows.Forms.DockStyle.Left;
-            Cmb_Echa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            Cmb_Echa.FormattingEnabled = true;
-            Cmb_Echa.Items.AddRange(new object[] { "OFF", "チャットのみ", "チャットに反映して保存", "保存のみ" });
-            Cmb_Echa.Location = new System.Drawing.Point(212, 672);
-            Cmb_Echa.Margin = new System.Windows.Forms.Padding(4);
-            Cmb_Echa.Name = "Cmb_Echa";
-            Cmb_Echa.Size = new System.Drawing.Size(254, 33);
-            Cmb_Echa.TabIndex = 51;
             // 
             // label27
             // 
             label27.AutoSize = true;
             label27.Dock = System.Windows.Forms.DockStyle.Fill;
             label27.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 128);
-            label27.Location = new System.Drawing.Point(3, 1090);
+            label27.Location = new System.Drawing.Point(3, 810);
             label27.Name = "label27";
-            label27.Size = new System.Drawing.Size(202, 50);
+            label27.Size = new System.Drawing.Size(202, 38);
             label27.TabIndex = 55;
             label27.Text = "VOICEVOX-API";
             // 
             // label28
             // 
             label28.AutoSize = true;
-            label28.Location = new System.Drawing.Point(3, 1140);
+            label28.Dock = System.Windows.Forms.DockStyle.Fill;
+            label28.Location = new System.Drawing.Point(3, 848);
             label28.Name = "label28";
-            label28.Size = new System.Drawing.Size(119, 25);
+            label28.Size = new System.Drawing.Size(202, 120);
             label28.TabIndex = 56;
             label28.Text = "　　VoiceVox";
             // 
             // label29
             // 
             label29.AutoSize = true;
-            label29.Location = new System.Drawing.Point(3, 1190);
+            label29.Dock = System.Windows.Forms.DockStyle.Fill;
+            label29.Location = new System.Drawing.Point(3, 968);
             label29.Name = "label29";
-            label29.Size = new System.Drawing.Size(142, 25);
+            label29.Size = new System.Drawing.Size(202, 120);
             label29.TabIndex = 57;
             label29.Text = "　　AivisSpeech";
             // 
-            // tableLayoutPanel9
+            // CHK_AutoAdd
             // 
-            tableLayoutPanel9.ColumnCount = 2;
-            tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            tableLayoutPanel9.Controls.Add(Txt_VoiceVox_exe, 0, 0);
-            tableLayoutPanel9.Controls.Add(Btn_Exec_VoiceVox, 1, 0);
-            tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel9.Location = new System.Drawing.Point(211, 1143);
-            tableLayoutPanel9.Name = "tableLayoutPanel9";
-            tableLayoutPanel9.RowCount = 1;
-            tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel9.Size = new System.Drawing.Size(620, 44);
-            tableLayoutPanel9.TabIndex = 61;
-            // 
-            // Txt_VoiceVox_exe
-            // 
-            Txt_VoiceVox_exe.Dock = System.Windows.Forms.DockStyle.Fill;
-            Txt_VoiceVox_exe.Location = new System.Drawing.Point(3, 3);
-            Txt_VoiceVox_exe.Name = "Txt_VoiceVox_exe";
-            Txt_VoiceVox_exe.Size = new System.Drawing.Size(464, 31);
-            Txt_VoiceVox_exe.TabIndex = 58;
-            Txt_VoiceVox_exe.Text = "C:\\Program Files\\VOICEVOX\\VOICEVOX.exe";
-            // 
-            // Btn_Exec_VoiceVox
-            // 
-            Btn_Exec_VoiceVox.Dock = System.Windows.Forms.DockStyle.Fill;
-            Btn_Exec_VoiceVox.Location = new System.Drawing.Point(473, 3);
-            Btn_Exec_VoiceVox.Name = "Btn_Exec_VoiceVox";
-            Btn_Exec_VoiceVox.Size = new System.Drawing.Size(144, 38);
-            Btn_Exec_VoiceVox.TabIndex = 59;
-            Btn_Exec_VoiceVox.Text = "VoiceVox起動";
-            Btn_Exec_VoiceVox.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel10
-            // 
-            tableLayoutPanel10.ColumnCount = 2;
-            tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            tableLayoutPanel10.Controls.Add(Txt_AivisSpeech_exe, 0, 0);
-            tableLayoutPanel10.Controls.Add(Btn_Exec_Aivis, 1, 0);
-            tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel10.Location = new System.Drawing.Point(211, 1193);
-            tableLayoutPanel10.Name = "tableLayoutPanel10";
-            tableLayoutPanel10.RowCount = 1;
-            tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel10.Size = new System.Drawing.Size(620, 44);
-            tableLayoutPanel10.TabIndex = 62;
-            // 
-            // Txt_AivisSpeech_exe
-            // 
-            Txt_AivisSpeech_exe.Location = new System.Drawing.Point(3, 3);
-            Txt_AivisSpeech_exe.Name = "Txt_AivisSpeech_exe";
-            Txt_AivisSpeech_exe.Size = new System.Drawing.Size(464, 31);
-            Txt_AivisSpeech_exe.TabIndex = 59;
-            Txt_AivisSpeech_exe.Text = "C:\\Program Files\\AivisSpeech\\AivisSpeech.exe";
-            // 
-            // Btn_Exec_Aivis
-            // 
-            Btn_Exec_Aivis.Dock = System.Windows.Forms.DockStyle.Fill;
-            Btn_Exec_Aivis.Location = new System.Drawing.Point(473, 3);
-            Btn_Exec_Aivis.Name = "Btn_Exec_Aivis";
-            Btn_Exec_Aivis.Size = new System.Drawing.Size(144, 38);
-            Btn_Exec_Aivis.TabIndex = 60;
-            Btn_Exec_Aivis.Text = "Aivis起動";
-            Btn_Exec_Aivis.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel11
-            // 
-            tableLayoutPanel11.ColumnCount = 3;
-            tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
-            tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            tableLayoutPanel11.Controls.Add(Cmb_User, 0, 0);
-            tableLayoutPanel11.Controls.Add(Chk_PET, 1, 0);
-            tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel11.Location = new System.Drawing.Point(211, 539);
-            tableLayoutPanel11.Name = "tableLayoutPanel11";
-            tableLayoutPanel11.RowCount = 1;
-            tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel11.Size = new System.Drawing.Size(620, 35);
-            tableLayoutPanel11.TabIndex = 63;
-            // 
-            // Cmb_User
-            // 
-            Cmb_User.Dock = System.Windows.Forms.DockStyle.Left;
-            Cmb_User.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            Cmb_User.FormattingEnabled = true;
-            Cmb_User.Items.AddRange(new object[] { "OFF", "Chat On", "Voice 1", "Voice 2" });
-            Cmb_User.Location = new System.Drawing.Point(0, 0);
-            Cmb_User.Margin = new System.Windows.Forms.Padding(0);
-            Cmb_User.Name = "Cmb_User";
-            Cmb_User.Size = new System.Drawing.Size(155, 33);
-            Cmb_User.TabIndex = 10;
-            Cmb_User.SelectedIndexChanged += Cmb_User_SelectedIndexChanged;
+            CHK_AutoAdd.AutoSize = true;
+            CHK_AutoAdd.Dock = System.Windows.Forms.DockStyle.Fill;
+            CHK_AutoAdd.Location = new System.Drawing.Point(208, 372);
+            CHK_AutoAdd.Margin = new System.Windows.Forms.Padding(0);
+            CHK_AutoAdd.Name = "CHK_AutoAdd";
+            CHK_AutoAdd.Size = new System.Drawing.Size(626, 38);
+            CHK_AutoAdd.TabIndex = 9;
+            CHK_AutoAdd.Text = "キャラリストに自動追加";
+            CHK_AutoAdd.UseVisualStyleBackColor = true;
             // 
             // Chk_PET
             // 
             Chk_PET.AutoSize = true;
-            Chk_PET.Location = new System.Drawing.Point(173, 3);
+            Chk_PET.Dock = System.Windows.Forms.DockStyle.Fill;
+            Chk_PET.Location = new System.Drawing.Point(208, 410);
+            Chk_PET.Margin = new System.Windows.Forms.Padding(0);
             Chk_PET.Name = "Chk_PET";
-            Chk_PET.Size = new System.Drawing.Size(251, 29);
+            Chk_PET.Size = new System.Drawing.Size(626, 38);
             Chk_PET.TabIndex = 11;
             Chk_PET.Text = "PCの付属キャラ(PET等)は無視";
             Chk_PET.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // tableLayoutPanel2
             // 
-            panel1.Controls.Add(Btn_Cancel);
-            panel1.Controls.Add(Btn_Ok);
-            panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 1247);
-            panel1.Margin = new System.Windows.Forms.Padding(6);
-            panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(834, 64);
-            panel1.TabIndex = 1;
+            tableLayoutPanel2.ColumnCount = 3;
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            tableLayoutPanel2.Controls.Add(Btn_Ok, 2, 0);
+            tableLayoutPanel2.Controls.Add(Btn_Cancel, 1, 0);
+            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel2.Location = new System.Drawing.Point(211, 1101);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(620, 39);
+            tableLayoutPanel2.TabIndex = 63;
+            // 
+            // Btn_Ok
+            // 
+            Btn_Ok.Dock = System.Windows.Forms.DockStyle.Fill;
+            Btn_Ok.Location = new System.Drawing.Point(500, 0);
+            Btn_Ok.Margin = new System.Windows.Forms.Padding(0);
+            Btn_Ok.Name = "Btn_Ok";
+            Btn_Ok.Size = new System.Drawing.Size(120, 39);
+            Btn_Ok.TabIndex = 21;
+            Btn_Ok.Text = "Ok";
+            Btn_Ok.UseVisualStyleBackColor = true;
+            Btn_Ok.Click += Btn_Ok_Click;
             // 
             // Btn_Cancel
             // 
-            Btn_Cancel.Location = new System.Drawing.Point(570, 9);
-            Btn_Cancel.Margin = new System.Windows.Forms.Padding(6);
+            Btn_Cancel.Dock = System.Windows.Forms.DockStyle.Fill;
+            Btn_Cancel.Location = new System.Drawing.Point(380, 0);
+            Btn_Cancel.Margin = new System.Windows.Forms.Padding(0);
             Btn_Cancel.Name = "Btn_Cancel";
-            Btn_Cancel.Size = new System.Drawing.Size(126, 49);
+            Btn_Cancel.Size = new System.Drawing.Size(120, 39);
             Btn_Cancel.TabIndex = 20;
             Btn_Cancel.Text = "Cancel";
             Btn_Cancel.UseVisualStyleBackColor = true;
             Btn_Cancel.Click += Btn_Cancel_Click;
             // 
-            // Btn_Ok
+            // Chk_Echa
             // 
-            Btn_Ok.Location = new System.Drawing.Point(704, 6);
-            Btn_Ok.Margin = new System.Windows.Forms.Padding(6);
-            Btn_Ok.Name = "Btn_Ok";
-            Btn_Ok.Size = new System.Drawing.Size(126, 49);
-            Btn_Ok.TabIndex = 21;
-            Btn_Ok.Text = "Ok";
-            Btn_Ok.UseVisualStyleBackColor = true;
-            Btn_Ok.Click += Btn_Ok_Click;
+            Chk_Echa.AutoSize = true;
+            Chk_Echa.Dock = System.Windows.Forms.DockStyle.Left;
+            Chk_Echa.Location = new System.Drawing.Point(208, 486);
+            Chk_Echa.Margin = new System.Windows.Forms.Padding(0);
+            Chk_Echa.Name = "Chk_Echa";
+            Chk_Echa.Size = new System.Drawing.Size(182, 38);
+            Chk_Echa.TabIndex = 64;
+            Chk_Echa.Text = "絵チャットの保存する";
+            Chk_Echa.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(Txt_VoiceVox_Host);
+            panel1.Controls.Add(label30);
+            panel1.Controls.Add(Cmb_VoiceVox_Opt);
+            panel1.Controls.Add(label23);
+            panel1.Controls.Add(label12);
+            panel1.Controls.Add(Txt_VoiceVox_exe);
+            panel1.Controls.Add(Chk_VoiceVox_Auto);
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(211, 851);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(620, 114);
+            panel1.TabIndex = 65;
+            // 
+            // Txt_VoiceVox_Host
+            // 
+            Txt_VoiceVox_Host.Location = new System.Drawing.Point(125, 77);
+            Txt_VoiceVox_Host.Name = "Txt_VoiceVox_Host";
+            Txt_VoiceVox_Host.Size = new System.Drawing.Size(469, 31);
+            Txt_VoiceVox_Host.TabIndex = 64;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Location = new System.Drawing.Point(21, 80);
+            label30.Name = "label30";
+            label30.Size = new System.Drawing.Size(89, 25);
+            label30.TabIndex = 63;
+            label30.Text = "ホスト設定";
+            // 
+            // Cmb_VoiceVox_Opt
+            // 
+            Cmb_VoiceVox_Opt.FormattingEnabled = true;
+            Cmb_VoiceVox_Opt.Items.AddRange(new object[] { "--load_all_models" });
+            Cmb_VoiceVox_Opt.Location = new System.Drawing.Point(125, 38);
+            Cmb_VoiceVox_Opt.Name = "Cmb_VoiceVox_Opt";
+            Cmb_VoiceVox_Opt.Size = new System.Drawing.Size(322, 33);
+            Cmb_VoiceVox_Opt.TabIndex = 62;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new System.Drawing.Point(6, 41);
+            label23.Name = "label23";
+            label23.Size = new System.Drawing.Size(113, 25);
+            label23.TabIndex = 61;
+            label23.Text = "起動オプション";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new System.Drawing.Point(4, 6);
+            label12.Name = "label12";
+            label12.Size = new System.Drawing.Size(115, 25);
+            label12.TabIndex = 60;
+            label12.Text = "実行モジュール";
+            // 
+            // Txt_VoiceVox_exe
+            // 
+            Txt_VoiceVox_exe.Location = new System.Drawing.Point(125, 3);
+            Txt_VoiceVox_exe.Name = "Txt_VoiceVox_exe";
+            Txt_VoiceVox_exe.Size = new System.Drawing.Size(469, 31);
+            Txt_VoiceVox_exe.TabIndex = 58;
+            Txt_VoiceVox_exe.Leave += Txt_VoiceVox_exe_Leave;
+            // 
+            // Chk_VoiceVox_Auto
+            // 
+            Chk_VoiceVox_Auto.AutoSize = true;
+            Chk_VoiceVox_Auto.Location = new System.Drawing.Point(488, 40);
+            Chk_VoiceVox_Auto.Name = "Chk_VoiceVox_Auto";
+            Chk_VoiceVox_Auto.Size = new System.Drawing.Size(106, 29);
+            Chk_VoiceVox_Auto.TabIndex = 59;
+            Chk_VoiceVox_Auto.Text = "自動起動";
+            Chk_VoiceVox_Auto.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(Txt_AivisSpeech_Host);
+            panel2.Controls.Add(label31);
+            panel2.Controls.Add(Cmb_AivisSpeech_Opt);
+            panel2.Controls.Add(label25);
+            panel2.Controls.Add(label24);
+            panel2.Controls.Add(Chk_Aivis_Auto);
+            panel2.Controls.Add(Txt_AivisSpeech_exe);
+            panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel2.Location = new System.Drawing.Point(211, 971);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(620, 114);
+            panel2.TabIndex = 66;
+            // 
+            // Txt_AivisSpeech_Host
+            // 
+            Txt_AivisSpeech_Host.Location = new System.Drawing.Point(125, 77);
+            Txt_AivisSpeech_Host.Name = "Txt_AivisSpeech_Host";
+            Txt_AivisSpeech_Host.Size = new System.Drawing.Size(469, 31);
+            Txt_AivisSpeech_Host.TabIndex = 66;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Location = new System.Drawing.Point(21, 80);
+            label31.Name = "label31";
+            label31.Size = new System.Drawing.Size(89, 25);
+            label31.TabIndex = 65;
+            label31.Text = "ホスト設定";
+            // 
+            // Cmb_AivisSpeech_Opt
+            // 
+            Cmb_AivisSpeech_Opt.FormattingEnabled = true;
+            Cmb_AivisSpeech_Opt.Items.AddRange(new object[] { "--load_all_models" });
+            Cmb_AivisSpeech_Opt.Location = new System.Drawing.Point(125, 38);
+            Cmb_AivisSpeech_Opt.Name = "Cmb_AivisSpeech_Opt";
+            Cmb_AivisSpeech_Opt.Size = new System.Drawing.Size(322, 33);
+            Cmb_AivisSpeech_Opt.TabIndex = 63;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new System.Drawing.Point(6, 41);
+            label25.Name = "label25";
+            label25.Size = new System.Drawing.Size(113, 25);
+            label25.TabIndex = 62;
+            label25.Text = "起動オプション";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new System.Drawing.Point(4, 6);
+            label24.Name = "label24";
+            label24.Size = new System.Drawing.Size(115, 25);
+            label24.TabIndex = 61;
+            label24.Text = "実行モジュール";
+            // 
+            // Chk_Aivis_Auto
+            // 
+            Chk_Aivis_Auto.AutoSize = true;
+            Chk_Aivis_Auto.Location = new System.Drawing.Point(488, 40);
+            Chk_Aivis_Auto.Name = "Chk_Aivis_Auto";
+            Chk_Aivis_Auto.Size = new System.Drawing.Size(106, 29);
+            Chk_Aivis_Auto.TabIndex = 60;
+            Chk_Aivis_Auto.Text = "自動起動";
+            Chk_Aivis_Auto.UseVisualStyleBackColor = true;
+            // 
+            // Txt_AivisSpeech_exe
+            // 
+            Txt_AivisSpeech_exe.Location = new System.Drawing.Point(125, 3);
+            Txt_AivisSpeech_exe.Name = "Txt_AivisSpeech_exe";
+            Txt_AivisSpeech_exe.Size = new System.Drawing.Size(469, 31);
+            Txt_AivisSpeech_exe.TabIndex = 59;
+            Txt_AivisSpeech_exe.Leave += Txt_AivisSpeech_exe_Leave;
             // 
             // openFileDialog1
             // 
@@ -1100,8 +1104,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(834, 1311);
-            Controls.Add(panel1);
+            ClientSize = new System.Drawing.Size(834, 1174);
             Controls.Add(tableLayoutPanel1);
             Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -1115,8 +1118,6 @@
             Shown += Setting_Shown;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
-            tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel2.PerformLayout();
             tableLayoutPanel6.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
@@ -1130,20 +1131,17 @@
             tableLayoutPanel8.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
-            tableLayoutPanel9.ResumeLayout(false);
-            tableLayoutPanel9.PerformLayout();
-            tableLayoutPanel10.ResumeLayout(false);
-            tableLayoutPanel10.PerformLayout();
-            tableLayoutPanel11.ResumeLayout(false);
-            tableLayoutPanel11.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -1152,7 +1150,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
@@ -1164,14 +1161,9 @@
         private System.Windows.Forms.TextBox Txt_CapProgram;
         private System.Windows.Forms.TextBox Txt_CapPort;
         private System.Windows.Forms.TextBox Txt_SavePath;
-        private System.Windows.Forms.ComboBox Cmb_NPC;
-        private System.Windows.Forms.ComboBox Cmb_User;
         private System.Windows.Forms.CheckBox Chk_TTSMute;
         private System.Windows.Forms.CheckBox Chk_TTSNameCall;
         private System.Windows.Forms.ComboBox Cmb_SaveMode;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.ComboBox Cmb_Whitelist;
-        private System.Windows.Forms.Button Btn_WhiteList;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.NumericUpDown Nud_TTS1Volume;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
@@ -1202,7 +1194,6 @@
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox Cmb_Echa;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label27;
@@ -1210,11 +1201,22 @@
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.TextBox Txt_VoiceVox_exe;
         private System.Windows.Forms.TextBox Txt_AivisSpeech_exe;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
-        private System.Windows.Forms.Button Btn_Exec_VoiceVox;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
-        private System.Windows.Forms.Button Btn_Exec_Aivis;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
         private System.Windows.Forms.CheckBox Chk_PET;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.CheckBox Chk_Echa;
+        private System.Windows.Forms.CheckBox Chk_VoiceVox_Auto;
+        private System.Windows.Forms.CheckBox Chk_Aivis_Auto;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox Cmb_VoiceVox_Opt;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ComboBox Cmb_AivisSpeech_Opt;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox Txt_VoiceVox_Host;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox Txt_AivisSpeech_Host;
+        private System.Windows.Forms.Label label31;
     }
 }

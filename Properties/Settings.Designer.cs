@@ -121,49 +121,13 @@ namespace MabiChatSpeech.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int @__ChatSelWhitelist {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool @__ChatPet {
             get {
-                return ((int)(this["__ChatSelWhitelist"]));
+                return ((bool)(this["__ChatPet"]));
             }
             set {
-                this["__ChatSelWhitelist"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int @__ChatSelUser {
-            get {
-                return ((int)(this["__ChatSelUser"]));
-            }
-            set {
-                this["__ChatSelUser"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int @__ChatSelPet {
-            get {
-                return ((int)(this["__ChatSelPet"]));
-            }
-            set {
-                this["__ChatSelPet"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int @__ChatSelNpc {
-            get {
-                return ((int)(this["__ChatSelNpc"]));
-            }
-            set {
-                this["__ChatSelNpc"] = value;
+                this["__ChatPet"] = value;
             }
         }
         
@@ -302,24 +266,24 @@ namespace MabiChatSpeech.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("./")]
-        public string @__WhiteList_Path {
+        public string @__CharaList_Path {
             get {
-                return ((string)(this["__WhiteList_Path"]));
+                return ((string)(this["__CharaList_Path"]));
             }
             set {
-                this["__WhiteList_Path"] = value;
+                this["__CharaList_Path"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool @__WhiteList_AutoAdd {
+        public bool @__CharaList_AutoAdd {
             get {
-                return ((bool)(this["__WhiteList_AutoAdd"]));
+                return ((bool)(this["__CharaList_AutoAdd"]));
             }
             set {
-                this["__WhiteList_AutoAdd"] = value;
+                this["__CharaList_AutoAdd"] = value;
             }
         }
         
@@ -445,10 +409,10 @@ namespace MabiChatSpeech.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int @__Echa {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool @__Echa {
             get {
-                return ((int)(this["__Echa"]));
+                return ((bool)(this["__Echa"]));
             }
             set {
                 this["__Echa"] = value;
@@ -457,8 +421,7 @@ namespace MabiChatSpeech.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\honeb\\AppData\\Roaming\\voicevox\\vvpp-engines\\VOICEVOX_Engine+074fc39e-678" +
-            "b-4c13-8916-ffca8d505d1d\\run.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string @__VoiceVox {
             get {
                 return ((string)(this["__VoiceVox"]));
@@ -470,7 +433,7 @@ namespace MabiChatSpeech.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\AivisSpeech\\AivisSpeech-Engine\\run.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string @__AivisSpeech {
             get {
                 return ((string)(this["__AivisSpeech"]));
@@ -513,6 +476,78 @@ namespace MabiChatSpeech.Properties {
             }
             set {
                 this["__ChatMode_Voice"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool @__VoiceVox_Auto {
+            get {
+                return ((bool)(this["__VoiceVox_Auto"]));
+            }
+            set {
+                this["__VoiceVox_Auto"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool @__Aivis_Auto {
+            get {
+                return ((bool)(this["__Aivis_Auto"]));
+            }
+            set {
+                this["__Aivis_Auto"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string @__VoiceVox_Opt {
+            get {
+                return ((string)(this["__VoiceVox_Opt"]));
+            }
+            set {
+                this["__VoiceVox_Opt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string @__AivisSpeech_Opt {
+            get {
+                return ((string)(this["__AivisSpeech_Opt"]));
+            }
+            set {
+                this["__AivisSpeech_Opt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://127.0.0.1:50021")]
+        public string @__VoiceVox_Host {
+            get {
+                return ((string)(this["__VoiceVox_Host"]));
+            }
+            set {
+                this["__VoiceVox_Host"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://127.0.0.1:10101")]
+        public string @__AivisSpeech_Host {
+            get {
+                return ((string)(this["__AivisSpeech_Host"]));
+            }
+            set {
+                this["__AivisSpeech_Host"] = value;
             }
         }
     }

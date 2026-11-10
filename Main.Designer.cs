@@ -100,11 +100,11 @@
             statusStrip1.AutoSize = false;
             statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip, SSL_VoiceVox, SSL_AivisSpeech, SSL_VoiceAPI, SSL_PC, SSL_NPC, SSL_CharaList, SSL_Echa, SSL_Youtube, TPB_Save, TPB_Max, TPB_Event });
-            statusStrip1.Location = new System.Drawing.Point(0, 474);
+            statusStrip1.Location = new System.Drawing.Point(0, 462);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 22, 0);
             statusStrip1.ShowItemToolTips = true;
-            statusStrip1.Size = new System.Drawing.Size(1486, 60);
+            statusStrip1.Size = new System.Drawing.Size(1486, 72);
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -113,7 +113,7 @@
             SLB_Mode.AutoSize = false;
             SLB_Mode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_Mode.Name = "SLB_Mode";
-            SLB_Mode.Size = new System.Drawing.Size(64, 54);
+            SLB_Mode.Size = new System.Drawing.Size(64, 66);
             SLB_Mode.ToolTipText = "Mode";
             // 
             // SLB_SaveMode
@@ -121,7 +121,7 @@
             SLB_SaveMode.AutoSize = false;
             SLB_SaveMode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_SaveMode.Name = "SLB_SaveMode";
-            SLB_SaveMode.Size = new System.Drawing.Size(64, 54);
+            SLB_SaveMode.Size = new System.Drawing.Size(64, 66);
             SLB_SaveMode.ToolTipText = "チャットログの保存方法";
             // 
             // SLB_Client
@@ -129,7 +129,7 @@
             SLB_Client.AutoSize = false;
             SLB_Client.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_Client.Name = "SLB_Client";
-            SLB_Client.Size = new System.Drawing.Size(60, 54);
+            SLB_Client.Size = new System.Drawing.Size(60, 66);
             SLB_Client.ToolTipText = "接続状態";
             // 
             // SLB_Ip
@@ -140,32 +140,35 @@
             SLB_Ip.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             SLB_Ip.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_Ip.Name = "SLB_Ip";
-            SLB_Ip.Size = new System.Drawing.Size(120, 54);
+            SLB_Ip.Size = new System.Drawing.Size(120, 66);
             SLB_Ip.Text = "商店街";
             SLB_Ip.ToolTipText = "接続先";
             // 
             // SSL_VoiceVox
             // 
-            SSL_VoiceVox.Image = Properties.Resources.vvpp_0_1_disable;
+            SSL_VoiceVox.Image = Properties.Resources.Icon_vvpp;
             SSL_VoiceVox.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_VoiceVox.Name = "SSL_VoiceVox";
-            SSL_VoiceVox.Size = new System.Drawing.Size(24, 54);
-            SSL_VoiceVox.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            SSL_VoiceVox.Size = new System.Drawing.Size(54, 66);
+            SSL_VoiceVox.Text = "未起動";
+            SSL_VoiceVox.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             // 
             // SSL_AivisSpeech
             // 
-            SSL_AivisSpeech.Image = Properties.Resources.aisp_0_1_disable;
+            SSL_AivisSpeech.Image = Properties.Resources.Icon_aisp;
             SSL_AivisSpeech.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_AivisSpeech.LinkVisited = true;
             SSL_AivisSpeech.Name = "SSL_AivisSpeech";
-            SSL_AivisSpeech.Size = new System.Drawing.Size(24, 54);
+            SSL_AivisSpeech.Size = new System.Drawing.Size(54, 66);
+            SSL_AivisSpeech.Text = "未起動";
+            SSL_AivisSpeech.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             // 
             // SSL_VoiceAPI
             // 
             SSL_VoiceAPI.AutoSize = false;
             SSL_VoiceAPI.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             SSL_VoiceAPI.Name = "SSL_VoiceAPI";
-            SSL_VoiceAPI.Size = new System.Drawing.Size(120, 54);
+            SSL_VoiceAPI.Size = new System.Drawing.Size(120, 66);
             SSL_VoiceAPI.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             SSL_VoiceAPI.Click += SSL_VoiceAPI_Click;
             // 
@@ -174,14 +177,14 @@
             SSL_PC.Image = Properties.Resources.Icon_PC_Chat_Dis;
             SSL_PC.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_PC.Name = "SSL_PC";
-            SSL_PC.Size = new System.Drawing.Size(32, 54);
+            SSL_PC.Size = new System.Drawing.Size(32, 66);
             // 
             // SSL_NPC
             // 
             SSL_NPC.Image = Properties.Resources.Icon_NPC_Chat_Dis;
             SSL_NPC.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_NPC.Name = "SSL_NPC";
-            SSL_NPC.Size = new System.Drawing.Size(32, 54);
+            SSL_NPC.Size = new System.Drawing.Size(32, 66);
             // 
             // SSL_CharaList
             // 
@@ -191,35 +194,37 @@
             SSL_CharaList.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_CharaList.LinkVisited = true;
             SSL_CharaList.Name = "SSL_CharaList";
-            SSL_CharaList.Size = new System.Drawing.Size(32, 54);
+            SSL_CharaList.Size = new System.Drawing.Size(32, 66);
+            SSL_CharaList.Click += SSL_CharaList_Click;
             // 
             // SSL_Echa
             // 
-            SSL_Echa.Image = Properties.Resources.Icn_echa_off;
+            SSL_Echa.Image = Properties.Resources.Icon_EchaOff;
+            SSL_Echa.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_Echa.Name = "SSL_Echa";
-            SSL_Echa.Size = new System.Drawing.Size(20, 54);
+            SSL_Echa.Size = new System.Drawing.Size(32, 66);
             // 
             // SSL_Youtube
             // 
             SSL_Youtube.Name = "SSL_Youtube";
-            SSL_Youtube.Size = new System.Drawing.Size(0, 54);
+            SSL_Youtube.Size = new System.Drawing.Size(0, 66);
             // 
             // TPB_Save
             // 
             TPB_Save.Maximum = int.MaxValue;
             TPB_Save.Name = "TPB_Save";
-            TPB_Save.Size = new System.Drawing.Size(101, 52);
+            TPB_Save.Size = new System.Drawing.Size(101, 64);
             // 
             // TPB_Max
             // 
             TPB_Max.AutoSize = false;
             TPB_Max.Name = "TPB_Max";
-            TPB_Max.Size = new System.Drawing.Size(169, 54);
+            TPB_Max.Size = new System.Drawing.Size(169, 66);
             // 
             // TPB_Event
             // 
             TPB_Event.Name = "TPB_Event";
-            TPB_Event.Size = new System.Drawing.Size(599, 54);
+            TPB_Event.Size = new System.Drawing.Size(488, 66);
             TPB_Event.Spring = true;
             // 
             // Txt_Chat
@@ -234,7 +239,7 @@
             Txt_Chat.Name = "Txt_Chat";
             Txt_Chat.ReadOnly = true;
             Txt_Chat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            Txt_Chat.Size = new System.Drawing.Size(1486, 437);
+            Txt_Chat.Size = new System.Drawing.Size(1486, 425);
             Txt_Chat.TabIndex = 0;
             Txt_Chat.WordWrap = false;
             // 
@@ -255,11 +260,10 @@
             LSV_chat.Margin = new System.Windows.Forms.Padding(4);
             LSV_chat.MultiSelect = false;
             LSV_chat.Name = "LSV_chat";
-            LSV_chat.Size = new System.Drawing.Size(1486, 437);
+            LSV_chat.Size = new System.Drawing.Size(1486, 425);
             LSV_chat.TabIndex = 2;
             LSV_chat.UseCompatibleStateImageBehavior = false;
             LSV_chat.View = System.Windows.Forms.View.Details;
-            LSV_chat.SelectedIndexChanged += LSV_chat_SelectedIndexChanged;
             LSV_chat.Click += LSV_chat_Click;
             LSV_chat.DoubleClick += LSV_chat_DoubleClick;
             // 
@@ -314,30 +318,37 @@
             // 
             // Mnu_SystemSetiing
             // 
-            Mnu_SystemSetiing.Image = Properties.Resources.Icn_Settings;
+            Mnu_SystemSetiing.Image = Properties.Resources.Icon_Setting;
+            Mnu_SystemSetiing.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_SystemSetiing.Name = "Mnu_SystemSetiing";
-            Mnu_SystemSetiing.Size = new System.Drawing.Size(200, 30);
+            Mnu_SystemSetiing.Size = new System.Drawing.Size(212, 38);
             Mnu_SystemSetiing.Text = "設定";
             Mnu_SystemSetiing.Click += Mnu_SystemSetiing_Click;
             // 
             // Mnu_Export
             // 
+            Mnu_Export.Image = Properties.Resources.Icon_Export;
+            Mnu_Export.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_Export.Name = "Mnu_Export";
-            Mnu_Export.Size = new System.Drawing.Size(200, 30);
+            Mnu_Export.Size = new System.Drawing.Size(212, 38);
             Mnu_Export.Text = "エクスポート(&X)";
             Mnu_Export.Click += Mnu_Export_Click;
             // 
             // Mnu_Replay
             // 
+            Mnu_Replay.Image = Properties.Resources.Icon_Replay;
+            Mnu_Replay.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_Replay.Name = "Mnu_Replay";
-            Mnu_Replay.Size = new System.Drawing.Size(200, 30);
+            Mnu_Replay.Size = new System.Drawing.Size(212, 38);
             Mnu_Replay.Text = "リプレイ(&R)";
             Mnu_Replay.Click += Mnu_Replay_Click;
             // 
             // Mnu_Quit
             // 
+            Mnu_Quit.Image = Properties.Resources.Icon_AppExit;
+            Mnu_Quit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_Quit.Name = "Mnu_Quit";
-            Mnu_Quit.Size = new System.Drawing.Size(200, 30);
+            Mnu_Quit.Size = new System.Drawing.Size(212, 38);
             Mnu_Quit.Text = "終了(&Q)";
             Mnu_Quit.Click += Mnu_Quit_Click;
             // 
@@ -482,7 +493,7 @@
             Mnu_Echa.Checked = true;
             Mnu_Echa.CheckOnClick = true;
             Mnu_Echa.CheckState = System.Windows.Forms.CheckState.Checked;
-            Mnu_Echa.Image = Properties.Resources.Icn_echa_off;
+            Mnu_Echa.Image = Properties.Resources.Icon_EchaOn;
             Mnu_Echa.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_Echa.Name = "Mnu_Echa";
             Mnu_Echa.Size = new System.Drawing.Size(223, 38);
@@ -496,7 +507,8 @@
             // 
             // Mnu_Clear
             // 
-            Mnu_Clear.Image = Properties.Resources.Icn_pageclear;
+            Mnu_Clear.Image = Properties.Resources.Icon_ScreenClear;
+            Mnu_Clear.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_Clear.Name = "Mnu_Clear";
             Mnu_Clear.Size = new System.Drawing.Size(223, 38);
             Mnu_Clear.Text = "クリア(&C)";

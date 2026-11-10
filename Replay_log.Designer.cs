@@ -309,24 +309,24 @@
             // lbl_AivisSpeech
             // 
             lbl_AivisSpeech.AutoSize = true;
-            lbl_AivisSpeech.Image = Properties.Resources.aisp_0_1;
+            lbl_AivisSpeech.Image = Properties.Resources.Icon_aisp_Disable;
             lbl_AivisSpeech.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            lbl_AivisSpeech.Location = new System.Drawing.Point(891, 12);
+            lbl_AivisSpeech.Location = new System.Drawing.Point(980, 12);
             lbl_AivisSpeech.Name = "lbl_AivisSpeech";
-            lbl_AivisSpeech.Size = new System.Drawing.Size(84, 25);
+            lbl_AivisSpeech.Size = new System.Drawing.Size(32, 25);
             lbl_AivisSpeech.TabIndex = 6;
-            lbl_AivisSpeech.Text = "     label5";
+            lbl_AivisSpeech.Text = "    ";
             // 
             // lbl_VoiceVox
             // 
             lbl_VoiceVox.AutoSize = true;
-            lbl_VoiceVox.Image = Properties.Resources.vvpp_0_1;
+            lbl_VoiceVox.Image = Properties.Resources.Icon_vvpp_Disable;
             lbl_VoiceVox.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            lbl_VoiceVox.Location = new System.Drawing.Point(789, 12);
+            lbl_VoiceVox.Location = new System.Drawing.Point(932, 12);
             lbl_VoiceVox.Name = "lbl_VoiceVox";
-            lbl_VoiceVox.Size = new System.Drawing.Size(84, 25);
+            lbl_VoiceVox.Size = new System.Drawing.Size(32, 25);
             lbl_VoiceVox.TabIndex = 5;
-            lbl_VoiceVox.Text = "     label4";
+            lbl_VoiceVox.Text = "    ";
             lbl_VoiceVox.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Txt_Regex

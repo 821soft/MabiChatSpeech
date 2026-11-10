@@ -714,7 +714,7 @@ namespace MabiChatSpeech
 
                     }
                     // 絵チャ判別
-                    else if ( ( btype == PacketType.Echa ) && ( Program.__Echa != 0 ))
+                    else if ( ( btype == PacketType.Echa ) && ( Program.__Echa ))
                     {
                         var val = new ChatData();
                         val.CharacterType = (CharacterTypes)tcpbuff[bf + 7];
@@ -739,16 +739,18 @@ namespace MabiChatSpeech
                             var img = loadImageFromURL(cd.CWord);
                             string[] urlname = cd.CWord.Split('/');
 
-                            if (Program.__Echa > 1) //保存する
+                            if (Program.__Echa ) //保存する
                             {
                                 img.Save(__SavePath + "\\echa\\" + urlname[urlname.Length - 1], ImageFormat.Png);
                             }
-                            val.CharacterName = cd.CName;
-                            val.ChatWord = urlname[urlname.Length - 1];
-                            if ( ( Program.__Echa == 1 ) || ( Program.__Echa == 2 ) )
-                            {
-                                ret.Add(val);
-                            }
+                            /*
+                                                        val.CharacterName = cd.CName;
+                                                        val.ChatWord = urlname[urlname.Length - 1];
+                                                        if ( ( Program.__Echa == 1 ) || ( Program.__Echa == 2 ) )
+                                                        {
+                                                            ret.Add(val);
+                                                        }
+                            */
                         }
                     }
                     b += blocklen;

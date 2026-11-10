@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -82,11 +83,6 @@ namespace MabiChatSpeech
             // Draw the focus rectangle if the mouse hovers over an item.
             e.DrawFocusRectangle();
         }
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Setting_Shown(object sender, EventArgs e)
         {
 
@@ -121,19 +117,14 @@ namespace MabiChatSpeech
 
             CMB_FontSize.Text = $"{Program.__ChatFontSize}";
 
-
-            Cmb_Whitelist.SelectedIndex = Program.__ChatSelWhitelist;
-            Cmb_User.SelectedIndex = Program.__ChatSelUser;
-            if (Program.__ChatSelPet == 0)
-            {
-                Chk_PET.Checked = false;
-            }
-            else
+            if (Program.__ChatPet )
             {
                 Chk_PET.Checked = true;
             }
-
-            Cmb_NPC.SelectedIndex = Program.__ChatSelNpc;
+            else
+            {
+                Chk_PET.Checked = false;
+            }
 
             Cmb_TTS1Name.Text = Program.__TTS1Name;
             Nud_TTS1Volume.Value = Program.__TTS1Volume;
@@ -144,14 +135,33 @@ namespace MabiChatSpeech
             Chk_TTSMute.Checked = Program.__TTS_Mute;
             Chk_TTSNameCall.Checked = Program.__TTS_NameCall;
 
-            CHK_AutoAdd.Checked = Program.__WhiteList_AutoAdd;
+            CHK_AutoAdd.Checked = Program.__CharaList_AutoAdd;
 
             checkBox1.Checked = Program.__ChatView_No;
             checkBox2.Checked = Program.__ChatView_Time;
             checkBox3.Checked = Program.__ChatView_Type;
             checkBox4.Checked = Program.__ChatView_Name;
 
-            Cmb_Echa.SelectedIndex = Program.__Echa;
+            Chk_Echa.Checked = Program.__Echa;
+            Txt_VoiceVox_exe.Text = Program.__VoiceVox;
+            Cmb_VoiceVox_Opt.Text = Program.__VoiceVox_Opt;
+            Txt_VoiceVox_Host.Text = Program.__VoiceVox_Host;
+            if (Txt_VoiceVox_exe.Text == "")
+            {
+                Chk_VoiceVox_Auto.Enabled = false;
+                Cmb_VoiceVox_Opt.Enabled = false;
+            }
+            Chk_VoiceVox_Auto.Checked = Program.__VoiceVox_Auto;
+
+            Txt_AivisSpeech_exe.Text = Program.__AivisSpeech;
+            Cmb_AivisSpeech_Opt.Text = Program.__AivisSpeech_Opt;
+            Txt_AivisSpeech_Host.Text = Program.__AivisSpeech_Host;
+            if (Txt_AivisSpeech_exe.Text == "")
+            {
+                Chk_Aivis_Auto.Enabled = false;
+                Cmb_AivisSpeech_Opt.Enabled=false;
+            }
+            Chk_Aivis_Auto.Checked = Program.__Aivis_Auto;
 
         }
 
@@ -163,19 +173,7 @@ namespace MabiChatSpeech
 
             Program.__SaveMode = Cmb_SaveMode.SelectedIndex;
             Program.__SavePath = Txt_SavePath.Text;
-            Program.__ChatSelWhitelist = Cmb_Whitelist.SelectedIndex;
-            Program.__ChatSelUser = Cmb_User.SelectedIndex;
-            if (Chk_PET.Checked)
-            {
-                Program.__ChatSelPet = 1;
-            }
-            else
-            {
-                Program.__ChatSelPet = 0;
-            }
-
-
-            Program.__ChatSelNpc = Cmb_NPC.SelectedIndex;
+            Program.__ChatPet = Chk_PET.Checked;
 
             Program.__TTS1Name = Cmb_TTS1Name.Text;
             Program.__TTS1Volume = (int)(Nud_TTS1Volume.Value);
@@ -206,8 +204,18 @@ namespace MabiChatSpeech
 
             Program.__ChatFontName = myFont.Name;
             Program.__ChatFontSize = size;
-            Program.__WhiteList_AutoAdd = CHK_AutoAdd.Checked;
-            Program.__Echa = Cmb_Echa.SelectedIndex;
+            Program.__CharaList_AutoAdd = CHK_AutoAdd.Checked;
+            Program.__Echa = Chk_Echa.Checked;
+
+            Program.__VoiceVox = Txt_VoiceVox_exe.Text;
+            Program.__VoiceVox_Auto = Chk_VoiceVox_Auto.Checked;
+            Program.__VoiceVox_Opt = Cmb_VoiceVox_Opt.Text;
+            Program.__VoiceVox_Host = Txt_VoiceVox_Host.Text;
+
+            Program.__AivisSpeech = Txt_AivisSpeech_exe.Text;
+            Program.__Aivis_Auto = Chk_Aivis_Auto.Checked;
+            Program.__AivisSpeech_Opt = Cmb_AivisSpeech_Opt.Text;
+            Program.__AivisSpeech_Host = Txt_AivisSpeech_Host.Text;
 
 
             Properties.Settings.Default.Save();
@@ -242,15 +250,6 @@ namespace MabiChatSpeech
                 Txt_SavePath.Text = fbd.SelectedPath;
             }
 
-        }
-
-        private void Btn_WhiteList_Click(object sender, EventArgs e)
-        {
-            WhiteList Frm_WhiteList = new WhiteList();
-            Frm_WhiteList.Owner = this;
-            if (Frm_WhiteList.ShowDialog() == DialogResult.OK)
-            {
-            }
         }
 
         private void Setting_Load(object sender, EventArgs e)
@@ -301,10 +300,85 @@ namespace MabiChatSpeech
             ChatFColor = Program.Color16List[CMB_FColor.SelectedIndex];
         }
 
-        private void Cmb_User_SelectedIndexChanged(object sender, EventArgs e)
+        private void Txt_VoiceVox_exe_Leave(object sender, EventArgs e)
         {
+            Txt_VoiceVox_exe.Text = Txt_VoiceVox_exe.Text.Trim('"');
+            if (Txt_VoiceVox_exe.Text.Length == 0)
+            {
+                Chk_VoiceVox_Auto.Checked = false;
+                Chk_VoiceVox_Auto.Enabled = false;
+                Cmb_VoiceVox_Opt.Enabled = false;
+                return;
+            }
 
+            //--load_all_models
+            if (File.Exists(Txt_VoiceVox_exe.Text))
+            {
+                Chk_VoiceVox_Auto.Enabled = true;
+                Cmb_VoiceVox_Opt.Enabled = true;
+                return;
+            }
+            else
+            {
+
+                var res = MessageBox.Show("VoiceVoxのエンジンが見当たりません.",
+                    "エラー",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Error
+                    );
+                if (res == DialogResult.OK)
+                {
+                    Txt_VoiceVox_exe.Focus();
+                }
+                else
+                {
+                    Txt_VoiceVox_exe.Text = "";
+                    Chk_VoiceVox_Auto.Checked = false;
+                    Chk_VoiceVox_Auto.Enabled = false;
+                    Cmb_VoiceVox_Opt.Enabled = false;
+                }
+            }
+        }
+
+        private void Txt_AivisSpeech_exe_Leave(object sender, EventArgs e)
+        {
+            Txt_AivisSpeech_exe.Text = Txt_AivisSpeech_exe.Text.Trim('"');
+            if (Txt_AivisSpeech_exe.Text.Length == 0)
+            {
+                Chk_Aivis_Auto.Checked = false;
+                Chk_Aivis_Auto.Enabled = false;
+                Cmb_AivisSpeech_Opt.Enabled = false;
+                return;
+            }
+
+            if (File.Exists(Txt_AivisSpeech_exe.Text))
+            {
+                Chk_Aivis_Auto.Enabled = true;
+                Cmb_AivisSpeech_Opt.Enabled = true;
+                return;
+            }
+            else
+            {
+
+                var res = MessageBox.Show("AivisSpeechのエンジンが見当たりません.",
+                    "エラー",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Error
+                    );
+                if (res == DialogResult.OK)
+                {
+                    Txt_AivisSpeech_exe.Focus();
+                }
+                else
+                {
+                    Txt_AivisSpeech_exe.Text = "";
+                    Chk_Aivis_Auto.Checked = false;
+                    Chk_Aivis_Auto.Enabled = true;
+                    Cmb_AivisSpeech_Opt.Enabled = true;
+                }
+            }
         }
 
     }
 }
+

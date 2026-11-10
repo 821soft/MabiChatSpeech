@@ -49,8 +49,6 @@ namespace MabiChatSpeech
 
             foreach (string line in File.ReadLines(fileName))
             {
-                // 例: C 1,21:43:25.643,PC ,ドミヌーラ,こんばんはー
-                // 分割数を5に制限し、Chat内のカンマは残す。
                 string[] parts = line.Split(new[] { ',' }, 5);
 
                 if (parts.Length < 5)
@@ -114,9 +112,9 @@ namespace MabiChatSpeech
             public bool Enabled { get; set; }
             public string CharName { get; set; } = string.Empty;
             public _CharaTypeNames CharaTypeName { get; set; } = _CharaTypeNames.UNKNOWN;
-            public ChatVoiceEngine VoiceEngen { get; set; } = ChatVoiceEngine.VoiceVox;
-            public string VoiceName { get; set; } = "ずんだもん-ノーマル";
-            public int VoiceId { get; set; } = 3;
+            public ChatVoiceEngine VoiceEngen { get; set; } = ChatVoiceEngine.TTS;
+            public string VoiceName { get; set; } = "";
+            public int VoiceId { get; set; } = -1;
             public float VolumeScale { get; set; } = 1.0f;
             public float SpeedScale { get; set; } = 1.0f;
             public float PitchScale { get; set; } = 0.0f;
@@ -125,9 +123,9 @@ namespace MabiChatSpeech
                 bool enabled ,
                 string charName,
                 _CharaTypeNames charaNameType,
-                ChatVoiceEngine VoiceEngen=ChatVoiceEngine.VoiceVox,
-                string voiceName = "ずんだもん-ノーマル",
-                int voiceId= 3,
+                ChatVoiceEngine VoiceEngen=ChatVoiceEngine.TTS,
+                string voiceName = "",
+                int voiceId= -1,
                 float volumeScale = 1.0f,
                 float speedScale = 1.0f,
                 float pitchScale = 0.0f)

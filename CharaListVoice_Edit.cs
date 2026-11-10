@@ -33,6 +33,7 @@ namespace MabiChatSpeech
         public string testword { get; set; } = "";
         internal CharacterNameData? character = new CharacterNameData();
         private ListViewItem DataItem = new ListViewItem();
+/*
         public CharaListVoice_Edit(string CharaName)
         {
             InitializeComponent();
@@ -42,9 +43,11 @@ namespace MabiChatSpeech
             this.Text = "キャラの音声設定:String";
 
         }
+*/
         internal CharaListVoice_Edit(CharacterNameData dat)
             : this(dat, updateProgramCharaList: true)
         {
+            this.Text = $"キャラの音声設定:CharacterNameData1";
         }
 
         internal CharaListVoice_Edit(CharacterNameData dat, bool updateProgramCharaList)
@@ -55,7 +58,7 @@ namespace MabiChatSpeech
             character = dat;
             _updateProgramCharaList = updateProgramCharaList;
             datatype = 1;
-            this.Text = "キャラの音声設定:CharacterNameData";
+            this.Text = $"キャラの音声設定:updateProgramCharaList2";
         }
         internal CharaListVoice_Edit(ListViewItem item)
         {
@@ -100,7 +103,6 @@ namespace MabiChatSpeech
         {
             ListMakeing = true;
             Txt_TestWord.Text = testword;
-
             if (datatype == 1)
             {
                 //            character = Program.CharaList.FirstOrDefault(x => x.CharName == charaname);
@@ -116,6 +118,20 @@ namespace MabiChatSpeech
                 var eng_idx = Lst_VoiceEngen.FindStringExact(EngineDisplayName(character.VoiceEngen));
                 Lst_VoiceEngen.SelectedIndex = eng_idx;
                 ListBox_VoiceSet(character.VoiceEngen, character.VoiceName);
+                Txt_VolumeScal.Text = character.VolumeScale.ToString();
+                Txt_SpeedScale.Text = character.SpeedScale.ToString();
+                Txt_PitchScal.Text = character.PitchScale.ToString();
+
+                if ((Main.SpekaerCount(character.VoiceEngen) <= 0)&&(character.VoiceEngen!=ChatVoiceEngine.TTS))
+                {
+                    this.Close();
+                    MessageBox.Show(
+                        $"音声合成({character.VoiceEngen})が起動していません。",
+                        "音声合成",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation);
+                    return;
+                }
             }
             else if (datatype == 2)
             {
@@ -134,6 +150,18 @@ namespace MabiChatSpeech
                 Txt_VolumeScal.Text = DataItem.SubItems[6].Text;
                 Txt_SpeedScale.Text = DataItem.SubItems[7].Text;
                 Txt_PitchScal.Text = DataItem.SubItems[8].Text;
+
+                if ((Main.SpekaerCount(eng) <= 0) && (eng!=ChatVoiceEngine.TTS))
+                {
+                    this.Close();
+                    MessageBox.Show(
+                        $"音声合成({eng})が起動していません。",
+                        "音声合成",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation);
+                    return;
+                }
+
             }
             else
             { }
@@ -196,7 +224,6 @@ namespace MabiChatSpeech
                     {
                         vclist.Add(l.SpeakerName);
                     }
-
                 }
 
                 foreach (var cv in vclist)
@@ -205,7 +232,6 @@ namespace MabiChatSpeech
                 }
                 var cv_idx = Lst_VoiceChara.FindStringExact(voicenamesp[0]);
                 Lst_VoiceChara.SelectedIndex = cv_idx;
-
 
                 foreach (var cs in Main._chatVoice.Speakers)
                 {
@@ -224,25 +250,11 @@ namespace MabiChatSpeech
                 TB_VolumeScal.Value = (int)(character.VolumeScale * 10.0);
                 TB_PitchScal.Value = (int)(character.PitchScale * 100.0);
 
-
                 Lbl_VoiceChara.Text = $"音声キャラ({Lst_VoiceChara.Items.Count})";
                 Lbl_VoiceStyle.Text = $"スタイル({Lst_VoiceStyle.Items.Count})";
                 voiceid = character.VoiceId;
             }
-
             return (voiceid);
-        }
-
-
-        private void TB_TtsSpeed_ValueChanged(object sender, EventArgs e)
-        {
-            Txt_TtsSpeed.Text = TB_TtsSpeed.Value.ToString();
-        }
-
-        private void TB_TtsVolume_ValueChanged(object sender, EventArgs e)
-        {
-            Txt_TtsVolume.Text = TB_TtsVolume.Value.ToString();
-
         }
 
         private void TB_SpeedScal_ValueChanged(object sender, EventArgs e)
@@ -263,16 +275,6 @@ namespace MabiChatSpeech
             float x = float.Parse(TB_PitchScal.Value.ToString()) / 100.0f;
             Txt_PitchScal.Text = x.ToString();
 
-        }
-
-        private string Lst_TtsName_Value()
-        {
-            if (Lst_TtsName.Items.Count <= 0)
-            {
-                return (string.Empty);
-            }
-            var ret = Lst_TtsName.SelectedItem.ToString();
-            return (ret);
         }
 
         private ChatVoiceEngine Lst_VoiceEngen_Value()

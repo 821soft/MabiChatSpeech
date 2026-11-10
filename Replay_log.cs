@@ -255,7 +255,7 @@ namespace MabiChatSpeech
                         sitem.SubItems.Add(Program.__TTS1Name);                                //3
                         sitem.SubItems.Add("-1");                               //4
                         sitem.SubItems.Add("1.0");                              //5
-                        sitem.SubItems.Add("1.2");                              //6
+                        sitem.SubItems.Add("1.3");                              //6
                         sitem.SubItems.Add("0.0");                          //7
                     }
                     else

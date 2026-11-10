@@ -193,6 +193,7 @@
             // 
             // TB_PitchScal
             // 
+            TB_PitchScal.LargeChange = 1;
             TB_PitchScal.Location = new System.Drawing.Point(192, 32);
             TB_PitchScal.Margin = new System.Windows.Forms.Padding(4);
             TB_PitchScal.Maximum = 15;
@@ -283,6 +284,7 @@
             // 
             // TB_VolumeScal
             // 
+            TB_VolumeScal.LargeChange = 1;
             TB_VolumeScal.Location = new System.Drawing.Point(200, 41);
             TB_VolumeScal.Margin = new System.Windows.Forms.Padding(4);
             TB_VolumeScal.Maximum = 20;
@@ -319,6 +321,7 @@
             // 
             // TB_SpeedScal
             // 
+            TB_SpeedScal.LargeChange = 1;
             TB_SpeedScal.Location = new System.Drawing.Point(192, 32);
             TB_SpeedScal.Margin = new System.Windows.Forms.Padding(4);
             TB_SpeedScal.Maximum = 20;

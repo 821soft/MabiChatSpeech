@@ -16,6 +16,7 @@ using System.Runtime.InteropServices;
 using System.Speech.AudioFormat;
 using System.Speech.Synthesis;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -118,25 +119,10 @@ namespace MabiChatSpeech
             get { return Properties.Settings.Default.__ChatBColor; }
             set { Properties.Settings.Default.__ChatBColor = value; }
         }
-        public static int __ChatSelWhitelist
+        public static bool __ChatPet
         {
-            get { return Properties.Settings.Default.__ChatSelWhitelist; }
-            set { Properties.Settings.Default.__ChatSelWhitelist = value; }
-        }
-        public static int __ChatSelUser
-        {
-            get { return Properties.Settings.Default.__ChatSelUser; }
-            set { Properties.Settings.Default.__ChatSelUser = value; }
-        }
-        public static int __ChatSelPet
-        {
-            get { return Properties.Settings.Default.__ChatSelPet; }
-            set { Properties.Settings.Default.__ChatSelPet = value; }
-        }
-        public static int __ChatSelNpc
-        {
-            get { return Properties.Settings.Default.__ChatSelNpc; }
-            set { Properties.Settings.Default.__ChatSelNpc = value; }
+            get { return Properties.Settings.Default.__ChatPet; }
+            set { Properties.Settings.Default.__ChatPet = value; }
         }
         public static bool __ChatFaceEmo
         {
@@ -201,32 +187,26 @@ namespace MabiChatSpeech
             get { return Properties.Settings.Default.__ChatView_Type; }
             set { Properties.Settings.Default.__ChatView_Type = value; }
         }
-
         public static bool __ChatView_Name
         {
             get { return Properties.Settings.Default.__ChatView_Name; }
             set { Properties.Settings.Default.__ChatView_Name = value; }
         }
-
-        public static bool __WhiteList_AutoAdd
+        public static bool __CharaList_AutoAdd
         {
-            get { return Properties.Settings.Default.__WhiteList_AutoAdd; }
-            set { Properties.Settings.Default.__WhiteList_AutoAdd = value; }
+            get { return Properties.Settings.Default.__CharaList_AutoAdd; }
+            set { Properties.Settings.Default.__CharaList_AutoAdd = value; }
         }
-
         public static string __Pos_Main
         {
             get { return Properties.Settings.Default.__Pos_Main; }
             set { Properties.Settings.Default.__Pos_Main = value; }
         }
-
-
-        public static int __Echa
+        public static bool __Echa
         {
             get { return Properties.Settings.Default.__Echa; }
             set { Properties.Settings.Default.__Echa = value; }
         }
-
         public static string __VoiceVox
         {
             get { return Properties.Settings.Default.__VoiceVox; }
@@ -236,6 +216,36 @@ namespace MabiChatSpeech
         {
             get { return Properties.Settings.Default.__AivisSpeech; }
             set { Properties.Settings.Default.__AivisSpeech = value; }
+        }
+        public static string __VoiceVox_Opt
+        {
+            get { return Properties.Settings.Default.__VoiceVox_Opt; }
+            set { Properties.Settings.Default.__VoiceVox_Opt = value; }
+        }
+        public static string __AivisSpeech_Opt
+        {
+            get { return Properties.Settings.Default.__AivisSpeech_Opt; }
+            set { Properties.Settings.Default.__AivisSpeech_Opt = value; }
+        }
+        public static string __VoiceVox_Host
+        {
+            get { return Properties.Settings.Default.__VoiceVox_Host; }
+            set { Properties.Settings.Default.__VoiceVox_Host = value; }
+        }
+        public static string __AivisSpeech_Host
+        {
+            get { return Properties.Settings.Default.__AivisSpeech_Host; }
+            set { Properties.Settings.Default.__AivisSpeech_Host = value; }
+        }
+        public static bool __VoiceVox_Auto
+        {
+            get { return Properties.Settings.Default.__VoiceVox_Auto; }
+            set { Properties.Settings.Default.__VoiceVox_Auto = value; }
+        }
+        public static bool __Aivis_Auto
+        {
+            get { return Properties.Settings.Default.__Aivis_Auto; }
+            set { Properties.Settings.Default.__Aivis_Auto = value; }
         }
         public static int __ChatMode_PC
         {
@@ -319,11 +329,18 @@ namespace MabiChatSpeech
             public RunningStatus AivisSpeech;
             public _RunningStatusEngine()
             {
-                VoiceVox = IsRunning(__VoiceVox);
-                AivisSpeech = IsRunning(__AivisSpeech);
+                string[] param_V = __VoiceVox.Split(',');
+                VoiceVox = IsRunning(param_V[0]);
+                string[] param_A = __AivisSpeech.Split(',');
+                AivisSpeech = IsRunning(param_A[0]);
             }
-
-
+            public void Refresh()
+            {
+                string[] param_V = __VoiceVox.Split(',');
+                VoiceVox = IsRunning(param_V[0]);
+                string[] param_A = __AivisSpeech.Split(',');
+                AivisSpeech = IsRunning(param_A[0]);
+            }
         }
         public static Image GetEngeinIconImage(string foo ) 
         {
@@ -335,13 +352,13 @@ namespace MabiChatSpeech
                 switch (IsRunning(__VoiceVox))
                 {
                     case RunningStatus.Running:
-                        iconImage = Properties.Resources.vvpp_0_1;
+                        iconImage = Properties.Resources.Icon_vvpp;
                         break;
                     case RunningStatus.NotRunning:
-                        iconImage = Properties.Resources.vvpp_0_1_disable;
+                        iconImage = Properties.Resources.Icon_vvpp_Disable;
                         break;
                     case RunningStatus.NotIstalled:
-                        iconImage = Properties.Resources.vvpp_0_1_error;
+                        iconImage = Properties.Resources.Icon_vvpp_Disable;
                         break;
                     default:
                         break;
@@ -355,13 +372,13 @@ namespace MabiChatSpeech
                 switch (IsRunning(__AivisSpeech))
                 {
                     case RunningStatus.Running:
-                        iconImage = Properties.Resources.aisp_0_1;
+                        iconImage = Properties.Resources.Icon_aisp;
                         break;
                     case RunningStatus.NotRunning:
-                        iconImage = Properties.Resources.aisp_0_1_disable;
+                        iconImage = Properties.Resources.Icon_aisp_Disable;
                         break;
                     case RunningStatus.NotIstalled:
-                        iconImage = Properties.Resources.aisp_0_1_error;
+                        iconImage = Properties.Resources.Icon_aisp_Disable;
                         break;
                     default:
                         break;
@@ -372,11 +389,8 @@ namespace MabiChatSpeech
         }
         static public RunningStatus IsRunning(string foo)
         {
-
-
             if (foo.Trim() == "")
             {
-//                Debug.Print($"IsRunning{foo}->RunningStatus.NotIstalled");
                 return RunningStatus.NotIstalled;
             }
 
@@ -385,7 +399,6 @@ namespace MabiChatSpeech
 
             if (foo_processes.Length == 0)
             {
-//                Debug.Print($"IsRunning{foo}->RunningStatus.NotRunning");
                 return RunningStatus.NotRunning;
             }
             else
@@ -394,26 +407,20 @@ namespace MabiChatSpeech
                 {
                     string path = proc.MainModule?.FileName;
                     var comp =  string.Equals(foo, path, StringComparison.OrdinalIgnoreCase);
-//                    Debug.Print($"IsRunning comp f({foo})");
-//                    Debug.Print($"IsRunning comp p({path}");
-//                    Debug.Print($"判定:{comp}");
+//                    Debug.Print($"プロセス実行判定({foo}):{comp}");
 
                     if (comp)
                     {
-//                        Debug.Print($"IsRunning{foo}->({proc.Id})RunningStatus.Running");
                         return RunningStatus.Running;
                     }
                     else
                     {
-//                        Debug.Print($"IsRunning{foo}->({proc.Id})RunningStatus.NotRunning");
 
                         continue;
                     }
                 }
-//                Debug.Print($"IsRunning{foo}->RunningStatus.NotRunning");
                 return RunningStatus.NotRunning;
             }
-
         }
 
         /// <summary>
@@ -427,22 +434,6 @@ namespace MabiChatSpeech
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                // 出力デバイスリスト
-                // 利用可能な再生デバイスを列挙
-                /*
-                Audio_Enum = new MMDeviceEnumerator();
-
-                Audio_Devices = Audio_Enum.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
-
-                Debug.Print("audiodev----");
-                foreach (var devno in Audio_Devices)
-                {
-                        Debug.Print($"{devno.ID} {devno.State}");
-                }
-                Debug.Print("audiodev-End");
-
-                Audio_Device = null;
-                */
 
                 TTS_Names();
             }
@@ -466,34 +457,64 @@ namespace MabiChatSpeech
             {
                 __TTS2Name = TTS_NameList[0];
             }
+
             _RunningStatusEngine rse = new _RunningStatusEngine();
-
-            if (rse.VoiceVox == RunningStatus.NotRunning)
+//            Debug.Print($"exec:{__VoiceVox}opt:{__VoiceVox_Opt}");
+            if ((__VoiceVox_Auto )&&(rse.VoiceVox == RunningStatus.NotRunning))
             {
-                var mret = MessageBox.Show($"VoiceVoxが起動していません。起動してみる？\n{__VoiceVox}",
-                                    "エラー",
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Question);
-                if (mret == DialogResult.Yes)
+                try
                 {
-                    Process.Start(__VoiceVox/*, "--load_all_models"*/);
-                    Thread.Sleep(1000);
-
+                    if (__VoiceVox_Opt.Length > 0)
+                    {
+                        Process.Start(__VoiceVox, __VoiceVox_Opt);
+                    }
+                    else
+                    {
+                        Process.Start(__VoiceVox/*, "--load_all_models"*/);
+                    }
+                }
+                catch (Exception e)
+                {
+                    while (e.InnerException != null)
+                    {
+                        e = e.InnerException;
+                    }
+                    MessageBox.Show($"エラー終了.\n {e.Message}",
+                        "音声合成エンジン起動エラー",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    Application.Exit();
                 }
             }
-            if (rse.AivisSpeech == RunningStatus.NotRunning)
-            {
-                var mret = MessageBox.Show($"AivisSpeechが起動していません。起動してみる？\n{__AivisSpeech}",
-                                    "エラー",
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Question);
-                if (mret == DialogResult.Yes)
-                {
-                    Process.Start(__AivisSpeech/* , "--load_all_models"*/);
-                    Thread.Sleep(1000);
+            rse.Refresh();
 
+            if ((__Aivis_Auto) && (rse.AivisSpeech == RunningStatus.NotRunning))
+            {
+                try 
+                {
+                    if (__AivisSpeech_Opt.Length > 1)
+                    {
+                        Process.Start(__AivisSpeech, __AivisSpeech_Opt);
+                    }
+                    else
+                    {
+                        Process.Start(__AivisSpeech/*, "--load_all_models"*/);
+                    }
+                }
+                catch (Exception e) 
+                {
+                    while (e.InnerException != null)
+                    {
+                        e = e.InnerException;
+                    }
+                    MessageBox.Show($"エラー終了.\n {e.Message}",
+                        "音声合成エンジン起動エラー",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    Application.Exit();
                 }
             }
+            rse.Refresh();
 
             //FontItemList = new Collection();
             FontFamily[] ffs = FontFamily.Families;
@@ -545,19 +566,6 @@ namespace MabiChatSpeech
             Application.Exit();
         }
 
-        public static void EngeinBoot(string execEngeinPath)
-        {
-            string enginePath = execEngeinPath ; // 実際の run.exe のパスを指定
-            ProcessStartInfo psi = new ProcessStartInfo
-            {
-                FileName = enginePath,
-                // 必要に応じて引数を指定（例: --host 127.0.0.1 --port 50021 など）
-                UseShellExecute = true,
-                CreateNoWindow = false // コンソールウィンドウを表示したくない場合は true
-            };
-
-            Process engineProcess = Process.Start(psi);
-        }
 
     }
 }

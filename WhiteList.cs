@@ -44,16 +44,6 @@ namespace MabiChatSpeech
             this.Close();
         }
 
-        private void Btn_Ins_Click(object sender, EventArgs e)
-        {
-            // logIns
-            charlist clf = new charlist();
-            clf.ShowDialog();
-            CharaList2Lsv();
-
-
-        }
-
         private void WhiteList_Shown(object sender, EventArgs e)
         {
 
@@ -67,116 +57,34 @@ namespace MabiChatSpeech
 
         private void Lsv_Whitelist_KeyDown(object sender, KeyEventArgs e)
         {
-            //Debug.Print($"{e.KeyCode}");
-            if (e.KeyCode == Keys.Delete)
-            {
-                DelRec();
-            }
-            if (e.KeyCode == Keys.Insert)
-            {
-                InsRec();
-            }
-
         }
 
         private void DelRec()
         {
             if (Lsv_Whitelist.SelectedItems.Count != 0)
             {
-                Lsv_Whitelist.SelectedItems[0].Remove();
-                Lsv_Whitelist.SelectedItems.Clear();
-            }
-        }
-
-        private void InsRec()
-        {
-            Lsv_Whitelist.SelectedItems.Clear();
-            Txt_Cn.Text = "";
-            Cmb_Ct.Text = "User";
-            CHK_Enabled.Checked = true;
-            Cmb_TTSName.Text = Program.__TTS1Name;
-            NUD_Volume.Value = Program.__TTS1Volume;
-            NUD_Speed.Value = Program.__TTS1Speed;
-            GPB_Item.Enabled = true;
-            Txt_Cn.Focus();
-
-        }
-
-
-        private void Btn_Upd_Click(object sender, EventArgs e)
-        {
-            if (Txt_Cn.Text.Trim() == "")
-            {
-                MessageBox.Show("キャラクター名を入力", "Error",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                Txt_Cn.Focus();
-            }
-            else
-            {
-                /*既存*/
-                foreach (ListViewItem aitem in Lsv_Whitelist.Items)
+                foreach (ListViewItem rec in Lsv_Whitelist.SelectedItems)
                 {
-                    if (aitem.SubItems[0].Text == Txt_Cn.Text)
-                    {
-                        aitem.Checked = CHK_Enabled.Checked;
-                        aitem.SubItems[0].Text = Txt_Cn.Text;
-                        aitem.SubItems[1].Text = Cmb_Ct.Text;
-                        aitem.SubItems[2].Text = Cmb_TTSName.Text;
-                        aitem.SubItems[3].Text = $"{NUD_Volume.Value}";
-                        aitem.SubItems[4].Text = $"{NUD_Speed.Value}";
-                        GPB_Item.Enabled = false;
-                        aitem.SubItems[5].Text = Txt_VoiceEngen.Text;
-                        aitem.SubItems[6].Text = Cmb_VoiceName.Text;
-                        aitem.SubItems[7].Text = Txt_StyleID.Text;
-                        aitem.SubItems[8].Text = Txt_VolumeScal.Text;
-                        aitem.SubItems[9].Text = Txt_SpeedScal.Text;
-                        aitem.SubItems[10].Text = Txt_PitchScal.Text;
-                        return;
-                    }
+                    rec.Remove();
                 }
-                var item = Lsv_Whitelist.Items.Add(Txt_Cn.Text);
-                item.Checked = CHK_Enabled.Checked;
-                item.SubItems.Add(Cmb_Ct.Text);
-                item.SubItems.Add(Cmb_TTSName.Text);
-                item.SubItems.Add($"{NUD_Volume.Value}");
-                item.SubItems.Add($"{NUD_Speed.Value}");
-                GPB_Item.Enabled = false;
-                item.SubItems.Add(Txt_VoiceEngen.Text);
-                item.SubItems.Add(Cmb_VoiceName.Text);
-                item.SubItems.Add(Txt_StyleID.Text);
-                item.SubItems.Add(Txt_VolumeScal.Text);
-                item.SubItems.Add(Txt_SpeedScal.Text);
-                item.SubItems.Add(Txt_PitchScal.Text);
-
             }
         }
+
         private void CharaList2Lsv()
         {
-            // Program.CharaList.Clear();
-
-
             Lsv_Whitelist.Items.Clear();
-            Lsv_Whitelist.Columns.Clear();
-            Lsv_Whitelist.Columns.Add("有効");
-            Lsv_Whitelist.Columns.Add("キャラ名");    //1
-            Lsv_Whitelist.Columns.Add("種別");        //2      
-            Lsv_Whitelist.Columns.Add("エンジン");    //3      
-            Lsv_Whitelist.Columns.Add("ボイス名");    //4
-            Lsv_Whitelist.Columns.Add("ボイスID");    //5
-            Lsv_Whitelist.Columns.Add("音量");        //6
-            Lsv_Whitelist.Columns.Add("話速");        //7
-            Lsv_Whitelist.Columns.Add("音高");        //8
 
             foreach (CharacterNameData character in Program.CharaList)
             {
                 Debug.Print(character.ToString());
                 Lsv_Whitelist.Items.Add(character.ToItem());
             }
-            foreach (ColumnHeader col in Lsv_Whitelist.Columns)
-            {
-                col.Width = -1;
-            }
+
+
+            //            foreach (ColumnHeader col in Lsv_Whitelist.Columns)
+            //            {
+            //                col.Width = -1;
+            //            }
 
 
         }
@@ -196,19 +104,6 @@ namespace MabiChatSpeech
 
         private void WhiteList_Load(object sender, EventArgs e)
         {
-            Cmb_TTSName.Items.Clear();
-            foreach (var ttsname in TTS_NameList)
-            {
-                Cmb_TTSName.Items.Add(ttsname);
-            }
-            if (Cmb_TTSName.Items.Count < 0)
-            {
-                Cmb_TTSName.Enabled = false;
-            }
-            else
-            {
-                Cmb_TTSName.Enabled = true;
-            }
             //ListViewItemComparerの作成と設定
             listViewItemSorter = new ListViewItemComparer();
             listViewItemSorter.ColumnModes =
@@ -217,16 +112,11 @@ namespace MabiChatSpeech
                 ListViewItemComparer.ComparerMode.String,
                 ListViewItemComparer.ComparerMode.String,
                 ListViewItemComparer.ComparerMode.String,
-                ListViewItemComparer.ComparerMode.Integer,
-                ListViewItemComparer.ComparerMode.Integer
+                ListViewItemComparer.ComparerMode.String,
+                ListViewItemComparer.ComparerMode.String
             };
             //ListViewItemSorterを指定する
             Lsv_Whitelist.ListViewItemSorter = listViewItemSorter;
-
-        }
-
-        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -406,20 +296,7 @@ namespace MabiChatSpeech
             }
         }
 
-        private void Lsv_Whitelist_DoubleClick(object sender, EventArgs e)
-        {
 
-        }
-
-        private void Cmb_VoiceName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-//            Txt_StyleID.Text = $"{Main.VoiceLists[Cmb_VoiceName.SelectedIndex].VoiceId}";
-//            Txt_VoiceEngen.Text = Main.VoiceLists[Cmb_VoiceName.SelectedIndex].VoiceEngen.ToString();
-        }
-
-        private void CMN_Menu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-        }
         private void CharaListVoice_edit()
         {
 
@@ -427,7 +304,6 @@ namespace MabiChatSpeech
             {
                 if (item.Selected)
                 {
-
                     var cname = item.SubItems[1].Text;
                     var ctype = item.SubItems[2].Text;
                     var dat = Program.CharaList_find(cname, ctype);
@@ -445,10 +321,6 @@ namespace MabiChatSpeech
             }
 
         }
-        private void Lsv_Whitelist_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Lsv_Whitelist_ItemCheck(object sender, ItemCheckEventArgs e)
         {
@@ -456,7 +328,6 @@ namespace MabiChatSpeech
             {
                 e.NewValue = e.CurrentValue;
             }
-
         }
         private bool isDoubleClicking = false;
 
@@ -476,6 +347,24 @@ namespace MabiChatSpeech
             CharaListVoice_edit();
             // 3. イベントの最後にフラグを戻す
             isDoubleClicking = false;
+
+        }
+
+        private void Lsv_Whitelist_KeyUp(object sender, KeyEventArgs e)
+        {
+            // 押されたキーが Delete キーか判定
+            if (e.KeyCode == Keys.Delete)
+            {
+                // 選択されているアイテムが存在するか確認
+                if (Lsv_Whitelist.SelectedItems.Count > 0)
+                {
+                    // 複数選択を考慮して後ろから（または反復して）削除
+                    foreach (ListViewItem item in Lsv_Whitelist.SelectedItems)
+                    {
+                        Lsv_Whitelist.Items.Remove(item);
+                    }
+                }
+            }
 
         }
     }

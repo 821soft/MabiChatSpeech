@@ -99,92 +99,161 @@ namespace MabiChatSpeech
                 _ => e.Status.ToString()
             };
         }
+        public enum SpekersCountStatus { NotVoice = -3, NotRun = -2, EngienNull = -1 }
+        static public int SpekaerCount(ChatVoiceEngine eng)
+        {
+            string module = "";
+            switch (eng)
+            {
+                case ChatVoiceEngine.VoiceVox:
+                    module = __VoiceVox;
+                    break;
+                case ChatVoiceEngine.AivisSpeech:
+                    module = __AivisSpeech;
+                    break;
+                default:
+                    return ((int)SpekersCountStatus.NotVoice);
+            }
+
+            _RunningStatusEngine rse = new _RunningStatusEngine();
+            var sts = IsRunning(module);
+
+            if (sts != RunningStatus.Running)
+            {
+                return ((int)SpekersCountStatus.NotRun);
+            }
+            if (_chatVoice == null)
+            {
+                return ((int)SpekersCountStatus.EngienNull);
+            }
+
+            int count = 0;
+            foreach (var voices in _chatVoice.Speakers)
+            {
+                if (voices.Engine == eng)
+                {
+                    count++;
+                }
+            }
+            return (count);
+        }
+        static RunningStatus VoiceVoxChangeing = RunningStatus.NotIstalled;
+        static RunningStatus AivisSpeechChangeing = RunningStatus.NotIstalled;
+        private void Tim_Status_Tick(object sender, EventArgs e)
+        {
+            // Voiceの起動チェック
+            // 1.設定がある場合のみ
+            var rsv = IsRunning(__VoiceVox);
+            switch (rsv)
+            {
+                case RunningStatus.Running:
+                    SSL_VoiceVox.Image = Properties.Resources.Icon_vvpp;
+                    var cnt = SpekaerCount(ChatVoiceEngine.VoiceVox);
+                    if (cnt <= 0)
+                    {
+                        SSL_VoiceVox.Text = $"Loading";
+                        if ((cnt == 0) || (cnt == (int)SpekersCountStatus.EngienNull))
+                        {
+                            init_voice();
+                        }
+                    }
+                    else
+                    {
+                        SSL_VoiceVox.Text = $"({cnt})";
+                    }
+                    break;
+                case RunningStatus.NotRunning:
+                    SSL_VoiceVox.Image = Properties.Resources.Icon_vvpp_Disable;
+                    SSL_VoiceVox.Text = "未起動";
+                    break;
+                case RunningStatus.NotIstalled:
+                    SSL_VoiceVox.Text = "未実装";
+                    SSL_VoiceVox.Image = Properties.Resources.Icon_vvpp_Disable;
+                    break;
+                default:
+                    break;
+
+            }
+            var rsa = IsRunning(__AivisSpeech);
+            switch (rsa)
+            {
+                case RunningStatus.Running:
+                    SSL_AivisSpeech.Image = Properties.Resources.Icon_aisp;
+                    var cnt = SpekaerCount(ChatVoiceEngine.AivisSpeech);
+                    if (cnt <= 0)
+                    {
+                        Debug.Print($"SSL_AivisSpeech:{cnt}");
+                        SSL_AivisSpeech.Text = $"Loading";
+                        if ((cnt == 0) || (cnt == (int)SpekersCountStatus.EngienNull))
+                        {
+                            init_voice();
+                        }
+                    }
+                    else
+                    {
+                        SSL_AivisSpeech.Text = $"({cnt})";
+                    }
+
+                    break;
+                case RunningStatus.NotRunning:
+                    SSL_AivisSpeech.Image = Properties.Resources.Icon_aisp_Disable;
+                    SSL_AivisSpeech.Text = "未起動";
+                    break;
+                case RunningStatus.NotIstalled:
+                    SSL_VoiceVox.Text = "未実装";
+                    SSL_AivisSpeech.Image = Properties.Resources.Icon_aisp_Disable;
+                    break;
+                default:
+                    break;
+
+            }
+
+            if ((VoiceVoxChangeing != rsv) || (AivisSpeechChangeing != rsa))
+            {
+                VoiceVoxChangeing = rsv;
+                AivisSpeechChangeing = rsa;
+                init_voice();
+            }
+
+        }
+
         public Main()
         {
             InitializeComponent();
 
-            _RunningStatusEngine rse = new _RunningStatusEngine();
 
             LoadCharaList(__SavePath + "\\CharacterNameList.txt");
-            if (CharaList_usedEngien(ChatVoiceEngine.VoiceVox))
-            {
-                if (rse.VoiceVox != RunningStatus.Running)
-                {
-                    // 
-                    MessageBox.Show($"CharacterNameList.txtに設定している\n音声合成エンジン(VoiceVox)が起動していません\n {__SavePath}\n{rse.VoiceVox}",
-                        "音声合成エンジンエラー",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                    Environment.Exit(1);
-
-                }
-            }
-            if (CharaList_usedEngien(ChatVoiceEngine.AivisSpeech))
-            {
-                if (rse.AivisSpeech != RunningStatus.Running)
-                {
-                    MessageBox.Show($"CharacterNameList.txtに設定している\n音声合成エンジン(AivisSpeech)が起動していません\n {__SavePath}\n{rse.AivisSpeech}",
-                        "音声合成エンジンエラー",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                    Environment.Exit(2);
-                }
-            }
             init_voice();
 
         }
-        public async void IsEngenRunning()
-        {
-            if (__VoiceVox.Trim() != "")
-            {
-                if (await IsChatVoiceEngenRunning(ChatVoiceEngine.VoiceVox))
-                {
-                }
-                else
-                {
-                    throw new InvalidOperationException("VOICEVOXが起動していません");
-                    this.Close();
-                }
-            }
-            if (__AivisSpeech.Trim() != "")
-            {
-                if (await IsChatVoiceEngenRunning(ChatVoiceEngine.AivisSpeech))
-                {
-                }
-                else
-                {
-                    throw new InvalidOperationException("AivisSpeechが起動していません");
-                    this.Close();
-                }
-            }
-        }
+        static private int init_count = 0;
         public async void init_voice()
-
         {
+            init_count++;
             if (_chatVoice != null)
             {
                 SSL_VoiceAPI.Text = "リロード";
                 await _chatVoice.DisposeAsync();
-
+                Debug.Print($"init_count:リロード:{init_count}");
             }
 
-            _chatVoice = await ChatVoice.CreateMultiEngineAsync();
+            _chatVoice = await ChatVoice.CreateMultiEngineAsync(__AivisSpeech_Host, __VoiceVox_Host);
             if (_chatVoice == null)
             {
                 SSL_VoiceAPI.Text = "音声合成不可";
-                __ChatSelWhitelist = 0;
+                Debug.Print($"init_count:不可:{init_count}");
+                init_count = 0;
                 return;
             }
             else
             {
                 SSL_VoiceAPI.Text = "音声合成可";
+                Debug.Print($"init_count:可　:{init_count}");
+                init_count = 0;
             }
             RegisterChatVoiceEvents(4);
 
-            await _chatVoice.RefreshSpeakersAsync();
-
-
-
+            //            await _chatVoice.RefreshSpeakersAsync();
         }
 
         public void Voice_chat_say(string words, ChatVoiceEngine eng, int vs, float cv, float cs, float cp)
@@ -230,8 +299,6 @@ namespace MabiChatSpeech
                 else
                 {
                     Txt_Chat.AppendText(sx);
-                    //TPB_Max.Text = $"{Txt_Chat.Lines.Length}";
-                    //TPB_Save.Value = Txt_Chat.Lines.Length;
                 }
             }
             catch
@@ -240,7 +307,7 @@ namespace MabiChatSpeech
         }
 
         // LSV_chat
-        public void LSV_chat_ItemAdd(string no, string ti, string ty, string cn, string wd)
+        public void LSV_chat_ItemAdd(bool enabled, string no, string ti, string ty, string cn, string wd)
         {
             var citem = LSV_chat.Items.Add(no);
             citem.SubItems.Add(ti);
@@ -248,6 +315,14 @@ namespace MabiChatSpeech
             citem.SubItems.Add(cn);
             citem.SubItems.Add("");
             citem.SubItems.Add(wd);
+            if (enabled)
+            {
+                citem.ForeColor = Color.Blue;
+            }
+            else
+            {
+                citem.ForeColor = Color.Black;
+            }
 
             if (LSV_chat.SelectedItems.Count == 0)
             {
@@ -256,27 +331,27 @@ namespace MabiChatSpeech
 
         }
 
-        delegate void deg_LSV_chat_Add(string no, string ti, string ty, string cn, string wd);
-        public void LSV_chatWriteLine(string no, string ti, string ty, string cn, string wd)
+        delegate void deg_LSV_chat_Add(bool enabled, string no, string ti, string ty, string cn, string wd);
+        public void LSV_chatWriteLine(bool enabled, string no, string ti, string ty, string cn, string wd)
         {
             try
             {
                 if (this.InvokeRequired)
                 {
-                    Invoke(new deg_LSV_chat_Add(LSV_chatWriteLine), no, ti, ty, cn, wd);
+                    Invoke(new deg_LSV_chat_Add(LSV_chatWriteLine), enabled, no, ti, ty, cn, wd);
                 }
                 else
                 {
-                    LSV_chat_ItemAdd(no, ti, ty, cn, wd);
+                    LSV_chat_ItemAdd(enabled, no, ti, ty, cn, wd);
                 }
             }
             catch
             {
             }
         }
-        public void LSV_chat_ItemUpdate(int row,string status)
+        public void LSV_chat_ItemUpdate(int row, string status)
         {
-            LSV_chat.Items[row-1].SubItems[4].Text = status;
+            LSV_chat.Items[row - 1].SubItems[4].Text = status;
         }
         delegate void deg_LSV_chat_Update(int row, string status);
         public void LSV_chat_Update(int row, string status)
@@ -289,7 +364,7 @@ namespace MabiChatSpeech
                 }
                 else
                 {
-                    LSV_chat_ItemUpdate(row,status);
+                    LSV_chat_ItemUpdate(row, status);
                 }
             }
             catch
@@ -375,8 +450,6 @@ namespace MabiChatSpeech
             catch
             {
             }
-
-
             //フォントをロード
             try
             {
@@ -387,7 +460,6 @@ namespace MabiChatSpeech
             catch
             {
             }
-
             //
             if (Program.__SavePath == "")
             {
@@ -402,94 +474,21 @@ namespace MabiChatSpeech
             {
                 Directory.CreateDirectory(__SavePath + "\\echa");
             }
+            /* Menuのアイコン設定*/
+            SSL_CharaList.Image = Mnu_CharaList.Image;
+            SSL_PC.Image = Mnu_PC.Image;
+            SSL_NPC.Image = Mnu_NPC.Image;
+            Mnu_Echa.Checked = Program.__Echa;
 
-            // 出力デバイス
-
-            /*
-            foreach (var dev in Program.Audio_Devices)
+            if (Mnu_Echa.Checked)
             {
-                if( dev.FriendlyName == __AudioDevice )
-                {
-                    Program.Audio_Device = dev;
-                }
-                Debug.Print($"{dev.FriendlyName} / {dev.ID}");
-            }
-
-
-            if ( Program.Audio_Device != null)
-            {
-
-                TPB_Event.Text = Program.Audio_Device.FriendlyName;
+                Mnu_Echa.Image = Properties.Resources.Icon_EchaOn;
             }
             else
             {
-                TPB_Event.Text = "Default";
+                Mnu_Echa.Image = Properties.Resources.Icon_EchaOff;
             }
-            */
-            /* Menuのアイコン設定*/
-            // Mnu_PlayerList.Image 
-            switch (Program.__ChatSelWhitelist)
-            {
-                case 0:
-                    Mnu_CharaList.Image = Properties.Resources.Icn_SelectUser_off;
-                    break;
-                case 1:
-                    Mnu_CharaList.Image = Properties.Resources.Icn_SelectUser_chat;
-                    break;
-                case 2:
-                    Mnu_CharaList.Image = Properties.Resources.Icn_SelectUser_voice;
-                    break;
-            }
-            SSL_CharaList.Image = Mnu_CharaList.Image;
 
-            switch (Program.__ChatSelUser)
-            {
-                case 0:
-                    Mnu_PC.Image = Properties.Resources.Icn_User_off;
-                    break;
-                case 1:
-                    Mnu_PC.Image = Properties.Resources.Icn_User_chat;
-                    break;
-                case 2:
-                    Mnu_PC.Image = Properties.Resources.Icn_User_v1;
-                    break;
-                case 3:
-                    Mnu_PC.Image = Properties.Resources.Icn_User_v2;
-                    break;
-            }
-            SSL_PC.Image = Mnu_PC.Image;
-
-            switch (Program.__ChatSelNpc)
-            {
-                case 0:
-                    Mnu_NPC.Image = Properties.Resources.Icn_Npc_off;
-                    break;
-                case 1:
-                    Mnu_NPC.Image = Properties.Resources.Icn_Npc_chat;
-                    break;
-                case 2:
-                    Mnu_NPC.Image = Properties.Resources.Icn_Npc_v1;
-                    break;
-                case 3:
-                    Mnu_NPC.Image = Properties.Resources.Icn_Npc_v2;
-                    break;
-            }
-            SSL_NPC.Image = Mnu_NPC.Image;
-
-            switch (Program.__Echa)
-            {
-                case 0:
-                case 1:
-                    Mnu_Echa.Image = Properties.Resources.Icn_echa_off;
-                    Mnu_Echa.Checked = false;
-                    break;
-                case 2:
-                case 3:
-                    Mnu_Echa.Image = Properties.Resources.Icn_echa_Rec;
-                    Mnu_Echa.Checked = true;
-                    break;
-
-            }
             SSL_Echa.Image = Mnu_Echa.Image;
             Mnu_ViewList_No.Checked = Program.__ChatView_No;
             Mnu_ViewList_Time.Checked = Program.__ChatView_Time;
@@ -585,10 +584,40 @@ namespace MabiChatSpeech
                 speech_spkp.SpeakAsync("クライアントはONです");
             }
 
+            /*音声の状態*/
+            /*CharaList内で音声合成設定があるケースの考慮*/
+            /*
+            if (CharaList_usedEngien(ChatVoiceEngine.VoiceVox))
+            {
+                var cnt = SpekaerCount(ChatVoiceEngine.VoiceVox);
+                if (cnt <= 0)
+                {
+                    // 
+                    MessageBox.Show($"CharacterNameList.txtに設定している\n音声合成エンジン(VoiceVox)が起動中\n起動完了後、音声が出ます。",
+                        "音声合成エンジン起動中",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
+            }
+            if (CharaList_usedEngien(ChatVoiceEngine.AivisSpeech))
+            {
+                var cnt = SpekaerCount(ChatVoiceEngine.AivisSpeech);
+                if (cnt <= 0)
+                {
+                    // 
+                    MessageBox.Show($"CharacterNameList.txtに設定している\n音声合成エンジン(AivisSpeech)が起動中\n起動完了後、音声が出ます。",
+                        "音声合成エンジン起動中",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
+            }
+            */
+            StatusStrip_Update();
+
         }
         private void LoadSetting()
         {
-            Debug.Print($"Load __ChatMode_PC:{Program.__ChatMode_PC},__ChatMode_NPC:{Program.__ChatMode_NPC},__ChatMode_Voice:{Program.__ChatMode_Voice}");
+            //            Debug.Print($"Load __ChatMode_PC:{Program.__ChatMode_PC},__ChatMode_NPC:{Program.__ChatMode_NPC},__ChatMode_Voice:{Program.__ChatMode_Voice}");
             switch ((ChatMode_PC)(Program.__ChatMode_PC))
             {
                 case ChatMode_PC.DisableChat:
@@ -705,17 +734,9 @@ namespace MabiChatSpeech
                     Mnu_CharaList_Voice.Checked = true;
                     break;
             }
-
-            Debug.Print($"Mnu_PC.Tag:{(int)Mnu_PC.Tag},Mnu_PC.Checked:{Mnu_PC.Checked}");
-            Debug.Print($"Mnu_NPC.Tag:{(int)Mnu_NPC.Tag},Mnu_NPC.Checked:{Mnu_NPC.Checked}");
-            Debug.Print($"Mnu_CharaList.Tag:{(int)Mnu_CharaList.Tag},Mnu_CharaList.Checked:{Mnu_CharaList.Checked}");
         }
         private void SaveSetting()
         {
-            Debug.Print($"Mnu_PC.Tag:{(int)Mnu_PC.Tag},Mnu_PC.Checked:{Mnu_PC.Checked}");
-            Debug.Print($"Mnu_NPC.Tag:{(int)Mnu_NPC.Tag},Mnu_NPC.Checked:{Mnu_NPC.Checked}");
-            Debug.Print($"Mnu_CharaList.Tag:{(int)Mnu_CharaList.Tag},Mnu_CharaList.Checked:{Mnu_CharaList.Checked}");
-
             //PC
             if ((int)Mnu_PC.Tag == 1)
             {
@@ -739,7 +760,6 @@ namespace MabiChatSpeech
                     Program.__ChatMode_PC = (int)ChatMode_PC.DisableTTS;
                 }
             }
-
             //NPC
             if ((int)Mnu_NPC.Tag == 1)
             {
@@ -918,32 +938,19 @@ namespace MabiChatSpeech
             var x = (MabiPacket)sender;
             var c = (MabiPacketEventArgs)e;
             var t = DateTime.Now;
-            /*
-                        string cc = " ";
-                        bool f_show = false;
-                        bool f_voice = false;
-                        string tts_name = "";
-                        int tts_speed = 0;
-                        int tts_volume = 0;
-                        ChatVoiceEngine eng = ChatVoiceEngine.TTS;
-                        int cn = -1;
-                        float cs = 1.0f;
-                        float cv = 1.0f;
-                        float cp = 0.0f;
-            */
+
             // PC NPC 以外はキャンセル
-            if (((c.CharaTypeName != _CharaTypeNames.PC)&&(c.CharaTypeName != _CharaTypeNames.NPC))
-                &&( Program.__ChatSelPet == 1 ))
+            if (((c.CharaTypeName != _CharaTypeNames.PC) && (c.CharaTypeName != _CharaTypeNames.NPC))
+                && (Program.__ChatPet))
             {
                 return;
             }
-
 
             CharacterNameData? character = CharaList_find(c.CharacterName, c.CharaTypeName);
 
             //CharacterNameData? character = Program.CharaList.FirstOrDefault(x => x.CharName == c.CharacterName);
             // PCリスト自動追加
-            if (Program.__WhiteList_AutoAdd == true) //&& (c.CharaTypeName == _CharaTypeNames.PC))
+            if (Program.__CharaList_AutoAdd == true) //&& (c.CharaTypeName == _CharaTypeNames.PC))
             {
                 if (character == null)
                 {
@@ -955,7 +962,7 @@ namespace MabiChatSpeech
                     character_add.VoiceName = __TTS2Name;
                     character_add.VoiceId = -1;
                     character_add.VolumeScale = 1.0f;
-                    character_add.SpeedScale = 1.0f;
+                    character_add.SpeedScale = 1.3f;
                     character_add.PitchScale = 0.0f;
                     Program.CharaList.Add(character_add);
                     character = character_add;
@@ -973,13 +980,11 @@ namespace MabiChatSpeech
             // chat log show
             var cc = c.CharaTypeName.ToString();
             string[] li = { "" };
-            LSV_chatWriteLine($"{chat_cnt}", $"{t:HH:mm:ss.fff}", $"{cc}", $"{c.CharacterName}", $"{c.ChatWord}");
+            LSV_chatWriteLine(character.Enabled, $"{chat_cnt}", $"{t:HH:mm:ss.fff}", $"{cc}", $"{c.CharacterName}", $"{c.ChatWord}");
             // chat log write
             li[0] = $"C {chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
             TxtChatWriteLine(li[0] + Environment.NewLine);
             chat_cnt++;
-
-
 
             // ChatPopupへ出力
             if (ChatPop.Visible)
@@ -987,14 +992,12 @@ namespace MabiChatSpeech
                 ChatPop.ChatPopupSend(c.ChatWord);
             }
 
-
             /* 2.TTSモードなら */
-
             if ((mode == ChatModes.TTS) || (mode == ChatModes.VoiceTTS))
             {
                 speech_chat(Program.__TTS1Name, Program.__TTS1Volume, Program.__TTS1Speed,
                             c.CharacterName, c.ChatWord);
-                LSV_chat_Update(chat_cnt-1, "TTS1");
+                LSV_chat_Update(chat_cnt - 1, "TTS1");
 
             }
             else if ((mode == ChatModes.Voice) && (character != null))
@@ -1012,177 +1015,6 @@ namespace MabiChatSpeech
                                 c.CharacterName, c.ChatWord);
                 }
             }
-
-
-            /*
-             * チャットの扱い
-             * 1.PC or NPC  で
-             * 2.表示したチャットの扱いは音無、TTS、Voice（disableは無音）
-             * 
-             *
-             *
-             */
-
-            /******************************DEL************************
-            // フィルタリング　キャラモード 0=OFF 1=ChatOnly 2=VoiceON
-            f_voice = false;
-            if (__ChatSelWhitelist == 0)
-            // キャラモード OFF時
-            {
-                //　発言者で分岐
-                if (c.CharaTypeName == _CharaTypeNames.PC)
-                {
-                    // プレイヤーの場合
-                    cc = c.CharaTypeName.ToString();
-                    f_show = true;
-                    switch (__ChatSelUser)
-                    {
-                        case 0: // OFF
-                            f_show = false;
-                            f_voice = false;
-                            break;
-                        case 1: // Chat Only
-                            f_voice = false;
-                            break;
-                        case 2: // Voice 1
-                            tts_name = __TTS1Name;
-                            tts_speed = __TTS1Speed;
-                            tts_volume = __TTS1Volume;
-                            f_voice = true;
-                            break;
-                        case 3: // Voice 2
-                            tts_name = __TTS2Name;
-                            tts_speed = __TTS2Speed;
-                            tts_volume = __TTS2Volume;
-                            f_voice = true;
-                            break;
-                        default:
-                            f_show = false;
-                            break;
-                    }
-                }
-                else if (c.CharaTypeName == _CharaTypeNames.NPC)
-                {
-                    // NPCの場合
-                    cc = "NPC";
-                    f_show = true;
-                    switch (__ChatSelNpc)
-                    {
-                        case 0: // OFF
-                            f_show = false;
-                            break;
-                        case 1: // Chat Only
-                            break;
-                        case 2: // Voice 1
-                            tts_name = __TTS1Name;
-                            tts_speed = __TTS1Speed;
-                            tts_volume = __TTS1Volume;
-                            f_voice = true;
-                            break;
-                        case 3: // Voice 2
-                            tts_name = __TTS2Name;
-                            tts_speed = __TTS2Speed;
-                            tts_volume = __TTS2Volume;
-                            f_voice = true;
-                            break;
-                        default:
-                            f_show = false;
-                            break;
-                    }
-                }
-                else
-                {
-                }
-            }
-            else
-            // チャットまたは読上げ時、キャラリストに発言者が含まれるかチェック
-            {
-                CharacterNameData? character = Program.CharaList.FirstOrDefault(x => x.CharName == c.CharacterName);
-
-                if (character != null)
-                { // リストに該当有
-                    if (character.CharaTypeName == c.CharaTypeName)
-                    {
-                        if (character.Enabled)
-                        {
-                            if (character.CharaTypeName == _CharaTypeNames.PC)
-                            {
-                                cc = "PC ";
-                            }
-                            else
-                            {
-                                cc = "NPC";
-                            }
-                            f_show = true;
-                            // 読上げONの場合
-                            if (__ChatSelWhitelist == 2)
-                            {
-                                eng = character.VoiceEngen;
-                                cn = character.VoiceId;
-                                cv = character.VolumeScale;
-                                cs = character.SpeedScale;
-                                cp = character.PitchScale;
-                            }
-                            f_voice = true;
-                        }
-                        else
-                        {
-                            f_voice = false;
-                        }
-                    }
-                }
-                else
-                {
-                    f_voice = false;
-                }
-
-            }
-
-            // 表示処理
-
-            if (f_show == true)
-            {
-                // chat log show
-                string[] li = { "" };
-                LSV_chatWriteLine($"{chat_cnt}", $"{t:HH:mm:ss.fff}", $"{cc}", $"{c.CharacterName}", $"{c.ChatWord}");
-
-                // chat log write
-                li[0] = $"C {chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
-                TxtChatWriteLine(li[0] + Environment.NewLine);
-
-
-                chat_cnt++;
-
-
-                // ChatPopupへ出力
-                if (ChatPop.Visible)
-                {
-                    ChatPop.ChatPopupSend(c.ChatWord);
-                }
-
-            }
-
-            // 読上げ処理
-
-            if (f_voice)
-            {
-                if ((__ChatSelWhitelist == 2) && (eng == ChatVoiceEngine.TTS))
-                {
-                    tts_name = __TTS1Name;
-                    tts_speed = __TTS1Speed;
-                    tts_volume = __TTS1Volume;
-                    speech_chat(tts_name, tts_volume, tts_speed, c.CharacterName, c.ChatWord);
-                }
-                else if (__ChatSelWhitelist == 2)
-                {
-                    voice_chat(eng, cn, cv, cs, cp, c.CharacterName, c.ChatWord);
-                }
-                else if ((__ChatSelWhitelist == 0) && (tts_name != ""))
-                {
-                    speech_chat(tts_name, tts_volume, tts_speed, c.CharacterName, c.ChatWord);
-                }
-            }
-            ***************************DEL END*************************/
         }
 
         // Setting 
@@ -1453,7 +1285,6 @@ namespace MabiChatSpeech
 
         }
 
-
         private void SSL_NPC_Setdata()
         {
             switch ((ChatMode_NPC)Program.__ChatMode_NPC)
@@ -1608,15 +1439,14 @@ namespace MabiChatSpeech
         {
             if (Mnu_Echa.Checked)
             {
-                Mnu_Echa.Image = Properties.Resources.Icn_echa_Rec;
-                Program.__Echa = 3;
+                Mnu_Echa.Image = Properties.Resources.Icon_EchaOn;
             }
             else
             {
-                Mnu_Echa.Image = Properties.Resources.Icn_echa_off;
-                Program.__Echa = 0;
+                Mnu_Echa.Image = Properties.Resources.Icon_EchaOff;
             }
             SSL_Echa.Image = Mnu_Echa.Image;
+            Program.__Echa = Mnu_Echa.Checked;
         }
 
         private void Mnu_ViewText_Click(object sender, EventArgs e)
@@ -1716,14 +1546,8 @@ namespace MabiChatSpeech
             //ダイアログを表示する
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-
-                int storeChatSelUser = __ChatSelUser;
-                Program.__ChatSelUser = 0;
-
                 Replay_log frm_Replay_log = new Replay_log(ofd.FileName);
                 frm_Replay_log.ShowDialog();
-                Program.__ChatSelUser = storeChatSelUser;
-
             }
         }
 
@@ -1784,7 +1608,7 @@ namespace MabiChatSpeech
                     ddata.VoiceEngen = ChatVoiceEngine.TTS;
                     ddata.VoiceName = "";
                     ddata.VolumeScale = 1.0f;
-                    ddata.SpeedScale = 1.0f;
+                    ddata.SpeedScale = 1.3f;
                     ddata.PitchScale = 0.0f;
                     ddata.VoiceId = -1;
                     cdata = ddata;
@@ -1794,66 +1618,11 @@ namespace MabiChatSpeech
                 fm.testword = cw;
                 fm.ShowDialog();
                 LSV_chat_DoubleClick(sender, e);
-
             }
-
         }
-
-        static RunningStatus VoiceVoxChangeing = RunningStatus.NotIstalled;
-        static RunningStatus AivisSpeechChangeing = RunningStatus.NotIstalled;
-        private void Tim_Status_Tick(object sender, EventArgs e)
-        {
-            // Voiceの起動チェック
-            // 1.設定がある場合のみ
-            var rsv = IsRunning(__VoiceVox);
-            switch (rsv)
-            {
-                case RunningStatus.Running:
-                    SSL_VoiceVox.Image = Properties.Resources.vvpp_0_1;
-                    break;
-                case RunningStatus.NotRunning:
-                    SSL_VoiceVox.Image = Properties.Resources.vvpp_0_1_disable;
-                    break;
-                case RunningStatus.NotIstalled:
-                    SSL_VoiceVox.Image = Properties.Resources.vvpp_0_1_error;
-                    break;
-                default:
-                    break;
-
-            }
-            var rsa = IsRunning(__AivisSpeech);
-            switch (rsa)
-            {
-                case RunningStatus.Running:
-                    SSL_AivisSpeech.Image = Properties.Resources.aisp_0_1;
-                    break;
-                case RunningStatus.NotRunning:
-                    SSL_AivisSpeech.Image = Properties.Resources.aisp_0_1_disable;
-                    break;
-                case RunningStatus.NotIstalled:
-                    SSL_AivisSpeech.Image = Properties.Resources.aisp_0_1_error;
-                    break;
-                default:
-                    break;
-
-            }
-
-            if ((VoiceVoxChangeing != rsv) || (AivisSpeechChangeing != rsa))
-            {
-                VoiceVoxChangeing = rsv;
-                AivisSpeechChangeing = rsa;
-                init_voice();
-            }
-
-        }
-
-        private void LSV_chat_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void SSL_VoiceAPI_Click(object sender, EventArgs e)
         {
+            SSL_VoiceAPI.Text = "リロード";
             init_voice();
         }
 
@@ -2123,7 +1892,6 @@ namespace MabiChatSpeech
             Mnu_CharaList.Tag = 3;
 
             Mnu_CharaList_CheckedChanged(sender, e);
-
         }
 
 
@@ -2182,5 +1950,11 @@ namespace MabiChatSpeech
             SSL_CharaList.Image = Mnu_CharaList.Image;
         }
 
+        private void SSL_CharaList_Click(object sender, EventArgs e)
+        {
+            Mnu_CharaList_Click(sender, e);
+            StatusStrip_Update();
+
+        }
     }
 }
