@@ -111,9 +111,11 @@
             // SLB_Mode
             // 
             SLB_Mode.AutoSize = false;
+            SLB_Mode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             SLB_Mode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_Mode.Name = "SLB_Mode";
-            SLB_Mode.Size = new System.Drawing.Size(64, 66);
+            SLB_Mode.Size = new System.Drawing.Size(100, 66);
+            SLB_Mode.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             SLB_Mode.ToolTipText = "Mode";
             // 
             // SLB_SaveMode
@@ -121,7 +123,7 @@
             SLB_SaveMode.AutoSize = false;
             SLB_SaveMode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_SaveMode.Name = "SLB_SaveMode";
-            SLB_SaveMode.Size = new System.Drawing.Size(64, 66);
+            SLB_SaveMode.Size = new System.Drawing.Size(100, 66);
             SLB_SaveMode.ToolTipText = "チャットログの保存方法";
             // 
             // SLB_Client
@@ -129,39 +131,40 @@
             SLB_Client.AutoSize = false;
             SLB_Client.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_Client.Name = "SLB_Client";
-            SLB_Client.Size = new System.Drawing.Size(60, 66);
+            SLB_Client.Size = new System.Drawing.Size(100, 66);
             SLB_Client.ToolTipText = "接続状態";
             // 
             // SLB_Ip
             // 
             SLB_Ip.AutoSize = false;
             SLB_Ip.Font = new System.Drawing.Font("Meiryo UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 128);
-            SLB_Ip.Image = Properties.Resources.icn_tarlach;
-            SLB_Ip.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             SLB_Ip.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SLB_Ip.Name = "SLB_Ip";
-            SLB_Ip.Size = new System.Drawing.Size(120, 66);
+            SLB_Ip.Size = new System.Drawing.Size(100, 66);
             SLB_Ip.Text = "商店街";
+            SLB_Ip.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             SLB_Ip.ToolTipText = "接続先";
             // 
             // SSL_VoiceVox
             // 
-            SSL_VoiceVox.Image = Properties.Resources.Icon_vvpp;
+            SSL_VoiceVox.Image = Properties.Resources.Icon_vvpp_Disable;
             SSL_VoiceVox.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_VoiceVox.Name = "SSL_VoiceVox";
             SSL_VoiceVox.Size = new System.Drawing.Size(54, 66);
-            SSL_VoiceVox.Text = "未起動";
+            SSL_VoiceVox.Text = "未設定";
             SSL_VoiceVox.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            SSL_VoiceVox.Click += SSL_VoiceVox_Click;
             // 
             // SSL_AivisSpeech
             // 
-            SSL_AivisSpeech.Image = Properties.Resources.Icon_aisp;
+            SSL_AivisSpeech.Image = Properties.Resources.Icon_aisp_Disable;
             SSL_AivisSpeech.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_AivisSpeech.LinkVisited = true;
             SSL_AivisSpeech.Name = "SSL_AivisSpeech";
             SSL_AivisSpeech.Size = new System.Drawing.Size(54, 66);
-            SSL_AivisSpeech.Text = "未起動";
+            SSL_AivisSpeech.Text = "未設定";
             SSL_AivisSpeech.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            SSL_AivisSpeech.Click += SSL_AivisSpeech_Click;
             // 
             // SSL_VoiceAPI
             // 
@@ -206,6 +209,7 @@
             // 
             // SSL_Youtube
             // 
+            SSL_Youtube.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_Youtube.Name = "SSL_Youtube";
             SSL_Youtube.Size = new System.Drawing.Size(0, 66);
             // 
@@ -224,7 +228,7 @@
             // TPB_Event
             // 
             TPB_Event.Name = "TPB_Event";
-            TPB_Event.Size = new System.Drawing.Size(488, 66);
+            TPB_Event.Size = new System.Drawing.Size(396, 66);
             TPB_Event.Spring = true;
             // 
             // Txt_Chat
@@ -524,79 +528,81 @@
             // Mnu_ViewText
             // 
             Mnu_ViewText.Name = "Mnu_ViewText";
-            Mnu_ViewText.Size = new System.Drawing.Size(214, 30);
+            Mnu_ViewText.Size = new System.Drawing.Size(226, 38);
             Mnu_ViewText.Text = "テキスト表示(&T)";
             Mnu_ViewText.Click += Mnu_ViewText_Click;
             // 
             // Mnu_ViewDump
             // 
             Mnu_ViewDump.Name = "Mnu_ViewDump";
-            Mnu_ViewDump.Size = new System.Drawing.Size(214, 30);
+            Mnu_ViewDump.Size = new System.Drawing.Size(226, 38);
             Mnu_ViewDump.Text = "Dump表示(&D)";
             Mnu_ViewDump.Click += Mnu_ViewDump_Click;
             // 
             // Mnu_ViewList
             // 
             Mnu_ViewList.Name = "Mnu_ViewList";
-            Mnu_ViewList.Size = new System.Drawing.Size(214, 30);
+            Mnu_ViewList.Size = new System.Drawing.Size(226, 38);
             Mnu_ViewList.Text = "リスト表示(&L)";
             Mnu_ViewList.Click += Mnu_ViewList_Click;
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new System.Drawing.Size(211, 6);
+            toolStripSeparator5.Size = new System.Drawing.Size(223, 6);
             // 
             // Mnu_ViewList_No
             // 
             Mnu_ViewList_No.Name = "Mnu_ViewList_No";
-            Mnu_ViewList_No.Size = new System.Drawing.Size(214, 30);
+            Mnu_ViewList_No.Size = new System.Drawing.Size(226, 38);
             Mnu_ViewList_No.Text = "番号";
             Mnu_ViewList_No.Click += BTN_No_Click;
             // 
             // Mnu_ViewList_Time
             // 
             Mnu_ViewList_Time.Name = "Mnu_ViewList_Time";
-            Mnu_ViewList_Time.Size = new System.Drawing.Size(214, 30);
+            Mnu_ViewList_Time.Size = new System.Drawing.Size(226, 38);
             Mnu_ViewList_Time.Text = "タイムスタンプ";
             Mnu_ViewList_Time.Click += BTN_Time_Click;
             // 
             // Mnu_ViewList_Type
             // 
             Mnu_ViewList_Type.Name = "Mnu_ViewList_Type";
-            Mnu_ViewList_Type.Size = new System.Drawing.Size(214, 30);
+            Mnu_ViewList_Type.Size = new System.Drawing.Size(226, 38);
             Mnu_ViewList_Type.Text = "タイプ";
             Mnu_ViewList_Type.Click += BTN_Type_Click;
             // 
             // Mnu_ViewList_Name
             // 
             Mnu_ViewList_Name.Name = "Mnu_ViewList_Name";
-            Mnu_ViewList_Name.Size = new System.Drawing.Size(214, 30);
+            Mnu_ViewList_Name.Size = new System.Drawing.Size(226, 38);
             Mnu_ViewList_Name.Text = "キャラ名";
             Mnu_ViewList_Name.Click += BTN_Name_Click;
             // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new System.Drawing.Size(211, 6);
+            toolStripSeparator6.Size = new System.Drawing.Size(223, 6);
             // 
             // Mnu_YoutubeLive
             // 
-            Mnu_YoutubeLive.Image = Properties.Resources.Youtube_js;
+            Mnu_YoutubeLive.Image = Properties.Resources.Icon_Youtube_js;
+            Mnu_YoutubeLive.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_YoutubeLive.Name = "Mnu_YoutubeLive";
-            Mnu_YoutubeLive.Size = new System.Drawing.Size(214, 30);
+            Mnu_YoutubeLive.Size = new System.Drawing.Size(226, 38);
             Mnu_YoutubeLive.Text = "YoutubeLive(&Y)";
+            Mnu_YoutubeLive.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             Mnu_YoutubeLive.Click += Mnu_YoutubeLive_Click;
             // 
             // toolStripSeparator9
             // 
             toolStripSeparator9.Name = "toolStripSeparator9";
-            toolStripSeparator9.Size = new System.Drawing.Size(211, 6);
+            toolStripSeparator9.Size = new System.Drawing.Size(223, 6);
             // 
             // Mnu_Help
             // 
             Mnu_Help.Name = "Mnu_Help";
-            Mnu_Help.Size = new System.Drawing.Size(214, 30);
+            Mnu_Help.Size = new System.Drawing.Size(226, 38);
             Mnu_Help.Text = "ヘルプ(&F1)";
             Mnu_Help.Click += Mnu_Help_Click;
             // 
@@ -617,7 +623,7 @@
             MinimumSize = new System.Drawing.Size(1059, 327);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Text = "Pre261108-1-MabiChatSpeech (Ver.1.200)";
+            Text = "Pre261111-1-MabiChatSpeech (Ver.1.200)";
             FormClosing += Main_FormClosing;
             FormClosed += Main_FormClosed;
             Load += Main_Load;

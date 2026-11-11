@@ -37,6 +37,11 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Properties\PNG\**" />
+    <EmbeddedResource Remove="Properties\PNG\**" />
+    <None Remove="Properties\PNG\**" />
+  </ItemGroup>
+  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 および x64%29</ProductName>
@@ -50,8 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MabiChatSpeech.ico" />
-    <Content Include="Resources\ChatData.png" />
-    <Content Include="Resources\ClearWindowContent.png" />
     <Content Include="Resources\imageres.png" />
     <Content Include="Resources\MabiChatSpeech.ico" />
     <Content Include="Resources\NewTeamProject.png" />
@@ -99,6 +102,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="help.files\" />
-    <Folder Include="Properties\PNG\" />
   </ItemGroup>
 </Project>

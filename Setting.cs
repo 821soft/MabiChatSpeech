@@ -163,6 +163,8 @@ namespace MabiChatSpeech
             }
             Chk_Aivis_Auto.Checked = Program.__Aivis_Auto;
 
+            Chk_PC_Only.Checked = Program.__ChatPC_Only;
+
         }
 
         private void Btn_Ok_Click(object sender, EventArgs e)
@@ -217,6 +219,7 @@ namespace MabiChatSpeech
             Program.__AivisSpeech_Opt = Cmb_AivisSpeech_Opt.Text;
             Program.__AivisSpeech_Host = Txt_AivisSpeech_Host.Text;
 
+            Program.__ChatPC_Only = Chk_PC_Only.Checked;
 
             Properties.Settings.Default.Save();
             this.Close();

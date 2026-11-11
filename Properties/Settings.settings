@@ -134,5 +134,8 @@
     <Setting Name="__AivisSpeech_Host" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://127.0.0.1:10101</Value>
     </Setting>
+    <Setting Name="__ChatPC_Only" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

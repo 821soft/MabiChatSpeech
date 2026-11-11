@@ -44,11 +44,11 @@ namespace MabiChatSpeech
             }
             return (ret);
         }
-        private string strip_last( string s )
+        private string strip_last(string s)
         {
             string ret = "";
 
-            string[]ss = s.Split('?');
+            string[] ss = s.Split('?');
             if (ss.Length == 0)
             {
                 ret = s;
@@ -205,7 +205,7 @@ namespace MabiChatSpeech
             if (CurUrlPos == UrlPos.ChatPopup)
             {
                 ChatPopupSend("Start forwarding the chat by MCS.");
-                Program.Frm_Main.SSL_Youtube_State(1);
+                Program.Frm_Main.SSL_Youtube_State(1,"Chat");
             }
 
         }
@@ -221,7 +221,7 @@ namespace MabiChatSpeech
             CurUrlPos = URL_Type("→SourceChanged.URL", str);
             if (CurUrlPos != UrlPos.ChatPopup)
             {
-                Program.Frm_Main.SSL_Youtube_State(0);
+                Program.Frm_Main.SSL_Youtube_State(1,"Studio");
             }
             //URL_Check();
         }
@@ -451,14 +451,19 @@ namespace MabiChatSpeech
             { // 表示中
                 if (CurUrlPos == UrlPos.ChatPopup)
                 {
-                    Program.Frm_Main.SSL_Youtube_State(1);
+                    Program.Frm_Main.SSL_Youtube_State(1, "Chat");
+                }
+                else if (CurUrlPos == UrlPos.Console)
+                {
+                    Program.Frm_Main.SSL_Youtube_State(1, "Live");
                 }
             }
             else
             {
-                Program.Frm_Main.SSL_Youtube_State(0);
+                Program.Frm_Main.SSL_Youtube_State(0,"");
 
             }
         }
+
     }
 }

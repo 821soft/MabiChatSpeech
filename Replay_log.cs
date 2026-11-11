@@ -32,6 +32,8 @@ namespace MabiChatSpeech
         private Task? _selectedPlayTask;
         private bool _voiceDisposedForCancel;
         private bool _closingAfterPlaybackCancel;
+        private bool _isPlaybackRunning;
+        private bool _updatingPlaybackSelection;
         private int _listView2SortColumn = -1;
         private SortOrder _listView2SortOrder = SortOrder.None;
         public string LogFileName
@@ -45,6 +47,8 @@ namespace MabiChatSpeech
         {
             InitializeComponent();
             FormClosing += Replay_log_FormClosing;
+            listView1.KeyDown += listView1_KeyDown;
+            listView1.ItemSelectionChanged += listView1_ItemSelectionChanged;
             listView2.ColumnClick += listView2_ColumnClick;
             listView2.MouseDown += listView2_MouseDown;
             CMN_VoiceList.Items.Add("CSVを読み込む", null, LoadVoiceListCsv_Click);
@@ -58,6 +62,22 @@ namespace MabiChatSpeech
         {
             if (_closingAfterPlaybackCancel)
                 return;
+
+            // 再生中でなければ、保存確認後にこの FormClosing をそのまま通す。
+            // Close() を呼び直す方式だと、保存確認のキャンセル後にフォームへ戻る場合がある。
+            if (_selectedPlayTask == null)
+            {
+                _closingAfterPlaybackCancel = true;
+                try
+                {
+                    SaveCastSettingsWithConfirmation();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, $"キャスト設定を保存できませんでした。\n{ex.Message}", "CSV保存", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return;
+            }
 
             e.Cancel = true;
             _closingAfterPlaybackCancel = true;
@@ -92,7 +112,7 @@ namespace MabiChatSpeech
 
         private async void init()
         {
-            if( Main._chatVoice != null)
+            if (Main._chatVoice != null)
             {
                 RegisterChatVoiceEvents(6);
                 ConnectQueueEvents();
@@ -105,13 +125,13 @@ namespace MabiChatSpeech
             Main._chatVoice!.SpeechQueued += e =>
             {
                 VoiceEvents(() =>
-                    lbl_VoiceStatu.Text = $"{e.PendingCount}件 / {e.Engine}");
+                    SSL_API_Stsus.Text = $"{e.PendingCount}件 / {e.Engine}");
             };
 
             Main._chatVoice.QueueBecameEmpty += () =>
             {
                 VoiceEvents(() =>
-                    lbl_VoiceStatu.Text = "Stay");
+                    SSL_API_Stsus.Text = "Stay");
             };
         }
         private void VoiceEvents(Action update)
@@ -184,9 +204,9 @@ namespace MabiChatSpeech
 
         private void EngeinStatus()
         {
-
-            lbl_VoiceVox.Image = Program.GetEngeinIconImage(Program.__VoiceVox );
-            lbl_AivisSpeech.Image = Program.GetEngeinIconImage(Program.__AivisSpeech );
+            Main? main = Program.Frm_Main;
+            if (main != null && !main.IsDisposed)
+                main.CopyEngineStatusTo(SSL_VoiceVox, SSL_AivisSpeech);
         }
 
         private void Replay_log_Shown(object sender, EventArgs e)
@@ -385,7 +405,7 @@ namespace MabiChatSpeech
                         !bool.TryParse(foundItem.SubItems[0].Text, out bool enabled) ||
                         !enabled)
                     {
-                        item.Selected = false;
+                        SetPlaybackSelection(item, false);
                         continue;
                     }
 
@@ -403,7 +423,7 @@ namespace MabiChatSpeech
                         // TTS指定の行はMain.speech_chatで引き続き再生する。
                         if (eng != ChatVoiceEngine.TTS && Main._chatVoice == null)
                         {
-                            item.Selected = false;
+                            SetPlaybackSelection(item, false);
                             continue;
                         }
 
@@ -467,7 +487,10 @@ namespace MabiChatSpeech
                             {
                                 if (remaining > TimeSpan.Zero)
                                     await Task.Delay(remaining, cancellationToken);
-                                Program.Frm_Main.speech_chat(Program.__TTS1Name, Program.__TTS1Volume, Program.__TTS1Speed, cn, s);
+                                while (item.SubItems.Count <= 6)
+                                    item.SubItems.Add("");
+                                item.SubItems[6].Text = "TTS";
+                                Program.Frm_Main.speech_chat(Program.__TTS2Name, Program.__TTS2Volume, Program.__TTS2Speed, cn, s);
                             }
                         }
                     }
@@ -483,7 +506,7 @@ namespace MabiChatSpeech
 
                 }
 
-                item.Selected = false;
+                SetPlaybackSelection(item, false);
 
             }
 
@@ -492,9 +515,6 @@ namespace MabiChatSpeech
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-        }
 
         private async void Btn_Play_Click(object sender, EventArgs e)
         {
@@ -518,6 +538,7 @@ namespace MabiChatSpeech
             }
 
             _playbackCancellation = new CancellationTokenSource();
+            _isPlaybackRunning = true;
             Btn_Play.Text = "Cancel";
             _selectedPlayTask = SelectedPlay(_playbackCancellation.Token);
             try
@@ -531,6 +552,7 @@ namespace MabiChatSpeech
             finally
             {
                 _selectedPlayTask = null;
+                _isPlaybackRunning = false;
                 _playbackCancellation.Dispose();
                 _playbackCancellation = null;
                 Btn_Play.Text = "Play";
@@ -549,7 +571,7 @@ namespace MabiChatSpeech
                     catch (Exception ex)
                     {
                         Debug.Print($"Replay_log voice restart error: {ex}");
-                        lbl_VoiceStatu.Text = "音声エンジン再接続失敗";
+                        SSL_API_Stsus.Text = "音声エンジン再接続失敗";
                     }
                 }
             }
@@ -558,6 +580,54 @@ namespace MabiChatSpeech
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void listView1_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (_isPlaybackRunning)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                return;
+            }
+
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                foreach (ListViewItem item in listView1.Items)
+                    item.Selected = true;
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void listView1_ItemSelectionChanged(object? sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (!_isPlaybackRunning || _updatingPlaybackSelection)
+                return;
+
+            _updatingPlaybackSelection = true;
+            try
+            {
+                e.Item.Selected = !e.IsSelected;
+            }
+            finally
+            {
+                _updatingPlaybackSelection = false;
+            }
+        }
+
+        private void SetPlaybackSelection(ListViewItem item, bool selected)
+        {
+            _updatingPlaybackSelection = true;
+            try
+            {
+                item.Selected = selected;
+            }
+            finally
+            {
+                _updatingPlaybackSelection = false;
+            }
         }
 
 
@@ -635,7 +705,7 @@ namespace MabiChatSpeech
             }
         }
 
-        
+
         private void RefreshVoiceListItem(string charaName, string charaType)
         {
             CharacterNameData? data = Program.CharaList_find(charaName, charaType);
@@ -692,17 +762,30 @@ namespace MabiChatSpeech
                 .Where(row => row.SubItems.Count > 2)
                 .GroupBy(row => (Type: row.SubItems[1].Text, Name: row.SubItems[2].Text))
                 .ToDictionary(group => group.Key, group =>
-                    group.Last().SubItems.Count > 3 &&
-                    Enum.TryParse(group.Last().SubItems[3].Text, ignoreCase: true, out ChatVoiceEngine engine) &&
-                    engine == ChatVoiceEngine.TTS);
+                {
+                    ListViewItem castRow = group.Last();
+                    bool enabled = castRow.SubItems.Count > 0 &&
+                        bool.TryParse(castRow.SubItems[0].Text, out bool isEnabled) && isEnabled;
+                    bool isTts = castRow.SubItems.Count > 3 &&
+                        Enum.TryParse(castRow.SubItems[3].Text, ignoreCase: true, out ChatVoiceEngine engine) &&
+                        engine == ChatVoiceEngine.TTS;
+                    return (Enabled: enabled, IsTts: isTts);
+                });
 
             foreach (ListViewItem logRow in listView1.Items)
             {
-                bool isTts = logRow.SubItems.Count > 4 &&
+                (bool Enabled, bool IsTts) assignment = default;
+                bool hasCast = logRow.SubItems.Count > 4 &&
                     voiceAssignments.TryGetValue(
                         (Type: logRow.SubItems[3].Text, Name: logRow.SubItems[4].Text),
-                        out bool assignedToTts) && assignedToTts;
-                logRow.ForeColor = isTts ? Color.Blue : Color.Red;
+                        out assignment);
+                logRow.ForeColor = !hasCast
+                    ? Color.Gray
+                    : !assignment.Enabled
+                        ? Color.Black
+                        : assignment.IsTts
+                            ? Color.Blue
+                            : Color.Red;
             }
         }
 
@@ -1113,6 +1196,16 @@ namespace MabiChatSpeech
         private void timer1_Tick(object sender, EventArgs e)
         {
             EngeinStatus();
+        }
+
+        private void SSL_VoiceVox_Click(object sender, EventArgs e)
+        {
+            Program.StartEngien(ChatVoiceEngine.VoiceVox);
+        }
+
+        private void SSL_AivisSpeech_Click(object sender, EventArgs e)
+        {
+            Program.StartEngien(ChatVoiceEngine.AivisSpeech);
         }
     }
 }

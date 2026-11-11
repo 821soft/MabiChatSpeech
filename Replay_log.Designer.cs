@@ -62,14 +62,16 @@
             columnHeader17 = new System.Windows.Forms.ColumnHeader();
             CMN_VoiceList = new System.Windows.Forms.ContextMenuStrip(components);
             panel1 = new System.Windows.Forms.Panel();
-            lbl_AivisSpeech = new System.Windows.Forms.Label();
-            lbl_VoiceVox = new System.Windows.Forms.Label();
             Txt_Regex = new System.Windows.Forms.ComboBox();
             lbl_Regex = new System.Windows.Forms.Label();
             CHK_FastPlay = new System.Windows.Forms.CheckBox();
-            lbl_VoiceStatu = new System.Windows.Forms.Label();
             Btn_Play = new System.Windows.Forms.Button();
             panel2 = new System.Windows.Forms.Panel();
+            statusStrip1 = new System.Windows.Forms.StatusStrip();
+            toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            SSL_VoiceVox = new System.Windows.Forms.ToolStripStatusLabel();
+            SSL_AivisSpeech = new System.Windows.Forms.ToolStripStatusLabel();
+            SSL_API_Stsus = new System.Windows.Forms.ToolStripStatusLabel();
             timer1 = new System.Windows.Forms.Timer(components);
             groupBox1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -78,6 +80,7 @@
             tabPage2.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -88,7 +91,7 @@
             groupBox1.Margin = new System.Windows.Forms.Padding(4);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            groupBox1.Size = new System.Drawing.Size(1275, 130);
+            groupBox1.Size = new System.Drawing.Size(1064, 130);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Log Info";
@@ -114,7 +117,7 @@
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel1.Size = new System.Drawing.Size(1267, 98);
+            tableLayoutPanel1.Size = new System.Drawing.Size(1056, 98);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -187,7 +190,7 @@
             listView1.Location = new System.Drawing.Point(4, 4);
             listView1.Margin = new System.Windows.Forms.Padding(4);
             listView1.Name = "listView1";
-            listView1.Size = new System.Drawing.Size(1259, 274);
+            listView1.Size = new System.Drawing.Size(1048, 291);
             listView1.TabIndex = 1;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = System.Windows.Forms.View.Details;
@@ -239,7 +242,7 @@
             tabControl1.Margin = new System.Windows.Forms.Padding(4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(1275, 320);
+            tabControl1.Size = new System.Drawing.Size(1064, 337);
             tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -249,7 +252,7 @@
             tabPage1.Margin = new System.Windows.Forms.Padding(4);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            tabPage1.Size = new System.Drawing.Size(1267, 282);
+            tabPage1.Size = new System.Drawing.Size(1056, 299);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "ログ";
             tabPage1.UseVisualStyleBackColor = true;
@@ -261,7 +264,7 @@
             tabPage2.Margin = new System.Windows.Forms.Padding(4);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            tabPage2.Size = new System.Drawing.Size(1267, 282);
+            tabPage2.Size = new System.Drawing.Size(1056, 299);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "キャストボイス設定";
             tabPage2.UseVisualStyleBackColor = true;
@@ -277,7 +280,7 @@
             listView2.Margin = new System.Windows.Forms.Padding(4);
             listView2.MultiSelect = false;
             listView2.Name = "listView2";
-            listView2.Size = new System.Drawing.Size(1259, 274);
+            listView2.Size = new System.Drawing.Size(1048, 291);
             listView2.TabIndex = 0;
             listView2.UseCompatibleStateImageBehavior = false;
             listView2.View = System.Windows.Forms.View.Details;
@@ -292,42 +295,16 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(lbl_AivisSpeech);
-            panel1.Controls.Add(lbl_VoiceVox);
             panel1.Controls.Add(Txt_Regex);
             panel1.Controls.Add(lbl_Regex);
             panel1.Controls.Add(CHK_FastPlay);
-            panel1.Controls.Add(lbl_VoiceStatu);
             panel1.Controls.Add(Btn_Play);
             panel1.Dock = System.Windows.Forms.DockStyle.Top;
             panel1.Location = new System.Drawing.Point(0, 130);
             panel1.Margin = new System.Windows.Forms.Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(1275, 51);
+            panel1.Size = new System.Drawing.Size(1064, 51);
             panel1.TabIndex = 2;
-            // 
-            // lbl_AivisSpeech
-            // 
-            lbl_AivisSpeech.AutoSize = true;
-            lbl_AivisSpeech.Image = Properties.Resources.Icon_aisp_Disable;
-            lbl_AivisSpeech.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            lbl_AivisSpeech.Location = new System.Drawing.Point(980, 12);
-            lbl_AivisSpeech.Name = "lbl_AivisSpeech";
-            lbl_AivisSpeech.Size = new System.Drawing.Size(32, 25);
-            lbl_AivisSpeech.TabIndex = 6;
-            lbl_AivisSpeech.Text = "    ";
-            // 
-            // lbl_VoiceVox
-            // 
-            lbl_VoiceVox.AutoSize = true;
-            lbl_VoiceVox.Image = Properties.Resources.Icon_vvpp_Disable;
-            lbl_VoiceVox.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            lbl_VoiceVox.Location = new System.Drawing.Point(932, 12);
-            lbl_VoiceVox.Name = "lbl_VoiceVox";
-            lbl_VoiceVox.Size = new System.Drawing.Size(32, 25);
-            lbl_VoiceVox.TabIndex = 5;
-            lbl_VoiceVox.Text = "    ";
-            lbl_VoiceVox.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Txt_Regex
             // 
@@ -359,16 +336,6 @@
             CHK_FastPlay.Text = "間隔を無視する";
             CHK_FastPlay.UseVisualStyleBackColor = true;
             // 
-            // lbl_VoiceStatu
-            // 
-            lbl_VoiceStatu.AutoSize = true;
-            lbl_VoiceStatu.Location = new System.Drawing.Point(1073, 12);
-            lbl_VoiceStatu.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_VoiceStatu.Name = "lbl_VoiceStatu";
-            lbl_VoiceStatu.Size = new System.Drawing.Size(59, 25);
-            lbl_VoiceStatu.TabIndex = 1;
-            lbl_VoiceStatu.Text = "label3";
-            // 
             // Btn_Play
             // 
             Btn_Play.Location = new System.Drawing.Point(652, 6);
@@ -382,13 +349,63 @@
             // 
             // panel2
             // 
+            panel2.BackColor = System.Drawing.SystemColors.ButtonShadow;
             panel2.Controls.Add(tabControl1);
+            panel2.Controls.Add(statusStrip1);
             panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             panel2.Location = new System.Drawing.Point(0, 181);
             panel2.Margin = new System.Windows.Forms.Padding(4);
             panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(1275, 320);
+            panel2.Size = new System.Drawing.Size(1064, 391);
             panel2.TabIndex = 3;
+            // 
+            // statusStrip1
+            // 
+            statusStrip1.AutoSize = false;
+            statusStrip1.Font = new System.Drawing.Font("Yu Gothic UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
+            statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripStatusLabel1, SSL_VoiceVox, SSL_AivisSpeech, SSL_API_Stsus });
+            statusStrip1.Location = new System.Drawing.Point(0, 337);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new System.Drawing.Size(1064, 54);
+            statusStrip1.TabIndex = 2;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.BackColor = System.Drawing.SystemColors.Control;
+            toolStripStatusLabel1.Font = new System.Drawing.Font("Yu Gothic UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new System.Drawing.Size(148, 48);
+            toolStripStatusLabel1.Text = "音声合成エンジン：";
+            // 
+            // SSL_VoiceVox
+            // 
+            SSL_VoiceVox.BackColor = System.Drawing.SystemColors.Control;
+            SSL_VoiceVox.Font = new System.Drawing.Font("Yu Gothic UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
+            SSL_VoiceVox.Image = Properties.Resources.Icon_vvpp_Disable;
+            SSL_VoiceVox.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            SSL_VoiceVox.Name = "SSL_VoiceVox";
+            SSL_VoiceVox.Size = new System.Drawing.Size(81, 48);
+            SSL_VoiceVox.Text = "Voice";
+            SSL_VoiceVox.Click += SSL_VoiceVox_Click;
+            // 
+            // SSL_AivisSpeech
+            // 
+            SSL_AivisSpeech.BackColor = System.Drawing.SystemColors.Control;
+            SSL_AivisSpeech.Font = new System.Drawing.Font("Yu Gothic UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
+            SSL_AivisSpeech.Image = Properties.Resources.Icon_aisp_Disable;
+            SSL_AivisSpeech.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            SSL_AivisSpeech.Name = "SSL_AivisSpeech";
+            SSL_AivisSpeech.Size = new System.Drawing.Size(72, 48);
+            SSL_AivisSpeech.Text = "Aivis";
+            SSL_AivisSpeech.Click += SSL_AivisSpeech_Click;
+            // 
+            // SSL_API_Stsus
+            // 
+            SSL_API_Stsus.BackColor = System.Drawing.SystemColors.Control;
+            SSL_API_Stsus.Name = "SSL_API_Stsus";
+            SSL_API_Stsus.Size = new System.Drawing.Size(0, 48);
             // 
             // timer1
             // 
@@ -400,7 +417,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1275, 501);
+            ClientSize = new System.Drawing.Size(1064, 572);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(groupBox1);
@@ -419,6 +436,8 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -448,7 +467,6 @@
         private System.Windows.Forms.ContextMenuStrip CMN_VoiceList;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button Btn_Play;
-        private System.Windows.Forms.Label lbl_VoiceStatu;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ColumnHeader columnHeader11;
@@ -463,8 +481,11 @@
         private System.Windows.Forms.Label lbl_Regex;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbl_Cast;
-        private System.Windows.Forms.Label lbl_AivisSpeech;
-        private System.Windows.Forms.Label lbl_VoiceVox;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel SSL_VoiceVox;
+        private System.Windows.Forms.ToolStripStatusLabel SSL_AivisSpeech;
+        private System.Windows.Forms.ToolStripStatusLabel SSL_API_Stsus;
     }
 }

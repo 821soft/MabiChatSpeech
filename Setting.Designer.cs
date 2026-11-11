@@ -81,8 +81,6 @@
             label27 = new System.Windows.Forms.Label();
             label28 = new System.Windows.Forms.Label();
             label29 = new System.Windows.Forms.Label();
-            CHK_AutoAdd = new System.Windows.Forms.CheckBox();
-            Chk_PET = new System.Windows.Forms.CheckBox();
             tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             Btn_Ok = new System.Windows.Forms.Button();
             Btn_Cancel = new System.Windows.Forms.Button();
@@ -103,6 +101,11 @@
             label24 = new System.Windows.Forms.Label();
             Chk_Aivis_Auto = new System.Windows.Forms.CheckBox();
             Txt_AivisSpeech_exe = new System.Windows.Forms.TextBox();
+            panel3 = new System.Windows.Forms.Panel();
+            Chk_PC_Only = new System.Windows.Forms.CheckBox();
+            CHK_AutoAdd = new System.Windows.Forms.CheckBox();
+            panel4 = new System.Windows.Forms.Panel();
+            Chk_PET = new System.Windows.Forms.CheckBox();
             openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             tableLayoutPanel1.SuspendLayout();
@@ -119,6 +122,8 @@
             tableLayoutPanel2.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            panel3.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -159,12 +164,12 @@
             tableLayoutPanel1.Controls.Add(label27, 0, 23);
             tableLayoutPanel1.Controls.Add(label28, 0, 24);
             tableLayoutPanel1.Controls.Add(label29, 0, 25);
-            tableLayoutPanel1.Controls.Add(CHK_AutoAdd, 1, 12);
-            tableLayoutPanel1.Controls.Add(Chk_PET, 1, 13);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 27);
             tableLayoutPanel1.Controls.Add(Chk_Echa, 1, 15);
             tableLayoutPanel1.Controls.Add(panel1, 1, 24);
             tableLayoutPanel1.Controls.Add(panel2, 1, 25);
+            tableLayoutPanel1.Controls.Add(panel3, 1, 12);
+            tableLayoutPanel1.Controls.Add(panel4, 1, 13);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(6);
@@ -864,30 +869,6 @@
             label29.TabIndex = 57;
             label29.Text = "　　AivisSpeech";
             // 
-            // CHK_AutoAdd
-            // 
-            CHK_AutoAdd.AutoSize = true;
-            CHK_AutoAdd.Dock = System.Windows.Forms.DockStyle.Fill;
-            CHK_AutoAdd.Location = new System.Drawing.Point(208, 372);
-            CHK_AutoAdd.Margin = new System.Windows.Forms.Padding(0);
-            CHK_AutoAdd.Name = "CHK_AutoAdd";
-            CHK_AutoAdd.Size = new System.Drawing.Size(626, 38);
-            CHK_AutoAdd.TabIndex = 9;
-            CHK_AutoAdd.Text = "キャラリストに自動追加";
-            CHK_AutoAdd.UseVisualStyleBackColor = true;
-            // 
-            // Chk_PET
-            // 
-            Chk_PET.AutoSize = true;
-            Chk_PET.Dock = System.Windows.Forms.DockStyle.Fill;
-            Chk_PET.Location = new System.Drawing.Point(208, 410);
-            Chk_PET.Margin = new System.Windows.Forms.Padding(0);
-            Chk_PET.Name = "Chk_PET";
-            Chk_PET.Size = new System.Drawing.Size(626, 38);
-            Chk_PET.TabIndex = 11;
-            Chk_PET.Text = "PCの付属キャラ(PET等)は無視";
-            Chk_PET.UseVisualStyleBackColor = true;
-            // 
             // tableLayoutPanel2
             // 
             tableLayoutPanel2.ColumnCount = 3;
@@ -935,9 +916,9 @@
             Chk_Echa.Location = new System.Drawing.Point(208, 486);
             Chk_Echa.Margin = new System.Windows.Forms.Padding(0);
             Chk_Echa.Name = "Chk_Echa";
-            Chk_Echa.Size = new System.Drawing.Size(182, 38);
+            Chk_Echa.Size = new System.Drawing.Size(181, 38);
             Chk_Echa.TabIndex = 64;
-            Chk_Echa.Text = "絵チャットの保存する";
+            Chk_Echa.Text = "絵チャットを保存する";
             Chk_Echa.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -1092,6 +1073,59 @@
             Txt_AivisSpeech_exe.TabIndex = 59;
             Txt_AivisSpeech_exe.Leave += Txt_AivisSpeech_exe_Leave;
             // 
+            // panel3
+            // 
+            panel3.Controls.Add(Chk_PC_Only);
+            panel3.Controls.Add(CHK_AutoAdd);
+            panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel3.Location = new System.Drawing.Point(208, 372);
+            panel3.Margin = new System.Windows.Forms.Padding(0);
+            panel3.Name = "panel3";
+            panel3.Size = new System.Drawing.Size(626, 38);
+            panel3.TabIndex = 67;
+            // 
+            // Chk_PC_Only
+            // 
+            Chk_PC_Only.AutoSize = true;
+            Chk_PC_Only.Location = new System.Drawing.Point(210, 6);
+            Chk_PC_Only.Name = "Chk_PC_Only";
+            Chk_PC_Only.Size = new System.Drawing.Size(318, 29);
+            Chk_PC_Only.TabIndex = 10;
+            Chk_PC_Only.Text = "キャラリストモード時、PC以外は全て無視";
+            Chk_PC_Only.UseVisualStyleBackColor = true;
+            // 
+            // CHK_AutoAdd
+            // 
+            CHK_AutoAdd.AutoSize = true;
+            CHK_AutoAdd.Location = new System.Drawing.Point(0, 6);
+            CHK_AutoAdd.Margin = new System.Windows.Forms.Padding(0);
+            CHK_AutoAdd.Name = "CHK_AutoAdd";
+            CHK_AutoAdd.Size = new System.Drawing.Size(197, 29);
+            CHK_AutoAdd.TabIndex = 9;
+            CHK_AutoAdd.Text = "キャラリストに自動追加";
+            CHK_AutoAdd.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(Chk_PET);
+            panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel4.Location = new System.Drawing.Point(208, 410);
+            panel4.Margin = new System.Windows.Forms.Padding(0);
+            panel4.Name = "panel4";
+            panel4.Size = new System.Drawing.Size(626, 38);
+            panel4.TabIndex = 68;
+            // 
+            // Chk_PET
+            // 
+            Chk_PET.AutoSize = true;
+            Chk_PET.Location = new System.Drawing.Point(0, 6);
+            Chk_PET.Margin = new System.Windows.Forms.Padding(0);
+            Chk_PET.Name = "Chk_PET";
+            Chk_PET.Size = new System.Drawing.Size(251, 29);
+            Chk_PET.TabIndex = 11;
+            Chk_PET.Text = "PCの付属キャラ(PET等)は無視";
+            Chk_PET.UseVisualStyleBackColor = true;
+            // 
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
@@ -1136,6 +1170,10 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1218,5 +1256,8 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox Txt_AivisSpeech_Host;
         private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.CheckBox Chk_PC_Only;
+        private System.Windows.Forms.Panel panel4;
     }
 }

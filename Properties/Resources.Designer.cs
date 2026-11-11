@@ -393,9 +393,9 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        public static System.Drawing.Bitmap imageres {
+        public static System.Drawing.Bitmap Icon_Youtube_js {
             get {
-                object obj = ResourceManager.GetObject("imageres", resourceCulture);
+                object obj = ResourceManager.GetObject("Icon_Youtube_js", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

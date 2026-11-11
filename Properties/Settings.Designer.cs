@@ -550,5 +550,17 @@ namespace MabiChatSpeech.Properties {
                 this["__AivisSpeech_Host"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool @__ChatPC_Only {
+            get {
+                return ((bool)(this["__ChatPC_Only"]));
+            }
+            set {
+                this["__ChatPC_Only"] = value;
+            }
+        }
     }
 }

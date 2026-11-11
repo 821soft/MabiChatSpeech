@@ -262,6 +262,11 @@ namespace MabiChatSpeech
             get { return Properties.Settings.Default.__ChatMode_Voice; }
             set { Properties.Settings.Default.__ChatMode_Voice = value; }
         }
+        public static bool __ChatPC_Only
+        {
+            get { return Properties.Settings.Default.__ChatPC_Only; }
+            set { Properties.Settings.Default.__ChatPC_Only = value; }
+        }
         public enum ChatMode_PC { DisableChat , DisableTTS , EnableChat , EnableTTS }
         public enum ChatMode_NPC { DisableChat , DisableTTS , EnableChat , EnableTTS }
         public enum ChatMode_Voice { DisableChat , DisableTTS , DisableVoice , EnableChat , EnableTTS , EnableVoice }
@@ -422,14 +427,62 @@ namespace MabiChatSpeech
                 return RunningStatus.NotRunning;
             }
         }
+        static public DialogResult StartEngien(ChatVoiceEngine eng)
+        {
+            DialogResult ret = DialogResult.None;
+            string exec, opt;
 
+            _RunningStatusEngine rse = new _RunningStatusEngine();
+            RunningStatus rs;
+
+            switch (eng)
+            {
+                case ChatVoiceEngine.VoiceVox:
+                    exec = __VoiceVox;
+                    opt = __VoiceVox_Opt;
+                    rs = rse.VoiceVox;
+                    break;
+                case ChatVoiceEngine.AivisSpeech:
+                    exec = __AivisSpeech;
+                    opt = __AivisSpeech_Opt;
+                    rs = rse.AivisSpeech;
+                    break;
+                default:
+                    return(DialogResult.None);
+            }
+            if(rs == RunningStatus.NotRunning)
+            {
+                try
+                {
+                    if (opt.Length > 0)
+                    {
+                        Process.Start(exec, opt);
+                    }
+                    else
+                    {
+                        Process.Start(exec);
+                    }
+                }
+                catch (Exception e)
+                {
+                    while (e.InnerException != null)
+                    {
+                        e = e.InnerException;
+                    }
+                    ret = MessageBox.Show($"エラー終了.\n {e.Message}",
+                        "音声合成エンジン起動エラー",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            return (ret);
+        }
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
         [STAThread]
         static void Main()
         {
-
             try
             {
                 Application.EnableVisualStyles();
@@ -458,63 +511,23 @@ namespace MabiChatSpeech
                 __TTS2Name = TTS_NameList[0];
             }
 
-            _RunningStatusEngine rse = new _RunningStatusEngine();
-//            Debug.Print($"exec:{__VoiceVox}opt:{__VoiceVox_Opt}");
-            if ((__VoiceVox_Auto )&&(rse.VoiceVox == RunningStatus.NotRunning))
+            if (__VoiceVox_Auto )
             {
-                try
+                var ret = StartEngien(ChatVoiceEngine.VoiceVox);
+                if (ret != DialogResult.None)
                 {
-                    if (__VoiceVox_Opt.Length > 0)
-                    {
-                        Process.Start(__VoiceVox, __VoiceVox_Opt);
-                    }
-                    else
-                    {
-                        Process.Start(__VoiceVox/*, "--load_all_models"*/);
-                    }
-                }
-                catch (Exception e)
-                {
-                    while (e.InnerException != null)
-                    {
-                        e = e.InnerException;
-                    }
-                    MessageBox.Show($"エラー終了.\n {e.Message}",
-                        "音声合成エンジン起動エラー",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
                     Application.Exit();
                 }
             }
-            rse.Refresh();
 
-            if ((__Aivis_Auto) && (rse.AivisSpeech == RunningStatus.NotRunning))
+            if (__Aivis_Auto) 
             {
-                try 
+                var ret = StartEngien(ChatVoiceEngine.AivisSpeech);
+                if (ret != DialogResult.None)
                 {
-                    if (__AivisSpeech_Opt.Length > 1)
-                    {
-                        Process.Start(__AivisSpeech, __AivisSpeech_Opt);
-                    }
-                    else
-                    {
-                        Process.Start(__AivisSpeech/*, "--load_all_models"*/);
-                    }
-                }
-                catch (Exception e) 
-                {
-                    while (e.InnerException != null)
-                    {
-                        e = e.InnerException;
-                    }
-                    MessageBox.Show($"エラー終了.\n {e.Message}",
-                        "音声合成エンジン起動エラー",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
                     Application.Exit();
                 }
             }
-            rse.Refresh();
 
             //FontItemList = new Collection();
             FontFamily[] ffs = FontFamily.Families;

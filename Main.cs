@@ -167,7 +167,7 @@ namespace MabiChatSpeech
                     SSL_VoiceVox.Text = "未起動";
                     break;
                 case RunningStatus.NotIstalled:
-                    SSL_VoiceVox.Text = "未実装";
+                    SSL_VoiceVox.Text = "未設定";
                     SSL_VoiceVox.Image = Properties.Resources.Icon_vvpp_Disable;
                     break;
                 default:
@@ -200,7 +200,7 @@ namespace MabiChatSpeech
                     SSL_AivisSpeech.Text = "未起動";
                     break;
                 case RunningStatus.NotIstalled:
-                    SSL_VoiceVox.Text = "未実装";
+                    SSL_AivisSpeech.Text = "未設定";
                     SSL_AivisSpeech.Image = Properties.Resources.Icon_aisp_Disable;
                     break;
                 default:
@@ -215,6 +215,14 @@ namespace MabiChatSpeech
                 init_voice();
             }
 
+        }
+
+        public void CopyEngineStatusTo(ToolStripStatusLabel voiceVox, ToolStripStatusLabel aivisSpeech)
+        {
+            voiceVox.Text = SSL_VoiceVox.Text;
+            voiceVox.Image = SSL_VoiceVox.Image;
+            aivisSpeech.Text = SSL_AivisSpeech.Text;
+            aivisSpeech.Image = SSL_AivisSpeech.Image;
         }
 
         public Main()
@@ -975,6 +983,14 @@ namespace MabiChatSpeech
             {
                 return;
             }
+            if ((mode == ChatModes.Voice) || (mode == ChatModes.VoiceTTS) || (mode == ChatModes.VoiceChat))
+            {
+                if ((__ChatPC_Only) && (c.CharaTypeName != _CharaTypeNames.PC))
+                {
+                    return;
+                }
+            }
+
 
             /* 1.Chat内容を表示*/
             // chat log show
@@ -1150,19 +1166,6 @@ namespace MabiChatSpeech
             };
             Frm_Setting.ShowDialog();
         }
-        /// <summary>
-        /// キャラクターボタン押下
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Btn_List_Click(object sender, EventArgs e)
-        {
-            WhiteList Frm_WhiteList = new WhiteList();
-            Frm_WhiteList.Owner = this;
-            if (Frm_WhiteList.ShowDialog() == DialogResult.OK)
-            {
-            }
-        }
 
         // Redirect Window Hndle List
         private List<IntPtr> twlist = new List<IntPtr>();
@@ -1282,7 +1285,6 @@ namespace MabiChatSpeech
                 default:
                     break;
             }
-
         }
 
         private void SSL_NPC_Setdata()
@@ -1471,15 +1473,17 @@ namespace MabiChatSpeech
             TextViewMode(PacketModes.Chat);　// Bug.105_01
 
         }
-        public void SSL_Youtube_State(int sts)
+        public void SSL_Youtube_State(int sts, string txt)
         {
             if (sts == 0)
             {
                 SSL_Youtube.Image = null;
+                SSL_Youtube.Text = "";
             }
             else
             {
-                SSL_Youtube.Image = Properties.Resources.Youtube_js;
+                SSL_Youtube.Image = Properties.Resources.Icon_Youtube_js;
+                SSL_Youtube.Text = txt;
             }
 
         }
@@ -1955,6 +1959,16 @@ namespace MabiChatSpeech
             Mnu_CharaList_Click(sender, e);
             StatusStrip_Update();
 
+        }
+
+        private void SSL_AivisSpeech_Click(object sender, EventArgs e)
+        {
+            StartEngien(ChatVoiceEngine.AivisSpeech);
+        }
+
+        private void SSL_VoiceVox_Click(object sender, EventArgs e)
+        {
+            StartEngien(ChatVoiceEngine.VoiceVox);
         }
     }
 }
