@@ -26,7 +26,7 @@
     <Setting Name="__ChatBackColor" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-16777216</Value>
     </Setting>
-    <Setting Name="__ChatPet" Type="System.Boolean" Scope="User">
+    <Setting Name="__ChatPet_Mute" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="__ChatFaceEmo" Type="System.Boolean" Scope="User">
@@ -107,14 +107,8 @@
     <Setting Name="__AivisSpeech" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="__ChatMode_PC" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2</Value>
-    </Setting>
-    <Setting Name="__ChatMode_NPC" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">3</Value>
-    </Setting>
-    <Setting Name="__ChatMode_Voice" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="__ChatMode" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="__VoiceVox_Auto" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -136,6 +130,18 @@
     </Setting>
     <Setting Name="__ChatPC_Only" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="__Chat_Regex" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="__ChatNPC_Mute" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="__ChatDoll_Mute" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="__API_WDT" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3000</Value>
     </Setting>
   </Settings>
 </SettingsFile>

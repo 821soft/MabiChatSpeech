@@ -62,6 +62,8 @@
             columnHeader17 = new System.Windows.Forms.ColumnHeader();
             CMN_VoiceList = new System.Windows.Forms.ContextMenuStrip(components);
             panel1 = new System.Windows.Forms.Panel();
+            Nud_To = new System.Windows.Forms.NumericUpDown();
+            Nud_From = new System.Windows.Forms.NumericUpDown();
             Txt_Regex = new System.Windows.Forms.ComboBox();
             lbl_Regex = new System.Windows.Forms.Label();
             CHK_FastPlay = new System.Windows.Forms.CheckBox();
@@ -79,6 +81,8 @@
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)Nud_To).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Nud_From).BeginInit();
             panel2.SuspendLayout();
             statusStrip1.SuspendLayout();
             SuspendLayout();
@@ -194,6 +198,7 @@
             listView1.TabIndex = 1;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = System.Windows.Forms.View.Details;
+            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
             listView1.DoubleClick += listView1_DoubleClick;
             // 
             // columnHeader1
@@ -295,6 +300,8 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(Nud_To);
+            panel1.Controls.Add(Nud_From);
             panel1.Controls.Add(Txt_Regex);
             panel1.Controls.Add(lbl_Regex);
             panel1.Controls.Add(CHK_FastPlay);
@@ -306,12 +313,33 @@
             panel1.Size = new System.Drawing.Size(1064, 51);
             panel1.TabIndex = 2;
             // 
+            // Nud_To
+            // 
+            Nud_To.Location = new System.Drawing.Point(716, 10);
+            Nud_To.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
+            Nud_To.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            Nud_To.Name = "Nud_To";
+            Nud_To.Size = new System.Drawing.Size(78, 31);
+            Nud_To.TabIndex = 6;
+            Nud_To.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // Nud_From
+            // 
+            Nud_From.Location = new System.Drawing.Point(590, 10);
+            Nud_From.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
+            Nud_From.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            Nud_From.Name = "Nud_From";
+            Nud_From.Size = new System.Drawing.Size(86, 31);
+            Nud_From.TabIndex = 5;
+            Nud_From.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            Nud_From.ValueChanged += Nud_From_ValueChanged;
+            // 
             // Txt_Regex
             // 
             Txt_Regex.Items.AddRange(new object[] { "「(.*?)」" });
             Txt_Regex.Location = new System.Drawing.Point(129, 9);
             Txt_Regex.Name = "Txt_Regex";
-            Txt_Regex.Size = new System.Drawing.Size(361, 33);
+            Txt_Regex.Size = new System.Drawing.Size(262, 33);
             Txt_Regex.TabIndex = 3;
             // 
             // lbl_Regex
@@ -329,7 +357,7 @@
             CHK_FastPlay.AutoSize = true;
             CHK_FastPlay.Checked = true;
             CHK_FastPlay.CheckState = System.Windows.Forms.CheckState.Checked;
-            CHK_FastPlay.Location = new System.Drawing.Point(496, 11);
+            CHK_FastPlay.Location = new System.Drawing.Point(409, 11);
             CHK_FastPlay.Name = "CHK_FastPlay";
             CHK_FastPlay.Size = new System.Drawing.Size(149, 29);
             CHK_FastPlay.TabIndex = 2;
@@ -338,7 +366,7 @@
             // 
             // Btn_Play
             // 
-            Btn_Play.Location = new System.Drawing.Point(652, 6);
+            Btn_Play.Location = new System.Drawing.Point(915, 4);
             Btn_Play.Margin = new System.Windows.Forms.Padding(4);
             Btn_Play.Name = "Btn_Play";
             Btn_Play.Size = new System.Drawing.Size(118, 36);
@@ -435,6 +463,8 @@
             tabPage2.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)Nud_To).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Nud_From).EndInit();
             panel2.ResumeLayout(false);
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
@@ -487,5 +517,7 @@
         private System.Windows.Forms.ToolStripStatusLabel SSL_VoiceVox;
         private System.Windows.Forms.ToolStripStatusLabel SSL_AivisSpeech;
         private System.Windows.Forms.ToolStripStatusLabel SSL_API_Stsus;
+        private System.Windows.Forms.NumericUpDown Nud_To;
+        private System.Windows.Forms.NumericUpDown Nud_From;
     }
 }

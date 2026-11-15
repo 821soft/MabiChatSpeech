@@ -122,12 +122,12 @@ namespace MabiChatSpeech.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool @__ChatPet {
+        public bool @__ChatPet_Mute {
             get {
-                return ((bool)(this["__ChatPet"]));
+                return ((bool)(this["__ChatPet_Mute"]));
             }
             set {
-                this["__ChatPet"] = value;
+                this["__ChatPet_Mute"] = value;
             }
         }
         
@@ -445,37 +445,13 @@ namespace MabiChatSpeech.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int @__ChatMode_PC {
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int @__ChatMode {
             get {
-                return ((int)(this["__ChatMode_PC"]));
+                return ((int)(this["__ChatMode"]));
             }
             set {
-                this["__ChatMode_PC"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public int @__ChatMode_NPC {
-            get {
-                return ((int)(this["__ChatMode_NPC"]));
-            }
-            set {
-                this["__ChatMode_NPC"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int @__ChatMode_Voice {
-            get {
-                return ((int)(this["__ChatMode_Voice"]));
-            }
-            set {
-                this["__ChatMode_Voice"] = value;
+                this["__ChatMode"] = value;
             }
         }
         
@@ -560,6 +536,54 @@ namespace MabiChatSpeech.Properties {
             }
             set {
                 this["__ChatPC_Only"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string @__Chat_Regex {
+            get {
+                return ((string)(this["__Chat_Regex"]));
+            }
+            set {
+                this["__Chat_Regex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool @__ChatNPC_Mute {
+            get {
+                return ((bool)(this["__ChatNPC_Mute"]));
+            }
+            set {
+                this["__ChatNPC_Mute"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool @__ChatDoll_Mute {
+            get {
+                return ((bool)(this["__ChatDoll_Mute"]));
+            }
+            set {
+                this["__ChatDoll_Mute"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
+        public int @__API_WDT {
+            get {
+                return ((int)(this["__API_WDT"]));
+            }
+            set {
+                this["__API_WDT"] = value;
             }
         }
     }

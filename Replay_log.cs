@@ -580,6 +580,13 @@ namespace MabiChatSpeech
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (listView1.SelectedItems.Count == 0)
+            {
+                return;
+            }
+            Nud_From.Value = int.Parse(listView1.SelectedItems[0].SubItems[0].Text);
+
+            Nud_To.Value = int.Parse(listView1.SelectedItems[listView1.SelectedItems.Count - 1].SubItems[0].Text);
         }
 
         private void listView1_KeyDown(object? sender, KeyEventArgs e)
@@ -1206,6 +1213,11 @@ namespace MabiChatSpeech
         private void SSL_AivisSpeech_Click(object sender, EventArgs e)
         {
             Program.StartEngien(ChatVoiceEngine.AivisSpeech);
+        }
+
+        private void Nud_From_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

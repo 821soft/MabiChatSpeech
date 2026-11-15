@@ -98,6 +98,8 @@ namespace MabiChatSpeech
     {
         public string name;
         public string ip;
+        public int svno ;
+        public int chno ;
     }
 
     public struct st_MabiServerList
@@ -136,6 +138,7 @@ namespace MabiChatSpeech
         public _CharaTypeNames CharaTypeName;
     }
 
+    //public enum MabiPacketStatu { ChatArrive ,Error }
     // Mabinogi Packet Class
     public class MabiPacket
     {
@@ -150,7 +153,7 @@ namespace MabiChatSpeech
         public int PortNo = 0;
         private int pid;
         public List<st_MabiPort> PortList = new List<st_MabiPort>();
-        private string svip = "";
+        public string svip = "";
         public string svname = "";
         public bool cap_sts = false;
         public PacketModes PacketMode = PacketModes.Chat;
@@ -188,6 +191,11 @@ namespace MabiChatSpeech
         new st_MabiServerList("52.69.23.101",3,6),
         new st_MabiServerList("52.193.39.60",3,7)
         };
+
+        public static st_MabiServerList IsSvip(string ip)
+        {
+            return ( Array.Find(MabiServerList, x => x.ip == ip) );
+        }
         
         private static string GetNicName(string ip)
         {
@@ -666,8 +674,6 @@ namespace MabiChatSpeech
                                 break;
                         }
 
-
-
                         // 吹き出し
                         if (tcpbuff[bf + 7] == 0x00)
                         {
@@ -876,7 +882,6 @@ namespace MabiChatSpeech
             svname = "";
             cap_sts = capdev.Started;
         }
-
         private void capdev_start()
         {
             capdev.Open(DeviceModes.Promiscuous, 1000);
@@ -896,7 +901,6 @@ namespace MabiChatSpeech
                 capdev.StartCapture();
             }
         }
-
         static private string dumptext_Format(byte[] payload , int len )
         {
             string lstr = "";

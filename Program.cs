@@ -119,10 +119,10 @@ namespace MabiChatSpeech
             get { return Properties.Settings.Default.__ChatBColor; }
             set { Properties.Settings.Default.__ChatBColor = value; }
         }
-        public static bool __ChatPet
+        public static bool __ChatPet_Mute
         {
-            get { return Properties.Settings.Default.__ChatPet; }
-            set { Properties.Settings.Default.__ChatPet = value; }
+            get { return Properties.Settings.Default.__ChatPet_Mute; }
+            set { Properties.Settings.Default.__ChatPet_Mute = value; }
         }
         public static bool __ChatFaceEmo
         {
@@ -247,29 +247,37 @@ namespace MabiChatSpeech
             get { return Properties.Settings.Default.__Aivis_Auto; }
             set { Properties.Settings.Default.__Aivis_Auto = value; }
         }
-        public static int __ChatMode_PC
+        public static int __ChatMode
         {
-            get { return Properties.Settings.Default.__ChatMode_PC; }
-            set { Properties.Settings.Default.__ChatMode_PC = value; }
-        }
-        public static int __ChatMode_NPC
-        {
-            get { return Properties.Settings.Default.__ChatMode_NPC; }
-            set { Properties.Settings.Default.__ChatMode_NPC = value; }
-        }
-        public static int __ChatMode_Voice
-        {
-            get { return Properties.Settings.Default.__ChatMode_Voice; }
-            set { Properties.Settings.Default.__ChatMode_Voice = value; }
+            get { return Properties.Settings.Default.__ChatMode; }
+            set { Properties.Settings.Default.__ChatMode = value; }
         }
         public static bool __ChatPC_Only
         {
             get { return Properties.Settings.Default.__ChatPC_Only; }
             set { Properties.Settings.Default.__ChatPC_Only = value; }
         }
-        public enum ChatMode_PC { DisableChat , DisableTTS , EnableChat , EnableTTS }
-        public enum ChatMode_NPC { DisableChat , DisableTTS , EnableChat , EnableTTS }
-        public enum ChatMode_Voice { DisableChat , DisableTTS , DisableVoice , EnableChat , EnableTTS , EnableVoice }
+        public static bool __ChatNPC_Mute
+        {
+            get { return Properties.Settings.Default.__ChatNPC_Mute; }
+            set { Properties.Settings.Default.__ChatNPC_Mute = value; }
+        }
+        public static bool __ChatDoll_Mute
+        {
+            get { return Properties.Settings.Default.__ChatDoll_Mute; }
+            set { Properties.Settings.Default.__ChatDoll_Mute = value; }
+        }
+        public static string __Chat_Regex
+        {
+            get { return Properties.Settings.Default.__Chat_Regex; }
+            set { Properties.Settings.Default.__Chat_Regex = value; }
+        }
+        public static int __API_WDT
+        {
+            get { return Properties.Settings.Default.__API_WDT; }
+            set { Properties.Settings.Default.__API_WDT = value; }
+        }
+        public enum ChatMode { Chat , TTS , Voice }
         public static string TTS_Names()
         {
             string retval_txt ="";
@@ -326,25 +334,50 @@ namespace MabiChatSpeech
 
             return (false);
         }
-        public enum RunningStatus { Running ,NotRunning, NotIstalled } ;
+        public enum RunningStatus { Loading,Running ,NotRunning, NotIstalled } ;
+
+        public sealed class EngineStatusChangedEventArgs : EventArgs
+        {
+            public ChatVoiceEngine Engine { get; }
+            public RunningStatus PreviousStatus { get; }
+            public RunningStatus CurrentStatus { get; }
+
+            public EngineStatusChangedEventArgs(ChatVoiceEngine engine, RunningStatus previousStatus, RunningStatus currentStatus)
+            {
+                Engine = engine;
+                PreviousStatus = previousStatus;
+                CurrentStatus = currentStatus;
+            }
+        }
 
         public class _RunningStatusEngine 
         {
+            public event EventHandler<EngineStatusChangedEventArgs>? StatusChanged;
             public RunningStatus VoiceVox;
             public RunningStatus AivisSpeech;
             public _RunningStatusEngine()
             {
-                string[] param_V = __VoiceVox.Split(',');
-                VoiceVox = IsRunning(param_V[0]);
-                string[] param_A = __AivisSpeech.Split(',');
-                AivisSpeech = IsRunning(param_A[0]);
+                VoiceVox = IsRunning(__VoiceVox);
+                AivisSpeech = IsRunning(__AivisSpeech);
             }
             public void Refresh()
             {
-                string[] param_V = __VoiceVox.Split(',');
-                VoiceVox = IsRunning(param_V[0]);
-                string[] param_A = __AivisSpeech.Split(',');
-                AivisSpeech = IsRunning(param_A[0]);
+                UpdateStatus(ChatVoiceEngine.VoiceVox, IsRunning(__VoiceVox));
+                UpdateStatus(ChatVoiceEngine.AivisSpeech, IsRunning(__AivisSpeech));
+            }
+
+            private void UpdateStatus(ChatVoiceEngine engine, RunningStatus currentStatus)
+            {
+                RunningStatus previousStatus = engine == ChatVoiceEngine.VoiceVox ? VoiceVox : AivisSpeech;
+                if (engine == ChatVoiceEngine.VoiceVox)
+                    VoiceVox = currentStatus;
+                else
+                    AivisSpeech = currentStatus;
+
+                if (previousStatus != currentStatus)
+                {
+                    StatusChanged?.Invoke(this, new EngineStatusChangedEventArgs(engine, previousStatus, currentStatus));
+                }
             }
         }
         public static Image GetEngeinIconImage(string foo ) 
@@ -392,6 +425,16 @@ namespace MabiChatSpeech
             }
             return iconImage;
         }
+        static public bool IsEngienRun(ChatVoiceEngine eng)
+        {
+            bool result = Task.Run(async () =>
+            {
+                return await ChatVoice.IsChatVoiceEngenRunning(eng);
+            }).GetAwaiter().GetResult();
+
+            return (result);
+        }
+
         static public RunningStatus IsRunning(string foo)
         {
             if (foo.Trim() == "")
@@ -408,21 +451,41 @@ namespace MabiChatSpeech
             }
             else
             {
-                foreach (var proc in foo_processes)
+                try
                 {
-                    string path = proc.MainModule?.FileName;
-                    var comp =  string.Equals(foo, path, StringComparison.OrdinalIgnoreCase);
-//                    Debug.Print($"プロセス実行判定({foo}):{comp}");
-
-                    if (comp)
+                    foreach (var proc in foo_processes)
                     {
-                        return RunningStatus.Running;
-                    }
-                    else
-                    {
+                        string path = proc.MainModule?.FileName;
+                        var comp = string.Equals(foo, path, StringComparison.OrdinalIgnoreCase);
+                        //                    Debug.Print($"プロセス実行判定({foo}):{comp}");
 
-                        continue;
+                        if (comp)
+                        {
+                            if (foo == __AivisSpeech)
+                            {
+                                if (IsEngienRun(ChatVoiceEngine.AivisSpeech) == false)
+                                {
+                                    return RunningStatus.Loading;
+                                }
+                            }
+                            else if (foo == __VoiceVox)
+                            {
+                                if (IsEngienRun(ChatVoiceEngine.VoiceVox) == false)
+                                {
+                                    return RunningStatus.Loading;
+                                }
+                            }
+                            return RunningStatus.Running;
+                        }
+                        else
+                        {
+                            continue;
+                        }
                     }
+                }
+                catch 
+                {
+                    return RunningStatus.NotRunning;
                 }
                 return RunningStatus.NotRunning;
             }

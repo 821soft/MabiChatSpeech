@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -85,7 +86,7 @@ namespace MabiChatSpeech
         }
         private void Setting_Shown(object sender, EventArgs e)
         {
-
+            timer1.Start();
             // データセット
             Txt_CapProgram.Text = Program.__CapureProgram;
             Txt_CapPort.Text = $"{Program.__CapturePort}";
@@ -117,22 +118,11 @@ namespace MabiChatSpeech
 
             CMB_FontSize.Text = $"{Program.__ChatFontSize}";
 
-            if (Program.__ChatPet )
-            {
-                Chk_PET.Checked = true;
-            }
-            else
-            {
-                Chk_PET.Checked = false;
-            }
+            Chk_PET.Checked = Program.__ChatPet_Mute;
 
             Cmb_TTS1Name.Text = Program.__TTS1Name;
             Nud_TTS1Volume.Value = Program.__TTS1Volume;
             Nud_TTS1Speed.Value = Program.__TTS1Speed;
-            Cmb_TTS2Name.Text = Program.__TTS2Name;
-            Nud_TTS2Volume.Value = Program.__TTS2Volume;
-            Nud_TTS2Speed.Value = Program.__TTS2Speed;
-            Chk_TTSMute.Checked = Program.__TTS_Mute;
             Chk_TTSNameCall.Checked = Program.__TTS_NameCall;
 
             CHK_AutoAdd.Checked = Program.__CharaList_AutoAdd;
@@ -159,11 +149,15 @@ namespace MabiChatSpeech
             if (Txt_AivisSpeech_exe.Text == "")
             {
                 Chk_Aivis_Auto.Enabled = false;
-                Cmb_AivisSpeech_Opt.Enabled=false;
+                Cmb_AivisSpeech_Opt.Enabled = false;
             }
             Chk_Aivis_Auto.Checked = Program.__Aivis_Auto;
 
-            Chk_PC_Only.Checked = Program.__ChatPC_Only;
+            Txt_Regex.Text = Program.__Chat_Regex;
+            Chk_NPC_Mute.Checked = Program.__ChatNPC_Mute;
+            Chk_Doll_Mute.Checked = Program.__ChatDoll_Mute;
+            Nud_API_WDT.Value = Program.__API_WDT ;
+
 
         }
 
@@ -175,15 +169,11 @@ namespace MabiChatSpeech
 
             Program.__SaveMode = Cmb_SaveMode.SelectedIndex;
             Program.__SavePath = Txt_SavePath.Text;
-            Program.__ChatPet = Chk_PET.Checked;
+            Program.__ChatPet_Mute = Chk_PET.Checked;
 
             Program.__TTS1Name = Cmb_TTS1Name.Text;
             Program.__TTS1Volume = (int)(Nud_TTS1Volume.Value);
             Program.__TTS1Speed = (int)Nud_TTS1Speed.Value;
-            Program.__TTS2Name = Cmb_TTS2Name.Text;
-            Program.__TTS2Volume = (int)Nud_TTS2Volume.Value;
-            Program.__TTS2Speed = (int)Nud_TTS2Speed.Value;
-            Program.__TTS_Mute = Chk_TTSMute.Checked;
             Program.__TTS_NameCall = Chk_TTSNameCall.Checked;
             Program.__ChatFColor = CMB_FColor.SelectedIndex;
             Program.__ChatBColor = CMB_BColor.SelectedIndex;
@@ -219,13 +209,15 @@ namespace MabiChatSpeech
             Program.__AivisSpeech_Opt = Cmb_AivisSpeech_Opt.Text;
             Program.__AivisSpeech_Host = Txt_AivisSpeech_Host.Text;
 
-            Program.__ChatPC_Only = Chk_PC_Only.Checked;
+            Program.__Chat_Regex = Txt_Regex.Text;
+            Program.__ChatNPC_Mute = Chk_NPC_Mute.Checked;
+            Program.__ChatDoll_Mute = Chk_Doll_Mute.Checked;
+            Program.__API_WDT = (int)Nud_API_WDT.Value;
 
             Properties.Settings.Default.Save();
             this.Close();
-            Program.Frm_Main.settingupd();
+            Program.Frm_Main.settingLoad();
         }
-
         private void Btn_Cancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -252,21 +244,15 @@ namespace MabiChatSpeech
             {
                 Txt_SavePath.Text = fbd.SelectedPath;
             }
-
         }
 
         private void Setting_Load(object sender, EventArgs e)
         {
             // TTS
             Cmb_TTS1Name.Items.Clear();
-            Cmb_TTS2Name.Items.Clear();
             foreach (var s in Program.TTS_NameList)
             {
                 Cmb_TTS1Name.Items.Add(s);
-            }
-            foreach (var s in Program.TTS_NameList)
-            {
-                Cmb_TTS2Name.Items.Add(s);
             }
             //Font
             CMB_FColor.Items.Clear();
@@ -382,6 +368,47 @@ namespace MabiChatSpeech
             }
         }
 
+        private void Txt_Regex_Leave(object sender, EventArgs e)
+        {
+            Regex? speechRegex = null;
+            string regexPattern = Txt_Regex.Text;
+            if (!string.IsNullOrWhiteSpace(regexPattern))
+            {
+                try
+                {
+                    speechRegex = new Regex(regexPattern);
+                }
+                catch (ArgumentException ex)
+                {
+                    MessageBox.Show($"正規表現が正しくありません。\n{ex.Message}", "正規表現");
+                    return;
+                }
+            }
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            // タイミングでPortListが更新されるのでCopy
+            List<st_MabiPort> Ports = new List<st_MabiPort>(Program.packets.PortList);
+            Txt_ServerInfo.Text = "";
+            foreach (var pl in Ports)
+            {
+                Txt_ServerInfo.AppendText($"{pl.RemotePort}:{pl.RemoteAddr} -> {pl.LocalAddr}:{pl.LocalPort}" + Environment.NewLine);
+            }
+
+        }
+
+        private void Setting_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            timer1.Stop();
+
+        }
+
+        private void Txt_SavePath_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

@@ -263,6 +263,156 @@ namespace MabiChatSpeech.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap Icon_File_Append {
+            get {
+                object obj = ResourceManager.GetObject("Icon_File_Append", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_File_NoSave {
+            get {
+                object obj = ResourceManager.GetObject("Icon_File_NoSave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_File_OverWrite {
+            get {
+                object obj = ResourceManager.GetObject("Icon_File_OverWrite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_File_TimeStamp {
+            get {
+                object obj = ResourceManager.GetObject("Icon_File_TimeStamp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_LED_Blue {
+            get {
+                object obj = ResourceManager.GetObject("Icon_LED_Blue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_LED_C_Blue {
+            get {
+                object obj = ResourceManager.GetObject("Icon_LED_C_Blue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_LED_C_Green {
+            get {
+                object obj = ResourceManager.GetObject("Icon_LED_C_Green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_LED_C_Off {
+            get {
+                object obj = ResourceManager.GetObject("Icon_LED_C_Off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_LED_C_Red {
+            get {
+                object obj = ResourceManager.GetObject("Icon_LED_C_Red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_LED_C_Yellow {
+            get {
+                object obj = ResourceManager.GetObject("Icon_LED_C_Yellow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_LED_Green {
+            get {
+                object obj = ResourceManager.GetObject("Icon_LED_Green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_LED_Off {
+            get {
+                object obj = ResourceManager.GetObject("Icon_LED_Off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_LED_Orange {
+            get {
+                object obj = ResourceManager.GetObject("Icon_LED_Orange", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_Log_ChatMode {
+            get {
+                object obj = ResourceManager.GetObject("Icon_Log_ChatMode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_Log_DumpMode {
+            get {
+                object obj = ResourceManager.GetObject("Icon_Log_DumpMode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap Icon_NPC_Chat {
             get {
                 object obj = ResourceManager.GetObject("Icon_NPC_Chat", resourceCulture);
@@ -276,6 +426,26 @@ namespace MabiChatSpeech.Properties {
         public static System.Drawing.Bitmap Icon_NPC_Chat_Dis {
             get {
                 object obj = ResourceManager.GetObject("Icon_NPC_Chat_Dis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_NPC_Mute_Off {
+            get {
+                object obj = ResourceManager.GetObject("Icon_NPC_Mute_Off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_NPC_Mute_On {
+            get {
+                object obj = ResourceManager.GetObject("Icon_NPC_Mute_On", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -316,6 +486,26 @@ namespace MabiChatSpeech.Properties {
         public static System.Drawing.Bitmap Icon_PC_Chat_Dis {
             get {
                 object obj = ResourceManager.GetObject("Icon_PC_Chat_Dis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_PC_Only_Off {
+            get {
+                object obj = ResourceManager.GetObject("Icon_PC_Only_Off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_PC_Only_On {
+            get {
+                object obj = ResourceManager.GetObject("Icon_PC_Only_On", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

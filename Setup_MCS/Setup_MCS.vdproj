@@ -515,7 +515,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MabiChatSpeech"
         "ProductCode" = "8:{4ED8C041-1402-414B-88E5-901951C7277D}"
-        "PackageCode" = "8:{1EA9A7F1-D32E-4877-8D66-E8BE67ED154B}"
+        "PackageCode" = "8:{140E799A-85E5-4FAC-92F6-96BE385DBE9F}"
         "UpgradeCode" = "8:{E80C9010-E93A-4A4C-B263-42E7A517DDF4}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
