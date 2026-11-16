@@ -39,13 +39,13 @@
             SSL_AivisSpeech = new System.Windows.Forms.ToolStripStatusLabel();
             SSL_VoiceAPI = new System.Windows.Forms.ToolStripStatusLabel();
             SSL_PacketStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            SSL_PC = new System.Windows.Forms.ToolStripStatusLabel();
             SSL_NPC = new System.Windows.Forms.ToolStripStatusLabel();
-            SSL_CharaList = new System.Windows.Forms.ToolStripStatusLabel();
+            SSL_CharaList = new System.Windows.Forms.ToolStripDropDownButton();
+            Mnu_Chat = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_TTS = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_Voice = new System.Windows.Forms.ToolStripMenuItem();
             SSL_Echa = new System.Windows.Forms.ToolStripStatusLabel();
             SSL_Youtube = new System.Windows.Forms.ToolStripStatusLabel();
-            TPB_Save = new System.Windows.Forms.ToolStripProgressBar();
-            TPB_Max = new System.Windows.Forms.ToolStripStatusLabel();
             Txt_Chat = new System.Windows.Forms.TextBox();
             Tim_Status = new System.Windows.Forms.Timer(components);
             LSV_chat = new System.Windows.Forms.ListView();
@@ -62,8 +62,6 @@
             Mnu_Replay = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_Quit = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_Edit = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             Mnu_CharList_Edit = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_Echa = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -91,7 +89,7 @@
             statusStrip1.AutoSize = false;
             statusStrip1.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip, SSL_VoiceVox, SSL_AivisSpeech, SSL_VoiceAPI, SSL_PacketStatus, SSL_PC, SSL_NPC, SSL_CharaList, SSL_Echa, SSL_Youtube, TPB_Save, TPB_Max });
+            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SLB_Mode, SLB_SaveMode, SLB_Client, SLB_Ip, SSL_VoiceVox, SSL_AivisSpeech, SSL_VoiceAPI, SSL_PacketStatus, SSL_NPC, SSL_CharaList, SSL_Echa, SSL_Youtube });
             statusStrip1.Location = new System.Drawing.Point(0, 222);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 22, 0);
@@ -185,16 +183,6 @@
             SSL_PacketStatus.Text = "受信";
             SSL_PacketStatus.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             // 
-            // SSL_PC
-            // 
-            SSL_PC.Image = Properties.Resources.Icon_PC_Only_On;
-            SSL_PC.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            SSL_PC.Name = "SSL_PC";
-            SSL_PC.Size = new System.Drawing.Size(32, 61);
-            SSL_PC.Tag = "0";
-            SSL_PC.Visible = false;
-            SSL_PC.Click += SSL_PC_Click;
-            // 
             // SSL_NPC
             // 
             SSL_NPC.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom;
@@ -211,17 +199,42 @@
             // 
             // SSL_CharaList
             // 
-            SSL_CharaList.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom;
-            SSL_CharaList.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
+            SSL_CharaList.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_Chat, Mnu_TTS, Mnu_Voice });
             SSL_CharaList.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
-            SSL_CharaList.Image = Properties.Resources.Icon_CharaList_Chat_Dis;
+            SSL_CharaList.Image = Properties.Resources.Icon_CharaList_Chat;
             SSL_CharaList.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            SSL_CharaList.LinkVisited = true;
             SSL_CharaList.Name = "SSL_CharaList";
-            SSL_CharaList.Size = new System.Drawing.Size(45, 61);
+            SSL_CharaList.Size = new System.Drawing.Size(54, 64);
             SSL_CharaList.Text = "モード";
             SSL_CharaList.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             SSL_CharaList.Click += SSL_CharaList_Click;
+            // 
+            // Mnu_Chat
+            // 
+            Mnu_Chat.Image = Properties.Resources.Icon_CharaList_Chat;
+            Mnu_Chat.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_Chat.Name = "Mnu_Chat";
+            Mnu_Chat.Size = new System.Drawing.Size(135, 38);
+            Mnu_Chat.Text = "チャット";
+            Mnu_Chat.Click += Mnu_Chat_Click;
+            // 
+            // Mnu_TTS
+            // 
+            Mnu_TTS.Image = Properties.Resources.Icon_CharaList_TTS;
+            Mnu_TTS.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_TTS.Name = "Mnu_TTS";
+            Mnu_TTS.Size = new System.Drawing.Size(135, 38);
+            Mnu_TTS.Text = "TTS";
+            Mnu_TTS.Click += Mnu_TTS_Click;
+            // 
+            // Mnu_Voice
+            // 
+            Mnu_Voice.Image = Properties.Resources.Icon_CharaList_VOICE;
+            Mnu_Voice.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_Voice.Name = "Mnu_Voice";
+            Mnu_Voice.Size = new System.Drawing.Size(135, 38);
+            Mnu_Voice.Text = "ボイス";
+            Mnu_Voice.Click += Mnu_Voice_Click;
             // 
             // SSL_Echa
             // 
@@ -240,18 +253,6 @@
             SSL_Youtube.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_Youtube.Name = "SSL_Youtube";
             SSL_Youtube.Size = new System.Drawing.Size(0, 61);
-            // 
-            // TPB_Save
-            // 
-            TPB_Save.Maximum = int.MaxValue;
-            TPB_Save.Name = "TPB_Save";
-            TPB_Save.Size = new System.Drawing.Size(101, 60);
-            // 
-            // TPB_Max
-            // 
-            TPB_Max.AutoSize = false;
-            TPB_Max.Name = "TPB_Max";
-            TPB_Max.Size = new System.Drawing.Size(169, 61);
             // 
             // Txt_Chat
             // 
@@ -380,20 +381,10 @@
             // 
             // Mnu_Edit
             // 
-            Mnu_Edit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripSeparator7, toolStripSeparator8, Mnu_CharList_Edit, Mnu_Echa, toolStripSeparator4, Mnu_Clear });
+            Mnu_Edit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_CharList_Edit, Mnu_Echa, toolStripSeparator4, Mnu_Clear });
             Mnu_Edit.Name = "Mnu_Edit";
             Mnu_Edit.Size = new System.Drawing.Size(69, 24);
             Mnu_Edit.Text = "編集(&E)";
-            // 
-            // toolStripSeparator7
-            // 
-            toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new System.Drawing.Size(184, 6);
-            // 
-            // toolStripSeparator8
-            // 
-            toolStripSeparator8.Name = "toolStripSeparator8";
-            toolStripSeparator8.Size = new System.Drawing.Size(184, 6);
             // 
             // Mnu_CharList_Edit
             // 
@@ -540,7 +531,7 @@
             MinimumSize = new System.Drawing.Size(1059, 327);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Text = "Pre261115-1-MabiChatSpeech (Ver.1.200)";
+            Text = "Pre261121-1-MabiChatSpeech (Ver.1.200)";
             FormClosing += Main_FormClosing;
             FormClosed += Main_FormClosed;
             Load += Main_Load;
@@ -570,8 +561,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ToolStripProgressBar TPB_Save;
-        private System.Windows.Forms.ToolStripStatusLabel TPB_Max;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem Mnu_File;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Quit;
@@ -585,13 +574,10 @@
         private System.Windows.Forms.ToolStripMenuItem Mnu_ViewList_Type;
         private System.Windows.Forms.ToolStripMenuItem Mnu_ViewList_Name;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem Mnu_YoutubeLive;
         private System.Windows.Forms.ToolStripMenuItem Mnu_ViewDump;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Echa;
         private System.Windows.Forms.ToolStripMenuItem Mnu_ViewList;
-        private System.Windows.Forms.ToolStripStatusLabel SSL_CharaList;
-        private System.Windows.Forms.ToolStripStatusLabel SSL_PC;
         private System.Windows.Forms.ToolStripStatusLabel SSL_NPC;
         private System.Windows.Forms.ToolStripStatusLabel SSL_Echa;
         private System.Windows.Forms.ToolStripStatusLabel SSL_Youtube;
@@ -606,9 +592,12 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ToolStripMenuItem Mnu_CharList_Edit;
         private System.Windows.Forms.ToolStripMenuItem Mnu_SystemSetiing;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripStatusLabel SSL_PacketStatus;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripDropDownButton SSL_CharaList;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_Chat;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_TTS;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_Voice;
     }
 }
 

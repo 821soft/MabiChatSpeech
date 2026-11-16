@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             BTN_Cancel = new System.Windows.Forms.Button();
             Btn_Ok = new System.Windows.Forms.Button();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -41,19 +42,24 @@
             columnHeader8 = new System.Windows.Forms.ColumnHeader();
             columnHeader9 = new System.Windows.Forms.ColumnHeader();
             columnHeader10 = new System.Windows.Forms.ColumnHeader();
+            Cms_SelectMenu = new System.Windows.Forms.ContextMenuStrip(components);
+            Mnu_AllEnable = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_AllDisable = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            Mnu_Delete = new System.Windows.Forms.ToolStripMenuItem();
             panel1 = new System.Windows.Forms.Panel();
             tableLayoutPanel1.SuspendLayout();
+            Cms_SelectMenu.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // BTN_Cancel
             // 
             BTN_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            BTN_Cancel.Dock = System.Windows.Forms.DockStyle.Right;
-            BTN_Cancel.Location = new System.Drawing.Point(800, 0);
+            BTN_Cancel.Location = new System.Drawing.Point(508, 15);
             BTN_Cancel.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             BTN_Cancel.Name = "BTN_Cancel";
-            BTN_Cancel.Size = new System.Drawing.Size(125, 59);
+            BTN_Cancel.Size = new System.Drawing.Size(125, 29);
             BTN_Cancel.TabIndex = 8;
             BTN_Cancel.Text = "Cancel";
             BTN_Cancel.UseVisualStyleBackColor = true;
@@ -61,11 +67,10 @@
             // 
             // Btn_Ok
             // 
-            Btn_Ok.Dock = System.Windows.Forms.DockStyle.Right;
-            Btn_Ok.Location = new System.Drawing.Point(925, 0);
+            Btn_Ok.Location = new System.Drawing.Point(672, 15);
             Btn_Ok.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             Btn_Ok.Name = "Btn_Ok";
-            Btn_Ok.Size = new System.Drawing.Size(125, 59);
+            Btn_Ok.Size = new System.Drawing.Size(125, 29);
             Btn_Ok.TabIndex = 0;
             Btn_Ok.Text = "Ok";
             Btn_Ok.UseVisualStyleBackColor = true;
@@ -85,12 +90,13 @@
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(1050, 511);
+            tableLayoutPanel1.Size = new System.Drawing.Size(828, 348);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // Lsv_Whitelist
             // 
             Lsv_Whitelist.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader3, columnHeader5, columnHeader1, columnHeader2, columnHeader6, columnHeader7, columnHeader8, columnHeader9, columnHeader10 });
+            Lsv_Whitelist.ContextMenuStrip = Cms_SelectMenu;
             Lsv_Whitelist.Dock = System.Windows.Forms.DockStyle.Fill;
             Lsv_Whitelist.ForeColor = System.Drawing.SystemColors.WindowText;
             Lsv_Whitelist.FullRowSelect = true;
@@ -98,7 +104,7 @@
             Lsv_Whitelist.Location = new System.Drawing.Point(0, 0);
             Lsv_Whitelist.Margin = new System.Windows.Forms.Padding(0);
             Lsv_Whitelist.Name = "Lsv_Whitelist";
-            Lsv_Whitelist.Size = new System.Drawing.Size(1050, 452);
+            Lsv_Whitelist.Size = new System.Drawing.Size(828, 289);
             Lsv_Whitelist.TabIndex = 2;
             Lsv_Whitelist.UseCompatibleStateImageBehavior = false;
             Lsv_Whitelist.View = System.Windows.Forms.View.Details;
@@ -151,27 +157,58 @@
             columnHeader10.Text = "音高";
             columnHeader10.Width = 50;
             // 
+            // Cms_SelectMenu
+            // 
+            Cms_SelectMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_AllEnable, Mnu_AllDisable, toolStripMenuItem1, Mnu_Delete });
+            Cms_SelectMenu.Name = "Cms_SelectMenu";
+            Cms_SelectMenu.Size = new System.Drawing.Size(127, 76);
+            // 
+            // Mnu_AllEnable
+            // 
+            Mnu_AllEnable.Name = "Mnu_AllEnable";
+            Mnu_AllEnable.Size = new System.Drawing.Size(126, 22);
+            Mnu_AllEnable.Text = "有効にする";
+            Mnu_AllEnable.Click += Mnu_AllEnable_Click;
+            // 
+            // Mnu_AllDisable
+            // 
+            Mnu_AllDisable.Name = "Mnu_AllDisable";
+            Mnu_AllDisable.Size = new System.Drawing.Size(126, 22);
+            Mnu_AllDisable.Text = "無効にする";
+            Mnu_AllDisable.Click += Mnu_AllDisable_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new System.Drawing.Size(123, 6);
+            // 
+            // Mnu_Delete
+            // 
+            Mnu_Delete.Name = "Mnu_Delete";
+            Mnu_Delete.Size = new System.Drawing.Size(126, 22);
+            Mnu_Delete.Text = "削除(DEL)";
+            Mnu_Delete.Click += Mnu_Delete_Click;
+            // 
             // panel1
             // 
             panel1.Controls.Add(BTN_Cancel);
             panel1.Controls.Add(Btn_Ok);
-            panel1.Location = new System.Drawing.Point(0, 452);
+            panel1.Location = new System.Drawing.Point(0, 289);
             panel1.Margin = new System.Windows.Forms.Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(1050, 59);
+            panel1.Size = new System.Drawing.Size(828, 59);
             panel1.TabIndex = 3;
             // 
             // WhiteList
             // 
             AcceptButton = Btn_Ok;
-            AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             CancelButton = BTN_Cancel;
-            ClientSize = new System.Drawing.Size(1050, 511);
+            ClientSize = new System.Drawing.Size(828, 348);
             Controls.Add(tableLayoutPanel1);
             Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            HelpButton = true;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -183,6 +220,7 @@
             Load += WhiteList_Load;
             Shown += WhiteList_Shown;
             tableLayoutPanel1.ResumeLayout(false);
+            Cms_SelectMenu.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ResumeLayout(false);
 
@@ -203,5 +241,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ContextMenuStrip Cms_SelectMenu;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_AllEnable;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_AllDisable;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_Delete;
     }
 }

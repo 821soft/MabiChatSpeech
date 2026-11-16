@@ -223,13 +223,6 @@ namespace MabiChatSpeech
             this.Close();
         }
 
-        private void Btn_ServerInfo_Click(object sender, EventArgs e)
-        {
-            ServerInfo Frm_ServerInfo = new ServerInfo();
-            Frm_ServerInfo.Owner = this;
-            Frm_ServerInfo.ShowDialog();
-        }
-
         private void Txt_SavePath_Click(object sender, EventArgs e)
         {
 

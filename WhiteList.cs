@@ -50,26 +50,49 @@ namespace MabiChatSpeech
             CharaList2Lsv();
         }
 
-
-        private void Lsv_Whitelist_KeyPress(object sender, KeyPressEventArgs e)
+        private void LsvColorSet(ListViewItem item)
         {
-        }
+            var flg = bool.Parse(item.Text);
+            var type = Enum.Parse<_CharaTypeNames>(item.SubItems[2].Text);
+            var eng = Enum.Parse<ChatVoiceEngine>(item.SubItems[3].Text);
 
-        private void Lsv_Whitelist_KeyDown(object sender, KeyEventArgs e)
-        {
-        }
-
-        private void DelRec()
-        {
-            if (Lsv_Whitelist.SelectedItems.Count != 0)
+            if (flg)
             {
-                foreach (ListViewItem rec in Lsv_Whitelist.SelectedItems)
+                switch (eng)
                 {
-                    rec.Remove();
+                    case ChatVoiceEngine.TTS:
+                        item.ForeColor = Program.LC_DataTTS;
+                        break;
+                    case ChatVoiceEngine.VoiceVox:
+                        item.ForeColor = Program.LC_DataVVE;
+                        break;
+                    case ChatVoiceEngine.AivisSpeech:
+                        item.ForeColor = Program.LC_DataASE;
+                        break;
                 }
             }
-        }
+            else
+            {
+                item.ForeColor = Program.LC_DataDisable;
+            }
 
+            switch (type)
+            {
+                case _CharaTypeNames.PC:
+                    item.BackColor = LC_BG_PC;
+                    break;
+                case _CharaTypeNames.NPC:
+                    item.BackColor = LC_BG_NPC;
+                    break;
+                case _CharaTypeNames.PET:
+                    item.BackColor = LC_BG_PET;
+                    break;
+                case _CharaTypeNames.DOLL:
+                    item.BackColor = LC_BG_DOLL;
+                    break;
+            }
+        }
+        
         private void CharaList2Lsv()
         {
             Lsv_Whitelist.Items.Clear();
@@ -77,16 +100,9 @@ namespace MabiChatSpeech
             foreach (CharacterNameData character in Program.CharaList)
             {
                 Debug.Print(character.ToString());
-                Lsv_Whitelist.Items.Add(character.ToItem());
+                var item = Lsv_Whitelist.Items.Add(character.ToItem());
+                LsvColorSet(item);
             }
-
-
-            //            foreach (ColumnHeader col in Lsv_Whitelist.Columns)
-            //            {
-            //                col.Width = -1;
-            //            }
-
-
         }
         private void Lsv2CharaList()
         {
@@ -316,6 +332,7 @@ namespace MabiChatSpeech
                     fm.Owner = this;
                     fm.testword = item.SubItems[1].Text;
                     fm.ShowDialog();
+                    LsvColorSet(item);
                     break;
                 }
             }
@@ -366,6 +383,48 @@ namespace MabiChatSpeech
                 }
             }
 
+        }
+
+        private void Mnu_Delete_Click(object sender, EventArgs e)
+        {
+            // 選択されているアイテムが存在するか確認
+            if (Lsv_Whitelist.SelectedItems.Count > 0)
+            {
+                // 複数選択を考慮して後ろから（または反復して）削除
+                foreach (ListViewItem item in Lsv_Whitelist.SelectedItems)
+                {
+                    Lsv_Whitelist.Items.Remove(item);
+                }
+            }
+        }
+
+        private void Mnu_AllEnable_Click(object sender, EventArgs e)
+        {
+            // 選択されているアイテムが存在するか確認
+            if (Lsv_Whitelist.SelectedItems.Count > 0)
+            {
+                // 複数選択を考慮して後ろから（または反復して）削除
+                foreach (ListViewItem item in Lsv_Whitelist.SelectedItems)
+                {
+                    item.Text = true.ToString();
+                    LsvColorSet(item);
+
+                }
+            }
+        }
+
+        private void Mnu_AllDisable_Click(object sender, EventArgs e)
+        {
+            // 選択されているアイテムが存在するか確認
+            if (Lsv_Whitelist.SelectedItems.Count > 0)
+            {
+                // 複数選択を考慮して後ろから（または反復して）削除
+                foreach (ListViewItem item in Lsv_Whitelist.SelectedItems)
+                {
+                    item.Text = false.ToString();
+                    LsvColorSet(item);
+                }
+            }
         }
     }
 }

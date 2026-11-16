@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Replay_log));
             groupBox1 = new System.Windows.Forms.GroupBox();
-            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             lbl_Count = new System.Windows.Forms.Label();
@@ -76,7 +76,6 @@
             SSL_API_Stsus = new System.Windows.Forms.ToolStripStatusLabel();
             timer1 = new System.Windows.Forms.Timer(components);
             groupBox1.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -89,98 +88,77 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(tableLayoutPanel1);
+            groupBox1.Controls.Add(label1);
+            groupBox1.Controls.Add(lbl_FileName);
+            groupBox1.Controls.Add(lbl_Count);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(lbl_Cast);
+            groupBox1.Controls.Add(label3);
             groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             groupBox1.Location = new System.Drawing.Point(0, 0);
             groupBox1.Margin = new System.Windows.Forms.Padding(4);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            groupBox1.Size = new System.Drawing.Size(1064, 130);
+            groupBox1.Size = new System.Drawing.Size(1064, 102);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Log Info";
             // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.ColumnCount = 4;
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 500F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanel1.Controls.Add(label1, 0, 0);
-            tableLayoutPanel1.Controls.Add(label2, 2, 0);
-            tableLayoutPanel1.Controls.Add(lbl_Count, 3, 0);
-            tableLayoutPanel1.Controls.Add(lbl_FileName, 1, 0);
-            tableLayoutPanel1.Controls.Add(label3, 0, 1);
-            tableLayoutPanel1.Controls.Add(lbl_Cast, 1, 1);
-            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel1.Location = new System.Drawing.Point(4, 28);
-            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel1.Size = new System.Drawing.Size(1056, 98);
-            tableLayoutPanel1.TabIndex = 0;
-            // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            label1.Location = new System.Drawing.Point(4, 4);
+            label1.Location = new System.Drawing.Point(30, 28);
             label1.Margin = new System.Windows.Forms.Padding(4);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(112, 23);
+            label1.Size = new System.Drawing.Size(66, 20);
             label1.TabIndex = 0;
-            label1.Text = "FileName";
+            label1.Text = "ファイル名";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            label2.Location = new System.Drawing.Point(624, 4);
+            label2.Location = new System.Drawing.Point(628, 28);
             label2.Margin = new System.Windows.Forms.Padding(4);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(112, 23);
+            label2.Size = new System.Drawing.Size(80, 20);
             label2.TabIndex = 1;
             label2.Text = "総チャット数";
             // 
             // lbl_Count
             // 
             lbl_Count.AutoSize = true;
-            lbl_Count.Location = new System.Drawing.Point(744, 4);
+            lbl_Count.Location = new System.Drawing.Point(716, 28);
             lbl_Count.Margin = new System.Windows.Forms.Padding(4);
             lbl_Count.Name = "lbl_Count";
-            lbl_Count.Size = new System.Drawing.Size(59, 23);
+            lbl_Count.Size = new System.Drawing.Size(50, 20);
             lbl_Count.TabIndex = 2;
             lbl_Count.Text = "label3";
             // 
             // lbl_FileName
             // 
             lbl_FileName.AutoSize = true;
-            lbl_FileName.Location = new System.Drawing.Point(124, 4);
+            lbl_FileName.Location = new System.Drawing.Point(118, 28);
             lbl_FileName.Margin = new System.Windows.Forms.Padding(4);
             lbl_FileName.Name = "lbl_FileName";
-            lbl_FileName.Size = new System.Drawing.Size(59, 23);
+            lbl_FileName.Size = new System.Drawing.Size(50, 20);
             lbl_FileName.TabIndex = 3;
             lbl_FileName.Text = "label3";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(3, 31);
+            label3.Location = new System.Drawing.Point(29, 68);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(82, 25);
+            label3.Size = new System.Drawing.Size(67, 20);
             label3.TabIndex = 4;
             label3.Text = "Cast設定";
             // 
             // lbl_Cast
             // 
             lbl_Cast.AutoSize = true;
-            lbl_Cast.Location = new System.Drawing.Point(123, 31);
+            lbl_Cast.Location = new System.Drawing.Point(118, 68);
             lbl_Cast.Name = "lbl_Cast";
-            lbl_Cast.Size = new System.Drawing.Size(59, 25);
+            lbl_Cast.Size = new System.Drawing.Size(50, 20);
             lbl_Cast.TabIndex = 5;
             lbl_Cast.Text = "label4";
             // 
@@ -194,7 +172,7 @@
             listView1.Location = new System.Drawing.Point(4, 4);
             listView1.Margin = new System.Windows.Forms.Padding(4);
             listView1.Name = "listView1";
-            listView1.Size = new System.Drawing.Size(1048, 291);
+            listView1.Size = new System.Drawing.Size(1048, 325);
             listView1.TabIndex = 1;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = System.Windows.Forms.View.Details;
@@ -247,17 +225,17 @@
             tabControl1.Margin = new System.Windows.Forms.Padding(4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(1064, 337);
+            tabControl1.Size = new System.Drawing.Size(1064, 365);
             tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
             tabPage1.Controls.Add(listView1);
-            tabPage1.Location = new System.Drawing.Point(4, 34);
+            tabPage1.Location = new System.Drawing.Point(4, 28);
             tabPage1.Margin = new System.Windows.Forms.Padding(4);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            tabPage1.Size = new System.Drawing.Size(1056, 299);
+            tabPage1.Size = new System.Drawing.Size(1056, 333);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "ログ";
             tabPage1.UseVisualStyleBackColor = true;
@@ -265,11 +243,11 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(listView2);
-            tabPage2.Location = new System.Drawing.Point(4, 34);
+            tabPage2.Location = new System.Drawing.Point(4, 28);
             tabPage2.Margin = new System.Windows.Forms.Padding(4);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            tabPage2.Size = new System.Drawing.Size(1056, 299);
+            tabPage2.Size = new System.Drawing.Size(1056, 305);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "キャストボイス設定";
             tabPage2.UseVisualStyleBackColor = true;
@@ -285,7 +263,7 @@
             listView2.Margin = new System.Windows.Forms.Padding(4);
             listView2.MultiSelect = false;
             listView2.Name = "listView2";
-            listView2.Size = new System.Drawing.Size(1048, 291);
+            listView2.Size = new System.Drawing.Size(1048, 297);
             listView2.TabIndex = 0;
             listView2.UseCompatibleStateImageBehavior = false;
             listView2.View = System.Windows.Forms.View.Details;
@@ -307,7 +285,7 @@
             panel1.Controls.Add(CHK_FastPlay);
             panel1.Controls.Add(Btn_Play);
             panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            panel1.Location = new System.Drawing.Point(0, 130);
+            panel1.Location = new System.Drawing.Point(0, 102);
             panel1.Margin = new System.Windows.Forms.Padding(4);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(1064, 51);
@@ -319,7 +297,7 @@
             Nud_To.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             Nud_To.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             Nud_To.Name = "Nud_To";
-            Nud_To.Size = new System.Drawing.Size(78, 31);
+            Nud_To.Size = new System.Drawing.Size(78, 27);
             Nud_To.TabIndex = 6;
             Nud_To.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
@@ -329,7 +307,7 @@
             Nud_From.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             Nud_From.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             Nud_From.Name = "Nud_From";
-            Nud_From.Size = new System.Drawing.Size(86, 31);
+            Nud_From.Size = new System.Drawing.Size(86, 27);
             Nud_From.TabIndex = 5;
             Nud_From.Value = new decimal(new int[] { 1, 0, 0, 0 });
             Nud_From.ValueChanged += Nud_From_ValueChanged;
@@ -339,7 +317,7 @@
             Txt_Regex.Items.AddRange(new object[] { "「(.*?)」" });
             Txt_Regex.Location = new System.Drawing.Point(129, 9);
             Txt_Regex.Name = "Txt_Regex";
-            Txt_Regex.Size = new System.Drawing.Size(262, 33);
+            Txt_Regex.Size = new System.Drawing.Size(262, 27);
             Txt_Regex.TabIndex = 3;
             // 
             // lbl_Regex
@@ -347,7 +325,7 @@
             lbl_Regex.AutoSize = true;
             lbl_Regex.Location = new System.Drawing.Point(8, 12);
             lbl_Regex.Name = "lbl_Regex";
-            lbl_Regex.Size = new System.Drawing.Size(115, 25);
+            lbl_Regex.Size = new System.Drawing.Size(94, 20);
             lbl_Regex.TabIndex = 4;
             lbl_Regex.Text = "読み上げ抽出";
             // 
@@ -359,7 +337,7 @@
             CHK_FastPlay.CheckState = System.Windows.Forms.CheckState.Checked;
             CHK_FastPlay.Location = new System.Drawing.Point(409, 11);
             CHK_FastPlay.Name = "CHK_FastPlay";
-            CHK_FastPlay.Size = new System.Drawing.Size(149, 29);
+            CHK_FastPlay.Size = new System.Drawing.Size(122, 24);
             CHK_FastPlay.TabIndex = 2;
             CHK_FastPlay.Text = "間隔を無視する";
             CHK_FastPlay.UseVisualStyleBackColor = true;
@@ -381,10 +359,10 @@
             panel2.Controls.Add(tabControl1);
             panel2.Controls.Add(statusStrip1);
             panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel2.Location = new System.Drawing.Point(0, 181);
+            panel2.Location = new System.Drawing.Point(0, 153);
             panel2.Margin = new System.Windows.Forms.Padding(4);
             panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(1064, 391);
+            panel2.Size = new System.Drawing.Size(1064, 419);
             panel2.TabIndex = 3;
             // 
             // statusStrip1
@@ -393,7 +371,7 @@
             statusStrip1.Font = new System.Drawing.Font("Yu Gothic UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripStatusLabel1, SSL_VoiceVox, SSL_AivisSpeech, SSL_API_Stsus });
-            statusStrip1.Location = new System.Drawing.Point(0, 337);
+            statusStrip1.Location = new System.Drawing.Point(0, 365);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new System.Drawing.Size(1064, 54);
             statusStrip1.TabIndex = 2;
@@ -404,7 +382,7 @@
             toolStripStatusLabel1.BackColor = System.Drawing.SystemColors.Control;
             toolStripStatusLabel1.Font = new System.Drawing.Font("Yu Gothic UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            toolStripStatusLabel1.Size = new System.Drawing.Size(148, 48);
+            toolStripStatusLabel1.Size = new System.Drawing.Size(121, 49);
             toolStripStatusLabel1.Text = "音声合成エンジン：";
             // 
             // SSL_VoiceVox
@@ -414,7 +392,7 @@
             SSL_VoiceVox.Image = Properties.Resources.Icon_vvpp_Disable;
             SSL_VoiceVox.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_VoiceVox.Name = "SSL_VoiceVox";
-            SSL_VoiceVox.Size = new System.Drawing.Size(81, 48);
+            SSL_VoiceVox.Size = new System.Drawing.Size(71, 49);
             SSL_VoiceVox.Text = "Voice";
             SSL_VoiceVox.Click += SSL_VoiceVox_Click;
             // 
@@ -425,7 +403,7 @@
             SSL_AivisSpeech.Image = Properties.Resources.Icon_aisp_Disable;
             SSL_AivisSpeech.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             SSL_AivisSpeech.Name = "SSL_AivisSpeech";
-            SSL_AivisSpeech.Size = new System.Drawing.Size(72, 48);
+            SSL_AivisSpeech.Size = new System.Drawing.Size(65, 49);
             SSL_AivisSpeech.Text = "Aivis";
             SSL_AivisSpeech.Click += SSL_AivisSpeech_Click;
             // 
@@ -433,7 +411,7 @@
             // 
             SSL_API_Stsus.BackColor = System.Drawing.SystemColors.Control;
             SSL_API_Stsus.Name = "SSL_API_Stsus";
-            SSL_API_Stsus.Size = new System.Drawing.Size(0, 48);
+            SSL_API_Stsus.Size = new System.Drawing.Size(0, 49);
             // 
             // timer1
             // 
@@ -443,21 +421,22 @@
             // 
             // Replay_log
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1064, 572);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(groupBox1);
             Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4);
+            MaximizeBox = false;
             Name = "Replay_log";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "リプレイ";
             Shown += Replay_log_Shown;
             groupBox1.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
+            groupBox1.PerformLayout();
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage2.ResumeLayout(false);
@@ -474,7 +453,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListView listView1;

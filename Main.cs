@@ -33,6 +33,7 @@ using static MabiChatSpeech.MabiChat;
 using static MabiChatSpeech.Program;
 using static MabiChatSpeech.WinApi;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.DataFormats;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
@@ -108,7 +109,7 @@ namespace MabiChatSpeech
                 _ => e.Status.ToString()
             };
         }
-        public enum SpekersCountStatus { NotVoice = -4 , Loading=-3 ,NotRun = -2, EngienNull = -1 }
+        public enum SpekersCountStatus { NotVoice = -4, Loading = -3, NotRun = -2, EngienNull = -1 }
         static public int SpekaerCount(ChatVoiceEngine eng)
         {
             string module = "";
@@ -359,7 +360,7 @@ namespace MabiChatSpeech
         }
 
         // LSV_chat
-        private void LSV_chat_ItemAdd(CharacterNameData cdata, bool newflag , string no, string ti, string ty, string cn, string wd)
+        private void LSV_chat_ItemAdd(CharacterNameData cdata, bool newflag, string no, string ti, string ty, string cn, string wd)
         {
             var citem = LSV_chat.Items.Add(no);
             citem.SubItems.Add(ti);
@@ -370,27 +371,49 @@ namespace MabiChatSpeech
 
             if (newflag)
             {
-                citem.ForeColor = Color.Red;
+                citem.ForeColor = Program.LC_DataAdd;
             }
-            else if (cdata.Enabled)
+            else
+            {
+                citem.ForeColor = Program.LC_DataNone;
+            }
+
+            if (cdata.Enabled)
             {
                 switch (cdata.VoiceEngen)
                 {
                     case ChatVoiceEngine.TTS:
-                        citem.ForeColor = Color.Black;
+                        citem.ForeColor = Program.LC_DataTTS;
                         break;
                     case ChatVoiceEngine.VoiceVox:
-                        citem.ForeColor = Color.YellowGreen;
+                        citem.ForeColor = Program.LC_DataVVE; ;
                         break;
                     case ChatVoiceEngine.AivisSpeech:
-                        citem.ForeColor = Color.SkyBlue;
+                        citem.ForeColor = Program.LC_DataASE;
                         break;
                 }
             }
             else
             {
-                citem.ForeColor = Color.Gray;
+                citem.ForeColor = Program.LC_DataDisable; ;
             }
+
+            switch (cdata.CharaTypeName)
+            {
+                case _CharaTypeNames.PC:
+                    citem.BackColor = LC_BG_PC;
+                    break;
+                case _CharaTypeNames.NPC:
+                    citem.BackColor = LC_BG_NPC;
+                    break;
+                case _CharaTypeNames.PET:
+                    citem.BackColor = LC_BG_PET;
+                    break;
+                case _CharaTypeNames.DOLL:
+                    citem.BackColor = LC_BG_DOLL;
+                    break;
+            }
+
 
             if (LSV_chat.SelectedItems.Count == 0)
             {
@@ -663,7 +686,7 @@ namespace MabiChatSpeech
             // chat log show
             var cc = c.CharaTypeName.ToString();
             string[] li = { "" };
-            LSV_chatWriteLine(character,add_flag, $"{chat_cnt}", $"{t:HH:mm:ss.fff}", $"{cc}", $"{c.CharacterName}", $"{c.ChatWord}");
+            LSV_chatWriteLine(character, add_flag, $"{chat_cnt}", $"{t:HH:mm:ss.fff}", $"{cc}", $"{c.CharacterName}", $"{c.ChatWord}");
             // chat log write
             li[0] = $"C {chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
             TxtChatWriteLine(li[0] + Environment.NewLine);
@@ -676,8 +699,8 @@ namespace MabiChatSpeech
             }
 
             /* 2.TTSモードなら未登録でも発声 */
-            if (mode == ChatModes.TTS) 
-                {
+            if (mode == ChatModes.TTS)
+            {
                 speech_chat(Program.__TTS1Name, Program.__TTS1Volume, Program.__TTS1Speed,
                             c.CharacterName, c.ChatWord);
                 LSV_chat_Update(chat_cnt - 1, "TTS");
@@ -685,7 +708,7 @@ namespace MabiChatSpeech
             /* 2.Voiceモードなら登録済みかつ有効ならで発声 */
             else if ((mode == ChatModes.Voice) && (character != null))
             {
-                if( character.Enabled )
+                if (character.Enabled)
                 {
                     if (character.VoiceEngen == ChatVoiceEngine.TTS)
                     {
@@ -925,34 +948,6 @@ namespace MabiChatSpeech
                 speech_spkp.SpeakAsync("クライアントはONです");
             }
 
-            /*音声の状態*/
-            /*CharaList内で音声合成設定があるケースの考慮*/
-            /*
-            if (CharaList_usedEngien(ChatVoiceEngine.VoiceVox))
-            {
-                var cnt = SpekaerCount(ChatVoiceEngine.VoiceVox);
-                if (cnt <= 0)
-                {
-                    // 
-                    MessageBox.Show($"CharacterNameList.txtに設定している\n音声合成エンジン(VoiceVox)が起動中\n起動完了後、音声が出ます。",
-                        "音声合成エンジン起動中",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-                }
-            }
-            if (CharaList_usedEngien(ChatVoiceEngine.AivisSpeech))
-            {
-                var cnt = SpekaerCount(ChatVoiceEngine.AivisSpeech);
-                if (cnt <= 0)
-                {
-                    // 
-                    MessageBox.Show($"CharacterNameList.txtに設定している\n音声合成エンジン(AivisSpeech)が起動中\n起動完了後、音声が出ます。",
-                        "音声合成エンジン起動中",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-                }
-            }
-            */
 
         }
 
@@ -963,7 +958,7 @@ namespace MabiChatSpeech
         /// </summary>
         public void settingLoad()
         {
-            Tim_Status.Interval= Program.__API_WDT;
+            Tim_Status.Interval = Program.__API_WDT;
 
             SSL_NPC.Tag = (bool)Program.__ChatNPC_Mute;
             if ((bool)SSL_NPC.Tag)
@@ -1069,7 +1064,6 @@ namespace MabiChatSpeech
                 default:
                     break;
             }
-            TPB_Max.Text = "";
             // TPB_Save.Visible = false;
 
         }
@@ -1168,14 +1162,14 @@ namespace MabiChatSpeech
             switch (mode)
             {
                 case PacketModes.Chat:
-                    msg[0] = "Chat Mode *** Start" + Environment.NewLine;
-                    TxtChatWriteLine(msg[0]);
+                    //                    msg[0] = "Chat Mode *** Start" + Environment.NewLine;
+                    //                    TxtChatWriteLine(msg[0]);
                     Program.packets.PacketMode = PacketModes.Chat;
                     SLB_Mode_Icon(Program.packets.PacketMode);
                     break;
                 case PacketModes.Dump:
-                    msg[0] = "Dump Mode *** Start" + Environment.NewLine;
-                    TxtChatWriteLine(msg[0]);
+                    //                    msg[0] = "Dump Mode *** Start" + Environment.NewLine;
+                    //                    TxtChatWriteLine(msg[0]);
                     Program.packets.PacketMode = PacketModes.Dump;
                     SLB_Mode_Icon(Program.packets.PacketMode);
                     break;
@@ -1430,6 +1424,23 @@ namespace MabiChatSpeech
 
         private void Mnu_Replay_Click(object sender, EventArgs e)
         {
+
+            Replay_log targetForm = Application.OpenForms.OfType<Replay_log>().FirstOrDefault();
+
+            if (targetForm != null)
+            {
+                // 2. 最小化されている場合は、元のサイズに戻す
+                if (targetForm.WindowState == FormWindowState.Minimized)
+                {
+                    targetForm.WindowState = FormWindowState.Normal;
+                }
+
+                // 3. フォームをアクティブにする
+                targetForm.Activate();
+                return;
+            }
+
+
             if (_chatVoice == null)
             {
                 MessageBox.Show(
@@ -1468,7 +1479,7 @@ namespace MabiChatSpeech
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 Replay_log frm_Replay_log = new Replay_log(ofd.FileName);
-                frm_Replay_log.ShowDialog();
+                frm_Replay_log.Show();
             }
         }
 
@@ -1575,34 +1586,6 @@ namespace MabiChatSpeech
 
         private void SSL_CharaList_Click(object sender, EventArgs e)
         {
-            /*
-             * Chat -> TTS -> Voice でループ
-             *
-             */
-            int s = (int)SSL_CharaList.Tag;
-            s++;
-            if (s > 3)
-            {
-                s = 1;
-            }
-            SSL_CharaList.Tag = s;
-            Program.__ChatMode = s;
-
-            switch (s)
-            {
-                case 1:
-                    SSL_CharaList.Image = Resources.Icon_CharaList_Chat;
-                    break;
-                case 2:
-                    SSL_CharaList.Image = Resources.Icon_CharaList_TTS;
-                    break;
-                case 3:
-                    SSL_CharaList.Image = Resources.Icon_CharaList_VOICE;
-                    break;
-                default:
-                    SSL_CharaList.Image = null;
-                    break;
-            }
         }
 
         private void SSL_AivisSpeech_Click(object sender, EventArgs e)
@@ -1615,21 +1598,6 @@ namespace MabiChatSpeech
             StartEngien(ChatVoiceEngine.VoiceVox);
         }
 
-        private void SSL_PC_Click(object sender, EventArgs e)
-        {
-            if ((bool)SSL_PC.Tag )
-            {
-                SSL_PC.Tag = (bool)false;
-                Program.__ChatPC_Only = false;
-                SSL_PC.Image = Resources.Icon_PC_Only_Off;
-            }
-            else
-            {
-                SSL_PC.Tag = (bool)true;
-                Program.__ChatPC_Only = true;
-                SSL_PC.Image = Resources.Icon_PC_Only_On;
-            }
-        }
 
         private void SSL_NPC_Click(object sender, EventArgs e)
         {
@@ -1645,6 +1613,28 @@ namespace MabiChatSpeech
                 Program.__ChatNPC_Mute = true;
                 SSL_NPC.Image = Resources.Icon_NPC_Mute_On;
             }
+        }
+
+        private void Mnu_Chat_Click(object sender, EventArgs e)
+        {
+            SSL_CharaList.Image = Resources.Icon_CharaList_Chat;
+            SSL_CharaList.Tag = 1;
+            __ChatMode = (int)ChatModes.Chat;
+        }
+
+        private void Mnu_TTS_Click(object sender, EventArgs e)
+        {
+            SSL_CharaList.Image = Resources.Icon_CharaList_TTS;
+            SSL_CharaList.Tag = 2;
+            __ChatMode = (int)ChatModes.TTS;
+        }
+
+        private void Mnu_Voice_Click(object sender, EventArgs e)
+        {
+
+            SSL_CharaList.Image = Resources.Icon_CharaList_VOICE;
+            SSL_CharaList.Tag = 3;
+            __ChatMode = (int)ChatModes.Voice;
         }
     }
 }

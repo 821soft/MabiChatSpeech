@@ -131,7 +131,7 @@ namespace MabiChatSpeech
             Main._chatVoice.QueueBecameEmpty += () =>
             {
                 VoiceEvents(() =>
-                    SSL_API_Stsus.Text = "Stay");
+                    SSL_API_Stsus.Text = "");
             };
         }
         private void VoiceEvents(Action update)
@@ -490,7 +490,7 @@ namespace MabiChatSpeech
                                 while (item.SubItems.Count <= 6)
                                     item.SubItems.Add("");
                                 item.SubItems[6].Text = "TTS";
-                                Program.Frm_Main.speech_chat(Program.__TTS2Name, Program.__TTS2Volume, Program.__TTS2Speed, cn, s);
+                                Program.Frm_Main.speech_chat(Program.__TTS1Name, Program.__TTS1Volume, Program.__TTS1Speed, cn, s);
                             }
                         }
                     }
@@ -652,7 +652,31 @@ namespace MabiChatSpeech
                             row.SubItems[1].Text == ctype &&
                             row.SubItems[2].Text == cname);
                     if (castItem == null)
-                        break;
+                    {
+                        if (!Enum.TryParse(ctype, out _CharaTypeNames charaType))
+                            break;
+
+                        var newCharacter = new CharacterNameData
+                        {
+                            Enabled = true,
+                            CharaTypeName = charaType,
+                            CharName = cname,
+                            VoiceEngen = ChatVoiceEngine.TTS,
+                            VoiceName = Program.__TTS1Name,
+                            VoiceId = -1,
+                            VolumeScale = 1.0f,
+                            SpeedScale = 1.3f,
+                            PitchScale = 0.0f
+                        };
+                        RefreshVoiceListItem(cname, ctype, newCharacter);
+                        castItem = listView2.Items
+                            .Cast<ListViewItem>()
+                            .FirstOrDefault(row => row.SubItems.Count >= 9 &&
+                                row.SubItems[1].Text == ctype &&
+                                row.SubItems[2].Text == cname);
+                        if (castItem == null)
+                            break;
+                    }
 
                     CharacterNameData edited = new CharacterNameData
                     {
@@ -764,6 +788,19 @@ namespace MabiChatSpeech
 
         private void UpdateLogCharacterColors()
         {
+            foreach (ListViewItem castRow in listView2.Items)
+            {
+                if (castRow.SubItems.Count > 1)
+                    ApplyCharacterTypeBackColor(castRow, castRow.SubItems[1].Text);
+
+                bool enabled = castRow.SubItems.Count > 0 &&
+                    bool.TryParse(castRow.SubItems[0].Text, out bool isEnabled) && isEnabled;
+                ChatVoiceEngine engine = default;
+                bool hasEngine = castRow.SubItems.Count > 3 &&
+                    Enum.TryParse(castRow.SubItems[3].Text, ignoreCase: true, out engine);
+                castRow.ForeColor = GetCharacterRowColor(enabled, hasEngine, engine);
+            }
+
             var voiceAssignments = listView2.Items
                 .Cast<ListViewItem>()
                 .Where(row => row.SubItems.Count > 2)
@@ -773,27 +810,68 @@ namespace MabiChatSpeech
                     ListViewItem castRow = group.Last();
                     bool enabled = castRow.SubItems.Count > 0 &&
                         bool.TryParse(castRow.SubItems[0].Text, out bool isEnabled) && isEnabled;
-                    bool isTts = castRow.SubItems.Count > 3 &&
-                        Enum.TryParse(castRow.SubItems[3].Text, ignoreCase: true, out ChatVoiceEngine engine) &&
-                        engine == ChatVoiceEngine.TTS;
-                    return (Enabled: enabled, IsTts: isTts);
+                    ChatVoiceEngine engine = default;
+                    bool hasEngine = castRow.SubItems.Count > 3 &&
+                        Enum.TryParse(castRow.SubItems[3].Text, ignoreCase: true, out engine);
+                    return (Enabled: enabled, HasEngine: hasEngine, Engine: engine);
                 });
 
             foreach (ListViewItem logRow in listView1.Items)
             {
-                (bool Enabled, bool IsTts) assignment = default;
+                if (logRow.SubItems.Count > 3)
+                    ApplyCharacterTypeBackColor(logRow, logRow.SubItems[3].Text);
+
+                (bool Enabled, bool HasEngine, ChatVoiceEngine Engine) assignment = default;
                 bool hasCast = logRow.SubItems.Count > 4 &&
                     voiceAssignments.TryGetValue(
                         (Type: logRow.SubItems[3].Text, Name: logRow.SubItems[4].Text),
                         out assignment);
-                logRow.ForeColor = !hasCast
-                    ? Color.Gray
-                    : !assignment.Enabled
-                        ? Color.Black
-                        : assignment.IsTts
-                            ? Color.Blue
-                            : Color.Red;
+                logRow.ForeColor = GetCharacterRowColor(
+                    hasCast && assignment.Enabled,
+                    hasCast && assignment.HasEngine,
+                    assignment.Engine,
+                    hasCast);
             }
+        }
+
+        private static Color GetCharacterRowColor(
+            bool enabled,
+            bool hasEngine,
+            ChatVoiceEngine engine,
+            bool hasCharacterSetting = true)
+        {
+            if (!hasCharacterSetting)
+                return Program.LC_DataNone;
+            if (!enabled)
+                return Program.LC_DataDisable;
+            if (!hasEngine)
+                return Program.LC_DataNone;
+
+            return engine switch
+            {
+                ChatVoiceEngine.TTS => Program.LC_DataTTS,
+                ChatVoiceEngine.VoiceVox => Program.LC_DataVVE,
+                ChatVoiceEngine.AivisSpeech => Program.LC_DataASE,
+                _ => Program.LC_DataNone
+            };
+        }
+
+        private static void ApplyCharacterTypeBackColor(ListViewItem row, string charaTypeName)
+        {
+            if (!Enum.TryParse(charaTypeName, out _CharaTypeNames charaType))
+            {
+                row.BackColor = SystemColors.Window;
+                return;
+            }
+
+            row.BackColor = charaType switch
+            {
+                _CharaTypeNames.PC => Program.LC_BG_PC,
+                _CharaTypeNames.NPC => Program.LC_BG_NPC,
+                _CharaTypeNames.PET => Program.LC_BG_PET,
+                _CharaTypeNames.DOLL => Program.LC_BG_DOLL,
+                _ => SystemColors.Window
+            };
         }
 
         private void listView2_ColumnClick(object? sender, ColumnClickEventArgs e)

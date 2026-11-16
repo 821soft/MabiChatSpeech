@@ -42,6 +42,18 @@ namespace MabiChatSpeech
                 Color.Green,Color.Lime,Color.Olive,Color.Yellow,
                 Color.Navy,Color.Blue,Color.Teal,Color.Aqua
             };
+        public static Color LC_DataNone    = Color.FromArgb(0xa9, 0xa9, 0xa9);
+        public static Color LC_DataAdd     = Color.FromArgb(0xff, 0x00, 0x00);
+        public static Color LC_DataDisable = Color.FromArgb(0x00, 0x00, 0x00);
+        public static Color LC_DataTTS     = Color.FromArgb(0xff, 0x8c, 0x00);
+        public static Color LC_DataVVE     = Color.FromArgb(0x32, 0xcd, 0x32);
+        public static Color LC_DataASE     = Color.FromArgb(0x00, 0x00, 0xcd);
+        public static Color LC_BG_PC       = Color.FromArgb(0xff, 0xff, 0xff);
+        public static Color LC_BG_NPC      = Color.FromArgb(0xe3, 0xfa, 0xff);
+        public static Color LC_BG_PET      = Color.FromArgb(0xed, 0xff, 0xe3);
+        public static Color LC_BG_DOLL     = Color.FromArgb(0xff, 0xff, 0xc8);
+
+
         public static List<Font> FontItemList = new List<Font>();
 
         /*
@@ -143,26 +155,6 @@ namespace MabiChatSpeech
         {
             get { return Properties.Settings.Default.__TTS1Speed; }
             set { Properties.Settings.Default.__TTS1Speed = value; }
-        }
-        public static string __TTS2Name
-        {
-            get { return Properties.Settings.Default.__TTS2Name; }
-            set { Properties.Settings.Default.__TTS2Name = value; }
-        }
-        public static int __TTS2Volume
-        {
-            get { return Properties.Settings.Default.__TTS2Volume; }
-            set { Properties.Settings.Default.__TTS2Volume = value; }
-        }
-        public static int __TTS2Speed
-        {
-            get { return Properties.Settings.Default.__TTS2Speed; }
-            set { Properties.Settings.Default.__TTS2Speed = value; }
-        }
-        public static bool __TTS_Mute
-        {
-            get { return Properties.Settings.Default.__TTS_Mute; }
-            set { Properties.Settings.Default.__TTS_Mute = value; }
         }
         public static bool __TTS_NameCall
         {
@@ -546,6 +538,15 @@ namespace MabiChatSpeech
         [STAThread]
         static void Main()
         {
+            using var singleInstanceMutex = new System.Threading.Mutex(
+                initiallyOwned: true,
+                name: "Local\\821soft.MabiChatSpeech",
+                createdNew: out bool isFirstInstance);
+            if (!isFirstInstance)
+            {
+                return;
+            }
+
             try
             {
                 Application.EnableVisualStyles();
@@ -568,10 +569,6 @@ namespace MabiChatSpeech
             if ( __TTS1Name == "" )
             {
                 __TTS1Name = TTS_NameList[0];
-            }
-            if (__TTS2Name == "")
-            {
-                __TTS2Name = TTS_NameList[0];
             }
 
             if (__VoiceVox_Auto )
