@@ -74,9 +74,9 @@
             // 
             Lst_VoiceEngen.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             Lst_VoiceEngen.FormattingEnabled = true;
-            Lst_VoiceEngen.ItemHeight = 28;
+            Lst_VoiceEngen.ItemHeight = 21;
             Lst_VoiceEngen.Items.AddRange(new object[] { "TTS", "VoiceVox", "AivisSpeech" });
-            Lst_VoiceEngen.Location = new System.Drawing.Point(22, 95);
+            Lst_VoiceEngen.Location = new System.Drawing.Point(20, 69);
             Lst_VoiceEngen.Margin = new System.Windows.Forms.Padding(4);
             Lst_VoiceEngen.Name = "Lst_VoiceEngen";
             Lst_VoiceEngen.Size = new System.Drawing.Size(162, 88);
@@ -96,7 +96,7 @@
             groupBox1.Margin = new System.Windows.Forms.Padding(4);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            groupBox1.Size = new System.Drawing.Size(1402, 145);
+            groupBox1.Size = new System.Drawing.Size(1330, 118);
             groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "対象キャラクター";
@@ -107,7 +107,7 @@
             CHK_Enable.Location = new System.Drawing.Point(39, 71);
             CHK_Enable.Margin = new System.Windows.Forms.Padding(4);
             CHK_Enable.Name = "CHK_Enable";
-            CHK_Enable.Size = new System.Drawing.Size(70, 29);
+            CHK_Enable.Size = new System.Drawing.Size(58, 24);
             CHK_Enable.TabIndex = 1;
             CHK_Enable.Text = "有効";
             CHK_Enable.UseVisualStyleBackColor = true;
@@ -119,7 +119,7 @@
             label11.Location = new System.Drawing.Point(384, 36);
             label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label11.Name = "label11";
-            label11.Size = new System.Drawing.Size(68, 25);
+            label11.Size = new System.Drawing.Size(55, 20);
             label11.TabIndex = 5;
             label11.Text = "キャラ名";
             // 
@@ -129,7 +129,7 @@
             label10.Location = new System.Drawing.Point(150, 36);
             label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(91, 25);
+            label10.Size = new System.Drawing.Size(73, 20);
             label10.TabIndex = 4;
             label10.Text = "キャラタイプ";
             // 
@@ -140,7 +140,7 @@
             Txt_CharaName.Margin = new System.Windows.Forms.Padding(4);
             Txt_CharaName.Name = "Txt_CharaName";
             Txt_CharaName.ReadOnly = true;
-            Txt_CharaName.Size = new System.Drawing.Size(978, 47);
+            Txt_CharaName.Size = new System.Drawing.Size(929, 39);
             Txt_CharaName.TabIndex = 3;
             // 
             // Cmb_CharaType
@@ -151,7 +151,7 @@
             Cmb_CharaType.Location = new System.Drawing.Point(155, 71);
             Cmb_CharaType.Margin = new System.Windows.Forms.Padding(4);
             Cmb_CharaType.Name = "Cmb_CharaType";
-            Cmb_CharaType.Size = new System.Drawing.Size(188, 39);
+            Cmb_CharaType.Size = new System.Drawing.Size(188, 33);
             Cmb_CharaType.TabIndex = 2;
             // 
             // groupBox3
@@ -168,11 +168,11 @@
             groupBox3.Controls.Add(Lst_VoiceEngen);
             groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             groupBox3.Font = new System.Drawing.Font("Yu Gothic UI", 12F);
-            groupBox3.Location = new System.Drawing.Point(0, 145);
+            groupBox3.Location = new System.Drawing.Point(0, 118);
             groupBox3.Margin = new System.Windows.Forms.Padding(4);
             groupBox3.Name = "groupBox3";
             groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            groupBox3.Size = new System.Drawing.Size(1402, 704);
+            groupBox3.Size = new System.Drawing.Size(1330, 551);
             groupBox3.TabIndex = 4;
             groupBox3.TabStop = false;
             groupBox3.Text = "音声合成";
@@ -182,7 +182,7 @@
             groupBox6.Controls.Add(TB_PitchScal);
             groupBox6.Controls.Add(Txt_PitchScal);
             groupBox6.Font = new System.Drawing.Font("Yu Gothic UI", 12F);
-            groupBox6.Location = new System.Drawing.Point(699, 335);
+            groupBox6.Location = new System.Drawing.Point(631, 278);
             groupBox6.Margin = new System.Windows.Forms.Padding(4);
             groupBox6.Name = "groupBox6";
             groupBox6.Padding = new System.Windows.Forms.Padding(4);
@@ -199,7 +199,7 @@
             TB_PitchScal.Maximum = 15;
             TB_PitchScal.Minimum = -15;
             TB_PitchScal.Name = "TB_PitchScal";
-            TB_PitchScal.Size = new System.Drawing.Size(468, 56);
+            TB_PitchScal.Size = new System.Drawing.Size(468, 45);
             TB_PitchScal.TabIndex = 9;
             TB_PitchScal.ValueChanged += TB_PitchScal_ValueChanged;
             // 
@@ -210,7 +210,7 @@
             Txt_PitchScal.Margin = new System.Windows.Forms.Padding(4);
             Txt_PitchScal.Name = "Txt_PitchScal";
             Txt_PitchScal.ReadOnly = true;
-            Txt_PitchScal.Size = new System.Drawing.Size(155, 34);
+            Txt_PitchScal.Size = new System.Drawing.Size(155, 29);
             Txt_PitchScal.TabIndex = 1;
             Txt_PitchScal.Text = "0.0";
             // 
@@ -221,11 +221,11 @@
             groupBox9.Controls.Add(Btn_PlayTest);
             groupBox9.Controls.Add(Txt_TestWord);
             groupBox9.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
-            groupBox9.Location = new System.Drawing.Point(440, 496);
+            groupBox9.Location = new System.Drawing.Point(439, 402);
             groupBox9.Margin = new System.Windows.Forms.Padding(4);
             groupBox9.Name = "groupBox9";
             groupBox9.Padding = new System.Windows.Forms.Padding(4);
-            groupBox9.Size = new System.Drawing.Size(945, 190);
+            groupBox9.Size = new System.Drawing.Size(878, 136);
             groupBox9.TabIndex = 5;
             groupBox9.TabStop = false;
             groupBox9.Text = "音声テスト";
@@ -233,28 +233,28 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(15, 46);
+            label7.Location = new System.Drawing.Point(8, 26);
             label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(96, 28);
+            label7.Size = new System.Drawing.Size(77, 21);
             label7.TabIndex = 11;
             label7.Text = "試聴セリフ";
             // 
             // Txt_status
             // 
-            Txt_status.Location = new System.Drawing.Point(662, 135);
+            Txt_status.Location = new System.Drawing.Point(571, 98);
             Txt_status.Margin = new System.Windows.Forms.Padding(4);
             Txt_status.Name = "Txt_status";
             Txt_status.ReadOnly = true;
-            Txt_status.Size = new System.Drawing.Size(269, 34);
+            Txt_status.Size = new System.Drawing.Size(237, 29);
             Txt_status.TabIndex = 12;
             // 
             // Btn_PlayTest
             // 
-            Btn_PlayTest.Location = new System.Drawing.Point(662, 75);
+            Btn_PlayTest.Location = new System.Drawing.Point(615, 38);
             Btn_PlayTest.Margin = new System.Windows.Forms.Padding(4);
             Btn_PlayTest.Name = "Btn_PlayTest";
-            Btn_PlayTest.Size = new System.Drawing.Size(235, 52);
+            Btn_PlayTest.Size = new System.Drawing.Size(171, 52);
             Btn_PlayTest.TabIndex = 11;
             Btn_PlayTest.Text = "音声合成再生";
             Btn_PlayTest.UseVisualStyleBackColor = true;
@@ -262,10 +262,10 @@
             // 
             // Txt_TestWord
             // 
-            Txt_TestWord.Location = new System.Drawing.Point(39, 85);
+            Txt_TestWord.Location = new System.Drawing.Point(25, 51);
             Txt_TestWord.Margin = new System.Windows.Forms.Padding(4);
             Txt_TestWord.Name = "Txt_TestWord";
-            Txt_TestWord.Size = new System.Drawing.Size(539, 34);
+            Txt_TestWord.Size = new System.Drawing.Size(539, 29);
             Txt_TestWord.TabIndex = 10;
             // 
             // groupBox5
@@ -273,7 +273,7 @@
             groupBox5.Controls.Add(TB_VolumeScal);
             groupBox5.Controls.Add(Txt_VolumeScal);
             groupBox5.Font = new System.Drawing.Font("Yu Gothic UI", 12F);
-            groupBox5.Location = new System.Drawing.Point(699, 194);
+            groupBox5.Location = new System.Drawing.Point(631, 154);
             groupBox5.Margin = new System.Windows.Forms.Padding(4);
             groupBox5.Name = "groupBox5";
             groupBox5.Padding = new System.Windows.Forms.Padding(4);
@@ -289,7 +289,7 @@
             TB_VolumeScal.Margin = new System.Windows.Forms.Padding(4);
             TB_VolumeScal.Maximum = 20;
             TB_VolumeScal.Name = "TB_VolumeScal";
-            TB_VolumeScal.Size = new System.Drawing.Size(468, 56);
+            TB_VolumeScal.Size = new System.Drawing.Size(468, 45);
             TB_VolumeScal.TabIndex = 8;
             TB_VolumeScal.Value = 10;
             TB_VolumeScal.ValueChanged += TB_VolumeScal_ValueChanged;
@@ -297,11 +297,11 @@
             // Txt_VolumeScal
             // 
             Txt_VolumeScal.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
-            Txt_VolumeScal.Location = new System.Drawing.Point(0, 32);
+            Txt_VolumeScal.Location = new System.Drawing.Point(8, 30);
             Txt_VolumeScal.Margin = new System.Windows.Forms.Padding(4);
             Txt_VolumeScal.Name = "Txt_VolumeScal";
             Txt_VolumeScal.ReadOnly = true;
-            Txt_VolumeScal.Size = new System.Drawing.Size(155, 34);
+            Txt_VolumeScal.Size = new System.Drawing.Size(155, 29);
             Txt_VolumeScal.TabIndex = 1;
             Txt_VolumeScal.Text = "1.0";
             // 
@@ -310,7 +310,7 @@
             groupBox4.Controls.Add(TB_SpeedScal);
             groupBox4.Controls.Add(Txt_SpeedScale);
             groupBox4.Font = new System.Drawing.Font("Yu Gothic UI", 12F);
-            groupBox4.Location = new System.Drawing.Point(699, 58);
+            groupBox4.Location = new System.Drawing.Point(631, 30);
             groupBox4.Margin = new System.Windows.Forms.Padding(4);
             groupBox4.Name = "groupBox4";
             groupBox4.Padding = new System.Windows.Forms.Padding(4);
@@ -327,7 +327,7 @@
             TB_SpeedScal.Maximum = 20;
             TB_SpeedScal.Minimum = 5;
             TB_SpeedScal.Name = "TB_SpeedScal";
-            TB_SpeedScal.Size = new System.Drawing.Size(468, 56);
+            TB_SpeedScal.Size = new System.Drawing.Size(468, 45);
             TB_SpeedScal.TabIndex = 7;
             TB_SpeedScal.Value = 10;
             TB_SpeedScal.ValueChanged += TB_SpeedScal_ValueChanged;
@@ -339,7 +339,7 @@
             Txt_SpeedScale.Margin = new System.Windows.Forms.Padding(4);
             Txt_SpeedScale.Name = "Txt_SpeedScale";
             Txt_SpeedScale.ReadOnly = true;
-            Txt_SpeedScale.Size = new System.Drawing.Size(155, 34);
+            Txt_SpeedScale.Size = new System.Drawing.Size(155, 29);
             Txt_SpeedScale.TabIndex = 1;
             Txt_SpeedScale.Text = "1.0";
             // 
@@ -347,11 +347,11 @@
             // 
             Lst_VoiceStyle.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             Lst_VoiceStyle.FormattingEnabled = true;
-            Lst_VoiceStyle.ItemHeight = 28;
-            Lst_VoiceStyle.Location = new System.Drawing.Point(435, 95);
+            Lst_VoiceStyle.ItemHeight = 21;
+            Lst_VoiceStyle.Location = new System.Drawing.Point(433, 69);
             Lst_VoiceStyle.Margin = new System.Windows.Forms.Padding(4);
             Lst_VoiceStyle.Name = "Lst_VoiceStyle";
-            Lst_VoiceStyle.Size = new System.Drawing.Size(178, 200);
+            Lst_VoiceStyle.Size = new System.Drawing.Size(178, 193);
             Lst_VoiceStyle.TabIndex = 6;
             Lst_VoiceStyle.SelectedIndexChanged += Lst_VoiceStyle_SelectedIndexChanged;
             // 
@@ -359,10 +359,10 @@
             // 
             Lbl_VoiceStyle.AutoSize = true;
             Lbl_VoiceStyle.Font = new System.Drawing.Font("Yu Gothic UI", 12F);
-            Lbl_VoiceStyle.Location = new System.Drawing.Point(435, 56);
+            Lbl_VoiceStyle.Location = new System.Drawing.Point(433, 30);
             Lbl_VoiceStyle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             Lbl_VoiceStyle.Name = "Lbl_VoiceStyle";
-            Lbl_VoiceStyle.Size = new System.Drawing.Size(113, 28);
+            Lbl_VoiceStyle.Size = new System.Drawing.Size(90, 21);
             Lbl_VoiceStyle.TabIndex = 5;
             Lbl_VoiceStyle.Text = "音声スタイル";
             // 
@@ -370,11 +370,11 @@
             // 
             Lst_VoiceChara.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             Lst_VoiceChara.FormattingEnabled = true;
-            Lst_VoiceChara.ItemHeight = 28;
-            Lst_VoiceChara.Location = new System.Drawing.Point(202, 95);
+            Lst_VoiceChara.ItemHeight = 21;
+            Lst_VoiceChara.Location = new System.Drawing.Point(200, 69);
             Lst_VoiceChara.Margin = new System.Windows.Forms.Padding(4);
             Lst_VoiceChara.Name = "Lst_VoiceChara";
-            Lst_VoiceChara.Size = new System.Drawing.Size(209, 592);
+            Lst_VoiceChara.Size = new System.Drawing.Size(209, 466);
             Lst_VoiceChara.TabIndex = 5;
             Lst_VoiceChara.SelectedValueChanged += Lst_VoiceChara_SelectedValueChanged;
             // 
@@ -382,10 +382,10 @@
             // 
             Lbl_VoiceChara.AutoSize = true;
             Lbl_VoiceChara.Font = new System.Drawing.Font("Yu Gothic UI", 12F);
-            Lbl_VoiceChara.Location = new System.Drawing.Point(202, 56);
+            Lbl_VoiceChara.Location = new System.Drawing.Point(200, 30);
             Lbl_VoiceChara.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             Lbl_VoiceChara.Name = "Lbl_VoiceChara";
-            Lbl_VoiceChara.Size = new System.Drawing.Size(95, 28);
+            Lbl_VoiceChara.Size = new System.Drawing.Size(76, 21);
             Lbl_VoiceChara.TabIndex = 3;
             Lbl_VoiceChara.Text = "音声キャラ";
             // 
@@ -393,16 +393,16 @@
             // 
             Lbl_VoiceEngen.AutoSize = true;
             Lbl_VoiceEngen.Font = new System.Drawing.Font("Yu Gothic UI", 12F);
-            Lbl_VoiceEngen.Location = new System.Drawing.Point(15, 56);
+            Lbl_VoiceEngen.Location = new System.Drawing.Point(13, 30);
             Lbl_VoiceEngen.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             Lbl_VoiceEngen.Name = "Lbl_VoiceEngen";
-            Lbl_VoiceEngen.Size = new System.Drawing.Size(73, 28);
+            Lbl_VoiceEngen.Size = new System.Drawing.Size(59, 21);
             Lbl_VoiceEngen.TabIndex = 2;
             Lbl_VoiceEngen.Text = "エンジン";
             // 
             // Btn_Undo
             // 
-            Btn_Undo.Location = new System.Drawing.Point(1035, 29);
+            Btn_Undo.Location = new System.Drawing.Point(924, 17);
             Btn_Undo.Margin = new System.Windows.Forms.Padding(4);
             Btn_Undo.Name = "Btn_Undo";
             Btn_Undo.Size = new System.Drawing.Size(166, 52);
@@ -413,7 +413,7 @@
             // 
             // Btn_Update
             // 
-            Btn_Update.Location = new System.Drawing.Point(1232, 29);
+            Btn_Update.Location = new System.Drawing.Point(1139, 17);
             Btn_Update.Margin = new System.Windows.Forms.Padding(4);
             Btn_Update.Name = "Btn_Update";
             Btn_Update.Size = new System.Drawing.Size(152, 52);
@@ -428,21 +428,22 @@
             panel1.Controls.Add(Btn_Undo);
             panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             panel1.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
-            panel1.Location = new System.Drawing.Point(0, 849);
+            panel1.Location = new System.Drawing.Point(0, 669);
             panel1.Margin = new System.Windows.Forms.Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(1402, 100);
+            panel1.Size = new System.Drawing.Size(1330, 86);
             panel1.TabIndex = 6;
             // 
             // CharaListVoice_Edit
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1402, 949);
+            ClientSize = new System.Drawing.Size(1330, 755);
             Controls.Add(panel1);
             Controls.Add(groupBox3);
             Controls.Add(groupBox1);
             Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             Margin = new System.Windows.Forms.Padding(4);
             MaximizeBox = false;
             MinimizeBox = false;

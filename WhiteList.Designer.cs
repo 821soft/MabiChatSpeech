@@ -144,12 +144,14 @@
             // 
             // columnHeader8
             // 
-            columnHeader8.Text = "話速";
+            columnHeader8.DisplayIndex = 7;
+            columnHeader8.Text = "音量";
             columnHeader8.Width = 50;
             // 
             // columnHeader9
             // 
-            columnHeader9.Text = "音量";
+            columnHeader9.DisplayIndex = 6;
+            columnHeader9.Text = "話速";
             columnHeader9.Width = 50;
             // 
             // columnHeader10
@@ -161,31 +163,31 @@
             // 
             Cms_SelectMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_AllEnable, Mnu_AllDisable, toolStripMenuItem1, Mnu_Delete });
             Cms_SelectMenu.Name = "Cms_SelectMenu";
-            Cms_SelectMenu.Size = new System.Drawing.Size(127, 76);
+            Cms_SelectMenu.Size = new System.Drawing.Size(178, 112);
             // 
             // Mnu_AllEnable
             // 
             Mnu_AllEnable.Name = "Mnu_AllEnable";
-            Mnu_AllEnable.Size = new System.Drawing.Size(126, 22);
+            Mnu_AllEnable.Size = new System.Drawing.Size(177, 34);
             Mnu_AllEnable.Text = "有効にする";
             Mnu_AllEnable.Click += Mnu_AllEnable_Click;
             // 
             // Mnu_AllDisable
             // 
             Mnu_AllDisable.Name = "Mnu_AllDisable";
-            Mnu_AllDisable.Size = new System.Drawing.Size(126, 22);
+            Mnu_AllDisable.Size = new System.Drawing.Size(177, 34);
             Mnu_AllDisable.Text = "無効にする";
             Mnu_AllDisable.Click += Mnu_AllDisable_Click;
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(123, 6);
+            toolStripMenuItem1.Size = new System.Drawing.Size(174, 6);
             // 
             // Mnu_Delete
             // 
             Mnu_Delete.Name = "Mnu_Delete";
-            Mnu_Delete.Size = new System.Drawing.Size(126, 22);
+            Mnu_Delete.Size = new System.Drawing.Size(177, 34);
             Mnu_Delete.Text = "削除(DEL)";
             Mnu_Delete.Click += Mnu_Delete_Click;
             // 
@@ -216,7 +218,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            Text = "キャラリスト";
+            Text = "キャラリスト編集";
             Load += WhiteList_Load;
             Shown += WhiteList_Shown;
             tableLayoutPanel1.ResumeLayout(false);

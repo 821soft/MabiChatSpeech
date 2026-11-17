@@ -1,4 +1,5 @@
 ﻿using MabiChatSpeech.Properties;
+using Microsoft.VisualBasic.Logging;
 using Microsoft.Web.WebView2.Core;
 using NAudio.Mixer;
 using NAudio.Wave;
@@ -47,7 +48,7 @@ namespace MabiChatSpeech
         private readonly SemaphoreSlim _voiceInitSemaphore = new(1, 1);
         static _RunningStatusEngine _ChatVoice_Statu = new _RunningStatusEngine();
         static public int chat_cnt = 1; //チャットのナンバリング
-        int VoiceDefid;
+        static public DateTime LogHeaderDt = DateTime.Now;
 
         static public Regex? ChatRegex = null;
         public enum MabiPacketStatus { Off, Other, Chat, Dump }
@@ -415,6 +416,11 @@ namespace MabiChatSpeech
             }
 
 
+            if (newflag)
+            {
+                citem.ForeColor = Program.LC_DataAdd;
+            }
+
             if (LSV_chat.SelectedItems.Count == 0)
             {
                 LSV_chat.EnsureVisible(LSV_chat.Items.Count - 1);
@@ -626,103 +632,116 @@ namespace MabiChatSpeech
         /// <param name="e"></param>
         private void onChat(object sender, EventArgs e)
         {
-            PacketStatus(MabiPacketStatus.Chat);
-            var x = (MabiPacket)sender;
-            var c = (MabiPacketEventArgs)e;
-            var t = DateTime.Now;
-            var add_flag = false;
-
-            switch (c.CharaTypeName)
+            try
             {
-                case _CharaTypeNames.PC:
-                    break;
-                case _CharaTypeNames.NPC:
-                    if (Program.__ChatNPC_Mute) { return; }
-                    break;
-                case _CharaTypeNames.PET:
-                    if (Program.__ChatPet_Mute) { return; }
-                    break;
-                case _CharaTypeNames.DOLL:
-                    if (Program.__ChatDoll_Mute) { return; }
-                    break;
-                default:
-                    return;
-            }
+                PacketStatus(MabiPacketStatus.Chat);
+                var x = (MabiPacket)sender;
+                var c = (MabiPacketEventArgs)e;
+                var t = DateTime.Now;
+                var add_flag = false;
 
-            CharacterNameData? character = CharaList_find(c.CharacterName, c.CharaTypeName);
-
-            //CharacterNameData? character = Program.CharaList.FirstOrDefault(x => x.CharName == c.CharacterName);
-            // PCリスト自動追加
-            if (Program.__CharaList_AutoAdd == true) //&& (c.CharaTypeName == _CharaTypeNames.PC))
-            {
-                if (character == null)
+                switch (c.CharaTypeName)
                 {
-                    CharacterNameData character_add = new CharacterNameData();
-                    character_add.Enabled = false;
-                    character_add.CharName = c.CharacterName;
-                    character_add.CharaTypeName = c.CharaTypeName;
-                    character_add.VoiceEngen = ChatVoiceEngine.TTS;//エンジンをどうするか？
-                    character_add.VoiceName = __TTS1Name;
-                    character_add.VoiceId = -1;
-                    character_add.VolumeScale = 1.0f;
-                    character_add.SpeedScale = 1.3f;
-                    character_add.PitchScale = 0.0f;
-                    Program.CharaList.Add(character_add);
-                    character = character_add;
-                    add_flag = true;
+                    case _CharaTypeNames.PC:
+                        break;
+                    case _CharaTypeNames.NPC:
+                        if (Program.__ChatNPC_Mute) { return; }
+                        break;
+                    case _CharaTypeNames.PET:
+                        if (Program.__ChatPet_Mute) { return; }
+                        break;
+                    case _CharaTypeNames.DOLL:
+                        if (Program.__ChatDoll_Mute) { return; }
+                        break;
+                    default:
+                        return;
                 }
-            }
 
-            var mode = (ChatModes)__ChatMode;
+                CharacterNameData? character = CharaList_find(c.CharacterName, c.CharaTypeName);
 
-            if (ChatRegex != null) //正規表現の適用
-            {
-                var s = c.ChatWord;
-                Match match = ChatRegex.Match(s);
-                c.ChatWord = match.Success ? match.Value : s;
-            }
-
-            /* 1.Chat内容を表示*/
-            // chat log show
-            var cc = c.CharaTypeName.ToString();
-            string[] li = { "" };
-            LSV_chatWriteLine(character, add_flag, $"{chat_cnt}", $"{t:HH:mm:ss.fff}", $"{cc}", $"{c.CharacterName}", $"{c.ChatWord}");
-            // chat log write
-            li[0] = $"C {chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
-            TxtChatWriteLine(li[0] + Environment.NewLine);
-            chat_cnt++;
-
-            // ChatPopupへ出力
-            if (ChatPop.Visible)
-            {
-                ChatPop.ChatPopupSend(c.ChatWord);
-            }
-
-            /* 2.TTSモードなら未登録でも発声 */
-            if (mode == ChatModes.TTS)
-            {
-                speech_chat(Program.__TTS1Name, Program.__TTS1Volume, Program.__TTS1Speed,
-                            c.CharacterName, c.ChatWord);
-                LSV_chat_Update(chat_cnt - 1, "TTS");
-            }
-            /* 2.Voiceモードなら登録済みかつ有効ならで発声 */
-            else if ((mode == ChatModes.Voice) && (character != null))
-            {
-                if (character.Enabled)
+                //CharacterNameData? character = Program.CharaList.FirstOrDefault(x => x.CharName == c.CharacterName);
+                // PCリスト自動追加
+                if (Program.__CharaList_AutoAdd == true) //&& (c.CharaTypeName == _CharaTypeNames.PC))
                 {
-                    if (character.VoiceEngen == ChatVoiceEngine.TTS)
+                    if (character == null)
                     {
-                        speech_chat(Program.__TTS1Name, Program.__TTS1Volume, Program.__TTS1Speed,
-                                    c.CharacterName, c.ChatWord);
-                        LSV_chat_Update(chat_cnt - 1, "TTS");
-                    }
-                    else
-                    {
-                        voice_chat(character.VoiceEngen, character.VoiceId, character.VolumeScale,
-                                    character.SpeedScale, character.PitchScale,
-                                    c.CharacterName, c.ChatWord);
+                        CharacterNameData character_add = new CharacterNameData();
+                        character_add.Enabled = false;
+                        character_add.CharName = c.CharacterName;
+                        character_add.CharaTypeName = c.CharaTypeName;
+                        character_add.VoiceEngen = ChatVoiceEngine.TTS;//エンジンをどうするか？
+                        character_add.VoiceName = __TTS1Name;
+                        character_add.VoiceId = -1;
+                        character_add.VolumeScale = 1.0f;
+                        character_add.SpeedScale = 1.3f;
+                        character_add.PitchScale = 0.0f;
+                        Program.CharaList.Add(character_add);
+                        character = character_add;
+                        add_flag = true;
                     }
                 }
+
+                var mode = (ChatModes)__ChatMode;
+
+                if (ChatRegex != null) //正規表現の適用
+                {
+                    var s = c.ChatWord;
+                    Match match = ChatRegex.Match(s);
+                    c.ChatWord = match.Success ? match.Value : s;
+                }
+
+                /* 1.Chat内容を表示*/
+                // chat log show
+                var cc = c.CharaTypeName.ToString();
+                string[] li = { "" };
+                LSV_chatWriteLine(character, add_flag, $"{chat_cnt}", $"{t:HH:mm:ss.fff}", $"{cc}", $"{c.CharacterName}", $"{c.ChatWord}");
+                // chat log write
+                li[0] = $"C {chat_cnt},{t:HH:mm:ss.fff},{cc},{c.CharacterName},{c.ChatWord}";
+                TxtChatWriteLine(li[0] + Environment.NewLine);
+                chat_cnt++;
+
+                // ChatPopupへ出力
+                if (ChatPop.Visible)
+                {
+                    ChatPop.ChatPopupSend(c.ChatWord);
+                }
+
+                /* 2.TTSモードなら未登録でも発声 */
+                if (mode == ChatModes.TTS)
+                {
+                    speech_chat(Program.__TTS1Name, Program.__TTS1Volume, Program.__TTS1Speed,
+                                c.CharacterName, c.ChatWord);
+                    LSV_chat_Update(chat_cnt - 1, "TTS");
+                }
+                /* 2.Voiceモードなら登録済みかつ有効ならで発声 */
+                else if ((mode == ChatModes.Voice) && (character != null))
+                {
+                    if (character.Enabled)
+                    {
+                        if (character.VoiceEngen == ChatVoiceEngine.TTS)
+                        {
+                            speech_chat(Program.__TTS1Name, Program.__TTS1Volume, Program.__TTS1Speed,
+                                        c.CharacterName, c.ChatWord);
+                            LSV_chat_Update(chat_cnt - 1, "TTS");
+                        }
+                        else
+                        {
+                            voice_chat(character.VoiceEngen, character.VoiceId, character.VolumeScale,
+                                        character.SpeedScale, character.PitchScale,
+                                        c.CharacterName, c.ChatWord);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                DateTime dt = DateTime.Now;
+                string logheader = $"MCS Logiing Start {LogHeaderDt:yyyy/MM/dd HH:mm:ss}" + Environment.NewLine;
+                string logfooter = $"MCS Logiing End {dt:yyyy/MM/dd HH:mm:ss}" + Environment.NewLine;
+                string savefilename = __SavePath + "\\Error_MabiChatLog.txt";
+                Txt_Chat.Text = logheader + Txt_Chat.Text + logfooter;
+
+                File.WriteAllText(savefilename, Txt_Chat.Text);
             }
         }
 
@@ -813,6 +832,7 @@ namespace MabiChatSpeech
         {
             Txt_Chat.Text = "";
             LSV_chat.Items.Clear();
+            LogHeaderDt = DateTime.Now;
             chat_cnt = 1;
 
         }
@@ -948,6 +968,8 @@ namespace MabiChatSpeech
                 speech_spkp.SpeakAsync("クライアントはONです");
             }
 
+            LogHeaderDt = DateTime.Now;
+
 
         }
 
@@ -1001,16 +1023,7 @@ namespace MabiChatSpeech
                 case 3: SLB_SaveMode.Image = Resources.Icon_File_TimeStamp; break;
                 default: SLB_SaveMode.Image = null; break;
             }
-            /*
-                        if (Program.Audio_Device != null)
-                        {
-                            TPB_Event.Text = Program.Audio_Device.DeviceFriendlyName;
-                        }
-                        else 
-                        {
-                            TPB_Event.Text = "Default";
-                        }
-            */
+
             ChatRegex = null;
             if (!string.IsNullOrWhiteSpace(__Chat_Regex))
             {
@@ -1032,19 +1045,25 @@ namespace MabiChatSpeech
         /// <param name="Log"></param>
         private void ChatLogSave(System.Windows.Forms.TextBox Log)
         {
+            DateTime dt = DateTime.Now;
+
+            string str = dt.ToString("yyyy/MM/dd HH:mm:ss");
+            string logheader = $"MCS Logiing Start {LogHeaderDt:yyyy/MM/dd HH:mm:ss}" + Environment.NewLine;
+            string logfooter = $"MCS Logiing End {dt:yyyy/MM/dd HH:mm:ss}" + Environment.NewLine;
             string savefilename = __SavePath + "\\MabiChatLog";
+            //                    
 
             if (__SaveMode == 0)
             {
                 return;
             }
 
-            DateTime dt = DateTime.Now;
 
             if (Log.Text.Length == 0)
             {
                 return;
             }
+            Log.Text = logheader + Log.Text + logfooter;
             switch (__SaveMode)
             {
                 case 0: //しない
@@ -1162,7 +1181,7 @@ namespace MabiChatSpeech
             switch (mode)
             {
                 case PacketModes.Chat:
-                    //                    msg[0] = "Chat Mode *** Start" + Environment.NewLine;
+                    //                    msg[0] = "MCS Logiing Start" + Environment.NewLine;
                     //                    TxtChatWriteLine(msg[0]);
                     Program.packets.PacketMode = PacketModes.Chat;
                     SLB_Mode_Icon(Program.packets.PacketMode);
