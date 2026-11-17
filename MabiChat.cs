@@ -110,6 +110,7 @@ namespace MabiChatSpeech
     public record CharacterNameData
         {
             public bool Enabled { get; set; }
+            public bool Visible { get; set; } = true;
             public string CharName { get; set; } = string.Empty;
             public _CharaTypeNames CharaTypeName { get; set; } = _CharaTypeNames.UNKNOWN;
             public ChatVoiceEngine VoiceEngen { get; set; } = ChatVoiceEngine.TTS;
@@ -180,6 +181,7 @@ namespace MabiChatSpeech
                 VolumeScale = fields.Length > 6 ? float.Parse(fields[6], CultureInfo.InvariantCulture) : 1.0f;
                 SpeedScale = fields.Length > 7 ? float.Parse(fields[7], CultureInfo.InvariantCulture) : 1.0f;
                 PitchScale = fields.Length > 8 ? float.Parse(fields[8], CultureInfo.InvariantCulture) : 0.0f;
+                Visible = fields.Length > 9 ? bool.Parse(fields[9]) : true;
             }
 
             public string ToText()
@@ -193,7 +195,8 @@ namespace MabiChatSpeech
                     VoiceId,
                     VolumeScale.ToString(CultureInfo.InvariantCulture),
                     SpeedScale.ToString(CultureInfo.InvariantCulture),
-                    PitchScale.ToString(CultureInfo.InvariantCulture));
+                    PitchScale.ToString(CultureInfo.InvariantCulture),
+                    Visible);
             }
 
             public void ForItem(ListViewItem item)
@@ -224,6 +227,7 @@ namespace MabiChatSpeech
                 PitchScale = item.SubItems.Count > 8
                     ? float.Parse(item.SubItems[8].Text, CultureInfo.InvariantCulture)
                     : 0.0f;
+                Visible = item.SubItems.Count > 9 ? bool.Parse(item.SubItems[9].Text) : true;
             }
 
             public ListViewItem ToItem()
@@ -237,6 +241,7 @@ namespace MabiChatSpeech
                 item.SubItems.Add(VolumeScale.ToString(CultureInfo.InvariantCulture));
                 item.SubItems.Add(SpeedScale.ToString(CultureInfo.InvariantCulture));
                 item.SubItems.Add(PitchScale.ToString(CultureInfo.InvariantCulture));
+                item.SubItems.Add(Visible.ToString());
 
                 return item;
             }

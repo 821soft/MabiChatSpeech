@@ -32,11 +32,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Replay_log));
             groupBox1 = new System.Windows.Forms.GroupBox();
             label1 = new System.Windows.Forms.Label();
-            label2 = new System.Windows.Forms.Label();
-            lbl_Count = new System.Windows.Forms.Label();
             lbl_FileName = new System.Windows.Forms.Label();
-            label3 = new System.Windows.Forms.Label();
+            lbl_Count = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
             lbl_Cast = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
             listView1 = new System.Windows.Forms.ListView();
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
@@ -114,15 +114,15 @@
             label1.TabIndex = 0;
             label1.Text = "ファイル名";
             // 
-            // label2
+            // lbl_FileName
             // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(628, 28);
-            label2.Margin = new System.Windows.Forms.Padding(4);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(80, 20);
-            label2.TabIndex = 1;
-            label2.Text = "総チャット数";
+            lbl_FileName.AutoSize = true;
+            lbl_FileName.Location = new System.Drawing.Point(118, 28);
+            lbl_FileName.Margin = new System.Windows.Forms.Padding(4);
+            lbl_FileName.Name = "lbl_FileName";
+            lbl_FileName.Size = new System.Drawing.Size(50, 20);
+            lbl_FileName.TabIndex = 3;
+            lbl_FileName.Text = "label3";
             // 
             // lbl_Count
             // 
@@ -134,24 +134,15 @@
             lbl_Count.TabIndex = 2;
             lbl_Count.Text = "label3";
             // 
-            // lbl_FileName
+            // label2
             // 
-            lbl_FileName.AutoSize = true;
-            lbl_FileName.Location = new System.Drawing.Point(118, 28);
-            lbl_FileName.Margin = new System.Windows.Forms.Padding(4);
-            lbl_FileName.Name = "lbl_FileName";
-            lbl_FileName.Size = new System.Drawing.Size(50, 20);
-            lbl_FileName.TabIndex = 3;
-            lbl_FileName.Text = "label3";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(29, 68);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(67, 20);
-            label3.TabIndex = 4;
-            label3.Text = "Cast設定";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(628, 28);
+            label2.Margin = new System.Windows.Forms.Padding(4);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(80, 20);
+            label2.TabIndex = 1;
+            label2.Text = "総チャット数";
             // 
             // lbl_Cast
             // 
@@ -161,6 +152,15 @@
             lbl_Cast.Size = new System.Drawing.Size(50, 20);
             lbl_Cast.TabIndex = 5;
             lbl_Cast.Text = "label4";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(29, 68);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(67, 20);
+            label3.TabIndex = 4;
+            label3.Text = "Cast設定";
             // 
             // listView1
             // 
@@ -247,7 +247,7 @@
             tabPage2.Margin = new System.Windows.Forms.Padding(4);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            tabPage2.Size = new System.Drawing.Size(1056, 305);
+            tabPage2.Size = new System.Drawing.Size(1056, 333);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "キャストボイス設定";
             tabPage2.UseVisualStyleBackColor = true;
@@ -263,11 +263,47 @@
             listView2.Margin = new System.Windows.Forms.Padding(4);
             listView2.MultiSelect = false;
             listView2.Name = "listView2";
-            listView2.Size = new System.Drawing.Size(1048, 297);
+            listView2.Size = new System.Drawing.Size(1048, 325);
             listView2.TabIndex = 0;
             listView2.UseCompatibleStateImageBehavior = false;
             listView2.View = System.Windows.Forms.View.Details;
             listView2.DoubleClick += listView2_DoubleClick;
+            // 
+            // columnHeader7
+            // 
+            columnHeader7.DisplayIndex = 2;
+            // 
+            // columnHeader8
+            // 
+            columnHeader8.DisplayIndex = 3;
+            // 
+            // columnHeader9
+            // 
+            columnHeader9.DisplayIndex = 4;
+            // 
+            // columnHeader12
+            // 
+            columnHeader12.DisplayIndex = 5;
+            // 
+            // columnHeader13
+            // 
+            columnHeader13.DisplayIndex = 6;
+            // 
+            // columnHeader14
+            // 
+            columnHeader14.DisplayIndex = 7;
+            // 
+            // columnHeader15
+            // 
+            columnHeader15.DisplayIndex = 8;
+            // 
+            // columnHeader16
+            // 
+            columnHeader16.DisplayIndex = 9;
+            // 
+            // columnHeader17
+            // 
+            columnHeader17.DisplayIndex = 1;
             // 
             // CMN_VoiceList
             // 

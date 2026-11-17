@@ -113,6 +113,7 @@ namespace MabiChatSpeech
                 }
 
                 CHK_Enable.Checked = character.Enabled;
+                Chk_Visble.Checked = character.Visible;
                 Cmb_CharaType.Text = character.CharaTypeName.ToString();
                 Txt_CharaName.Text = character.CharName;
                 var eng_idx = Lst_VoiceEngen.FindStringExact(EngineDisplayName(character.VoiceEngen));
@@ -136,6 +137,9 @@ namespace MabiChatSpeech
             else if (datatype == 2)
             {
                 CHK_Enable.Checked = bool.Parse(DataItem.Text);
+                Chk_Visble.Checked = DataItem.SubItems.Count > 9
+                    ? bool.Parse(DataItem.SubItems[9].Text)
+                    : true;
                 Txt_CharaName.Text = DataItem.SubItems[1].Text;
                 Cmb_CharaType.Text = DataItem.SubItems[2].Text;
 
@@ -495,6 +499,7 @@ namespace MabiChatSpeech
                     return false;
 
                 character.Enabled = CHK_Enable.Checked;
+                character.Visible = Chk_Visble.Checked;
                 character.CharName = Txt_CharaName.Text;
                 character.CharaTypeName = ct;
                 character.VoiceEngen = Lst_VoiceEngen_Value();
@@ -523,6 +528,7 @@ namespace MabiChatSpeech
                 Program.CharaList.Add(new CharacterNameData
                 {
                     Enabled = CHK_Enable.Checked,
+                    Visible = Chk_Visble.Checked,
                     CharName = Txt_CharaName.Text,
                     CharaTypeName = ct,
                     VoiceEngen = Lst_VoiceEngen_Value(),
@@ -536,6 +542,7 @@ namespace MabiChatSpeech
 
             }
             Program.CharaList[index].Enabled = CHK_Enable.Checked;
+            Program.CharaList[index].Visible = Chk_Visble.Checked;
             Program.CharaList[index].VoiceEngen = Lst_VoiceEngen_Value();
             Program.CharaList[index].VoiceName = Lst_VoiceName_Value();
             Program.CharaList[index].VoiceId = Lst_VoiceId_Value();
@@ -557,6 +564,9 @@ namespace MabiChatSpeech
             DataItem.SubItems[6].Text = Txt_VolumeScal.Text;
             DataItem.SubItems[7].Text = Txt_SpeedScale.Text;
             DataItem.SubItems[8].Text = Txt_PitchScal.Text;
+            while (DataItem.SubItems.Count <= 9)
+                DataItem.SubItems.Add(string.Empty);
+            DataItem.SubItems[9].Text = Chk_Visble.Checked.ToString();
         }
         private void Btn_Update_Click(object sender, EventArgs e)
         {

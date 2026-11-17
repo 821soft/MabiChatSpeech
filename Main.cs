@@ -681,6 +681,11 @@ namespace MabiChatSpeech
                     }
                 }
 
+                if (character.Visible == false)
+                {
+                    return;
+                }
+
                 var mode = (ChatModes)__ChatMode;
 
                 if (ChatRegex != null) //正規表現の適用

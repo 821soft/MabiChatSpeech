@@ -42,6 +42,7 @@
             columnHeader8 = new System.Windows.Forms.ColumnHeader();
             columnHeader9 = new System.Windows.Forms.ColumnHeader();
             columnHeader10 = new System.Windows.Forms.ColumnHeader();
+            columnHeader11 = new System.Windows.Forms.ColumnHeader();
             Cms_SelectMenu = new System.Windows.Forms.ContextMenuStrip(components);
             Mnu_AllEnable = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_AllDisable = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,7 +96,7 @@
             // 
             // Lsv_Whitelist
             // 
-            Lsv_Whitelist.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader3, columnHeader5, columnHeader1, columnHeader2, columnHeader6, columnHeader7, columnHeader8, columnHeader9, columnHeader10 });
+            Lsv_Whitelist.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader3, columnHeader5, columnHeader1, columnHeader2, columnHeader6, columnHeader7, columnHeader8, columnHeader9, columnHeader10, columnHeader11 });
             Lsv_Whitelist.ContextMenuStrip = Cms_SelectMenu;
             Lsv_Whitelist.Dock = System.Windows.Forms.DockStyle.Fill;
             Lsv_Whitelist.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -120,44 +121,55 @@
             // 
             // columnHeader5
             // 
+            columnHeader5.DisplayIndex = 2;
             columnHeader5.Text = "キャラクター名";
             columnHeader5.Width = 170;
             // 
             // columnHeader1
             // 
+            columnHeader1.DisplayIndex = 3;
             columnHeader1.Text = "種別";
             columnHeader1.Width = 45;
             // 
             // columnHeader2
             // 
+            columnHeader2.DisplayIndex = 4;
             columnHeader2.Text = "音声種別";
             columnHeader2.Width = 100;
             // 
             // columnHeader6
             // 
+            columnHeader6.DisplayIndex = 5;
             columnHeader6.Text = "ボイスキャラ";
             columnHeader6.Width = 170;
             // 
             // columnHeader7
             // 
+            columnHeader7.DisplayIndex = 6;
             columnHeader7.Text = "ボイスID";
             // 
             // columnHeader8
             // 
-            columnHeader8.DisplayIndex = 7;
+            columnHeader8.DisplayIndex = 8;
             columnHeader8.Text = "音量";
             columnHeader8.Width = 50;
             // 
             // columnHeader9
             // 
-            columnHeader9.DisplayIndex = 6;
             columnHeader9.Text = "話速";
             columnHeader9.Width = 50;
             // 
             // columnHeader10
             // 
+            columnHeader10.DisplayIndex = 9;
             columnHeader10.Text = "音高";
             columnHeader10.Width = 50;
+            // 
+            // columnHeader11
+            // 
+            columnHeader11.DisplayIndex = 1;
+            columnHeader11.Text = "表示";
+            columnHeader11.Width = 50;
             // 
             // Cms_SelectMenu
             // 
@@ -242,6 +254,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ContextMenuStrip Cms_SelectMenu;
         private System.Windows.Forms.ToolStripMenuItem Mnu_AllEnable;

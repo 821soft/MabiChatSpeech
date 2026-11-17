@@ -248,6 +248,8 @@ namespace MabiChatSpeech
             listView2.Columns.Add("音量倍率");        //6
             listView2.Columns.Add("話速倍率");        //7
             listView2.Columns.Add("音高");            //8
+            listView2.Columns.Add("表示");            //9
+            listView2.Columns[9].DisplayIndex = 1;
 
             SetListView2ColumnWidths();
 
@@ -277,6 +279,7 @@ namespace MabiChatSpeech
                         sitem.SubItems.Add("1.0");                              //5
                         sitem.SubItems.Add("1.3");                              //6
                         sitem.SubItems.Add("0.0");                          //7
+                        sitem.SubItems.Add(bool.TrueString);                  //8
                     }
                     else
                     {
@@ -289,6 +292,7 @@ namespace MabiChatSpeech
                         sitem.SubItems.Add(character.VolumeScale.ToString());   //5
                         sitem.SubItems.Add(character.SpeedScale.ToString());    //6
                         sitem.SubItems.Add(character.PitchScale.ToString());    //7
+                        sitem.SubItems.Add(character.Visible.ToString());       //8
                     }
 
                 }
@@ -688,7 +692,8 @@ namespace MabiChatSpeech
                         VoiceId = int.Parse(castItem.SubItems[5].Text),
                         VolumeScale = float.Parse(castItem.SubItems[6].Text),
                         SpeedScale = float.Parse(castItem.SubItems[7].Text),
-                        PitchScale = float.Parse(castItem.SubItems[8].Text)
+                        PitchScale = float.Parse(castItem.SubItems[8].Text),
+                        Visible = castItem.SubItems.Count > 9 && bool.Parse(castItem.SubItems[9].Text)
                     };
 
                     CharaListVoice_Edit fm = new CharaListVoice_Edit(edited, updateProgramCharaList: false);
@@ -724,7 +729,8 @@ namespace MabiChatSpeech
                         VoiceId = int.Parse(item.SubItems[5].Text),
                         VolumeScale = float.Parse(item.SubItems[6].Text),
                         SpeedScale = float.Parse(item.SubItems[7].Text),
-                        PitchScale = float.Parse(item.SubItems[8].Text)
+                        PitchScale = float.Parse(item.SubItems[8].Text),
+                        Visible = item.SubItems.Count > 9 && bool.Parse(item.SubItems[9].Text)
                     };
 
                     CharaListVoice_Edit fm = new CharaListVoice_Edit(edited, updateProgramCharaList: false);
@@ -765,6 +771,10 @@ namespace MabiChatSpeech
                 row.SubItems[6].Text = data.VolumeScale.ToString();
                 row.SubItems[7].Text = data.SpeedScale.ToString();
                 row.SubItems[8].Text = data.PitchScale.ToString();
+                if (row.SubItems.Count <= 9)
+                    row.SubItems.Add(data.Visible.ToString());
+                else
+                    row.SubItems[9].Text = data.Visible.ToString();
                 found = true;
                 break;
             }
@@ -780,6 +790,7 @@ namespace MabiChatSpeech
                 row.SubItems.Add(data.VolumeScale.ToString());
                 row.SubItems.Add(data.SpeedScale.ToString());
                 row.SubItems.Add(data.PitchScale.ToString());
+                row.SubItems.Add(data.Visible.ToString());
                 if (_listView2SortColumn >= 0)
                     listView2.Sort();
             }
@@ -971,6 +982,7 @@ namespace MabiChatSpeech
                         row.SubItems.Add(data.VolumeScale.ToString(CultureInfo.InvariantCulture));
                         row.SubItems.Add(data.SpeedScale.ToString(CultureInfo.InvariantCulture));
                         row.SubItems.Add(data.PitchScale.ToString(CultureInfo.InvariantCulture));
+                        row.SubItems.Add(data.Visible.ToString());
                     }
                 }
                 finally
@@ -1039,7 +1051,7 @@ namespace MabiChatSpeech
         private void SaveVoiceListCsvFile(string outputPath)
         {
             using var writer = new StreamWriter(outputPath, false, new UTF8Encoding(true));
-            writer.WriteLine(string.Join(",", new[] { "Enabled", "Type", "CharaName", "VoiceEngine", "VoiceName", "VoiceID", "VolScal", "SpdScal", "PitScal" }));
+            writer.WriteLine(string.Join(",", new[] { "Enabled", "Type", "CharaName", "VoiceEngine", "VoiceName", "VoiceID", "VolScal", "SpdScal", "PitScal", "Visible" }));
             foreach (ListViewItem row in listView2.Items)
                 writer.WriteLine(string.Join(",", row.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(sub => EscapeCsv(sub.Text))));
         }
@@ -1070,6 +1082,7 @@ namespace MabiChatSpeech
                     existing.VolumeScale = data.VolumeScale;
                     existing.SpeedScale = data.SpeedScale;
                     existing.PitchScale = data.PitchScale;
+                    existing.Visible = data.Visible;
                 }
             }
 
@@ -1135,7 +1148,7 @@ namespace MabiChatSpeech
         {
             var lines = new List<string>
             {
-                "Enabled,Type,CharaName,VoiceEngine,VoiceName,VoiceID,VolScal,SpdScal,PitScal"
+                "Enabled,Type,CharaName,VoiceEngine,VoiceName,VoiceID,VolScal,SpdScal,PitScal,Visible"
             };
             foreach (ListViewItem row in listView2.Items)
                 lines.Add(string.Join(",", row.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(sub => EscapeCsv(sub.Text))));
@@ -1152,7 +1165,8 @@ namespace MabiChatSpeech
             VoiceId = source.VoiceId,
             VolumeScale = source.VolumeScale,
             SpeedScale = source.SpeedScale,
-            PitchScale = source.PitchScale
+            PitchScale = source.PitchScale,
+            Visible = source.Visible
         };
 
         private string GetCastCsvPath()
@@ -1185,8 +1199,8 @@ namespace MabiChatSpeech
                     continue;
                 if (rowIndex == 0 && fields.Count > 0 && fields[0].TrimStart('\uFEFF').Equals("Enabled", StringComparison.OrdinalIgnoreCase))
                     continue;
-                if (fields.Count != 9)
-                    throw new FormatException($"{rowIndex + 1}行目は9列必要ですが、{fields.Count}列です。");
+                if (fields.Count is not (9 or 10))
+                    throw new FormatException($"{rowIndex + 1}行目は9列または10列必要ですが、{fields.Count}列です。");
 
                 if (!bool.TryParse(fields[0], out bool enabled) ||
                     !Enum.TryParse(fields[1], true, out _CharaTypeNames charaType) ||
@@ -1207,7 +1221,8 @@ namespace MabiChatSpeech
                     VoiceId = voiceId,
                     VolumeScale = volume,
                     SpeedScale = speed,
-                    PitchScale = pitch
+                    PitchScale = pitch,
+                    Visible = fields.Count > 9 ? bool.Parse(fields[9]) : true
                 });
             }
             return result;

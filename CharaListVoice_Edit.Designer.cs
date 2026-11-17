@@ -58,6 +58,7 @@
             Btn_Undo = new System.Windows.Forms.Button();
             Btn_Update = new System.Windows.Forms.Button();
             panel1 = new System.Windows.Forms.Panel();
+            Chk_Visble = new System.Windows.Forms.CheckBox();
             groupBox1.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox6.SuspendLayout();
@@ -85,6 +86,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(Chk_Visble);
             groupBox1.Controls.Add(CHK_Enable);
             groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(label10);
@@ -104,10 +106,11 @@
             // CHK_Enable
             // 
             CHK_Enable.AutoSize = true;
-            CHK_Enable.Location = new System.Drawing.Point(39, 71);
+            CHK_Enable.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
+            CHK_Enable.Location = new System.Drawing.Point(39, 36);
             CHK_Enable.Margin = new System.Windows.Forms.Padding(4);
             CHK_Enable.Name = "CHK_Enable";
-            CHK_Enable.Size = new System.Drawing.Size(58, 24);
+            CHK_Enable.Size = new System.Drawing.Size(69, 29);
             CHK_Enable.TabIndex = 1;
             CHK_Enable.Text = "有効";
             CHK_Enable.UseVisualStyleBackColor = true;
@@ -434,6 +437,17 @@
             panel1.Size = new System.Drawing.Size(1330, 86);
             panel1.TabIndex = 6;
             // 
+            // Chk_Visble
+            // 
+            Chk_Visble.AutoSize = true;
+            Chk_Visble.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
+            Chk_Visble.Location = new System.Drawing.Point(39, 72);
+            Chk_Visble.Name = "Chk_Visble";
+            Chk_Visble.Size = new System.Drawing.Size(69, 29);
+            Chk_Visble.TabIndex = 6;
+            Chk_Visble.Text = "表示";
+            Chk_Visble.UseVisualStyleBackColor = true;
+            // 
             // CharaListVoice_Edit
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -514,5 +528,6 @@
         private System.Windows.Forms.CheckBox CHK_Enable;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox Chk_Visble;
     }
 }

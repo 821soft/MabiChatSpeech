@@ -129,6 +129,12 @@ namespace MabiChatSpeech
                 ListViewItemComparer.ComparerMode.String,
                 ListViewItemComparer.ComparerMode.String,
                 ListViewItemComparer.ComparerMode.String,
+                ListViewItemComparer.ComparerMode.String,
+                ListViewItemComparer.ComparerMode.String,
+                ListViewItemComparer.ComparerMode.String,
+                ListViewItemComparer.ComparerMode.String,
+                ListViewItemComparer.ComparerMode.String,
+                ListViewItemComparer.ComparerMode.String,
                 ListViewItemComparer.ComparerMode.String
             };
             //ListViewItemSorterを指定する
