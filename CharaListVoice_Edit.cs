@@ -24,8 +24,8 @@ namespace MabiChatSpeech
 {
     public partial class CharaListVoice_Edit : Form
     {
-        static int aivisPid = -1;
-        static int voiceVoxPid = -1;
+//        static int aivisPid = -1;
+//        static int voiceVoxPid = -1;
         private int datatype = -1;
         private bool _updateProgramCharaList = true;
 

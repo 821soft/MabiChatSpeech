@@ -92,7 +92,7 @@ namespace MabiChatSpeech
                     break;
             }
         }
-        
+
         private void CharaList2Lsv()
         {
             Lsv_Whitelist.Items.Clear();
@@ -414,7 +414,6 @@ namespace MabiChatSpeech
                 {
                     item.Text = true.ToString();
                     LsvColorSet(item);
-
                 }
             }
         }
@@ -430,6 +429,38 @@ namespace MabiChatSpeech
                     item.Text = false.ToString();
                     LsvColorSet(item);
                 }
+            }
+        }
+
+        private void Lsv_Whitelist_Leave(object sender, EventArgs e)
+        {
+            foreach (ListViewItem sels in Lsv_Whitelist.SelectedItems)
+            {
+                sels.BackColor = SystemColors.Highlight;
+            }
+        }
+
+        private void Lsv_Whitelist_Enter(object sender, EventArgs e)
+        {
+            foreach (ListViewItem sels in Lsv_Whitelist.SelectedItems)
+            {
+                LsvColorSet(sels);
+            }
+        }
+
+        private void Mnu_Visible_On_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in Lsv_Whitelist.SelectedItems)
+            {
+                item.SubItems[9].Text = true.ToString();
+            }
+        }
+
+        private void Mnu_Visible_Off_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in Lsv_Whitelist.SelectedItems)
+            {
+                item.SubItems[9].Text = false.ToString();
             }
         }
     }

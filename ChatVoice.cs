@@ -235,7 +235,7 @@ namespace MabiChatSpeech
                     await httpClient.GetAsync(url, cancellationToken);
 
             }
-            catch (Exception ex)
+            catch 
             {
                 return String.Empty;
             }

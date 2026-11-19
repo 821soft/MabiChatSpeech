@@ -169,6 +169,7 @@
             listView1.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 128);
             listView1.FullRowSelect = true;
             listView1.GridLines = true;
+            listView1.HideSelection = true;
             listView1.Location = new System.Drawing.Point(4, 4);
             listView1.Margin = new System.Windows.Forms.Padding(4);
             listView1.Name = "listView1";
@@ -178,6 +179,8 @@
             listView1.View = System.Windows.Forms.View.Details;
             listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
             listView1.DoubleClick += listView1_DoubleClick;
+            listView1.Enter += listView1_Enter;
+            listView1.Leave += listView1_Leave;
             // 
             // columnHeader1
             // 
@@ -259,6 +262,7 @@
             listView2.Dock = System.Windows.Forms.DockStyle.Fill;
             listView2.FullRowSelect = true;
             listView2.GridLines = true;
+            listView2.HideSelection = true;
             listView2.Location = new System.Drawing.Point(4, 4);
             listView2.Margin = new System.Windows.Forms.Padding(4);
             listView2.MultiSelect = false;
@@ -268,6 +272,8 @@
             listView2.UseCompatibleStateImageBehavior = false;
             listView2.View = System.Windows.Forms.View.Details;
             listView2.DoubleClick += listView2_DoubleClick;
+            listView2.Enter += listView2_Enter;
+            listView2.Leave += listView2_Leave;
             // 
             // columnHeader7
             // 
@@ -468,7 +474,7 @@
             Margin = new System.Windows.Forms.Padding(4);
             MaximizeBox = false;
             Name = "Replay_log";
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "リプレイ";
             Shown += Replay_log_Shown;
             groupBox1.ResumeLayout(false);

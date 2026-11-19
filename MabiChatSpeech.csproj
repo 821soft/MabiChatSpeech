@@ -35,6 +35,7 @@
     <AssemblyVersion>1.0.0.2</AssemblyVersion>
     <FileVersion>1.0.0.2</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Nullable>annotations</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Properties\PNG\**" />

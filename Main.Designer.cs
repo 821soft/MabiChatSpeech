@@ -70,11 +70,6 @@
             Mnu_ViewText = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_ViewDump = new System.Windows.Forms.ToolStripMenuItem();
             Mnu_ViewList = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            Mnu_ViewList_No = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_ViewList_Time = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_ViewList_Type = new System.Windows.Forms.ToolStripMenuItem();
-            Mnu_ViewList_Name = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             Mnu_YoutubeLive = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -423,7 +418,7 @@
             // 
             // Mnu_View
             // 
-            Mnu_View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_ViewText, Mnu_ViewDump, Mnu_ViewList, toolStripSeparator5, Mnu_ViewList_No, Mnu_ViewList_Time, Mnu_ViewList_Type, Mnu_ViewList_Name, toolStripSeparator6, Mnu_YoutubeLive, toolStripSeparator9, Mnu_Help });
+            Mnu_View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_ViewText, Mnu_ViewDump, Mnu_ViewList, toolStripSeparator6, Mnu_YoutubeLive, toolStripSeparator9, Mnu_Help });
             Mnu_View.Name = "Mnu_View";
             Mnu_View.Size = new System.Drawing.Size(70, 24);
             Mnu_View.Text = "表示(V)";
@@ -448,39 +443,6 @@
             Mnu_ViewList.Size = new System.Drawing.Size(192, 38);
             Mnu_ViewList.Text = "リスト表示(&L)";
             Mnu_ViewList.Click += Mnu_ViewList_Click;
-            // 
-            // toolStripSeparator5
-            // 
-            toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new System.Drawing.Size(189, 6);
-            // 
-            // Mnu_ViewList_No
-            // 
-            Mnu_ViewList_No.Name = "Mnu_ViewList_No";
-            Mnu_ViewList_No.Size = new System.Drawing.Size(192, 38);
-            Mnu_ViewList_No.Text = "番号";
-            Mnu_ViewList_No.Click += BTN_No_Click;
-            // 
-            // Mnu_ViewList_Time
-            // 
-            Mnu_ViewList_Time.Name = "Mnu_ViewList_Time";
-            Mnu_ViewList_Time.Size = new System.Drawing.Size(192, 38);
-            Mnu_ViewList_Time.Text = "タイムスタンプ";
-            Mnu_ViewList_Time.Click += BTN_Time_Click;
-            // 
-            // Mnu_ViewList_Type
-            // 
-            Mnu_ViewList_Type.Name = "Mnu_ViewList_Type";
-            Mnu_ViewList_Type.Size = new System.Drawing.Size(192, 38);
-            Mnu_ViewList_Type.Text = "タイプ";
-            Mnu_ViewList_Type.Click += BTN_Type_Click;
-            // 
-            // Mnu_ViewList_Name
-            // 
-            Mnu_ViewList_Name.Name = "Mnu_ViewList_Name";
-            Mnu_ViewList_Name.Size = new System.Drawing.Size(192, 38);
-            Mnu_ViewList_Name.Text = "キャラ名";
-            Mnu_ViewList_Name.Click += BTN_Name_Click;
             // 
             // toolStripSeparator6
             // 
@@ -531,7 +493,7 @@
             MinimumSize = new System.Drawing.Size(1059, 327);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Text = "Pre261121-1-MabiChatSpeech (Ver.1.200)";
+            Text = "MabiChatSpeech (Ver.1.20.0)";
             FormClosing += Main_FormClosing;
             FormClosed += Main_FormClosed;
             Load += Main_Load;
@@ -553,8 +515,8 @@
         private System.Windows.Forms.Timer Tim_Status;
         private System.Windows.Forms.ToolStripStatusLabel SLB_SaveMode;
         private System.Windows.Forms.ToolStripStatusLabel SLB_Mode;
-        private System.Windows.Forms.ToolStripStatusLabel SLB_SendTask;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+//        private System.Windows.Forms.ToolStripStatusLabel SLB_SendTask;
+//        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ListView LSV_chat;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -568,11 +530,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem Mnu_View;
         private System.Windows.Forms.ToolStripMenuItem Mnu_ViewText;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_ViewList_No;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_ViewList_Time;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_ViewList_Type;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_ViewList_Name;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem Mnu_YoutubeLive;
         private System.Windows.Forms.ToolStripMenuItem Mnu_ViewDump;

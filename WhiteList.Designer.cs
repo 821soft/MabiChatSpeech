@@ -49,6 +49,9 @@
             toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             Mnu_Delete = new System.Windows.Forms.ToolStripMenuItem();
             panel1 = new System.Windows.Forms.Panel();
+            Mnu_Visible_On = new System.Windows.Forms.ToolStripMenuItem();
+            Mnu_Visible_Off = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             tableLayoutPanel1.SuspendLayout();
             Cms_SelectMenu.SuspendLayout();
             panel1.SuspendLayout();
@@ -102,6 +105,7 @@
             Lsv_Whitelist.ForeColor = System.Drawing.SystemColors.WindowText;
             Lsv_Whitelist.FullRowSelect = true;
             Lsv_Whitelist.GridLines = true;
+            Lsv_Whitelist.HideSelection = true;
             Lsv_Whitelist.Location = new System.Drawing.Point(0, 0);
             Lsv_Whitelist.Margin = new System.Windows.Forms.Padding(0);
             Lsv_Whitelist.Name = "Lsv_Whitelist";
@@ -111,7 +115,9 @@
             Lsv_Whitelist.View = System.Windows.Forms.View.Details;
             Lsv_Whitelist.ColumnClick += Lsv_Whitelist_ColumnClick;
             Lsv_Whitelist.ItemCheck += Lsv_Whitelist_ItemCheck;
+            Lsv_Whitelist.Enter += Lsv_Whitelist_Enter;
             Lsv_Whitelist.KeyUp += Lsv_Whitelist_KeyUp;
+            Lsv_Whitelist.Leave += Lsv_Whitelist_Leave;
             Lsv_Whitelist.MouseDoubleClick += Lsv_Whitelist_MouseDoubleClick;
             // 
             // columnHeader3
@@ -173,33 +179,33 @@
             // 
             // Cms_SelectMenu
             // 
-            Cms_SelectMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_AllEnable, Mnu_AllDisable, toolStripMenuItem1, Mnu_Delete });
+            Cms_SelectMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_AllEnable, Mnu_AllDisable, toolStripMenuItem1, Mnu_Visible_On, Mnu_Visible_Off, toolStripMenuItem2, Mnu_Delete });
             Cms_SelectMenu.Name = "Cms_SelectMenu";
-            Cms_SelectMenu.Size = new System.Drawing.Size(178, 112);
+            Cms_SelectMenu.Size = new System.Drawing.Size(181, 208);
             // 
             // Mnu_AllEnable
             // 
             Mnu_AllEnable.Name = "Mnu_AllEnable";
-            Mnu_AllEnable.Size = new System.Drawing.Size(177, 34);
+            Mnu_AllEnable.Size = new System.Drawing.Size(180, 34);
             Mnu_AllEnable.Text = "有効にする";
             Mnu_AllEnable.Click += Mnu_AllEnable_Click;
             // 
             // Mnu_AllDisable
             // 
             Mnu_AllDisable.Name = "Mnu_AllDisable";
-            Mnu_AllDisable.Size = new System.Drawing.Size(177, 34);
+            Mnu_AllDisable.Size = new System.Drawing.Size(180, 34);
             Mnu_AllDisable.Text = "無効にする";
             Mnu_AllDisable.Click += Mnu_AllDisable_Click;
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(174, 6);
+            toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // Mnu_Delete
             // 
             Mnu_Delete.Name = "Mnu_Delete";
-            Mnu_Delete.Size = new System.Drawing.Size(177, 34);
+            Mnu_Delete.Size = new System.Drawing.Size(180, 34);
             Mnu_Delete.Text = "削除(DEL)";
             Mnu_Delete.Click += Mnu_Delete_Click;
             // 
@@ -212,6 +218,25 @@
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(828, 59);
             panel1.TabIndex = 3;
+            // 
+            // Mnu_Visible_On
+            // 
+            Mnu_Visible_On.Name = "Mnu_Visible_On";
+            Mnu_Visible_On.Size = new System.Drawing.Size(180, 34);
+            Mnu_Visible_On.Text = "表示";
+            Mnu_Visible_On.Click += Mnu_Visible_On_Click;
+            // 
+            // Mnu_Visible_Off
+            // 
+            Mnu_Visible_Off.Name = "Mnu_Visible_Off";
+            Mnu_Visible_Off.Size = new System.Drawing.Size(180, 34);
+            Mnu_Visible_Off.Text = "非表示";
+            Mnu_Visible_Off.Click += Mnu_Visible_Off_Click;
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
             // WhiteList
             // 
@@ -261,5 +286,8 @@
         private System.Windows.Forms.ToolStripMenuItem Mnu_AllDisable;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Delete;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_Visible_On;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_Visible_Off;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
     }
 }

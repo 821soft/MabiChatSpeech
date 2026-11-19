@@ -27,8 +27,8 @@ namespace MabiChatSpeech
         private List<st_SrtData> list_SRT = new List<st_SrtData>();
         private List<st_SrtData> list_SRT2 = new List<st_SrtData>();
 
-        private DateTime tim_Start;
-        private DateTime tim_End;
+//        private DateTime tim_Start;
+//        private DateTime tim_End;
 
         public ExportSRT()
         {

@@ -487,11 +487,11 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox Lst_TtsName;
+//        private System.Windows.Forms.ListBox Lst_TtsName;
         private System.Windows.Forms.ListBox Lst_VoiceEngen;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label1;
+//        private System.Windows.Forms.GroupBox groupBox2;
+//        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label Lbl_VoiceEngen;
         private System.Windows.Forms.ListBox Lst_VoiceChara;
@@ -507,14 +507,14 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TrackBar TB_PitchScal;
         private System.Windows.Forms.TextBox Txt_PitchScal;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.TrackBar TB_TtsVolume;
-        private System.Windows.Forms.TextBox Txt_TtsVolume;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.TrackBar TB_TtsSpeed;
-        private System.Windows.Forms.TextBox Txt_TtsSpeed;
-        private System.Windows.Forms.Label label2;
+//        private System.Windows.Forms.GroupBox groupBox8;
+//        private System.Windows.Forms.TrackBar TB_TtsVolume;
+//        private System.Windows.Forms.TextBox Txt_TtsVolume;
+//        private System.Windows.Forms.Label label3;
+//        private System.Windows.Forms.GroupBox groupBox7;
+//        private System.Windows.Forms.TrackBar TB_TtsSpeed;
+//        private System.Windows.Forms.TextBox Txt_TtsSpeed;
+//        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox Txt_CharaName;
         private System.Windows.Forms.ComboBox Cmb_CharaType;
         private System.Windows.Forms.GroupBox groupBox9;

@@ -110,7 +110,7 @@ namespace MabiChatSpeech
             }
         }
 
-        private async void init()
+        private void init()
         {
             if (Main._chatVoice != null)
             {
@@ -245,11 +245,12 @@ namespace MabiChatSpeech
             listView2.Columns.Add("音声エンジン");    //3
             listView2.Columns.Add("音声キャラ");      //4
             listView2.Columns.Add("音声ID");          //5
-            listView2.Columns.Add("音量倍率");        //6
-            listView2.Columns.Add("話速倍率");        //7
+            listView2.Columns.Add("音量");        //6
+            listView2.Columns.Add("話速");        //7
             listView2.Columns.Add("音高");            //8
             listView2.Columns.Add("表示");            //9
             listView2.Columns[9].DisplayIndex = 1;
+            listView2.Columns[7].DisplayIndex = 7;
 
             SetListView2ColumnWidths();
 
@@ -1311,6 +1312,71 @@ namespace MabiChatSpeech
         private void Nud_From_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void listView1_Enter(object sender, EventArgs e)
+        {
+
+
+            foreach (ListViewItem sels in listView1.SelectedItems)
+            {
+
+                switch (Enum.Parse<_CharaTypeNames>(sels.SubItems[3].Text))
+                {
+                    case _CharaTypeNames.PC:
+                        sels.BackColor = Program.LC_BG_PC;
+                        break;
+                    case _CharaTypeNames.NPC:
+                        sels.BackColor = Program.LC_BG_NPC;
+                        break;
+                    case _CharaTypeNames.PET:
+                        sels.BackColor = Program.LC_BG_PET;
+                        break;
+                    case _CharaTypeNames.DOLL:
+                        sels.BackColor = Program.LC_BG_DOLL;
+                        break;
+                }
+
+            }
+        }
+
+        private void listView1_Leave(object sender, EventArgs e)
+        {
+            foreach (ListViewItem sels in listView1.SelectedItems)
+            {
+                sels.BackColor = SystemColors.Highlight;
+            }
+        }
+
+        private void listView2_Enter(object sender, EventArgs e)
+        {
+            foreach (ListViewItem sels in listView2.SelectedItems)
+            {
+                switch (Enum.Parse<_CharaTypeNames>(sels.SubItems[1].Text))
+                {
+                    case _CharaTypeNames.PC:
+                        sels.BackColor = Program.LC_BG_PC;
+                        break;
+                    case _CharaTypeNames.NPC:
+                        sels.BackColor = Program.LC_BG_NPC;
+                        break;
+                    case _CharaTypeNames.PET:
+                        sels.BackColor = Program.LC_BG_PET;
+                        break;
+                    case _CharaTypeNames.DOLL:
+                        sels.BackColor = Program.LC_BG_DOLL;
+                        break;
+                }
+                //                sels.BackColor = Color.Empty;
+            }
+        }
+
+        private void listView2_Leave(object sender, EventArgs e)
+        {
+            foreach (ListViewItem sels in listView2.SelectedItems)
+            {
+                sels.BackColor = SystemColors.Highlight;
+            }
         }
     }
 }

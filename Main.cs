@@ -822,10 +822,6 @@ namespace MabiChatSpeech
             }
 
             SSL_Echa.Image = Mnu_Echa.Image;
-            Mnu_ViewList_No.Checked = Program.__ChatView_No;
-            Mnu_ViewList_Time.Checked = Program.__ChatView_Time;
-            Mnu_ViewList_Type.Checked = Program.__ChatView_Type;
-            Mnu_ViewList_Name.Checked = Program.__ChatView_Name;
 
         }
         /// <summary>
@@ -908,6 +904,7 @@ namespace MabiChatSpeech
                             SLB_Ip.Image = Resources.icn_tarlach;
                             break;
                         default:
+                            SLB_Ip.Image = null;
                             SLB_Ip.Text = "";
                             break;
                     }
@@ -1291,13 +1288,11 @@ namespace MabiChatSpeech
             {
                 LSV_chat.Columns[0].Width = 0;
                 Program.__ChatView_No = false;
-                Mnu_ViewList_No.Checked = false;
             }
             else
             {
                 LSV_chat.Columns[0].Width = 50;
                 Program.__ChatView_No = true;
-                Mnu_ViewList_No.Checked = true;
             }
         }
 
@@ -1308,13 +1303,11 @@ namespace MabiChatSpeech
             {
                 LSV_chat.Columns[1].Width = 0;
                 Program.__ChatView_Time = false;
-                Mnu_ViewList_Time.Checked = false;
             }
             else
             {
                 LSV_chat.Columns[1].Width = 100;
                 Program.__ChatView_Time = true;
-                Mnu_ViewList_Time.Checked = true;
             }
         }
 
@@ -1325,14 +1318,12 @@ namespace MabiChatSpeech
             {
                 LSV_chat.Columns[2].Width = 0;
                 Program.__ChatView_Type = false;
-                Mnu_ViewList_Type.Checked = false;
 
             }
             else
             {
                 LSV_chat.Columns[2].Width = 50;
                 Program.__ChatView_Type = true;
-                Mnu_ViewList_Type.Checked = true;
             }
         }
 
@@ -1342,13 +1333,11 @@ namespace MabiChatSpeech
             {
                 LSV_chat.Columns[3].Width = 0;
                 Program.__ChatView_Name = false;
-                Mnu_ViewList_Name.Checked = false;
             }
             else
             {
                 LSV_chat.Columns[3].Width = 140;
                 Program.__ChatView_Name = true;
-                Mnu_ViewList_Name.Checked = true;
             }
         }
 
