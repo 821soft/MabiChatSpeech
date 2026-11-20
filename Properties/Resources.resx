@@ -136,17 +136,8 @@
   <data name="Icon_CharaList_VOICE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_CharaList_VOICE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WriteMode_overwrite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WriteMode_overwrite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ClientStatus_select" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientStatus_select.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Icon_Setting" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_Setting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WriteMode_append" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WriteMode_append.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Icon_vvpp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_vvpp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,9 +151,6 @@
   <data name="Icon_ScreenClear" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_ScreenClear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ClientStatus_connect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientStatus_connect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Icon_File_NoSave" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_File_NoSave.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -171,9 +159,6 @@
   </data>
   <data name="Icon_NPC_Mute_Off" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_NPC_Mute_Off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WriteMode_timestamp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WriteMode_timestamp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Icon_NPC_Mute_On" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_NPC_Mute_On.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -190,9 +175,6 @@
   <data name="Icon_CharaList_TTS_Dis " type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_CharaList_TTS_Dis .png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WriteMode_none" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WriteMode_none.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Icon_PC_Only_On" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_PC_Only_On.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -207,9 +189,6 @@
   </data>
   <data name="icn_mari" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icn_mari.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LogMode_chat" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogMode_chat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Icon_vvpp_Disable" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_vvpp_Disable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -271,20 +250,11 @@
   <data name="Icon_File_OverWrite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_File_OverWrite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LogMode_dump" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogMode_dump.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Icon_File_TimeStamp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_File_TimeStamp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ClientStatus_online" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientStatus_online.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Icon_Log_DumpMode" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_Log_DumpMode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ClientStatus_offline" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientStatus_offline.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Icon_LED_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon_LED_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

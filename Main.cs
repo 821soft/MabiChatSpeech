@@ -1211,136 +1211,6 @@ namespace MabiChatSpeech
             packets.capdev_stop();
         }
 
-        public Help sf = null;
-        /// <summary>
-        /// メインキー入力処理
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Main_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                /*
-                 *  Q  W  E  R
-                 *   A  S  D  F
-                 *    Z  X  C  V  B  N 
-                 */
-                /// ファイル 
-                case Keys.X: //Export
-                    ExportSRT frm_ExportSrt = new ExportSRT();
-                    frm_ExportSrt.ShowDialog();
-                    break;
-                case Keys.Q: //Quit
-                    this.Close();
-                    break;
-                /// 編集
-                case Keys.P:
-                    Mnu_Echa_switch();
-                    break;
-                case Keys.C: //Clear
-                    Btn_Clear_Click(sender, (EventArgs)null);
-                    break;
-                case Keys.S: //Setting
-                    Btn_Setup_Click(sender, (EventArgs)null);
-                    break;
-
-                /// 表示 
-                case Keys.T: //TextView
-                    Mnu_ViewText_Click(sender, (EventArgs)null);
-                    break;
-                case Keys.D: //DumpView
-                    Mnu_ViewDump_Click(sender, (EventArgs)null);
-                    break;
-                case Keys.L: //ListView
-                    Mnu_ViewList_Click(sender, (EventArgs)null);
-                    break;
-                case Keys.Y: //YoutubeLive
-                    Mnu_YoutubeLive_Click(sender, (EventArgs)null);
-                    break;
-                case Keys.F1: //Help
-                    Mnu_Help_Click(sender, (EventArgs)null);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void SSL_CharaList_Setdata()
-        {
-            switch ((ChatMode)Program.__ChatMode)
-            {
-                case ChatMode.Chat:
-                    SSL_CharaList.Image = Resources.Icon_CharaList_Chat;
-                    break;
-                case ChatMode.TTS:
-                    SSL_CharaList.Image = Resources.Icon_CharaList_TTS;
-                    break;
-                case ChatMode.Voice:
-                    SSL_CharaList.Image = Resources.Icon_CharaList_VOICE;
-                    break;
-            }
-        }
-
-        private void BTN_No_Click(object sender, EventArgs e)
-        {
-            if (Program.__ChatView_No == true)
-            {
-                LSV_chat.Columns[0].Width = 0;
-                Program.__ChatView_No = false;
-            }
-            else
-            {
-                LSV_chat.Columns[0].Width = 50;
-                Program.__ChatView_No = true;
-            }
-        }
-
-        private void BTN_Time_Click(object sender, EventArgs e)
-        {
-
-            if (Program.__ChatView_Time == true)
-            {
-                LSV_chat.Columns[1].Width = 0;
-                Program.__ChatView_Time = false;
-            }
-            else
-            {
-                LSV_chat.Columns[1].Width = 100;
-                Program.__ChatView_Time = true;
-            }
-        }
-
-        private void BTN_Type_Click(object sender, EventArgs e)
-        {
-
-            if (Program.__ChatView_Type == true)
-            {
-                LSV_chat.Columns[2].Width = 0;
-                Program.__ChatView_Type = false;
-
-            }
-            else
-            {
-                LSV_chat.Columns[2].Width = 50;
-                Program.__ChatView_Type = true;
-            }
-        }
-
-        private void BTN_Name_Click(object sender, EventArgs e)
-        {
-            if (Program.__ChatView_Name == true)
-            {
-                LSV_chat.Columns[3].Width = 0;
-                Program.__ChatView_Name = false;
-            }
-            else
-            {
-                LSV_chat.Columns[3].Width = 140;
-                Program.__ChatView_Name = true;
-            }
-        }
-
         private void Mnu_YoutubeLive_Click(object sender, EventArgs e)
         {
             if (ChatPop.Visible == false)
@@ -1360,7 +1230,6 @@ namespace MabiChatSpeech
                 Mnu_Echa.Checked = true;
             }
         }
-
         private void Mnu_Echa_CheckedChanged(object sender, EventArgs e)
         {
             if (Mnu_Echa.Checked)
@@ -1421,17 +1290,6 @@ namespace MabiChatSpeech
         {
             ExportSRT frm_ExportSrt = new ExportSRT();
             frm_ExportSrt.ShowDialog();
-
-        }
-
-        private void Mnu_Help_Click(object sender, EventArgs e)
-        {
-            if (this.sf == null || this.sf.IsDisposed)
-            { /* ヌル、または破棄されていたら */
-                this.sf = new Help();
-                this.sf.Show();
-            }
-            this.sf.Activate();
 
         }
 

@@ -72,8 +72,6 @@
             Mnu_ViewList = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             Mnu_YoutubeLive = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
-            Mnu_Help = new System.Windows.Forms.ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
             statusStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -418,7 +416,7 @@
             // 
             // Mnu_View
             // 
-            Mnu_View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_ViewText, Mnu_ViewDump, Mnu_ViewList, toolStripSeparator6, Mnu_YoutubeLive, toolStripSeparator9, Mnu_Help });
+            Mnu_View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_ViewText, Mnu_ViewDump, Mnu_ViewList, toolStripSeparator6, Mnu_YoutubeLive });
             Mnu_View.Name = "Mnu_View";
             Mnu_View.Size = new System.Drawing.Size(70, 24);
             Mnu_View.Text = "表示(V)";
@@ -426,50 +424,38 @@
             // Mnu_ViewText
             // 
             Mnu_ViewText.Name = "Mnu_ViewText";
-            Mnu_ViewText.Size = new System.Drawing.Size(192, 38);
+            Mnu_ViewText.Size = new System.Drawing.Size(196, 38);
             Mnu_ViewText.Text = "テキスト表示(&T)";
             Mnu_ViewText.Click += Mnu_ViewText_Click;
             // 
             // Mnu_ViewDump
             // 
             Mnu_ViewDump.Name = "Mnu_ViewDump";
-            Mnu_ViewDump.Size = new System.Drawing.Size(192, 38);
+            Mnu_ViewDump.Size = new System.Drawing.Size(196, 38);
             Mnu_ViewDump.Text = "Dump表示(&D)";
             Mnu_ViewDump.Click += Mnu_ViewDump_Click;
             // 
             // Mnu_ViewList
             // 
             Mnu_ViewList.Name = "Mnu_ViewList";
-            Mnu_ViewList.Size = new System.Drawing.Size(192, 38);
+            Mnu_ViewList.Size = new System.Drawing.Size(196, 38);
             Mnu_ViewList.Text = "リスト表示(&L)";
             Mnu_ViewList.Click += Mnu_ViewList_Click;
             // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new System.Drawing.Size(189, 6);
+            toolStripSeparator6.Size = new System.Drawing.Size(193, 6);
             // 
             // Mnu_YoutubeLive
             // 
             Mnu_YoutubeLive.Image = Properties.Resources.Icon_Youtube_js;
             Mnu_YoutubeLive.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_YoutubeLive.Name = "Mnu_YoutubeLive";
-            Mnu_YoutubeLive.Size = new System.Drawing.Size(192, 38);
+            Mnu_YoutubeLive.Size = new System.Drawing.Size(196, 38);
             Mnu_YoutubeLive.Text = "YoutubeLive(&Y)";
             Mnu_YoutubeLive.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             Mnu_YoutubeLive.Click += Mnu_YoutubeLive_Click;
-            // 
-            // toolStripSeparator9
-            // 
-            toolStripSeparator9.Name = "toolStripSeparator9";
-            toolStripSeparator9.Size = new System.Drawing.Size(189, 6);
-            // 
-            // Mnu_Help
-            // 
-            Mnu_Help.Name = "Mnu_Help";
-            Mnu_Help.Size = new System.Drawing.Size(192, 38);
-            Mnu_Help.Text = "ヘルプ(&F1)";
-            Mnu_Help.Click += Mnu_Help_Click;
             // 
             // timer1
             // 
@@ -493,12 +479,11 @@
             MinimumSize = new System.Drawing.Size(1059, 327);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Text = "MabiChatSpeech (Ver.1.20.0)";
+            Text = "MabiChatSpeech (Ver.1.20.1)";
             FormClosing += Main_FormClosing;
             FormClosed += Main_FormClosed;
             Load += Main_Load;
             Shown += Main_Shown;
-            KeyDown += Main_KeyDown;
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             menuStrip1.ResumeLayout(false);
@@ -540,8 +525,6 @@
         private System.Windows.Forms.ToolStripStatusLabel SSL_Youtube;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Export;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Clear;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
-        private System.Windows.Forms.ToolStripMenuItem Mnu_Help;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Replay;
         private System.Windows.Forms.ToolStripStatusLabel SSL_VoiceVox;
         private System.Windows.Forms.ToolStripStatusLabel SSL_AivisSpeech;

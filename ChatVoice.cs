@@ -992,7 +992,10 @@ namespace MabiChatSpeech
             }
 
             public int Read(float[] buffer, int offset, int count) =>
-                _inner.Read(buffer, offset, count);
+                _inner.Read(buffer.AsSpan(offset, count));
+
+            public int Read(Span<float> buffer) =>
+                _inner.Read(buffer);
         }
 
         /// <summary>
@@ -1040,11 +1043,14 @@ namespace MabiChatSpeech
             public long ExpectedSampleCount => _expectedSampleCount;
 
             public int Read(float[] buffer, int offset, int count)
+                => Read(buffer.AsSpan(offset, count));
+
+            public int Read(Span<float> buffer)
             {
                 int samplesRead;
                 try
                 {
-                    samplesRead = _source.Read(buffer, offset, count);
+                    samplesRead = _source.Read(buffer);
                 }
                 catch (Exception exception)
                 {
