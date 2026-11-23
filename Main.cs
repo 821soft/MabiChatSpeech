@@ -16,6 +16,7 @@ using System.Linq;
 using System.Media;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Speech.AudioFormat;
 using System.Speech.Synthesis;
@@ -256,7 +257,6 @@ namespace MabiChatSpeech
 
             _ChatVoice_Statu.StatusChanged += ChatVoiceEngine_StatusChanged;
 
-            LoadCharaList(__SavePath + "\\CharacterNameList.txt");
             init_voice();
 
         }
@@ -688,12 +688,6 @@ namespace MabiChatSpeech
 
                 var mode = (ChatModes)__ChatMode;
 
-                if (ChatRegex != null) //正規表現の適用
-                {
-                    var s = c.ChatWord;
-                    Match match = ChatRegex.Match(s);
-                    c.ChatWord = match.Success ? match.Value : s;
-                }
 
                 /* 1.Chat内容を表示*/
                 // chat log show
@@ -709,6 +703,13 @@ namespace MabiChatSpeech
                 if (ChatPop.Visible)
                 {
                     ChatPop.ChatPopupSend(c.ChatWord);
+                }
+
+                if (ChatRegex != null) //正規表現の適用
+                {
+                    var s = c.ChatWord;
+                    Match match = ChatRegex.Match(s);
+                    c.ChatWord = match.Success ? match.Value : s;
                 }
 
                 /* 2.TTSモードなら未登録でも発声 */
@@ -754,9 +755,18 @@ namespace MabiChatSpeech
         /// メインLoad
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="e"></param>AssemblyMetadata
         private void Main_Load(object sender, EventArgs e)
         {
+            string assemblyVersion = Assembly.GetExecutingAssembly()
+                .GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version ?? "不明";
+
+            var attr = Assembly.GetExecutingAssembly()
+                .GetCustomAttributes<AssemblyMetadataAttribute>()
+                .FirstOrDefault(a => a.Key == "BuildDate");
+
+            string buildDate = attr?.Value ?? "日時不明";
+            this.Text = $"MabiChatSpeech Ver.{assemblyVersion} ({buildDate})";
 
             try
             {
@@ -810,18 +820,9 @@ namespace MabiChatSpeech
                     break;
                     ;
             }
-            Mnu_Echa.Checked = Program.__Echa;
 
-            if (Mnu_Echa.Checked)
-            {
-                Mnu_Echa.Image = Properties.Resources.Icon_EchaOn;
-            }
-            else
-            {
-                Mnu_Echa.Image = Properties.Resources.Icon_EchaOff;
-            }
-
-            SSL_Echa.Image = Mnu_Echa.Image;
+            LoadCharaList(__SavePath + "\\CharacterNameList.txt");
+            Echa_update();
 
         }
         /// <summary>
@@ -1015,6 +1016,9 @@ namespace MabiChatSpeech
                     break;
             }
 
+            Mnu_Echa.Checked = Program.__Echa;
+            Echa_update();
+
             SLB_Mode_Icon(Program.packets.PacketMode);
 
             switch (Program.__SaveMode)
@@ -1132,32 +1136,7 @@ namespace MabiChatSpeech
                 File.Delete(_tmpfname);
             }
         }
-        /// <summary>
-        /// 設定ボタン押下
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Btn_Setup_Click(object sender, EventArgs e)
-        {
-            Setting Frm_Setting = new Setting
-            {
-                Owner = this
-            };
-            Frm_Setting.ShowDialog();
-        }
 
-        // Redirect Window Hndle List
-        private List<IntPtr> twlist = new List<IntPtr>();
-        /// <summary>
-        /// タスクリスト取得コールバック
-        /// </summary>
-        /// <param name="hWnd"></param>
-        /// <param name="lparam"></param>
-        /// <returns></returns>
-        /// <summary>
-        /// ログモード表示設定
-        /// </summary>
-        /// <param name="pm"></param>
         private void SLB_Mode_Icon(PacketModes pm)
         {
             switch (pm)
@@ -1477,12 +1456,14 @@ namespace MabiChatSpeech
                 SSL_NPC.Tag = (bool)false;
                 Program.__ChatNPC_Mute = false;
                 SSL_NPC.Image = Resources.Icon_NPC_Mute_Off;
+                SSL_NPC.ToolTipText = "NPC有効";
             }
             else
             {
                 SSL_NPC.Tag = (bool)true;
                 Program.__ChatNPC_Mute = true;
                 SSL_NPC.Image = Resources.Icon_NPC_Mute_On;
+                SSL_NPC.ToolTipText = "NPC無視";
             }
         }
 
@@ -1490,6 +1471,7 @@ namespace MabiChatSpeech
         {
             SSL_CharaList.Image = Resources.Icon_CharaList_Chat;
             SSL_CharaList.Tag = 1;
+            SSL_CharaList.ToolTipText = "チャット";
             __ChatMode = (int)ChatModes.Chat;
         }
 
@@ -1497,6 +1479,7 @@ namespace MabiChatSpeech
         {
             SSL_CharaList.Image = Resources.Icon_CharaList_TTS;
             SSL_CharaList.Tag = 2;
+            SSL_CharaList.ToolTipText = "TTS";
             __ChatMode = (int)ChatModes.TTS;
         }
 
@@ -1505,7 +1488,79 @@ namespace MabiChatSpeech
 
             SSL_CharaList.Image = Resources.Icon_CharaList_VOICE;
             SSL_CharaList.Tag = 3;
+            SSL_CharaList.ToolTipText = "ボイス";
             __ChatMode = (int)ChatModes.Voice;
+        }
+
+        private void Echa_update()
+        {
+            Mnu_Echa.Checked = Program.__Echa;
+            if (Mnu_Echa.Checked)
+            {
+                Mnu_Echa.Image = Properties.Resources.Icon_EchaOn;
+                SSL_Echa.ToolTipText = "保存する";
+            }
+            else
+            {
+                Mnu_Echa.Image = Properties.Resources.Icon_EchaOff;
+                SSL_Echa.ToolTipText = "保存しない";
+            }
+            SSL_Echa.Image = Mnu_Echa.Image;
+        }
+        private void SSL_Echa_Click(object sender, EventArgs e)
+        {
+            Program.__Echa = !(Program.__Echa);
+            Echa_update();
+
+        }
+
+        private void Mnu_SaveAs_Click(object sender, EventArgs e)
+        {
+            DateTime dt = DateTime.Now;
+
+            string str = dt.ToString("yyyy/MM/dd HH:mm:ss");
+            string logheader = $"MCS Logiing Start {LogHeaderDt:yyyy/MM/dd HH:mm:ss}" + Environment.NewLine;
+            string logfooter = $"MCS Logiing End {dt:yyyy/MM/dd HH:mm:ss}" + Environment.NewLine;
+            string savefilename = __SavePath + "\\MabiChatLog";
+            //                    
+
+            if (Txt_Chat.Text.Length == 0)
+            {
+                return;
+            }
+            string data = logheader + Txt_Chat.Text + logfooter;
+
+
+            //SaveFileDialogクラスのインスタンスを作成
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            //はじめのファイル名を指定する
+            //はじめに「ファイル名」で表示される文字列を指定する
+            sfd.FileName = "MabiChatLog_.txt";
+            //はじめに表示されるフォルダを指定する
+            sfd.InitialDirectory = __SavePath;
+            //[ファイルの種類]に表示される選択肢を指定する
+            //指定しない（空の文字列）の時は、現在のディレクトリが表示される
+            sfd.Filter = "TXTファイル(MabiChatLog*.txt)|MabiChatLog*.txt|すべてのファイル(*.*)|*.*";
+            //[ファイルの種類]ではじめに選択されるものを指定する
+            //2番目の「すべてのファイル」が選択されているようにする
+            sfd.FilterIndex = 1;
+            //タイトルを設定する
+            sfd.Title = "保存先のファイルを選択してください";
+            //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
+            sfd.RestoreDirectory = true;
+            //既に存在するファイル名を指定したとき警告する
+            //デフォルトでTrueなので指定する必要はない
+            sfd.OverwritePrompt = true;
+            //存在しないパスが指定されたとき警告を表示する
+            //デフォルトでTrueなので指定する必要はない
+            sfd.CheckPathExists = true;
+
+            //ダイアログを表示する
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(sfd.FileName, data);
+            }
         }
     }
 }

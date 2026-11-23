@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_7C0DFFBA041649D19BA5517BD05FCAAF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A276C1DD3C26439580CD740FDF03F50E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -71,7 +77,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Setup_MCS_V1200.msi"
+        "OutputFilename" = "8:Release\\Setup_MCS_V1210.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -90,10 +96,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.10.0.x64"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    "Name" = "8:.NET デスクトップ ランタイム 10.0.15 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.10.0.x64"
                     }
                 }
             }
@@ -136,6 +142,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7C0DFFBA041649D19BA5517BD05FCAAF"
+            {
+            "SourcePath" = "8:..\\CharacterNameList.txt"
+            "TargetName" = "8:CharacterNameList.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_F80746F55A07451C9FFF73B15977457F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A276C1DD3C26439580CD740FDF03F50E"
             {
             "SourcePath" = "8:..\\MabiServerList.txt"
@@ -227,6 +253,28 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_DEB96D718CE840CEA68B4BD1895E11CA"
+            {
+            "Name" = "8:#1918"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:PersonalFolder"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_F80746F55A07451C9FFF73B15977457F"
+                    {
+                    "Name" = "8:821Soft"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_5B990CC82B9C40949171A73C172AA9DB"
+                        "Folders"
+                        {
+                        }
+                    }
+                }
+            }
         }
         "LaunchCondition"
         {
@@ -243,15 +291,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MabiChatSpeech"
-        "ProductCode" = "8:{9FF19610-E86D-45E6-82BD-849122A109EE}"
-        "PackageCode" = "8:{99B5078B-7B06-4AEC-BCC8-E140D1E443F4}"
+        "ProductCode" = "8:{78896740-7D15-4E6E-8507-50A9956C0314}"
+        "PackageCode" = "8:{8DDEC7D4-033B-4F08-8C84-6264777B78FC}"
         "UpgradeCode" = "8:{E80C9010-E93A-4A4C-B263-42E7A517DDF4}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.2.0"
+        "ProductVersion" = "8:1.2.1"
         "Manufacturer" = "8:821Soft"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

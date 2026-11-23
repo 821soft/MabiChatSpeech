@@ -73,6 +73,8 @@
             toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             Mnu_YoutubeLive = new System.Windows.Forms.ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
+            Mnu_SaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            LogFileSaveAs = new System.Windows.Forms.SaveFileDialog();
             statusStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -207,7 +209,7 @@
             Mnu_Chat.Image = Properties.Resources.Icon_CharaList_Chat;
             Mnu_Chat.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_Chat.Name = "Mnu_Chat";
-            Mnu_Chat.Size = new System.Drawing.Size(135, 38);
+            Mnu_Chat.Size = new System.Drawing.Size(196, 38);
             Mnu_Chat.Text = "チャット";
             Mnu_Chat.Click += Mnu_Chat_Click;
             // 
@@ -216,7 +218,7 @@
             Mnu_TTS.Image = Properties.Resources.Icon_CharaList_TTS;
             Mnu_TTS.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_TTS.Name = "Mnu_TTS";
-            Mnu_TTS.Size = new System.Drawing.Size(135, 38);
+            Mnu_TTS.Size = new System.Drawing.Size(196, 38);
             Mnu_TTS.Text = "TTS";
             Mnu_TTS.Click += Mnu_TTS_Click;
             // 
@@ -225,7 +227,7 @@
             Mnu_Voice.Image = Properties.Resources.Icon_CharaList_VOICE;
             Mnu_Voice.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_Voice.Name = "Mnu_Voice";
-            Mnu_Voice.Size = new System.Drawing.Size(135, 38);
+            Mnu_Voice.Size = new System.Drawing.Size(196, 38);
             Mnu_Voice.Text = "ボイス";
             Mnu_Voice.Click += Mnu_Voice_Click;
             // 
@@ -240,6 +242,7 @@
             SSL_Echa.Size = new System.Drawing.Size(44, 61);
             SSL_Echa.Text = "絵チャ";
             SSL_Echa.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            SSL_Echa.Click += SSL_Echa_Click;
             // 
             // SSL_Youtube
             // 
@@ -331,7 +334,7 @@
             // 
             // Mnu_File
             // 
-            Mnu_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_SystemSetiing, Mnu_Export, Mnu_Replay, Mnu_Quit });
+            Mnu_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { Mnu_SaveAs, Mnu_SystemSetiing, Mnu_Export, Mnu_Replay, Mnu_Quit });
             Mnu_File.Name = "Mnu_File";
             Mnu_File.Size = new System.Drawing.Size(80, 24);
             Mnu_File.Text = "ファイル(&F)";
@@ -341,7 +344,7 @@
             Mnu_SystemSetiing.Image = Properties.Resources.Icon_Setting;
             Mnu_SystemSetiing.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_SystemSetiing.Name = "Mnu_SystemSetiing";
-            Mnu_SystemSetiing.Size = new System.Drawing.Size(179, 38);
+            Mnu_SystemSetiing.Size = new System.Drawing.Size(203, 38);
             Mnu_SystemSetiing.Text = "設定";
             Mnu_SystemSetiing.Click += Mnu_SystemSetiing_Click;
             // 
@@ -350,7 +353,7 @@
             Mnu_Export.Image = Properties.Resources.Icon_Export;
             Mnu_Export.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_Export.Name = "Mnu_Export";
-            Mnu_Export.Size = new System.Drawing.Size(179, 38);
+            Mnu_Export.Size = new System.Drawing.Size(203, 38);
             Mnu_Export.Text = "エクスポート(&X)";
             Mnu_Export.Click += Mnu_Export_Click;
             // 
@@ -359,7 +362,7 @@
             Mnu_Replay.Image = Properties.Resources.Icon_Replay;
             Mnu_Replay.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_Replay.Name = "Mnu_Replay";
-            Mnu_Replay.Size = new System.Drawing.Size(179, 38);
+            Mnu_Replay.Size = new System.Drawing.Size(203, 38);
             Mnu_Replay.Text = "リプレイ(&R)";
             Mnu_Replay.Click += Mnu_Replay_Click;
             // 
@@ -368,7 +371,7 @@
             Mnu_Quit.Image = Properties.Resources.Icon_AppExit;
             Mnu_Quit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_Quit.Name = "Mnu_Quit";
-            Mnu_Quit.Size = new System.Drawing.Size(179, 38);
+            Mnu_Quit.Size = new System.Drawing.Size(203, 38);
             Mnu_Quit.Text = "終了(&Q)";
             Mnu_Quit.Click += Mnu_Quit_Click;
             // 
@@ -424,35 +427,35 @@
             // Mnu_ViewText
             // 
             Mnu_ViewText.Name = "Mnu_ViewText";
-            Mnu_ViewText.Size = new System.Drawing.Size(196, 38);
+            Mnu_ViewText.Size = new System.Drawing.Size(192, 38);
             Mnu_ViewText.Text = "テキスト表示(&T)";
             Mnu_ViewText.Click += Mnu_ViewText_Click;
             // 
             // Mnu_ViewDump
             // 
             Mnu_ViewDump.Name = "Mnu_ViewDump";
-            Mnu_ViewDump.Size = new System.Drawing.Size(196, 38);
+            Mnu_ViewDump.Size = new System.Drawing.Size(192, 38);
             Mnu_ViewDump.Text = "Dump表示(&D)";
             Mnu_ViewDump.Click += Mnu_ViewDump_Click;
             // 
             // Mnu_ViewList
             // 
             Mnu_ViewList.Name = "Mnu_ViewList";
-            Mnu_ViewList.Size = new System.Drawing.Size(196, 38);
+            Mnu_ViewList.Size = new System.Drawing.Size(192, 38);
             Mnu_ViewList.Text = "リスト表示(&L)";
             Mnu_ViewList.Click += Mnu_ViewList_Click;
             // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new System.Drawing.Size(193, 6);
+            toolStripSeparator6.Size = new System.Drawing.Size(189, 6);
             // 
             // Mnu_YoutubeLive
             // 
             Mnu_YoutubeLive.Image = Properties.Resources.Icon_Youtube_js;
             Mnu_YoutubeLive.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             Mnu_YoutubeLive.Name = "Mnu_YoutubeLive";
-            Mnu_YoutubeLive.Size = new System.Drawing.Size(196, 38);
+            Mnu_YoutubeLive.Size = new System.Drawing.Size(192, 38);
             Mnu_YoutubeLive.Text = "YoutubeLive(&Y)";
             Mnu_YoutubeLive.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             Mnu_YoutubeLive.Click += Mnu_YoutubeLive_Click;
@@ -461,6 +464,19 @@
             // 
             timer1.Interval = 250;
             timer1.Tick += timer1_Tick;
+            // 
+            // Mnu_SaveAs
+            // 
+            Mnu_SaveAs.Image = Properties.Resources.Icon_SaveAs;
+            Mnu_SaveAs.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            Mnu_SaveAs.Name = "Mnu_SaveAs";
+            Mnu_SaveAs.Size = new System.Drawing.Size(203, 38);
+            Mnu_SaveAs.Text = "名前を付けて保存";
+            Mnu_SaveAs.Click += Mnu_SaveAs_Click;
+            // 
+            // LogFileSaveAs
+            // 
+            LogFileSaveAs.Title = "名前を付けて保存";
             // 
             // Main
             // 
@@ -479,7 +495,7 @@
             MinimumSize = new System.Drawing.Size(1059, 327);
             Name = "Main";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Text = "MabiChatSpeech (Ver.1.20.1)";
+            Text = "MabiChatSpeech (Ver.1.2.1)";
             FormClosing += Main_FormClosing;
             FormClosed += Main_FormClosed;
             Load += Main_Load;
@@ -538,6 +554,8 @@
         private System.Windows.Forms.ToolStripMenuItem Mnu_Chat;
         private System.Windows.Forms.ToolStripMenuItem Mnu_TTS;
         private System.Windows.Forms.ToolStripMenuItem Mnu_Voice;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_SaveAs;
+        private System.Windows.Forms.SaveFileDialog LogFileSaveAs;
     }
 }
 

@@ -539,6 +539,7 @@ namespace MabiChatSpeech
                 {
                     Debug.Print($"Replay_log voice shutdown error: {ex}");
                 }
+                ClearPlaybackSelection();
                 return;
             }
 
@@ -556,6 +557,7 @@ namespace MabiChatSpeech
             }
             finally
             {
+                ClearPlaybackSelection();
                 _selectedPlayTask = null;
                 _isPlaybackRunning = false;
                 _playbackCancellation.Dispose();
@@ -635,6 +637,27 @@ namespace MabiChatSpeech
             try
             {
                 item.Selected = selected;
+            }
+            finally
+            {
+                _updatingPlaybackSelection = false;
+            }
+        }
+
+        private void ClearPlaybackSelection()
+        {
+            _updatingPlaybackSelection = true;
+            try
+            {
+                foreach (ListViewItem item in listView1.Items)
+                {
+                    item.Selected = false;
+                    if (item.SubItems.Count > 3)
+                        ApplyCharacterTypeBackColor(item, item.SubItems[3].Text);
+                }
+
+                listView1.Invalidate();
+                listView1.Update();
             }
             finally
             {

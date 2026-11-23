@@ -1,0 +1,34 @@
+﻿True,ティルコネイルのドラゴン伝令,NPC,VoiceVox,剣崎雌雄-ノーマル,21,1,1.3,0,True
+True,アンズ,NPC,VoiceVox,猫使ビィ-ノーマル,58,1,1.3,0,True
+True,ハギ,NPC,VoiceVox,猫使アル-ノーマル,55,1,1.3,0,True
+True,ダンカン,NPC,VoiceVox,ちび式じい-ノーマル,42,1,1.3,0,True
+True,エンデリオン,NPC,VoiceVox,九州そら-セクシー,17,1,1.3,0,True
+True,レイナルド,NPC,VoiceVox,離途-シリアス,101,1,1.3,0,True
+True,羊飼いの少年,NPC,VoiceVox,中部つるぎ-ノーマル,94,1,1.3,0,True
+True,ファーガス,NPC,VoiceVox,青山龍星-熱血,81,1,1.3,0,True
+True,ノラ,NPC,VoiceVox,雨晴はう-ノーマル,10,1,1.3,0,True
+True,アリサ,NPC,VoiceVox,櫻歌ミコ-ノーマル,43,1,1.3,0,True
+False,カイ,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+False,ユキ,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+False,ミナ,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+False,セシル,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+False,シャイロック,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+False,クロムバス偵察隊員ジョー,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+False,預言者,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+False,メガネの少年,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+True,アランウェン,NPC,VoiceVox,波音リツ-ノーマル,9,1,1.3,0,True
+True,ダンバートンのドラゴン伝令,NPC,VoiceVox,麒ヶ島宗麟-ノーマル,53,1,1.3,0,True
+True,印章商人,NPC,VoiceVox,白上虎太郎-ふつう,12,1,1.3,0,True
+True,エヴァン,NPC,VoiceVox,四国めたん-ノーマル,2,1,1.3,0,True
+True,グリニス,NPC,VoiceVox,後鬼-人間（怒り）ver.,87,1,1.3,0,True
+True,メルウィン,NPC,VoiceVox,小夜/SAYO-ノーマル,46,1,1.3,0,True
+True,バルター,NPC,VoiceVox,青山龍星-不機嫌,82,1,1.3,0,True
+True,ネリス,NPC,VoiceVox,琴詠ニア-ノーマル,74,1,1.3,0,True
+True,アイラ,NPC,VoiceVox,雨晴はう-ノーマル,10,1,1.3,0,True
+True,クリステル,NPC,VoiceVox,九州そら-セクシー,17,1,1.3,0,True
+False,ロナ,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+False,パン,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+False,タルラーク,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+False,負傷した住民,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+False,挫折した戦士,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
+False,シェイクスピア,NPC,TTS,[ja-JP]Microsoft Haruka Desktop,-1,1,1.3,0,False
